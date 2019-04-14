@@ -3,9 +3,12 @@
  * components/validators and other dependencies
  */
 
-import Vue from 'vue'
+import Vue from 'vue';
 
-import VueMaterial from 'vue-material'
-import 'vue-material/dist/vue-material.css'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faHome, faBell, faEnvelope, faSearch, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-Vue.use(VueMaterial)
+library.add(faHome, faBell, faEnvelope, faSearch, faEllipsisV);
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
