@@ -1,16 +1,13 @@
 <template>
-<div>
-    <transition name="slideHeight" v-if="!isActive">
-      <div key="small" class="container mx-auto bg-primary" >
+    <nav>
+      <div :class="[smallNav, {smallNavActive: !isActive}]">
         <ul class="flex justify-center">
             <router-link tag="li" class="navbarEntry" to="/trending"> Trending </router-link>
             <router-link tag="li" class="navbarEntry" to="/subscriber"> Subscriber </router-link>
             <router-link tag="li" class="navbarEntry" to="/recommended"> Recommendations </router-link>
         </ul>
       </div>
-    </transition>
-    <transition name="slideWidth" v-else>
-      <div key="big" class="flex flex-col fixed bg-primary text-white overflow-hidden h-screen w-80 z-50 pin-t shadow-lg">
+      <div id="bigNav" :class="[bigNav, {bigNavActive:isActive}]">
           <button class="toggle" @click="toggleNavigation">
             <font-awesome-icon icon="bars" size="lg"/>
           </button>
@@ -20,8 +17,7 @@
             <router-link tag="li" class="navigationEntry" to="/recommended"> Recommendations </router-link>
         </ul>
       </div>
-    </transition>
-</div>
+    </nav>
 
 </template>
 
@@ -31,6 +27,12 @@ export default {
   name: 'Navbar',
   mounted() {
     console.log("tesssst");
+  },
+  data() {
+    return {
+      bigNav: 'bigNav',
+      smallNav: 'smallNav'
+    }
   },
   computed: {
     isActive: function() {
@@ -46,6 +48,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.smallNav {
+  @apply block .bg-primary;
+  height: 0px;
+  -webkit-transition:height 250ms ease-in-out;
+  -moz-transition:height 250ms ease-in-out;
+  -o-transition:height 250ms ease-in-out;
+  transition:height 250ms ease-in-out;
+}
+
+.smallNavActive {
+  @apply h-10;
+}
+
+.bigNav {
+  @apply .flex .flex-col .fixed .bg-primary .text-white .overflow-hidden .h-screen .z-50 .pin-t .shadow-lg;
+  width: 0px;
+  -webkit-transition:width 250ms ease-in-out;
+  -moz-transition:widt h 250ms ease-in-out;
+  -o-transition:width 250ms ease-in-out;
+  transition:width 250ms ease-in-out;
+}
+
+.bigNavActive {
+  @apply w-80;
+}
 
 .navbarEntry {
   @apply .text-white .text-center .uppercase .py-3 .px-4;
@@ -70,4 +98,5 @@ export default {
   @apply text-tertiary;  
   left: 235px;
 }
+
 </style>
