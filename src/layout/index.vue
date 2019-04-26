@@ -1,9 +1,7 @@
 <template>
-  <div id="app">
+  <div id="app" class="antialiased bg-secondary">
       <AppHeader></AppHeader>
-      <AppBanner></AppBanner>
-      <AppProfilebar></AppProfilebar>
-      <AppChannelContent></AppChannelContent>
+      <AppNavbar></AppNavbar>
       <transition name="fade">
         <router-view></router-view>
       </transition>
@@ -14,18 +12,14 @@
 <script>
 import AppHeader from "./Header.vue";
 import AppFooter from "./Footer.vue";
-import AppChannelContent from "./ChannelContent.vue";
-import AppBanner from "../components/banner.vue";
-import AppProfilebar from "../components/profilebar.vue";
+import AppNavbar from "../components/navbar.vue";
 
 export default {
   name: "AppLayout",
   components: {
     AppHeader,
     AppFooter,
-    AppBanner,
-    AppProfilebar,
-    AppChannelContent
+    AppNavbar,
   }
 };
 </script>

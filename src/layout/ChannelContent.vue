@@ -1,28 +1,27 @@
 <template>
-  <div class="container mx-auto flex mt-3 text-sm leading-normal">
-    <div class="w-96 pr-6 mt-16 mb-4 ml-3 bg-white rounded-sm px-4 py-2 shadow-md">
+  <div class="container mx-auto flex text-sm leading-normal">
+    <div class="w-96 px-4 py-20 bg-white shadow-md">
       <div class="container mx-auto flex items-center">
-        
         <h1 class="text-2xl font-bold">
-          <a href="#" class="text-black tracking-wide">Kazumoe</a>
+          <a href="#" class="text-platinum tracking-wide">Kazumoe</a>
         </h1>
 
         <div class="flex float-right px-2 justify-end items-center">
           <div class="pr-2">
             <button
-              class="bg-black hover:bg-teal-dark text-white font-medium py-2 px-4 rounded-lg"
-            >Follow</button>
+              class="bg-black text-white py-2 px-4 rounded-lg"
+            >FOLLOW</button>
           </div>
         </div>
       </div>
 
-      <div class="mb-2 text-lg">
-        <a href="#" class="text-darker lowercase">@kazumoe</a>
+      <div class="mb-2">
+        <a href="#" class="lowercase font-thin text-platinum">@kazumoe</a>
       </div>
 
       <hr class="mb-4">
 
-      <div class="mb-2">
+      <div class="mb-2 text-platinum">
         <span>Member of Indigo Team</span>
         <br>
         <br>
@@ -35,9 +34,7 @@
         <li v-for="entry in urls" :key="entry.url">
           <a
             :href="'//' + entry.url"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-black text-sm"
+            class="text-platinum text-sm font-thin"
           >
             <img :src="faviconService + entry.baseurl" class="h-4 w-4">
             {{ entry.name }}
@@ -46,89 +43,27 @@
       </ul>
     </div>
 
-    <div class="w-3/4 px-4">
-      <div class="w-full px-4 bg-white shadow-md mb-4">
-        <div class="font-bold ml-3 text-xl tracking-wide">Uploads</div>
+    <div class="w-full">
+      <div class="px-4 mb-4">
+        <div class="px-2 mx-8 mt-8 font-medium text-3xl text-white uppercase tracking-wide">Uploads</div>
         <div class="flex content-start flex-wrap">
-          <div class="videoEntry relative">
-            <img src="@/assets/thumbnail.png" alt="thumbnail" class="thumbnail">
-            <div class="videoTitle">Beautiful Crime</div>
-            <div class="videoEditor">by Kazumoe</div>
-            <div class="absolute pin-t pin-r mt-3 mr-3 px-2 bg-black text-white text-xs">4:22</div>
-          </div>
-          <div class="videoEntry relative">
-            <img src="@/assets/thumbnail.png" alt="thumbnail" class="thumbnail">
-            <div class="videoTitle">Beautiful Crime</div>
-            <div class="videoEditor">by Kazumoe</div>
-            <div class="absolute pin-t pin-r mt-3 mr-3 px-2 bg-black text-white text-xs">4:22</div>
-          </div>
-          <div class="videoEntry relative">
-            <img src="@/assets/thumbnail.png" alt="thumbnail" class="thumbnail">
-            <div class="videoTitle">Beautiful Crime</div>
-            <div class="videoEditor">by Kazumoe</div>
-            <div class="absolute pin-t pin-r mt-3 mr-3 px-2 bg-black text-white text-xs">4:22</div>
-          </div>
-          <div class="videoEntry relative">
-            <img src="@/assets/thumbnail.png" alt="thumbnail" class="thumbnail">
-            <div class="videoTitle">Beautiful Crime</div>
-            <div class="videoEditor">by Kazumoe</div>
-            <div class="absolute pin-t pin-r mt-3 mr-3 px-2 bg-black text-white text-xs">4:22</div>
-          </div>
-          <div class="videoEntry relative">
-            <img src="@/assets/thumbnail.png" alt="thumbnail" class="thumbnail">
-            <div class="videoTitle">Beautiful Crime</div>
-            <div class="videoEditor">by Kazumoe</div>
-            <div class="absolute pin-t pin-r mt-3 mr-3 px-2 bg-black text-white text-xs">4:22</div>
-          </div>
-          <div class="videoEntry relative">
-            <img src="@/assets/thumbnail.png" alt="thumbnail" class="thumbnail">
-            <div class="videoTitle">Beautiful Crime</div>
-            <div class="videoEditor">by Kazumoe</div>
-            <div class="absolute pin-t pin-r mt-3 mr-3 px-2 bg-black text-white text-xs">4:22</div>
-          </div>
-          <div class="videoEntry relative">
-            <img src="@/assets/thumbnail.png" alt="thumbnail" class="thumbnail">
-            <div class="videoTitle">Beautiful Crime</div>
-            <div class="videoEditor">by Kazumoe</div>
-            <div class="absolute pin-t pin-r mt-3 mr-3 px-2 bg-black text-white text-xs">4:22</div>
-          </div>
-          <div class="videoEntry relative">
-            <img src="@/assets/thumbnail.png" alt="thumbnail" class="thumbnail">
-            <div class="videoTitle">Beautiful Crime</div>
-            <div class="videoEditor">by Kazumoe</div>
-            <div class="absolute pin-t pin-r mt-3 mr-3 px-2 bg-black text-white text-xs">4:22</div>
-          </div>
-          <div class="videoEntry relative">
-            <img src="@/assets/thumbnail.png" alt="thumbnail" class="thumbnail">
-            <div class="videoTitle">Beautiful Crime</div>
-            <div class="videoEditor">by Kazumoe</div>
-            <div class="absolute pin-t pin-r mt-3 mr-3 px-2 bg-black text-white text-xs">4:22</div>
-          </div>
-          <div class="videoEntry relative">
-            <img src="@/assets/thumbnail.png" alt="thumbnail" class="thumbnail">
-            <div class="videoTitle">Beautiful Crime</div>
-            <div class="videoEditor">by Kazumoe</div>
-            <div class="absolute pin-t pin-r mt-3 mr-3 px-2 bg-black text-white text-xs">4:22</div>
-          </div>
-          <div class="videoEntry relative">
-            <img src="@/assets/thumbnail.png" alt="thumbnail" class="thumbnail">
-            <div class="videoTitle">Beautiful Crime</div>
-            <div class="videoEditor">by Kazumoe</div>
-            <div class="absolute pin-t pin-r mt-3 mr-3 px-2 bg-black text-white text-xs">4:22</div>
-          </div>
-          <div class="videoEntry relative">
-            <img src="@/assets/thumbnail.png" alt="thumbnail" class="thumbnail">
-            <div class="videoTitle">Beautiful Crime</div>
-            <div class="videoEditor">by Kazumoe</div>
-            <div class="absolute pin-t pin-r mt-3 mr-3 px-2 bg-black text-white text-xs">4:22</div>
-          </div>
+          <video-entry title="Versteckspiel" editor="Kazumoe" length="4:20" thumbnail="thumbnail2.png"></video-entry>
+          <video-entry title="Beautiful Crime" editor="Kazumoe" length="4:20" thumbnail="thumbnail1.png"></video-entry>
+          <video-entry title="Beautiful Crime" editor="Kazumoe" length="4:20" thumbnail="thumbnail1.png"></video-entry>
+          <video-entry title="Beautiful Crime" editor="Kazumoe" length="4:20" thumbnail="thumbnail1.png"></video-entry>
+          <video-entry title="Beautiful Crime" editor="Kazumoe" length="4:20" thumbnail="thumbnail1.png"></video-entry>
+          <video-entry title="Beautiful Crime" editor="Kazumoe" length="4:20" thumbnail="thumbnail1.png"></video-entry>
+          <video-entry title="Beautiful Crime" editor="Kazumoe" length="4:20" thumbnail="thumbnail1.png"></video-entry>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
 <script>
+import videoEntry from "../components/videoEntry.vue";
+
 export default {
   name: "ChannelContent",
   data: function() {
@@ -147,6 +82,9 @@ export default {
       ],
       faviconService: "http://localhost:8082/"
     };
+  },
+  components: {
+    videoEntry
   }
 };
 </script>
@@ -156,26 +94,4 @@ hr {
   border-top: 1px solid rgba($color: #000000, $alpha: 0.2);
 }
 
-.thumbnail {
-  @apply .rounded-sm;
-  object-fit: cover;
-  width: 210px;
-  height: 118px;
-}
-
-.videoTitle {
-  @apply font-bold text-lg;
-}
-
-.videoEditor {
-  @apply font-thin;
-}
-
-.videoInfo {
-}
-
-.videoEntry {
-  @apply .px-2 .py-2 .flex .flex-col;
-  height: auto;
-}
 </style>

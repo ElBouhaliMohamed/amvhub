@@ -46,7 +46,7 @@ let defaultConfig = require('tailwindcss/defaultConfig')()
 let colors = {
   'transparent': 'transparent',
 
-  'black': '#22292f',
+  'black': '#000000',
   'grey-darkest': '#3d4852',
   'grey-darker': '#606f7b',
   'grey-dark': '#8795a1',
@@ -127,6 +127,11 @@ let colors = {
   'pink-light': '#fa7ea8',
   'pink-lighter': '#ffbbca',
   'pink-lightest': '#ffebef',
+
+  'primary': '#4f0299',
+  'secondary': '#ffffff',
+  'tertiary': '#f66d9b'
+
 }
 
 module.exports = {
@@ -551,7 +556,8 @@ module.exports = {
     '48': '12rem',
     '64': '16rem',
     '80': '20rem',
-    '112': '28rem',
+    '96': '24rem',
+    '110': '28rem',
     'full': '100%',
     'screen': '100vh',
   },
@@ -705,7 +711,6 @@ module.exports = {
   margin: {
     'auto': 'auto',
     'px': '1px',
-    '0': '0',
     '1': '0.25rem',
     '2': '0.5rem',
     '3': '0.75rem',
@@ -716,9 +721,14 @@ module.exports = {
     '10': '2.5rem',
     '12': '3rem',
     '16': '4rem',
-    '20': '5rem',
     '24': '6rem',
     '32': '8rem',
+    '40': '10rem',
+    '48': '12rem',
+    '64': '16rem',
+    '80': '20rem',
+    '96': '24rem',
+    '110': '28rem',
   },
 
 
@@ -962,7 +972,7 @@ module.exports = {
 
   plugins: [
     require('tailwindcss/plugins/container')({
-      // center: true,
+      center: true,
       // padding: '1rem',
     }),
   ],
