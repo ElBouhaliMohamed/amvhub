@@ -1,11 +1,14 @@
 <template>
-  <div id="app" class="antialiased bg-secondary">
+  <div id="app">
       <AppHeader></AppHeader>
       <AppNavbar></AppNavbar>
-      <transition name="fade">
-        <router-view></router-view>
-      </transition>
-      <AppFooter></AppFooter>
+      <!-- <div :class="[{wrapper: navbarIsActive}, {navbarMargin: !navbarIsActive}]"> -->
+      <div class="wrapper">
+          <transition name="fade">
+            <router-view></router-view>
+          </transition>
+          <AppFooter></AppFooter>
+      </div>
   </div>
 </template>
 
@@ -20,6 +23,30 @@ export default {
     AppHeader,
     AppFooter,
     AppNavbar,
+  },
+  beforeMount() {
+    this.$store.dispatch('theme/initTheme');
+  },
+  computed: {
+    navbarIsActive: function() {
+      return this.$store.state.navbar.isActive;
+    },
   }
 };
 </script>
+
+<style lang="scss" scoped>
+#app {
+  @apply antialiased bg-background-100;
+}
+
+.wrapper {
+  @apply mt-7;
+  transition: all 700ms ease;
+}
+
+.navbarMargin {
+  @apply mt-7;
+  transition: all 700ms ease;
+}
+</style>

@@ -112,7 +112,7 @@ let colors = {
   'indigo-lighter': '#b2b7ff',
   'indigo-lightest': '#e6e8ff',
 
-  'purple-darkest': '#21183c',
+  'purple-darkest': '#',
   'purple-darker': '#382b5f',
   'purple-dark': '#794acf',
   'purple': '#9561e2',
@@ -128,10 +128,18 @@ let colors = {
   'pink-lighter': '#ffbbca',
   'pink-lightest': '#ffebef',
 
-  'primary': '#4f0299',
-  'secondary': '#ffffff',
-  'tertiary': '#f66d9b'
+  'primary-25': 'var(--primary-25)',
+  'primary-50': 'var(--primary-50)',
+  'primary-100': 'var(--primary-100)',
 
+  'secondary-25': 'var(--secondary-25)',
+  'secondary-50': 'var(--secondary-50)',
+  'secondary-100': 'var(--secondary-100)',
+
+  'background-25': 'var(--background-25)',
+  'background-50': 'var(--background-50)',
+  'background-100': 'var(--background-100)',
+  
 }
 
 module.exports = {
@@ -487,6 +495,7 @@ module.exports = {
   width: {
     'auto': 'auto',
     'px': '1px',
+    '0': '0px',
     '1': '0.25rem',
     '2': '0.5rem',
     '3': '0.75rem',
@@ -508,6 +517,7 @@ module.exports = {
     '1/3': '33.33333%',
     '2/3': '66.66667%',
     '1/4': '25%',
+    '2/4': '50%',
     '3/4': '75%',
     '1/5': '20%',
     '2/5': '40%',
@@ -558,6 +568,19 @@ module.exports = {
     '80': '20rem',
     '96': '24rem',
     '110': '28rem',
+    '1/2': '50%',
+    '1/3': '33.33333%',
+    '2/3': '66.66667%',
+    '1/4': '25%',
+    '3/4': '75%',
+    '1/5': '20%',
+    '2/5': '40%',
+    '3/5': '60%',
+    '4/5': '80%',
+    '1/6': '16.66667%',
+    '5/6': '83.33333%',
+    '1/8': '12.5%',
+    '7/8': '87.5%',
     'full': '100%',
     'screen': '100vh',
   },
@@ -682,6 +705,7 @@ module.exports = {
     '4': '1rem',
     '5': '1.25rem',
     '6': '1.5rem',
+    '7': '1.6rem',
     '8': '2rem',
     '10': '2.5rem',
     '12': '3rem',
@@ -711,13 +735,16 @@ module.exports = {
   margin: {
     'auto': 'auto',
     'px': '1px',
+    '0': '0rem',
     '1': '0.25rem',
     '2': '0.5rem',
     '3': '0.75rem',
     '4': '1rem',
     '5': '1.25rem',
     '6': '1.5rem',
+    '7': '1.6rem',
     '8': '2rem',
+    '9': '2.25rem',
     '10': '2.5rem',
     '12': '3rem',
     '16': '4rem',
@@ -835,6 +862,7 @@ module.exports = {
 
   opacity: {
     '0': '0',
+    '10': '.10',
     '25': '.25',
     '50': '.5',
     '75': '.75',
@@ -974,7 +1002,7 @@ module.exports = {
     require('tailwindcss/plugins/container')({
       center: true,
       // padding: '1rem',
-    }),
+    })
   ],
 
 
@@ -985,7 +1013,7 @@ module.exports = {
   |
   | Here is where you can tweak advanced configuration options. We recommend
   | leaving these options alone unless you absolutely need to change them.
-  |
+  |cv
   */
 
   options: {

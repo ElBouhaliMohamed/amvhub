@@ -5,11 +5,8 @@
 
 import Vue from 'vue';
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPlayCircle } from '@fortawesome/free-regular-svg-icons'
-import { faHome, faBell, faEnvelope, faSearch, faEllipsisV, faBars } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import VueCarousel from 'vue-carousel';
+Vue.use(VueCarousel);
 
-library.add(faHome, faBell, faEnvelope, faSearch, faEllipsisV, faBars, faPlayCircle);
-
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+import Vue2TouchEvents from 'vue2-touch-events'
+Vue.use(Vue2TouchEvents);

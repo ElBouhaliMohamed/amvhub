@@ -2,7 +2,6 @@
  * toast notification module
  */
 export default {
-  namespaced: true,
   state: {
     toastsList: []
   },

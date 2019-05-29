@@ -8,9 +8,9 @@ export default {
     /**
      * breakpoint constants
      */
-    widthExtraSmall: 320,
-    widthSmall: 640,
-    widthTablet: 1024
+    widthExtraSmall: 576,
+    widthSmall: 768,
+    widthTablet: 992
   },
 
   mutations: {

@@ -9,8 +9,12 @@ import "./mixins";
 import "./plugins";
 import "./thirdParty";
 
-import "./scss/style.scss";
-import "./assets/fonts/bebasneue.css";
+import "./scss/main.scss";
+import "./scss/tailwind.scss";
+import "aos/dist/aos.css";
+import './scss/videoPlayer/plyr.scss'
+
+import AOS from "aos";
 
 setGlobalHelpers();
 Vue.config.productionTip = false;
@@ -20,6 +24,9 @@ new Vue({
   name: "Root",
   router,
   store,
+  created() {
+    AOS.init({ disable: "phone" });
+  },
   mounted() {
     store.commit("dom/SET_WINDOW_WIDTH", window.innerWidth);
     window.addEventListener("resize", () =>

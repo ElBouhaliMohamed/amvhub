@@ -1,54 +1,59 @@
 <template>
-  <div class="videoEntry">
-    <a href="#" class="text-primary hover:text-teal">
-      <div class="overflow-hidden">
-        <div class="thumbnail">
-        </div>
+  <div data-aos="fade-up" data-aos-once="true" class="videoEntry">
+    <router-link :to="url" class="text-secondary-100">
+      <div class="thumbnailWrapper">
+        <!-- <div class="fa fa-5x fa-play-circle videoPlayCircle"></div> -->
+        <div
+          class="thumbnail"
+          :style="{backgroundImage: `url(${require(`../assets/${this.thumbnail}`)})`}"
+        ></div>
       </div>
-    </a>
+    </router-link>
+
+    <div class="videoLengthBackground"></div>
+    <div class="videoLength">{{length}}</div>
+    <div class="videoInfoBackground"></div>
 
     <div class="videoTitle">{{title}}</div>
-    <div class="videoLength">{{length}}</div>
 
-    <div class="videoStatus">new</div>
+    <div class="videoStatus">{{status}}</div>
 
     <!-- <img src="@/assets/avatar.jpg" alt="avatar" class="videoAvatar"> -->
-    <a href="#" class="videoEditor">{{editor}}</a>
-
-    <!-- <font-awesome-icon class="videoPlayCircle" size="lg" icon="play-circle-solid"/> -->
+    <router-link to="#" class="videoEditor">{{editor}}</router-link>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-   title: String,
-   editor: String,
-   length: String,
-   thumbnail: String
+    title: String,
+    editor: String,
+    length: String,
+    thumbnail: String,
+    status: String
   },
   data: function() {
     return {
-      thumbnailPath: '@/assets/' + this.thumbnail
-    }
+      url: `/video/${this.title.trim()}`
+    };
   }
 };
 </script>
 
 <style lang="scss" scoped>
 .thumbnail {
-  background-image: url('../assets/thumbnail.png');
   display: block;
   text-align: center;
   background-size: cover;
   background-position: center;
   position: relative;
-  width: 650px;
-  height: 350px;
+  width: 550px;
+  height: 250px;
 
   -webkit-transition: all 1s ease-in-out;
   -moz-transition: all 1s ease-in-out;
   transition: all 1s ease-in-out;
+  transform: scale(1.01);
 }
 
 .thumbnail:hover {
@@ -59,28 +64,47 @@ export default {
   transform: scale(1.05);
 }
 
+.thumbnailWrapper {
+  @apply .inline-block .overflow-hidden;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.videoPlayCircle {
+  @apply .text-secondary-100 .z-10 .opacity-100;
+  transform: translate(40%,40%);
+}
+
 .videoTitle {
-  @apply .absolute .ml-16 .text-5xl .uppercase .text-primary;
+  @apply .absolute .ml-16 .text-5xl .uppercase .text-secondary-100;
   bottom: -20px;
 }
 
 .videoLength {
-  @apply .absolute .pin-t .pin-r .mt-3 .mr-3 .px-2 .py-1 .text-secondary .text-xs .font-thin;
-  background-color: rgba(0,0,0,0.4);
+  @apply .absolute .pin-t .pin-r .mt-3 .mr-3 .px-2 .py-1 .text-secondary-100 .text-xs;
+}
+
+.videoLengthBackground {
+  @apply .absolute .pin-t .pin-r .mt-3 .mr-4 .h-5 .w-8 .bg-background-100 .opacity-25;
 }
 
 .videoStatus {
-  @apply .absolute .pin-b .text-primary .font-bold .uppercase;
-  bottom: -10px;
+  @apply .absolute .pin-b .font-bold .uppercase .text-secondary-100;
+  bottom: -15px;
+}
+
+.videoInfoBackground {
+  @apply .absolute .pin-b .h-16 .bg-background-100 .opacity-25;
+  width: 550px;
 }
 
 .videoEditor {
-  @apply .absolute .ml-16 .font-thin .text-base .uppercase .text-primary;
+  @apply .absolute .ml-16 .font-thin .text-base .uppercase .text-secondary-100;
   bottom: 30px;
 }
 
 .videoEntry {
-  @apply .flex .relative .my-16;
+  @apply .flex .relative .my-8;
 }
 
 .videoAvatar {
@@ -90,7 +114,7 @@ export default {
 }
 
 .videoPlayCircle {
-  @apply .absolute .text-primary;
+  @apply .absolute .text-secondary-100;
   left: 200px;
   bottom: 115px;
 }

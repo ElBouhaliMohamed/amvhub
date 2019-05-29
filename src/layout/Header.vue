@@ -1,35 +1,37 @@
 <template>
-  <div class="container w-full mx-auto flex items-center py-4 bg-primary shadow-lg">
-    <div class="w-1/2 flex">
-      <button class="ml-4 h-8 w-12 flex items-center justify-center text-secondary" @click="toggleNavigation">
-        <font-awesome-icon icon="bars"/>
+  <nav class="headerContainer">
+    <div id="header" class="w-1/2 flex">
+      <button class="ml-4 h-8 w-12 flex items-center justify-center text-secondary-100" @click="toggleNavigation">
+        <div class="fa fa-bars"></div>
       </button>
       <input type="text" class="searchBox" placeholder="Search">
       <a href="#" class="searchIcon">
-        <font-awesome-icon class="text-secondary" icon="search"/>
+        <div class="fa fa-search text-secondary-100 hover:text-secondary-50"></div>
       </a>
     </div>
 
-    <nav class="w-32 ml-4">
+    <div class="w-32 ml-4">
       <router-link to="/">
         <logo/>
       </router-link>
-    </nav>
+    </div>
 
-    <nav class="w-1/2 flex items-center text-center justify-end">
-      <a href="#" class="top-nav-item text-secondary">
-        <font-awesome-icon icon="bell" size="lg"/>
+    <div class="w-1/2 flex items-center text-center justify-end">
+      <a href="#" class="top-nav-item text-secondary-100">
+        <div class="fa fa-bell"></div>
       </a>
-      <a href="#" class="top-nav-item text-secondary">
-        <font-awesome-icon icon="envelope" size="lg"/>
+      <a href="#" class="top-nav-item text-secondary-100">
+        <div class="fa fa-envelope"></div>
       </a>
       <div class="mr-4">
-        <a href="#">
+        <router-link to="/channel">
           <img src="@/assets/avatar.jpg" alt="avatar" class="avatar">
-        </a>
+        </router-link>
       </div>
-    </nav>
-  </div>
+    </div>
+
+
+  </nav>
 </template>
 
 <script>
@@ -38,10 +40,28 @@ import logo from "../components/logo.vue";
 
 export default {
   name: "Header",
+  created () {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
+  data() {
+    return {
+      lightMode: true
+    }
+  },
   methods: {
     toggleNavigation() {
-      console.log("test");
-      this.$store.commit('navBar/toggleNavigation', true);
+      if(this.isActive)
+        this.$store.commit('navbar/toggleNavigation', false);
+      else
+        this.$store.commit('navbar/toggleNavigation', true);
+    }
+  },
+  computed: {
+    isActive: function() {
+      return this.$store.state.navbar.isActive;
     }
   },
   components: {
@@ -51,19 +71,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.searchBox {
-  @apply .w-1/4 .text-secondary .rounded-l .text-xs .py-2 .px-2;
-  -webkit-transition: width 0.4s ease-in-out;
-  transition: width 0.4s ease-in-out;
-  background-color: rgba(0, 0, 0, 0.05);
+
+.headerContainer {
+  @apply .sticky .pin-t .z-50 .w-full .mx-auto .flex .items-center .py-4 .bg-primary-100;
 }
 
-.searchBox:focus {
-  @apply .w-5/6;
-  outline: none;
-}
-
-.searchIcon {
-  @apply .rounded-r .h-8 .py-2 .px-2;
+.avatar {
+  @apply .h-8 .w-8 .rounded-full;
+  -webkit-transition: width 0.4s, height 0.4s ease-in-out;
+  transition: width 0.4s, height 0.4s ease-in-out;
 }
 </style>

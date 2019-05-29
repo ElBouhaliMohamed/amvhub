@@ -48,12 +48,12 @@
         <div class="px-2 mx-8 mt-8 font-medium text-3xl text-white uppercase tracking-wide">Uploads</div>
         <div class="flex content-start flex-wrap">
           <video-entry title="Versteckspiel" editor="Kazumoe" length="4:20" thumbnail="thumbnail2.png"></video-entry>
-          <video-entry title="Beautiful Crime" editor="Kazumoe" length="4:20" thumbnail="thumbnail1.png"></video-entry>
-          <video-entry title="Beautiful Crime" editor="Kazumoe" length="4:20" thumbnail="thumbnail1.png"></video-entry>
-          <video-entry title="Beautiful Crime" editor="Kazumoe" length="4:20" thumbnail="thumbnail1.png"></video-entry>
-          <video-entry title="Beautiful Crime" editor="Kazumoe" length="4:20" thumbnail="thumbnail1.png"></video-entry>
-          <video-entry title="Beautiful Crime" editor="Kazumoe" length="4:20" thumbnail="thumbnail1.png"></video-entry>
-          <video-entry title="Beautiful Crime" editor="Kazumoe" length="4:20" thumbnail="thumbnail1.png"></video-entry>
+          <video-entry title="Beautiful Crime" editor="Kazumoe" length="4:20" thumbnail="thumbnail.png"></video-entry>
+          <video-entry title="Beautiful Crime" editor="Kazumoe" length="4:20" thumbnail="thumbnail6.jpg"></video-entry>
+          <video-entry title="Beautiful Crime" editor="Kazumoe" length="4:20" thumbnail="thumbnail5.jpg"></video-entry>
+          <video-entry title="Beautiful Crime" editor="Kazumoe" length="4:20" thumbnail="thumbnail.png"></video-entry>
+          <video-entry title="Beautiful Crime" editor="Kazumoe" length="4:20" thumbnail="thumbnail.png"></video-entry>
+          <video-entry title="Beautiful Crime" editor="Kazumoe" length="4:20" thumbnail="thumbnail.png"></video-entry>
         </div>
       </div>
     </div>
