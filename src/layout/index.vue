@@ -38,15 +38,17 @@ export default {
 <style lang="scss" scoped>
 #app {
   @apply antialiased bg-background-100;
+  
+  transition: color 700ms ease;
 }
 
 .wrapper {
   @apply mt-7;
-  transition: all 700ms ease;
+  transition: margin 700ms ease;
 }
 
 .navbarMargin {
   @apply mt-7;
-  transition: all 700ms ease;
+  transition: margin 700ms ease;
 }
 </style>

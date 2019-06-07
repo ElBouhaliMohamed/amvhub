@@ -11,132 +11,33 @@
       @click="scroll(true)"
     ></button>
 
-    <button
-      v-if="!horizontal"
-      class="scrollButton pin-t fas fa-chevron-up "
-      @click="scroll(false)"
-    ></button>
-    <button
-      v-if="!horizontal"
-      class="scrollButton pin-b fas fa-chevron-down"
-      @click="scroll(true)"
-    ></button>
+    <button v-if="!horizontal" class="scrollButton pin-t fas fa-chevron-up" @click="scroll(false)"></button>
+    <button v-if="!horizontal" class="scrollButton pin-b fas fa-chevron-down" @click="scroll(true)"></button>
 
     <div
       :class="[{hRecommendations: horizontal},{vRecommendations: !horizontal }]"
       id="suggested"
       v-touch:swipe="handleSwipe"
     >
-      <div class="videoRecommendation">
-        <div class="videoThumbnail">
-          <img draggable="false" src="@/assets/thumbnail.png">
-        </div>
-        <div class="videoTitle">Versteckspiel</div>
-      </div>
+      <div class="videoRecommendation" v-for="video in videos" v-bind:key="video.title">
+        <router-link draggable="false" to="/channel/" class="thumbnailWrapper">
+          <div
+            class="thumbnail"
+            :style="{backgroundImage: `url(${require(`../assets/${video.thumbnail}`)})`}"
+          ></div>
+        </router-link>
 
-      <div class="videoRecommendation">
-        <div class="videoThumbnail">
-          <img draggable="false" src="@/assets/thumbnail.png">
+        <div class="flex flex-row justify-between">
+          <div class="flex flex-col">
+            <div class="videoTitle">{{video.title}}</div>
+            <div class="videoChannel">Kazumoe</div>
+          </div>
+          <div class="flex flex-col">
+            <div class="videoViews">2k Views</div>
+            <div class="videoStatus">hot</div>
+          </div>
         </div>
-        <div class="videoTitle">Versteckspiel</div>
-      </div>
 
-      <div class="videoRecommendation">
-        <div class="videoThumbnail">
-          <img draggable="false" src="@/assets/thumbnail.png">
-        </div>
-        <div class="videoTitle">Versteckspiel</div>
-      </div>
-
-      <div class="videoRecommendation">
-        <div class="videoThumbnail">
-          <img draggable="false" src="@/assets/thumbnail.png">
-        </div>
-        <div class="videoTitle">Test</div>
-      </div>
-
-      <div class="videoRecommendation">
-        <div class="videoThumbnail">
-          <img draggable="false" src="@/assets/thumbnail.png">
-        </div>
-        <div class="videoTitle">Versteckspiel</div>
-      </div>
-
-      <div class="videoRecommendation">
-        <div class="videoThumbnail">
-          <img draggable="false" src="@/assets/thumbnail.png">
-        </div>
-        <div class="videoTitle">Versteckspiel</div>
-      </div>
-
-      <div class="videoRecommendation">
-        <div class="videoThumbnail">
-          <img draggable="false" src="@/assets/thumbnail.png">
-        </div>
-        <div class="videoTitle">Versteckspiel</div>
-      </div>
-
-      <div class="videoRecommendation">
-        <div class="videoThumbnail">
-          <img draggable="false" src="@/assets/thumbnail.png">
-        </div>
-        <div class="videoTitle">Versteckspiel</div>
-      </div>
-
-      <div class="videoRecommendation">
-        <div class="videoThumbnail">
-          <img draggable="false" src="@/assets/thumbnail.png">
-        </div>
-        <div class="videoTitle">Versteckspiel</div>
-      </div>
-
-      <div class="videoRecommendation">
-        <div class="videoThumbnail">
-          <img draggable="false" src="@/assets/thumbnail.png">
-        </div>
-        <div class="videoTitle">Versteckspiel</div>
-      </div>
-
-      <div class="videoRecommendation">
-        <div class="videoThumbnail">
-          <img draggable="false" src="@/assets/thumbnail.png">
-        </div>
-        <div class="videoTitle">Versteckspiel</div>
-      </div>
-
-      <div class="videoRecommendation">
-        <div class="videoThumbnail">
-          <img draggable="false" src="@/assets/thumbnail.png">
-        </div>
-        <div class="videoTitle">Versteckspiel</div>
-      </div>
-
-      <div class="videoRecommendation">
-        <div class="videoThumbnail">
-          <img draggable="false" src="@/assets/thumbnail.png">
-        </div>
-        <div class="videoTitle">Versteckspiel</div>
-      </div>
-
-      <div class="videoRecommendation">
-        <div class="videoThumbnail">
-          <img draggable="false" src="@/assets/thumbnail.png">
-        </div>
-        <div class="videoTitle">Versteckspiel</div>
-      </div>
-
-      <div class="videoRecommendation">
-        <div class="videoThumbnail">
-          <img draggable="false" src="@/assets/thumbnail.png">
-        </div>
-        <div class="videoTitle">Versteckspiel</div>
-      </div>
-
-      <div class="videoRecommendation">
-        <div class="videoThumbnail">
-          <img draggable="false" src="@/assets/thumbnail.png">
-        </div>
-        <div class="videoTitle">Versteckspiel</div>
       </div>
     </div>
   </div>
@@ -154,7 +55,27 @@ export default {
       pixelPerElementV: 149.5,
       pixelPerElementH: 232,
       itemsPerScroll: 4,
-      tweenDuriation: 600
+      tweenDuriation: 600,
+
+      videos: [
+        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
+        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
+        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
+        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
+        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
+        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
+        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
+        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
+        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
+        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
+        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
+        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
+        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
+        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
+        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
+        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
+        { title: "Versteckspiel", thumbnail: "thumbnail.png" }
+      ]
     };
   },
   computed: {
@@ -188,13 +109,15 @@ export default {
         if (scrollDirection) {
           this.tween(
             document.getElementById("suggested").scrollLeft,
-            document.getElementById("suggested").scrollLeft + this.scrollHorizontalAmount,
+            document.getElementById("suggested").scrollLeft +
+              this.scrollHorizontalAmount,
             this.horizontal
           );
         } else {
           this.tween(
             document.getElementById("suggested").scrollLeft,
-            document.getElementById("suggested").scrollLeft - this.scrollHorizontalAmount,
+            document.getElementById("suggested").scrollLeft -
+              this.scrollHorizontalAmount,
             this.horizontal
           );
         }
@@ -202,13 +125,15 @@ export default {
         if (scrollDirection) {
           this.tween(
             document.getElementById("suggested").scrollTop,
-            document.getElementById("suggested").scrollTop + this.scrollVerticalAmount,
+            document.getElementById("suggested").scrollTop +
+              this.scrollVerticalAmount,
             this.horizontal
           );
         } else {
           this.tween(
             document.getElementById("suggested").scrollTop,
-            document.getElementById("suggested").scrollTop - this.scrollVerticalAmount,
+            document.getElementById("suggested").scrollTop -
+              this.scrollVerticalAmount,
             this.horizontal
           );
         }
@@ -226,14 +151,13 @@ export default {
         .to({ tweeningValue: end }, this.tweenDuration)
         .easing(TWEEN.Easing.Exponential.InOut)
         .onUpdate(function(object) {
-          if(horizontal) {
+          if (horizontal) {
             document.getElementById("suggested").scrollLeft =
               object.tweeningValue;
-          }else{
+          } else {
             document.getElementById("suggested").scrollTop =
               object.tweeningValue;
           }
-
         })
         .onComplete(() => {
           cancelAnimationFrame(frameHandler);
@@ -248,11 +172,11 @@ export default {
 
 <style lang="scss" scoped>
 .hRecommendations {
-  @apply flex flex-row overflow-hidden w-full select-none;
+  @apply flex flex-row overflow-hidden w-full;
 }
 
 .vRecommendations {
-  @apply flex flex-col overflow-hidden select-none;
+  @apply flex flex-col overflow-hidden;
   max-height: 745px;
 }
 
@@ -268,7 +192,30 @@ export default {
   }
 }
 
-.videoThumbnail {
+.thumbnail {
+  display: block;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  height: 123.5px;
+  width: 220px;
+
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+  transform: scale(1.01);
+}
+
+.thumbnail:hover {
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  transform: scale(1.05);
+}
+
+.thumbnailWrapper {
   @apply .self-center;
   height: 123.5px;
   width: 220px;
@@ -283,7 +230,19 @@ export default {
 }
 
 .videoTitle {
-  @apply .flex .pt-2 .tracking-wide .text-secondary-100 .justify-center;
+  @apply flex pt-2 text-sm font-bold text-secondary-100 justify-start;
+}
+
+.videoChannel {
+  @apply flex text-sm text-secondary-100 justify-start;
+}
+
+.videoViews {
+  @apply flex pt-2 text-sm text-secondary-100 justify-start;
+}
+
+.videoStatus {
+  @apply flex uppercase text-sm text-secondary-100 justify-start;
 }
 
 .scrollButton {

@@ -23,9 +23,9 @@ export default {
       "--secondary-50": "#f8fafc",
       "--secondary-100": "#ffffff",
 
-      "--primary-25": "#bcdefa",
-      "--primary-50": "#6cb2eb",
-      "--primary-100": "#3490dc"
+      "--primary-25": "#8795a1",
+      "--primary-50": "#606f7b",
+      "--primary-100": "#3d4852"
     }
   },
   getters: {
