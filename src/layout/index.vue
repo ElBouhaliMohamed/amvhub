@@ -38,7 +38,6 @@ export default {
 <style lang="scss" scoped>
 #app {
   @apply antialiased bg-background-100;
-  
   transition: color 700ms ease;
 }
 

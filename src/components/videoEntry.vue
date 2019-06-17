@@ -1,10 +1,10 @@
 <template>
   <div data-aos="fade-up" data-aos-once="true" class="videoEntry">
-    <router-link :to="url" class="text-secondary-100">
+    <router-link :to="url" class="text-secondary-100 w-full">
       <div class="thumbnailWrapper">
         <!-- <div class="fa fa-5x fa-play-circle videoPlayCircle"></div> -->
         <div
-          class="thumbnail"
+          class="thumbnail small md:large"
           :style="{backgroundImage: `url(${require(`../assets/${this.thumbnail}`)})`}"
         ></div>
       </div>
@@ -12,14 +12,15 @@
 
     <div class="videoLengthBackground"></div>
     <div class="videoLength">{{length}}</div>
-    <div class="videoInfoBackground"></div>
+    <!-- <div class="videoInfoBackground"></div> -->
 
-    <div class="videoTitle">{{title}}</div>
+    <div class="videoInfoWrapper">
+      <router-link to="#" class="videoEditor">{{editor}}</router-link>
+      <span class="videoTitle">{{title}}</span>
+    </div>
 
     <div class="videoStatus">{{status}}</div>
-
     <!-- <img src="@/assets/avatar.jpg" alt="avatar" class="videoAvatar"> -->
-    <router-link to="#" class="videoEditor">{{editor}}</router-link>
   </div>
 </template>
 
@@ -47,13 +48,23 @@ export default {
   background-size: cover;
   background-position: center;
   position: relative;
-  width: 550px;
-  height: 250px;
+  width: 100%;
+  height: 220px;
 
   -webkit-transition: all 1s ease-in-out;
   -moz-transition: all 1s ease-in-out;
   transition: all 1s ease-in-out;
   transform: scale(1.01);
+}
+
+.large {
+  width: 620px;
+  height: 220px;
+}
+
+.mid {
+  width: 550px;
+  height: 250px;
 }
 
 .thumbnail:hover {
@@ -66,6 +77,7 @@ export default {
 
 .thumbnailWrapper {
   @apply .inline-block .overflow-hidden;
+  width: 100%;
   text-align: center;
   vertical-align: middle;
 }
@@ -75,36 +87,39 @@ export default {
   transform: translate(40%,40%);
 }
 
+.videoInfoWrapper {
+  @apply .absolute .ml-10 .flex .flex-col;
+  bottom: -27px;
+}
+
 .videoTitle {
-  @apply .absolute .ml-16 .text-5xl .uppercase .text-secondary-100;
-  bottom: -20px;
-}
-
-.videoLength {
-  @apply .absolute .pin-t .pin-r .mt-3 .mr-3 .px-2 .py-1 .text-secondary-100 .text-xs;
-}
-
-.videoLengthBackground {
-  @apply .absolute .pin-t .pin-r .mt-3 .mr-4 .h-5 .w-8 .bg-background-100 .opacity-25;
-}
-
-.videoStatus {
-  @apply .absolute .pin-b .font-bold .uppercase .text-secondary-100;
-  bottom: -15px;
-}
-
-.videoInfoBackground {
-  @apply .absolute .pin-b .h-16 .bg-background-100 .opacity-25;
-  width: 550px;
+  @apply .text-3xl .uppercase .text-secondary-100 .leading-tight;
 }
 
 .videoEditor {
-  @apply .absolute .ml-16 .font-thin .text-base .uppercase .text-secondary-100;
-  bottom: 30px;
+  @apply .font-thin .text-base .uppercase .text-secondary-100;
+}
+
+.videoLength {
+  @apply .absolute .top-0 .right-0 .mt-3 .mr-3 .px-2 .py-1 .text-secondary-100 .text-xs;
+}
+
+.videoLengthBackground {
+  @apply .absolute .top-0 .right-0 .mt-3 .mr-4 .h-5 .w-8 .bg-background-100 .opacity-25;
+}
+
+.videoStatus {
+  @apply .absolute .bottom-0 .font-bold .text-xs .uppercase .text-secondary-100;
+  bottom: -20px;
+}
+
+.videoInfoBackground {
+  @apply .absolute .bottom-0 .h-16 .bg-background-100 .opacity-25;
+  width: 320px;
 }
 
 .videoEntry {
-  @apply .flex .relative .my-8;
+  @apply .flex .relative .my-8 .mx-2 .w-full;
 }
 
 .videoAvatar {
@@ -118,4 +133,42 @@ export default {
   left: 200px;
   bottom: 115px;
 }
+
+@screen md {
+  .videoEntry {
+    @apply .flex-shrink;
+  }
+
+  // .thumbnail {
+  //   @apply mid;
+  // }
+
+  .videoTitle {
+     @apply .text-4xl;
+  }
+}
+
+@screen lg {
+  .videoEntry {
+    width: auto;
+  }
+
+  .thumbnail {
+    @apply large;
+  }
+
+  .videoInfoWrapper {
+    @apply .ml-16
+  }
+
+  .videoTitle {
+    @apply .text-5xl;
+  }
+
+  .videoStatus {
+    @apply .text-lg;
+    bottom: -18px;
+  }
+}
+
 </style>

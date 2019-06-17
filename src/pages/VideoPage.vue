@@ -37,11 +37,13 @@
           >Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni molestiae nam architecto quia amet minus et praesentium enim facilis culpa voluptates perferendis laboriosam temporibus, aliquid natus ea rem neque tempore adipisci ab iusto quibusdam nostrum nemo! Quibusdam quis incidunt corrupti consectetur aliquid pariatur eveniet expedita possimus harum unde quisquam ipsum voluptatibus sed inventore laudantium neque, tempore ducimus ad quam optio nam magnam consequatur. Consequatur deserunt doloremque accusantium asperiores. Inventore recusandae consequuntur aut obcaecati, nihil enim eveniet labore, amet totam fugit, delectus eaque ipsam impedit esse qui. Assumenda cumque, eligendi, quaerat consectetur velit id placeat dolorum inventore illum perferendis rem nisi?</div>
 
           <div class="flex flex-col flex-wrap">
-            <div>
-              <div class="fas fa-music"></div>Tamer - Beautiful Crime
+            <div class="flex">
+              <div class="fas fa-music mr-1"></div>
+              <span v-for="(song, index) in songs"><span v-if="index > 0">, </span>{{song.artist}} - {{song.title}}</span>
             </div>
             <div>
-              <div class="fas fa-tv"></div>Monster
+              <div class="fas fa-tv mr-1"></div>
+               <span v-for="(anime, index) in animes"><span v-if="index > 0">, </span> <a :href="'https://myanimelist.net/search/all?q=' + anime.replace(/\s/g, '%20')"> {{anime}} </a></span>
             </div>
           </div>
 
@@ -105,10 +107,13 @@
                 <span class="px-1">2</span>
                 <span class="fas fa-comments"></span>
               </button>
+
+              <button class="rounded-full hover:bg-primary-25 p-2">
+                <span class="fas fa-retweet"></span>
+              </button>
             </div>
           </div>
         </div>
-
         <div class="flex flex-row mb-2">
           <span class="flex flex-col items-center">
             <img src="@/assets/avatar.jpg" alt="avatar" class="avatar">
@@ -125,59 +130,29 @@
 
             <div
               class="flex"
-            >Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint velit eveniet quos sit rem alias ad pariatur eaque laboriosam blanditiis.</div>
+            >Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi eum sint temporibus error inventore minus in porro doloribus accusantium. Ipsam quam sapiente inventore, ex atque natus, necessitatibus eum eligendi asperiores consectetur harum vero obcaecati voluptatum odio? Veritatis ea cupiditate necessitatibus voluptatum, tempore voluptate iusto blanditiis cum iure similique quod libero architecto dicta aliquid soluta? Quas praesentium dolorum molestiae excepturi sed, sequi culpa cumque libero voluptate optio ullam odit! Nobis molestiae commodi tempore at numquam ullam voluptate odit dicta veritatis illum quisquam, adipisci ipsam. Corporis nam dolorem accusamus, accusantium, ipsum vitae iusto expedita quidem sit error laudantium nisi modi et perferendis?</div>
 
             <div class="flex flex-row pt-2 items-center">
               <button class="rounded-full hover:bg-primary-25 p-2">
-                <span class="px-1">6</span>
+                <span class="px-1">3</span>
                 <span class="fas fa-heart"></span>
               </button>
 
               <button class="rounded-full hover:bg-primary-25 p-2">
-                <span class="px-1">2</span>
+                <span class="px-1"></span>
                 <span class="fas fa-comments"></span>
+              </button>
+
+              <button class="rounded-full hover:bg-primary-25 p-2">
+                <span class="fas fa-retweet"></span>
               </button>
             </div>
           </div>
         </div>
-
         <div class="flex flex-row mb-2">
           <span class="flex flex-col items-center">
             <img src="@/assets/avatar.jpg" alt="avatar" class="avatar">
-          </span>
-
-          <div class="flex flex-col w-full">
-            <div class="flex flex-row justify-start items-center text-center">
-              <a class="text-sm" href>Kazumoe</a>
-              <span class="text-xs text-secondary-25 pl-2" href>@Kazumoe</span>
-              <span class="text-xs text-secondary-25 px-4">&#8226;</span>
-              <span class="text-secondary-100 text-sm font-thin">8 hours ago</span>
-            </div>
-
-            <div
-              class="flex"
-            >Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint velit eveniet quos sit rem alias ad pariatur eaque laboriosam blanditiis.</div>
-
-            <div class="flex flex-row pt-2 items-center">
-              <button class="rounded-full hover:bg-primary-25 p-2">
-                <span class="px-1">6</span>
-                <span class="fas fa-heart"></span>
-              </button>
-
-              <button class="rounded-full hover:bg-primary-25 p-2">
-                <span class="px-1">2</span>
-                <span class="fas fa-comments"></span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="commentsection" class="flex flex-col bg-background-25 mt-1 p-2">
-        <div class="flex flex-row mb-2">
-          <span class="flex flex-col items-center">
-            <img src="@/assets/avatar.jpg" alt="avatar" class="avatar">
-            <span class="border-l-2 h-full mr-2 mt-2"></span>
+            <!-- <span class="border-l-2 h-full mr-2 mt-2"></span> -->
           </span>
 
           <div class="flex flex-col w-full">
@@ -199,109 +174,20 @@
               </button>
 
               <button class="rounded-full hover:bg-primary-25 p-2">
-                <span class="px-1">2</span>
+                <span class="px-1"></span>
                 <span class="fas fa-comments"></span>
+              </button>
+
+              <button class="rounded-full hover:bg-primary-25 p-2">
+                <span class="fas fa-retweet"></span>
               </button>
             </div>
           </div>
         </div>
 
-        <div class="flex flex-row mb-2">
-          <span class="flex flex-col items-center">
-            <img src="@/assets/avatar.jpg" alt="avatar" class="avatar">
-            <span class="border-l-2 h-full mr-2 mt-2"></span>
-          </span>
-
-          <div class="flex flex-col w-full">
-            <div class="flex flex-row justify-start items-center text-center">
-              <a class="text-sm" href>Kazumoe</a>
-              <span class="text-xs text-secondary-25 pl-2" href>@Kazumoe</span>
-              <span class="text-xs text-secondary-25 px-4">&#8226;</span>
-              <span class="text-secondary-100 text-sm font-thin">8 hours ago</span>
-            </div>
-
-            <div
-              class="flex"
-            >Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint velit eveniet quos sit rem alias ad pariatur eaque laboriosam blanditiis.</div>
-
-            <div class="flex flex-row pt-2 items-center">
-              <button class="rounded-full hover:bg-primary-25 p-2">
-                <span class="px-1">6</span>
-                <span class="fas fa-heart"></span>
-              </button>
-
-              <button class="rounded-full hover:bg-primary-25 p-2">
-                <span class="px-1">2</span>
-                <span class="fas fa-comments"></span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="flex flex-row mb-2">
-          <span class="flex flex-col items-center">
-            <img src="@/assets/avatar.jpg" alt="avatar" class="avatar">
-          </span>
-
-          <div class="flex flex-col w-full">
-            <div class="flex flex-row justify-start items-center text-center">
-              <a class="text-sm" href>Kazumoe</a>
-              <span class="text-xs text-secondary-25 pl-2" href>@Kazumoe</span>
-              <span class="text-xs text-secondary-25 px-4">&#8226;</span>
-              <span class="text-secondary-100 text-sm font-thin">8 hours ago</span>
-            </div>
-
-            <div
-              class="flex"
-            >Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint velit eveniet quos sit rem alias ad pariatur eaque laboriosam blanditiis.</div>
-
-            <div class="flex flex-row pt-2 items-center">
-              <button class="rounded-full hover:bg-primary-25 p-2">
-                <span class="px-1">6</span>
-                <span class="fas fa-heart"></span>
-              </button>
-
-              <button class="rounded-full hover:bg-primary-25 p-2">
-                <span class="px-1">2</span>
-                <span class="fas fa-comments"></span>
-              </button>
-            </div>
-          </div>
-        </div>
+      
       </div>
 
-      <div id="commentsection" class="flex flex-col bg-background-25 mt-1 p-2">
-        <div class="flex flex-row mb-2">
-          <span class="flex flex-col items-center">
-            <img src="@/assets/avatar.jpg" alt="avatar" class="avatar">
-          </span>
-
-          <div class="flex flex-col w-full">
-            <div class="flex flex-row justify-start items-center text-center">
-              <a class="text-sm" href>Kazumoe</a>
-              <span class="text-xs text-secondary-25 pl-2" href>@Kazumoe</span>
-              <span class="text-xs text-secondary-25 px-4">&#8226;</span>
-              <span class="text-secondary-100 text-sm font-thin">8 hours ago</span>
-            </div>
-
-            <div
-              class="flex"
-            >Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint velit eveniet quos sit rem alias ad pariatur eaque laboriosam blanditiis.</div>
-
-            <div class="flex flex-row pt-2 items-center">
-              <button class="rounded-full hover:bg-primary-25 p-2">
-                <span class="px-1">6</span>
-                <span class="fas fa-heart"></span>
-              </button>
-
-              <button class="rounded-full hover:bg-primary-25 p-2">
-                <span class="px-1">2</span>
-                <span class="fas fa-comments"></span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -364,10 +250,10 @@ export default {
       ],
       categories: ["Action", "Drama"],
       songs: [
-        { Artist: "Somedude", Song: "Beautiful Crime" },
-        { Artist: "Somedude", Song: "Beautiful Crime" }
+        { artist: "Somedude", title: "Beautiful Crime" },
+        { artist: "Somedude", title: "Beautiful Crime" },
       ],
-      animes: ["Monster"]
+      animes: ["Monster", "Naruto Shippuuden"]
     };
   },
   computed: {

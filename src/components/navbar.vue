@@ -1,27 +1,29 @@
 <template>
   <nav>
-    <div :class="[smallNav, {smallNavActive: !isActive}]">
-      <ul class="flex justify-center items-center">
-        
-        <li>
-          <router-link tag="a" to="/trending">
-            Trending
-          </router-link>
-        </li>
-        <li>
-          <router-link tag="a" to="/home">
-            Feed
-          </router-link>
-        </li>
-        <li>
-          <router-link tag="a" to="/featured">
-            Featured
-          </router-link>
-        </li>
-        <hr />
-      </ul>
+    <div :class="[smallNav, {smallNavActive: smallNavIsEnabled}]">
+      <span class="flex ml-8 items-center"> 
+        <span class="uppercase text-xs font-bold">view</span>
+        <button><span class="fas fa-list ml-2"></span></button>
+        <button><span class="fas fa-th ml-2"></span></button>
+      </span>
 
-      <!-- <span class="nav_underline"></span> -->
+      <span class="border-l-2 border-secondary-100 h-5 mx-4 opacity-10"></span>
+
+      <router-link class="flex text-secondary-100 text-center items-center pr-2" tag="a" to="/trending">
+        <div class='fas fa-fire fa-sm'></div>
+        <span class='uppercase text-xs font-bold pl-1'>Trending</span>
+      </router-link>
+            <router-link class="flex text-secondary-100 text-center items-center px-2" tag="a" to="/feed">
+        <div class='fas fa-home fa-sm'></div>
+        <span class='uppercase text-xs font-bold pl-1'>Feed</span>
+      </router-link>
+            <router-link class="flex text-secondary-100 text-center items-center pl-2" tag="a" to="/featured">
+        <div class='fas fa-bullhorn fa-sm'></div>
+        <span class='uppercase text-xs font-bold pl-1'>Featured</span>
+      </router-link>
+
+      <span class="border-l-2 border-secondary-100 h-5 mx-4 opacity-10"></span>
+
     </div>
     <div id="bigNav" :class="[bigNav, {bigNavActive:isActive}]">
       <ul class="flex flex-col">
@@ -83,6 +85,9 @@ export default {
     };
   },
   computed: {
+    smallNavIsEnabled: function() {
+      return (this.$store.state.navbar.smallNavIsEnabled && !this.$store.state.navbar.isActive);
+    },
     isActive: function() {
       return this.$store.state.navbar.isActive;
     },
@@ -118,7 +123,7 @@ hr {
   transition: .3s ease-in-out;
 }
 
-a {
+.bigNav > a {
   @apply text-secondary-100 text-center font-hairline uppercase px-4;
 
   text-decoration: none;
@@ -130,7 +135,7 @@ a {
 }
 
 .smallNav {
-  @apply fixed z-40 w-full flex flex-row overflow-hidden justify-center bg-primary-100;
+  @apply z-40 w-full flex flex-row overflow-hidden justify-start items-center bg-primary-100;
   top: 67px;
   height: 0px;
   -webkit-transition: height 250ms ease-in-out;
@@ -140,12 +145,12 @@ a {
 }
 
 .smallNavActive {
-  @apply h-8;
+  @apply h-8 w-full;
 }
 
 .bigNav {
-  @apply flex flex-col fixed bg-primary-100 text-secondary-100 overflow-hidden h-screen z-40 pin-t shadow-lg;
-  top: 67px;
+  @apply flex flex-col fixed bg-primary-100 text-secondary-100 overflow-hidden h-screen z-40 top-0 shadow-lg;
+  top: 106px;
   width: 0px;
   -webkit-transition: width 250ms ease-in-out;
   -moz-transition: width 250ms ease-in-out;
@@ -154,7 +159,7 @@ a {
 }
 
 .bigNavActive {
-  @apply w-80;
+  @apply w-full;
 }
 
 .bigNavEntry {
@@ -254,6 +259,15 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+@screen md {
+  .bigNav {
+    top: 67px;
+  }
+  .bigNavActive {
+    @apply w-80;
+  }
 }
 
 </style>

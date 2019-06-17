@@ -1,0 +1,8 @@
+
+.top-nav-item {
+  @apply .mr-4 .font-semibold;
+}
+
+.top-nav-item:hover {
+  @apply .text-secondary-50;
+}

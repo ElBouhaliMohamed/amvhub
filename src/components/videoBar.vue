@@ -2,17 +2,17 @@
   <div class="flex relative items-center justify-center align-center">
     <button
       v-if="horizontal"
-      class="absolute pin-l mx-4 z-10 fas fa-chevron-left bg-secondary-100 text-primary-100 rounded-full shadow-lg w-8 h-8 navigation"
+      class="absolute left-0 mx-4 z-10 fas fa-chevron-left bg-secondary-100 text-primary-100 rounded-full shadow-lg w-8 h-8 navigation"
       @click="scroll(false)"
     ></button>
     <button
       v-if="horizontal"
-      class="absolute pin-r z-10 fas fa-chevron-right bg-secondary-100 text-primary-100 rounded-full shadow-lg w-8 h-8 navigation"
+      class="absolute right-0 z-10 fas fa-chevron-right bg-secondary-100 text-primary-100 rounded-full shadow-lg w-8 h-8 navigation"
       @click="scroll(true)"
     ></button>
 
-    <button v-if="!horizontal" class="scrollButton pin-t fas fa-chevron-up" @click="scroll(false)"></button>
-    <button v-if="!horizontal" class="scrollButton pin-b fas fa-chevron-down" @click="scroll(true)"></button>
+    <button v-if="!horizontal" class="scrollButton top-0 fas fa-chevron-up" @click="scroll(false)"></button>
+    <button v-if="!horizontal" class="scrollButton bottom-0 fas fa-chevron-down" @click="scroll(true)"></button>
 
     <div
       :class="[{hRecommendations: horizontal},{vRecommendations: !horizontal }]"

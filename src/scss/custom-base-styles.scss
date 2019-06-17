@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display');
+@import url('https://fonts.googleapis.com/css?family=Nunito:200');
+
+html * {
+  font-family: "Open Sans", sans-serif;
+}
+
+.font-nunito {
+  font-family: 'Nunito', sans-serif !important;
+}
+
+a {
+  text-decoration: none;
+}
+
+button:focus {outline:0;}

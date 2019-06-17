@@ -1,65 +1,8 @@
-@tailwind preflight;
+@import "tailwindcss/base.css";
+@import "./custom-base-styles.scss";
 
-@import url('https://fonts.googleapis.com/css?family=Playfair+Display');
-@import url('https://fonts.googleapis.com/css?family=Nunito:200');
+@import "tailwindcss/components.css";
+@import "./custom-components.scss";
 
-html * {
-  font-family: "Open Sans", sans-serif;
-}
-
-.font-nunito {
-  font-family: 'Nunito', sans-serif !important;
-}
-
-a {
-  text-decoration: none;
-}
-
-button:focus {outline:0;}
-
-.top-nav-item {
-  @apply .mr-4 .font-semibold;
-}
-
-.top-nav-item:hover {
-  @apply .text-secondary-50;
-}
-
-.searchBox {
-  @apply .w-1/4 .text-secondary-100 .rounded-l .text-xs .py-2 .px-2;
-  -webkit-transition: width 0.4s ease-in-out;
-  transition: width 0.4s ease-in-out;
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.searchBox:focus {
-  @apply .w-5/6;
-  outline: none;
-}
-
-.searchIcon {
-  @apply .rounded-r .h-8 .py-2 .px-2;
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-ol, ul {
-  padding: 0;
-  list-style: none;
-}
-
-@tailwind utilities;
-
-.noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
-}
-
-
-
- @tailwind components;
-
+@import "tailwindcss/utilities.css";
+@import "./custom-utilities.scss";

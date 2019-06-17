@@ -140,6 +140,39 @@ let colors = {
   'background-50': 'var(--background-50)',
   'background-100': 'var(--background-100)',
   
+  'white': '#ffffff',
+  'gray-lightest': '#f9f8f9',
+  'gray-lighter': '#e5e4e6',
+  'gray-light': '#d1d0d2',
+  'gray': '#bebebf',
+  'gray-dark': '#979697',
+  'gray-darker': '#6f6e70',
+  'gray-darkest': '#494849',
+  'black': '#212021',
+
+  'brand-light': '#dfc8f0',
+  'brand': '#7022be',
+  'brand-dark': '#3b195b',
+
+  'cta-light': '#f3eecb',
+  'cta': '#bebe22',
+  'cta-dark': '#5c5b1b',
+
+  'info-light': '#dceefc',
+  'info': '#5abbf2',
+  'info-dark': '#335971',
+
+  'warning-light': '#feedd4',
+  'warning': '#ecb852',
+  'warning-dark': '#70582c',
+
+  'success-light': '#dbf2d9',
+  'success': '#68c969',
+  'success-dark': '#366036',
+
+  'danger-light': '#ffd1d4',
+  'danger': '#e92c5e',
+  'danger-dark': '#702130',
 }
 
 module.exports = {

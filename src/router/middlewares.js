@@ -35,3 +35,13 @@ export function setPageTitleMiddleware (to, from, next) {
   if (pageTitle) window.document.title = pageTitle.meta.title
   next()
 }
+
+export function checkIfSmallNavigationNeeded (to, from, next) {
+  const enabled = to.matched.find(item => item.meta.enableSmallNavigation);
+  if(enabled) {
+   $store.commit("navbar/toggleSmallNavigation", true);
+  }else {
+   $store.commit("navbar/toggleSmallNavigation", false);
+  }
+  next()
+}

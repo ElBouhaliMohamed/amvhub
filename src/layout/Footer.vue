@@ -36,7 +36,7 @@ export default {
 <style lang="scss" scoped>
 
 .footer {
-  @apply .flex .flex-col .h-1/8 .bg-primary-100 .text-secondary-100 .py-16;
+  @apply .flex .flex-col .h-80 .bg-primary-100 .text-secondary-100 .py-16;
 }
 
 .links {

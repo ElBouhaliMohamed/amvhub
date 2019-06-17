@@ -47,7 +47,7 @@ export default {
 }
 
 .bannerWrapper {
-  @apply relative .w-full .overflow-hidden .h-110;
+  @apply relative .w-full .overflow-hidden .h-112;
 }
 
 .banner {

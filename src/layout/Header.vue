@@ -1,22 +1,24 @@
 <template>
   <nav class="headerContainer">
-    <div id="header" class="w-1/2 flex">
+    <div class="w-11/12 flex md:w-1/2">
       <button class="ml-4 h-8 w-12 flex items-center justify-center text-secondary-100" @click="toggleNavigation">
         <div class="fa fa-bars"></div>
       </button>
-      <input type="text" class="searchBox" placeholder="Search">
-      <a href="#" class="searchIcon">
-        <div class="fa fa-search text-secondary-100 hover:text-secondary-50"></div>
-      </a>
+      <span class="flex w-full">
+        <input type="text" class="searchBox" placeholder="Search">
+        <a href="#" class="searchIcon">
+          <div class="fa fa-search text-secondary-100 hover:text-secondary-50"></div>
+        </a>
+      </span>
     </div>
 
-    <div class="w-32 ml-4">
+    <div class="logo">
       <router-link to="/">
         <logo/>
       </router-link>
     </div>
 
-    <div class="w-1/2 flex items-center text-center justify-end">
+    <div class="w-full mt-2 md:w-1/2 flex items-center text-center justify-end">
       <a href="#" class="top-nav-item text-secondary-100">
         <div class="fa fa-bell"></div>
       </a>
@@ -40,12 +42,6 @@ import logo from "../components/logo.vue";
 
 export default {
   name: "Header",
-  created () {
-    window.addEventListener('scroll', this.handleScroll);
-  },
-  destroyed () {
-    window.removeEventListener('scroll', this.handleScroll);
-  },
   data() {
     return {
       lightMode: true
@@ -53,10 +49,7 @@ export default {
   },
   methods: {
     toggleNavigation() {
-      if(this.isActive)
-        this.$store.commit('navbar/toggleNavigation', false);
-      else
-        this.$store.commit('navbar/toggleNavigation', true);
+        this.$store.commit('navbar/toggleNavigation', !this.isActive);
     }
   },
   computed: {
@@ -72,8 +65,29 @@ export default {
 
 <style lang="scss" scoped>
 
+.searchBox {
+  @apply .w-full .text-secondary-100 .rounded-l .text-xs .py-1 .px-2;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.searchBox:focus {
+  outline: none;
+}
+
+.searchIcon {
+  @apply .rounded-r .h-8 .py-2 .px-2;
+  background-color: rgba(0, 0, 0, 0.05);
+  height: 34px;
+}
+
+.logo {
+    display: none;
+}
+
 .headerContainer {
-  @apply .sticky .pin-t .z-50 .w-full .mx-auto .flex .items-center .py-4 .bg-primary-100;
+  @apply .sticky .top-0 .z-50 .w-full .mx-auto .flex .flex-col .items-start .py-4 .bg-primary-100;
 }
 
 .avatar {
@@ -81,4 +95,23 @@ export default {
   -webkit-transition: width 0.4s, height 0.4s ease-in-out;
   transition: width 0.4s, height 0.4s ease-in-out;
 }
+
+@screen md {
+  .headerContainer {
+    @apply .flex-row .items-center;
+  }
+  .logo {
+    @apply .w-32 .ml-4 .block;
+  }
+  .searchBox {
+    @apply .w-1/4 .py-2;
+  }
+    
+  .searchBox:focus {
+    @apply .w-5/6;
+    outline: none;
+  }
+
+}
+
 </style>

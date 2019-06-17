@@ -2,7 +2,7 @@
   <div class="container mx-auto flex items-center relative bg-nepal ">
 
       <div class="w-96 flex justify-center">
-          <img src="@/assets/avatar.jpg" alt="avatar" class="rounded-full h-48 w-48 absolute pin-t -mt-24">
+          <img src="@/assets/avatar.jpg" alt="avatar" class="rounded-full h-48 w-48 absolute top-0 -mt-24">
       </div>
 
       <div class="w-full px-4">
