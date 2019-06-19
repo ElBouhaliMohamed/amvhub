@@ -4,15 +4,18 @@
       <div class="thumbnailWrapper">
         <!-- <div class="fa fa-5x fa-play-circle videoPlayCircle"></div> -->
         <div
+          :id="preview"
           class="thumbnail small md:large"
           :style="{backgroundImage: `url(${require(`../assets/${this.thumbnail}`)})`}"
+          @mouseenter="showPreview()"
+          @mouseleave="hidePreview()"
         ></div>
       </div>
     </router-link>
 
     <div class="videoLengthBackground"></div>
     <div class="videoLength">{{length}}</div>
-    <!-- <div class="videoInfoBackground"></div> -->
+    <div :class="{videoInfoBackground: isLightMode}"></div>
 
     <div class="videoInfoWrapper">
       <router-link to="#" class="videoEditor">{{editor}}</router-link>
@@ -31,12 +34,61 @@ export default {
     editor: String,
     length: String,
     thumbnail: String,
-    status: String
+    status: String,
+    preview: {
+      type: String,
+      default: ""
+    }
   },
   data: function() {
     return {
-      url: `/video/${this.title.trim()}`
+      url: `/video/${this.title.trim()}`,
+      previewUrl: `/videos/${this.preview}`,
+      previewLoaded: false,
+      previewVideo: Object,
+      hovering: false
     };
+  },
+  computed: {
+    isLightMode() {
+      return !this.$store.getters['theme/isDarkMode'];
+    }
+  },
+  methods: {
+    videoFullyBuffered() {
+      console.log('I think I can play thru the entire ' + ' video without ever having to stop to buffer.');
+      this.previewLoaded = true;
+      if(this.hovering) {
+        let thumbnail = document.getElementById(this.preview);
+        thumbnail.appendChild(this.previewVideo);
+        this.previewVideo.play().catch(err => {console.log(err)});
+      }
+    },
+    showPreview()  {
+      this.hovering = true;
+      if(this.preview.length > 0 && !this.previewLoaded) {
+        this.previewVideo = document.createElement('video');
+        this.previewVideo.classList.add("container","mx-auto", "opacity-100");
+        this.previewVideo.id = `${this.preview}`;
+        this.previewVideo.src = `${this.previewUrl}`;
+        this.previewVideo.autoplay = true;
+        this.previewVideo.controls = false;
+        this.previewVideo.volume = 0.3;
+        this.previewVideo.loop = false;
+        this.previewVideo.oncanplaythrough = this.videoFullyBuffered();
+      }else if(this.previewLoaded && this.previewVideo) {
+        console.log('The Video is already fully loaded.');
+        this.previewVideo.hidden = false;
+        this.previewVideo.play().catch(err => {console.log(err)});
+      }
+    },
+    hidePreview() {
+      this.hovering = false;
+      if(this.preview.length > 0) {
+        this.previewVideo.hidden = true;
+        this.previewVideo.pause();
+      }
+    }
   }
 };
 </script>
@@ -59,12 +111,12 @@ export default {
 
 .large {
   width: 620px;
-  height: 220px;
+  height: 320px;
 }
 
 .mid {
-  width: 550px;
-  height: 250px;
+  width: 100%;
+  height: 420px;
 }
 
 .thumbnail:hover {
@@ -114,8 +166,7 @@ export default {
 }
 
 .videoInfoBackground {
-  @apply .absolute .bottom-0 .h-16 .bg-background-100 .opacity-25;
-  width: 320px;
+  @apply .absolute .bottom-0 .h-20 .bg-background-100 .opacity-25 w-full;
 }
 
 .videoEntry {
@@ -134,21 +185,35 @@ export default {
   bottom: 115px;
 }
 
+@keyframes fade {
+  0%{
+    opacity: 0 !important;
+  }
+  100% {
+    opacity: 1 !important;
+  }
+}
+
+.preview {
+  animation: fade 2s linear;
+}
+
 @screen md {
   .videoEntry {
     @apply .flex-shrink;
   }
 
-  // .thumbnail {
-  //   @apply mid;
-  // }
+  .thumbnail {
+    @apply mid;
+  }
 
   .videoTitle {
      @apply .text-4xl;
   }
+
 }
 
-@screen lg {
+@screen xll {
   .videoEntry {
     width: auto;
   }
@@ -168,6 +233,11 @@ export default {
   .videoStatus {
     @apply .text-lg;
     bottom: -18px;
+  }
+
+  .videoInfoBackground {
+    @apply h-16;
+    width: 620px;
   }
 }
 

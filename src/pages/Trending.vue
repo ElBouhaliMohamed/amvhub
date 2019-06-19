@@ -4,8 +4,8 @@
         <trending-carousel />
     </div>
     <div class="container w-full lg:w-3/4 mx-auto videoWrapper">
-        <video-entry title="Versteckspiel" editor="Kazumoe" length="4:20" thumbnail="thumbnail2.png" status="hot"></video-entry>
-        <video-entry title="Beautiful Crime" editor="Kazumoe" length="4:20" thumbnail="thumbnail.png" status="hot"></video-entry>
+        <video-entry title="Versteckspiel" editor="Kazumoe" length="4:20" thumbnail="thumbnail2.png" preview="dqw16qwd5qwh1b2e-preview.mp4" status="hot"></video-entry>
+        <video-entry title="Beautiful Crime" editor="Kazumoe" length="4:20" thumbnail="thumbnail.png" preview="dqw16qwd5qwh1b2d-preview.mp4" status="hot"></video-entry>
         <video-entry title="Atonement" editor="Kazumoe" length="4:20" thumbnail="thumbnail3.png" status="hot"></video-entry>
         <video-entry title="Beautiful Crime2" editor="Kazumoe" length="4:20" thumbnail="thumbnail4.jpg" status="hot"></video-entry>
         <video-entry title="Versteckspiel2" editor="Kazumoe" length="4:20" thumbnail="thumbnail5.jpg" status="hot"></video-entry>
@@ -37,7 +37,7 @@ export default {
 
 <style lang="scss" scoped>
     .videoWrapper {
-      @apply .flex .flex-wrap;
+      @apply .flex .flex-wrap .justify-center;
     }
 
 </style>

@@ -27,6 +27,10 @@ module.exports = {
     opacity: {
       ...defaultTheme.opacity,
       '10': '.10'
+    },
+    screens: {
+      ...defaultTheme.screens,
+      'xll': '1696px'
     }
   },
   variants: {
