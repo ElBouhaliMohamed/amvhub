@@ -20,24 +20,24 @@
 </template>
 
 <script>
-import Plyr from 'plyr';
+import Plyr from 'plyr'
 
 export default {
-  mounted() {
-    this.player = new Plyr('#player');
-    console.log(this.player);
+  mounted () {
+    this.player = new Plyr('#player')
+    console.log(this.player)
   },
-  data() {
+  data () {
     return {
-      player: null,
-    };
+      player: null
+    }
   },
   props: {
     options: Array,
     captions: Array,
     poster: String
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

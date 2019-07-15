@@ -13,26 +13,26 @@
 </template>
 
 <script>
-import AppHeader from "./Header.vue";
-import AppFooter from "./Footer.vue";
-import AppNavbar from "../components/navbar.vue";
+import AppHeader from './Header.vue'
+import AppFooter from './Footer.vue'
+import AppNavbar from '../components/navbar.vue'
 
 export default {
-  name: "AppLayout",
+  name: 'AppLayout',
   components: {
     AppHeader,
     AppFooter,
-    AppNavbar,
+    AppNavbar
   },
-  beforeMount() {
-    this.$store.dispatch('theme/initTheme');
+  beforeMount () {
+    this.$store.dispatch('theme/initTheme')
   },
   computed: {
-    navbarIsActive: function() {
-      return this.$store.state.navbar.isActive;
-    },
+    navbarIsActive: function () {
+      return this.$store.state.navBar.isActive
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

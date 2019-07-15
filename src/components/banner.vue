@@ -7,7 +7,7 @@
 
 export default {
   name: 'Banner',
-  data() {
+  data () {
     return {
       banner: 'banner.jpg'
     }

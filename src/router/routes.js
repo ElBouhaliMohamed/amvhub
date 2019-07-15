@@ -15,35 +15,35 @@ export const routes = [
     alias: '/feed',
     name: 'feed',
     component: feed,
-    meta: { title: `${DOMAIN_TITLE} | feed`, enableSmallNavigation: true}
+    meta: { title: `${DOMAIN_TITLE} | feed`, enableSmallNavigation: true }
   },
   {
     path: '/trending',
     name: 'trending',
     component: trending,
-    meta: { title: `${DOMAIN_TITLE} | trending`, enableSmallNavigation: true}
-  },  
+    meta: { title: `${DOMAIN_TITLE} | trending`, enableSmallNavigation: true }
+  },
   {
     path: '/featured',
     name: 'featured',
     component: trending,
-    meta: { title: `${DOMAIN_TITLE} | featured`, enableSmallNavigation: true}
+    meta: { title: `${DOMAIN_TITLE} | featured`, enableSmallNavigation: true }
   },
   {
     path: '/channel',
     name: 'channel',
     component: channel,
-    meta: { title: `${DOMAIN_TITLE} | trending`, enableSmallNavigation: false}
-  },  
+    meta: { title: `${DOMAIN_TITLE} | trending`, enableSmallNavigation: false }
+  },
   {
     path: '/video/:id',
     name: 'video',
     component: videoPage,
-    meta: { title: `${DOMAIN_TITLE} | video`, enableSmallNavigation: false}
+    meta: { title: `${DOMAIN_TITLE} | video`, enableSmallNavigation: false }
   },
   {
     path: '*',
     component: notFoundPage,
-    meta: { title: `${DOMAIN_TITLE} | not found`, enableSmallNavigation: false}
+    meta: { title: `${DOMAIN_TITLE} | not found`, enableSmallNavigation: false }
   }
 ]

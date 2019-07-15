@@ -32,35 +32,34 @@
       </div>
     </div>
 
-
   </nav>
 </template>
 
 <script>
-import * as authService from "../services/auth.service";
-import logo from "../components/logo.vue";
+import * as authService from '../services/auth.service'
+import logo from '../components/logo.vue'
 
 export default {
-  name: "Header",
-  data() {
+  name: 'Header',
+  data () {
     return {
       lightMode: true
     }
   },
   methods: {
-    toggleNavigation() {
-        this.$store.commit('navbar/toggleNavigation', !this.isActive);
+    toggleNavigation () {
+      this.$store.commit('navbar/toggleNavigation', !this.isActive)
     }
   },
   computed: {
-    isActive: function() {
-      return this.$store.state.navbar.isActive;
+    isActive: function () {
+      return this.$store.state.navBar.isActive
     }
   },
   components: {
     logo
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

@@ -7,25 +7,25 @@
 </template>
 
 <script>
-import AppChannelContent from "../../layout/ChannelContent.vue";
-import AppBanner from "../../components/banner.vue";
-import AppProfilebar from "../../components/profilebar.vue";
+import AppChannelContent from '../../layout/ChannelContent.vue'
+import AppBanner from '../../components/banner.vue'
+import AppProfilebar from '../../components/profilebar.vue'
 
 export default {
-  name: "IndexPage",
+  name: 'IndexPage',
 
   components: {
     AppBanner,
     AppProfilebar,
-    AppChannelContent,
+    AppChannelContent
   },
 
-  data() {
+  data () {
     return {
     
-    };
-  },
-};
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

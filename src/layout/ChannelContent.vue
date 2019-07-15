@@ -62,31 +62,31 @@
 </template>
 
 <script>
-import videoEntry from "../components/videoEntry.vue";
+import videoEntry from '../components/videoEntry.vue'
 
 export default {
-  name: "ChannelContent",
-  data: function() {
+  name: 'ChannelContent',
+  data: function () {
     return {
       urls: [
         {
-          url: "youtube.com/TheBeautifulCrap",
-          baseurl: "youtube.com",
-          name: "Youtube Channel"
+          url: 'youtube.com/TheBeautifulCrap',
+          baseurl: 'youtube.com',
+          name: 'Youtube Channel'
         },
         {
-          url: "bilibili.com",
-          baseurl: "bilibili.com",
-          name: "Bilibli Channel"
+          url: 'bilibili.com',
+          baseurl: 'bilibili.com',
+          name: 'Bilibli Channel'
         }
       ],
-      faviconService: "http://localhost:8082/"
-    };
+      faviconService: 'http://localhost:8082/'
+    }
   },
   components: {
     videoEntry
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

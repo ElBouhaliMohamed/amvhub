@@ -20,7 +20,7 @@
 <script>
 export default {
   props: {},
-  data: function() {
+  data: function () {
     return {
       perPage: 1,
       autoplay: true,
@@ -28,12 +28,12 @@ export default {
       loop: true,
       centerMode: true,
       autoPlayTimeout: 4000,
-      paginationColor: "var(--secondary-color)",
-      paginationActiveColor: "var(--primary-100)",
-      poster: "thumbnail.png"
-    };
+      paginationColor: 'var(--secondary-color)',
+      paginationActiveColor: 'var(--primary-100)',
+      poster: 'thumbnail.png'
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

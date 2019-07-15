@@ -6,17 +6,17 @@
 <script>
 
 export default {
-  name: "IndexPage",
+  name: 'IndexPage',
 
   components: {
   },
 
-  data() {
+  data () {
     return {
     
-    };
-  },
-};
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

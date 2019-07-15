@@ -76,38 +76,38 @@
 </template>
 
 <script>
-import logo from "../components/logo.vue";
-import backToTop from "../components/backToTop.vue";
-import floatingNavButton from "../components/floatingNavButton.vue";
+import logo from '../components/logo.vue'
+import backToTop from '../components/backToTop.vue'
+import floatingNavButton from '../components/floatingNavButton.vue'
 
 export default {
-  name: "Navbar",
-  data() {
+  name: 'Navbar',
+  data () {
     return {
-      bigNav: "bigNav",
-      smallNav: "smallNav"
-    };
+      bigNav: 'bigNav',
+      smallNav: 'smallNav'
+    }
   },
   computed: {
-    smallNavIsEnabled: function() {
+    smallNavIsEnabled: function () {
       return (
-        this.$store.state.navbar.smallNavIsEnabled &&
-        !this.$store.state.navbar.isActive
-      );
+        this.$store.state.navBar.smallNavIsEnabled &&
+        !this.$store.state.navBar.isActive
+      )
     },
-    isActive: function() {
-      return this.$store.state.navbar.isActive;
+    isActive: function () {
+      return this.$store.state.navBar.isActive
     },
-    isDarkMode: function() {
-      return this.$store.state.theme.isDarkMode;
+    isDarkMode: function () {
+      return this.$store.state.theme.isDarkMode
     }
   },
   methods: {
-    toggleNavigation() {
-      this.$store.commit("navbar/toggleNavigation", false);
+    toggleNavigation () {
+      this.$store.commit('navbar/toggleNavigation', false)
     },
-    switchTheme() {
-      this.$store.dispatch("theme/switchTheme");
+    switchTheme () {
+      this.$store.dispatch('theme/switchTheme')
     }
   },
   components: {
@@ -115,7 +115,7 @@ export default {
     backToTop,
     floatingNavButton
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

@@ -44,13 +44,13 @@
 </template>
 
 <script>
-import TWEEN from "@tweenjs/tween.js";
+import TWEEN from '@tweenjs/tween.js'
 
 export default {
   props: {
     horizontal: Boolean // true horizontal and false vertical
   },
-  data: function() {
+  data: function () {
     return {
       pixelPerElementV: 149.5,
       pixelPerElementH: 232,
@@ -58,116 +58,116 @@ export default {
       tweenDuriation: 600,
 
       videos: [
-        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
-        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
-        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
-        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
-        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
-        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
-        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
-        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
-        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
-        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
-        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
-        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
-        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
-        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
-        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
-        { title: "Versteckspiel", thumbnail: "thumbnail.png" },
-        { title: "Versteckspiel", thumbnail: "thumbnail.png" }
+        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
+        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
+        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
+        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
+        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
+        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
+        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
+        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
+        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
+        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
+        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
+        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
+        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
+        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
+        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
+        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
+        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' }
       ]
-    };
+    }
   },
   computed: {
-    scrollHorizontalAmount() {
-      return this.pixelPerElementH * this.itemsPerScroll;
+    scrollHorizontalAmount () {
+      return this.pixelPerElementH * this.itemsPerScroll
     },
-    scrollVerticalAmount() {
-      return this.pixelPerElementV * this.itemsPerScroll;
+    scrollVerticalAmount () {
+      return this.pixelPerElementV * this.itemsPerScroll
     }
   },
   methods: {
-    handleSwipe(scrollDirection) {
+    handleSwipe (scrollDirection) {
       switch (scrollDirection) {
-        case "top":
-          this.scroll(true);
-          break;
-        case "bottom":
-          this.scroll(false);
-          break;
-        case "left":
-          this.scroll(false);
-          break;
-        case "right":
-          this.scroll(true);
-          break;
+        case 'top':
+          this.scroll(true)
+          break
+        case 'bottom':
+          this.scroll(false)
+          break
+        case 'left':
+          this.scroll(false)
+          break
+        case 'right':
+          this.scroll(true)
+          break
       }
     },
-    scroll(scrollDirection) {
+    scroll (scrollDirection) {
       // false = left and true = right
       if (this.horizontal) {
         if (scrollDirection) {
           this.tween(
-            document.getElementById("suggested").scrollLeft,
-            document.getElementById("suggested").scrollLeft +
+            document.getElementById('suggested').scrollLeft,
+            document.getElementById('suggested').scrollLeft +
               this.scrollHorizontalAmount,
             this.horizontal
-          );
+          )
         } else {
           this.tween(
-            document.getElementById("suggested").scrollLeft,
-            document.getElementById("suggested").scrollLeft -
+            document.getElementById('suggested').scrollLeft,
+            document.getElementById('suggested').scrollLeft -
               this.scrollHorizontalAmount,
             this.horizontal
-          );
+          )
         }
       } else {
         if (scrollDirection) {
           this.tween(
-            document.getElementById("suggested").scrollTop,
-            document.getElementById("suggested").scrollTop +
+            document.getElementById('suggested').scrollTop,
+            document.getElementById('suggested').scrollTop +
               this.scrollVerticalAmount,
             this.horizontal
-          );
+          )
         } else {
           this.tween(
-            document.getElementById("suggested").scrollTop,
-            document.getElementById("suggested").scrollTop -
+            document.getElementById('suggested').scrollTop,
+            document.getElementById('suggested').scrollTop -
               this.scrollVerticalAmount,
             this.horizontal
-          );
+          )
         }
       }
     },
-    tween(start, end, horizontal) {
-      let frameHandler;
+    tween (start, end, horizontal) {
+      let frameHandler
 
-      const animate = function(currentTime) {
-        TWEEN.update(currentTime);
-        frameHandler = requestAnimationFrame(animate);
-      };
+      const animate = function (currentTime) {
+        TWEEN.update(currentTime)
+        frameHandler = requestAnimationFrame(animate)
+      }
 
       const myTween = new TWEEN.Tween({ tweeningValue: start })
         .to({ tweeningValue: end }, this.tweenDuration)
         .easing(TWEEN.Easing.Exponential.InOut)
-        .onUpdate(function(object) {
+        .onUpdate(function (object) {
           if (horizontal) {
-            document.getElementById("suggested").scrollLeft =
-              object.tweeningValue;
+            document.getElementById('suggested').scrollLeft =
+              object.tweeningValue
           } else {
-            document.getElementById("suggested").scrollTop =
-              object.tweeningValue;
+            document.getElementById('suggested').scrollTop =
+              object.tweeningValue
           }
         })
         .onComplete(() => {
-          cancelAnimationFrame(frameHandler);
+          cancelAnimationFrame(frameHandler)
         })
-        .start();
+        .start()
 
-      frameHandler = requestAnimationFrame(animate);
+      frameHandler = requestAnimationFrame(animate)
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

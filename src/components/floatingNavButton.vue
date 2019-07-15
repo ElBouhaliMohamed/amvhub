@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: "floatingNavButton",
+  name: 'floatingNavButton',
   props: {
     visibleoffset: {
       type: [String, Number],
@@ -20,61 +20,61 @@ export default {
     },
     scrollFn: {
       type: Function,
-      default: function(eventObject) {}
+      default: function (eventObject) {}
     }
   },
-  data() {
+  data () {
     return {
       visible: false
-    };
+    }
   },
-  mounted() {
+  mounted () {
     window.smoothscroll = () => {
       let currentScroll =
-        document.documentElement.scrollTop || document.body.scrollTop;
+        document.documentElement.scrollTop || document.body.scrollTop
       if (currentScroll > 0) {
-        window.requestAnimationFrame(window.smoothscroll);
-        window.scrollTo(0, Math.floor(currentScroll - currentScroll / 5));
+        window.requestAnimationFrame(window.smoothscroll)
+        window.scrollTo(0, Math.floor(currentScroll - currentScroll / 5))
       }
-    };
-    window.addEventListener("scroll", this.catchScroll);
+    }
+    window.addEventListener('scroll', this.catchScroll)
   },
-  destroyed() {
-    window.removeEventListener("scroll", this.catchScroll);
+  destroyed () {
+    window.removeEventListener('scroll', this.catchScroll)
   },
   methods: {
     /**
      * Catch window scroll event
      * @return {void}
      */
-    catchScroll() {
-      const pastTopOffset = window.pageYOffset > parseInt(this.visibleoffset);
+    catchScroll () {
+      const pastTopOffset = window.pageYOffset > parseInt(this.visibleoffset)
       const pastBottomOffset =
         window.innerHeight + window.pageYOffset >=
-        document.body.offsetHeight - parseInt(this.visibleoffsetbottom);
+        document.body.offsetHeight - parseInt(this.visibleoffsetbottom)
       this.visible =
         parseInt(this.visibleoffsetbottom) > 0
           ? pastTopOffset && !pastBottomOffset
-          : pastTopOffset;
-      if(this.isActive) {
-          this.visible = false;
+          : pastTopOffset
+      if (this.isActive) {
+        this.visible = false
       }
-      this.scrollFn(this);
+      this.scrollFn(this)
     },
     /**
      * The function who make the magics
      * @return {void}
      */
-    toggleNav() {
-      this.$store.commit("navbar/toggleNavigation", true);
+    toggleNav () {
+      this.$store.commit('navbar/toggleNavigation', true)
     }
   },
   computed: {
-    isActive: function() {
-      return this.$store.state.navbar.isActive;
+    isActive: function () {
+      return this.$store.state.navBar.isActive
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 .floatingNavButton-fade-enter-active,

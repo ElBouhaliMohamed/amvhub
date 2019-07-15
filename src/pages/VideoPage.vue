@@ -184,7 +184,6 @@
             </div>
           </div>
         </div>
-
       
       </div>
 
@@ -193,75 +192,75 @@
 </template>
 
 <script>
-import videoPlayer from "../components/videoPlayer.vue";
-import videoBar from "../components/videoBar.vue";
-import { DOMAIN_TITLE } from "../.env";
+import videoPlayer from '../components/videoPlayer.vue'
+import videoBar from '../components/videoBar.vue'
+import { DOMAIN_TITLE } from '../.env'
 
 export default {
-  name: "VideoPage",
+  name: 'VideoPage',
   components: {
     videoPlayer,
     videoBar
   },
-  title() {
-    return `${DOMAIN_TITLE} | ${this.title}`;
+  title () {
+    return `${DOMAIN_TITLE} | ${this.title}`
   },
-  data: function() {
+  data: function () {
     return {
       options: [
         {
           size: 1080,
           source: `/videos/dqw16qwd5qwh1b2d-960.mp4`,
-          type: "video/mp4"
+          type: 'video/mp4'
         },
         {
           size: 1440,
           source: `/videos/dqw16qwd5qwh1b2d-1080.mp4`,
-          type: "video/mp4"
+          type: 'video/mp4'
         }
       ],
       captions: [],
-      poster: "/thumbnails/dqw16qwd5qwh1b2d.png",
-      title: "Beautiful Crime",
-      author: "Kazumoe",
-      uploadedAt: "Januar 12, 2019",
+      poster: '/thumbnails/dqw16qwd5qwh1b2d.png',
+      title: 'Beautiful Crime',
+      author: 'Kazumoe',
+      uploadedAt: 'Januar 12, 2019',
       views: 612,
       tags: [
-        "Naruto",
-        "Sakura",
-        "Bestamv",
-        "Kazu",
-        "Indigo Team",
-        "Naruto",
-        "Sakura",
-        "Bestamv",
-        "Kazu",
-        "Indigo Team",
-        "Naruto",
-        "Sakura",
-        "Bestamv",
-        "Kazu",
-        "Indigo Team",
-        "Naruto",
-        "Sakura",
-        "Bestamv",
-        "Kazu",
-        "Indigo Team"
+        'Naruto',
+        'Sakura',
+        'Bestamv',
+        'Kazu',
+        'Indigo Team',
+        'Naruto',
+        'Sakura',
+        'Bestamv',
+        'Kazu',
+        'Indigo Team',
+        'Naruto',
+        'Sakura',
+        'Bestamv',
+        'Kazu',
+        'Indigo Team',
+        'Naruto',
+        'Sakura',
+        'Bestamv',
+        'Kazu',
+        'Indigo Team'
       ],
-      categories: ["Action", "Drama"],
+      categories: ['Action', 'Drama'],
       songs: [
-        { artist: "Somedude", title: "Beautiful Crime" },
-        { artist: "Somedude", title: "Beautiful Crime" },
+        { artist: 'Somedude', title: 'Beautiful Crime' },
+        { artist: 'Somedude', title: 'Beautiful Crime' }
       ],
-      animes: ["Monster", "Naruto Shippuuden"]
-    };
+      animes: ['Monster', 'Naruto Shippuuden']
+    }
   },
   computed: {
-    videoId() {
-      return this.$route.params.id;
+    videoId () {
+      return this.$route.params.id
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

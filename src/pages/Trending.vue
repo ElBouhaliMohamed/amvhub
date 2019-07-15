@@ -19,20 +19,20 @@
 </template>
 
 <script>
-import videoEntry from '../components/videoEntry.vue';
-import trendingCarousel from '../components/trendingCarousel.vue';
+import videoEntry from '../components/videoEntry.vue'
+import trendingCarousel from '../components/trendingCarousel.vue'
 
 export default {
-  name: "Trending",
-  data: function() {
+  name: 'Trending',
+  data: function () {
     return {
-    };
+    }
   },
   components: {
-      videoEntry,
-      trendingCarousel
-  },
-};
+    videoEntry,
+    trendingCarousel
+  }
+}
 </script>
 
 <style lang="scss" scoped>

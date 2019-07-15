@@ -16,7 +16,7 @@ module.exports = {
     // allow variables like >> user_id
     'camelcase': 0,
     'no-trailing-spaces': [
-      'error', {'skipBlankLines': true}
+      'error', { 'skipBlankLines': true }
     ],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'

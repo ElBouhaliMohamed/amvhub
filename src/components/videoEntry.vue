@@ -37,60 +37,60 @@ export default {
     status: String,
     preview: {
       type: String,
-      default: ""
+      default: ''
     }
   },
-  data: function() {
+  data: function () {
     return {
       url: `/video/${this.title.trim()}`,
       previewUrl: `/videos/${this.preview}`,
       previewLoaded: false,
       previewVideo: Object,
       hovering: false
-    };
+    }
   },
   computed: {
-    isLightMode() {
-      return !this.$store.getters['theme/isDarkMode'];
+    isLightMode () {
+      return !this.$store.getters['theme/isDarkMode']
     }
   },
   methods: {
-    videoFullyBuffered() {
-      console.log('I think I can play thru the entire ' + ' video without ever having to stop to buffer.');
-      this.previewLoaded = true;
-      if(this.hovering) {
-        let thumbnail = document.getElementById(this.preview);
-        thumbnail.appendChild(this.previewVideo);
-        this.previewVideo.play().catch(err => {console.log(err)});
+    videoFullyBuffered () {
+      console.log('I think I can play thru the entire ' + ' video without ever having to stop to buffer.')
+      this.previewLoaded = true
+      if (this.hovering) {
+        let thumbnail = document.getElementById(this.preview)
+        thumbnail.appendChild(this.previewVideo)
+        this.previewVideo.play().catch(err => { console.log(err) })
       }
     },
-    showPreview()  {
-      this.hovering = true;
-      if(this.preview.length > 0 && !this.previewLoaded) {
-        this.previewVideo = document.createElement('video');
-        this.previewVideo.classList.add("container","mx-auto", "opacity-100");
-        this.previewVideo.id = `${this.preview}`;
-        this.previewVideo.src = `${this.previewUrl}`;
-        this.previewVideo.autoplay = true;
-        this.previewVideo.controls = false;
-        this.previewVideo.volume = 0.3;
-        this.previewVideo.loop = false;
-        this.previewVideo.oncanplaythrough = this.videoFullyBuffered();
-      }else if(this.previewLoaded && this.previewVideo) {
-        console.log('The Video is already fully loaded.');
-        this.previewVideo.hidden = false;
-        this.previewVideo.play().catch(err => {console.log(err)});
+    showPreview () {
+      this.hovering = true
+      if (this.preview.length > 0 && !this.previewLoaded) {
+        this.previewVideo = document.createElement('video')
+        this.previewVideo.classList.add('container', 'mx-auto', 'opacity-100')
+        this.previewVideo.id = `${this.preview}`
+        this.previewVideo.src = `${this.previewUrl}`
+        this.previewVideo.autoplay = true
+        this.previewVideo.controls = false
+        this.previewVideo.volume = 0.3
+        this.previewVideo.loop = false
+        this.previewVideo.oncanplaythrough = this.videoFullyBuffered()
+      } else if (this.previewLoaded && this.previewVideo) {
+        console.log('The Video is already fully loaded.')
+        this.previewVideo.hidden = false
+        this.previewVideo.play().catch(err => { console.log(err) })
       }
     },
-    hidePreview() {
-      this.hovering = false;
-      if(this.preview.length > 0) {
-        this.previewVideo.hidden = true;
-        this.previewVideo.pause();
+    hidePreview () {
+      this.hovering = false
+      if (this.preview.length > 0) {
+        this.previewVideo.hidden = true
+        this.previewVideo.pause()
       }
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

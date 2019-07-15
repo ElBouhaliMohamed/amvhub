@@ -151,12 +151,12 @@
 
 <script>
 export default {
-  name: "Feed",
-  data: function() {
-    return {};
+  name: 'Feed',
+  data: function () {
+    return {}
   },
   components: {}
-};
+}
 </script>
 
 <style lang="scss" scoped>

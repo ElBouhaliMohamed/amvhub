@@ -17,11 +17,11 @@
 
 <script>
 export default {
-  name: "BackToTop",
+  name: 'BackToTop',
   props: {
     text: {
       type: String,
-      default: "Voltar ao topo"
+      default: 'Voltar ao topo'
     },
     visibleoffset: {
       type: [String, Number],
@@ -33,62 +33,62 @@ export default {
     },
     right: {
       type: String,
-      default: "30px"
+      default: '30px'
     },
     bottom: {
       type: String,
-      default: "40px"
+      default: '40px'
     },
     scrollFn: {
       type: Function,
-      default: function(eventObject) {}
+      default: function (eventObject) {}
     }
   },
-  data() {
+  data () {
     return {
       visible: false
-    };
+    }
   },
-  mounted() {
+  mounted () {
     window.smoothscroll = () => {
       let currentScroll =
-        document.documentElement.scrollTop || document.body.scrollTop;
+        document.documentElement.scrollTop || document.body.scrollTop
       if (currentScroll > 0) {
-        window.requestAnimationFrame(window.smoothscroll);
-        window.scrollTo(0, Math.floor(currentScroll - currentScroll / 5));
+        window.requestAnimationFrame(window.smoothscroll)
+        window.scrollTo(0, Math.floor(currentScroll - currentScroll / 5))
       }
-    };
-    window.addEventListener("scroll", this.catchScroll);
+    }
+    window.addEventListener('scroll', this.catchScroll)
   },
-  destroyed() {
-    window.removeEventListener("scroll", this.catchScroll);
+  destroyed () {
+    window.removeEventListener('scroll', this.catchScroll)
   },
   methods: {
     /**
      * Catch window scroll event
      * @return {void}
      */
-    catchScroll() {
-      const pastTopOffset = window.pageYOffset > parseInt(this.visibleoffset);
+    catchScroll () {
+      const pastTopOffset = window.pageYOffset > parseInt(this.visibleoffset)
       const pastBottomOffset =
         window.innerHeight + window.pageYOffset >=
-        document.body.offsetHeight - parseInt(this.visibleoffsetbottom);
+        document.body.offsetHeight - parseInt(this.visibleoffsetbottom)
       this.visible =
         parseInt(this.visibleoffsetbottom) > 0
           ? pastTopOffset && !pastBottomOffset
-          : pastTopOffset;
-      this.scrollFn(this);
+          : pastTopOffset
+      this.scrollFn(this)
     },
     /**
      * The function who make the magics
      * @return {void}
      */
-    backToTop() {
-      window.smoothscroll();
-      this.$emit("scrolled");
+    backToTop () {
+      window.smoothscroll()
+      this.$emit('scrolled')
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 .back-to-top-fade-enter-active,
