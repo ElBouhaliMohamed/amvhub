@@ -1,13 +1,13 @@
 <template>
   <nav class="headerContainer">
     <div class="w-11/12 flex md:w-1/2">
-      <button class="ml-4 h-8 w-12 flex items-center justify-center text-secondary-100" @click="toggleNavigation">
+      <button class="ml-4 h-8 w-12 flex items-center justify-center " @click="toggleNavigation">
         <div class="fa fa-bars"></div>
       </button>
       <span class="flex w-full">
         <input type="text" class="searchBox" placeholder="Search">
         <a href="#" class="searchIcon">
-          <div class="fa fa-search text-secondary-100 hover:text-secondary-50"></div>
+          <div class="fa fa-search  hover:"></div>
         </a>
       </span>
     </div>
@@ -19,10 +19,10 @@
     </div>
 
     <div class="w-full mt-2 md:w-1/2 flex items-center text-center justify-end">
-      <a href="#" class="top-nav-item text-secondary-100">
+      <a href="#" class="top-nav-item ">
         <div class="fa fa-bell"></div>
       </a>
-      <a href="#" class="top-nav-item text-secondary-100">
+      <a href="#" class="top-nav-item ">
         <div class="fa fa-envelope"></div>
       </a>
       <div class="mr-4">
@@ -66,7 +66,7 @@ export default {
 <style lang="scss" scoped>
 
 .searchBox {
-  @apply .w-full .text-secondary-100 .rounded-l .text-xs .py-1 .px-2;
+  @apply .w-full .rounded-l .text-xs .py-1 .px-2;
   -webkit-transition: width 0.4s ease-in-out;
   transition: width 0.4s ease-in-out;
   background-color: rgba(0, 0, 0, 0.05);
@@ -87,7 +87,7 @@ export default {
 }
 
 .headerContainer {
-  @apply .sticky .top-0 .z-50 .w-full .mx-auto .flex .flex-col .items-start .py-4 .bg-primary-100;
+  @apply .sticky .top-0 .z-50 .w-full .mx-auto .flex .flex-col .items-start .py-4 .bg-background;
 }
 
 .avatar {

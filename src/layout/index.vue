@@ -37,12 +37,11 @@ export default {
 
 <style lang="scss" scoped>
 #app {
-  @apply antialiased bg-background-100;
+  @apply antialiased bg-background-light;
   transition: color 700ms ease;
 }
 
 .wrapper {
-  @apply mt-7;
   transition: margin 700ms ease;
 }
 

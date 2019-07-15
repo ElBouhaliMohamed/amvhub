@@ -2,30 +2,70 @@ export default {
   state: {
     isDarkMode: false,
     lightTheme: {
-      "--background-25": "#cccccc",
-      "--background-50": "#e5e5e5",
-      "--background-100": "#ffffff",
+      "--background-light": "#e6eaed",
+      "--background": "#fff",
+      "--background-dark": "#a0aec0",
 
-      "--secondary-25": "#8795a1",
-      "--secondary-50": "#3d4852",
-      "--secondary-100": "#000000",
+      "--primary-light": "#bcdefa",
+      "--primary": "#6cb2eb",
+      "--primary-dark": "#3490dc",
 
-      "--primary-25": "#bcdefa",
-      "--primary-50": "#6cb2eb",
-      "--primary-100": "#3490dc"
+      '--brand-light': '#d6c4f8',
+      '--brand': '#0116da',
+      '--brand-dark': '#201367',
+
+      '--cta-light': '#ffd5c1',
+      '--cta': '#da5801',
+      '--cta-dark': '#692f0e',
+
+      '--info-light': '#daedfe',
+      '--info': '#47b7f9',
+      '--info-dark': '#2d5874',
+
+      '--warning-light': '#fdecd5',
+      '--warning': '#e8b45b',
+      '--warning-dark': '#6e5630',
+
+      '--success-light': '#daf1da',
+      '--success': '#61c570',
+      '--success-dark': '#345e39',
+
+      '--danger-light': '#ffd0d6',
+      '--danger': '#e52564',
+      '--danger-dark': '#6e1f33',
     },
     darkTheme: {
-      "--background-25": "#606f7b",
-      "--background-50": "#3d4852",
-      "--background-100": "#000000",
+      "--background-light": "#8795a1",
+      "--background": "#3d4852",
+      "--background-dark": "#000000",
 
-      "--secondary-25": "#dae1e7",
-      "--secondary-50": "#f8fafc",
-      "--secondary-100": "#ffffff",
+      "--primary-light": "#bcdefa",
+      "--primary": "#6cb2eb",
+      "--primary-dark": "#3490dc",
 
-      "--primary-25": "#8795a1",
-      "--primary-50": "#606f7b",
-      "--primary-100": "#3d4852"
+      '--brand-light': '#d6c4f8',
+      '--brand': '#0116da',
+      '--brand-dark': '#201367',
+
+      '--cta-light': '#ffd5c1',
+      '--cta': '#da5801',
+      '--cta-dark': '#692f0e',
+
+      '--info-light': '#daedfe',
+      '--info': '#47b7f9',
+      '--info-dark': '#2d5874',
+
+      '--warning-light': '#fdecd5',
+      '--warning': '#e8b45b',
+      '--warning-dark': '#6e5630',
+
+      '--success-light': '#daf1da',
+      '--success': '#61c570',
+      '--success-dark': '#345e39',
+
+      '--danger-light': '#ffd0d6',
+      '--danger': '#e52564',
+      '--danger-dark': '#6e1f33',
     }
   },
   getters: {

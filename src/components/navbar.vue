@@ -1,69 +1,73 @@
 <template>
   <nav>
     <div :class="[smallNav, {smallNavActive: smallNavIsEnabled}]">
-      <span class="flex ml-8 items-center"> 
-        <span class="uppercase text-xs font-bold">view</span>
-        <button><span class="fas fa-list ml-2"></span></button>
-        <button><span class="fas fa-th ml-2"></span></button>
-      </span>
+      <div class="hidden md:block w-1/8 lg:w-1/4"></div>
+      <div class="flex flex-col md:flex-row w-1/2">
+        <span class="flex ml-2 items-center">
+          <span class="uppercase text-xs font-bold">view</span>
+          <button>
+            <span class="fas fa-list ml-2"></span>
+          </button>
+          <button>
+            <span class="fas fa-th ml-2"></span>
+          </button>
+        </span>
 
-      <span class="border-l-2 border-secondary-100 h-5 mx-4 opacity-10"></span>
+        <span class="border-l-2 border-background-light h-5 mx-4 hidden md:block"></span>
 
-      <router-link class="flex text-secondary-100 text-center items-center pr-2" tag="a" to="/trending">
-        <div class='fas fa-fire fa-sm'></div>
-        <span class='uppercase text-xs font-bold pl-1'>Trending</span>
-      </router-link>
-            <router-link class="flex text-secondary-100 text-center items-center px-2" tag="a" to="/feed">
-        <div class='fas fa-home fa-sm'></div>
-        <span class='uppercase text-xs font-bold pl-1'>Feed</span>
-      </router-link>
-            <router-link class="flex text-secondary-100 text-center items-center pl-2" tag="a" to="/featured">
-        <div class='fas fa-bullhorn fa-sm'></div>
-        <span class='uppercase text-xs font-bold pl-1'>Featured</span>
-      </router-link>
+        <span class="flex ml-2 md:ml-0">
+          <router-link class="flex text-center items-center pr-2" tag="a" to="/trending">
+            <div class="fas fa-fire fa-sm"></div>
+            <span class="uppercase text-xs font-bold pl-1">Trending</span>
+          </router-link>
+          <router-link class="flex text-center items-center px-2" tag="a" to="/feed">
+            <div class="fas fa-home fa-sm"></div>
+            <span class="uppercase text-xs font-bold pl-1">Feed</span>
+          </router-link>
+          <router-link class="flex text-center items-center pl-2" tag="a" to="/featured">
+            <div class="fas fa-bullhorn fa-sm"></div>
+            <span class="uppercase text-xs font-bold pl-1">Featured</span>
+          </router-link>
+        </span>
 
-      <span class="border-l-2 border-secondary-100 h-5 mx-4 opacity-10"></span>
-
+        <span class="border-l-2 border-background-light h-5 mx-4 hidden md:block"></span>
+      </div>
+      <div class="w-1/4"></div>
     </div>
     <div id="bigNav" :class="[bigNav, {bigNavActive:isActive}]">
       <ul class="flex flex-col">
-
         <router-link tag="li" class="bigNavEntry" to="/trending">
-          <div class='fas fa-fire fa-sm w-8 pr-6'></div>
-          Trending
+          <div class="fas fa-fire fa-sm w-8 pr-6"></div>Trending
         </router-link>
-        <router-link tag="li" class="bigNavEntry" to="/home">
-          <div class='fas fa-home fa-sm w-8 pr-6'></div>
-          Feed
+        <router-link tag="li" class="bigNavEntry" to="/feed">
+          <div class="fas fa-home fa-sm w-8 pr-6"></div>Feed
         </router-link>
         <router-link tag="li" class="bigNavEntry" to="/featured">
-          <div class='fas fa-bullhorn fa-sm w-8 pr-6'></div>
-          Featured
+          <div class="fas fa-bullhorn fa-sm w-8 pr-6"></div>Featured
         </router-link>
 
         <router-link tag="li" class="bigNavEntry" to="/t">
-          <div class='fas fa-book-open fa-sm w-8 pr-6'></div>
-          Guides
+          <div class="fas fa-book-open fa-sm w-8 pr-6"></div>Guides
         </router-link>
         <router-link tag="li" class="bigNavEntry" to="/e">
-          <div class='fas fa-trophy fa-sm w-8 pr-6'></div>
-          Contests
+          <div class="fas fa-trophy fa-sm w-8 pr-6"></div>Contests
         </router-link>
       </ul>
 
-      <div class="flex text-secondary-100 h-16 pl-4 pr-16 items-center">
+      <div class="flex h-16 pl-4 pr-16 items-center">
         Darkmode
         <label class="switch">
           <input type="checkbox" value:="isDarkMode" @click="switchTheme">
-          <span class="slider round"></span>
+          <span
+            class="slider round"
+          ></span>
         </label>
       </div>
 
       <!-- <div class="flex text-xs pl-4 pr-16 opacity-50">
         @ 2019 amvhub
-      </div> -->
+      </div>-->
       <!-- dark mode toggle -->
-
     </div>
 
     <backToTop text="Back to top" visibleoffset="500"></backToTop>
@@ -81,18 +85,21 @@ export default {
   data() {
     return {
       bigNav: "bigNav",
-      smallNav: "smallNav",
+      smallNav: "smallNav"
     };
   },
   computed: {
     smallNavIsEnabled: function() {
-      return (this.$store.state.navbar.smallNavIsEnabled && !this.$store.state.navbar.isActive);
+      return (
+        this.$store.state.navbar.smallNavIsEnabled &&
+        !this.$store.state.navbar.isActive
+      );
     },
     isActive: function() {
       return this.$store.state.navbar.isActive;
     },
-    isDarkMode: function(){
-        return this.$store.state.theme.isDarkMode;
+    isDarkMode: function() {
+      return this.$store.state.theme.isDarkMode;
     }
   },
   methods: {
@@ -112,30 +119,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 hr {
   @apply z-50;
-  height: .25rem;
+  height: 0.25rem;
   width: 25%;
   margin: 0;
   background: tomato;
   border: none;
-  transition: .3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
 .bigNav > a {
-  @apply text-secondary-100 text-center font-hairline uppercase px-4;
+  @apply text-center font-hairline uppercase px-4;
 
   text-decoration: none;
   letter-spacing: 0.15em;
-  
+
   display: inline-block;
   width: 25%;
   margin: 0;
 }
 
 .smallNav {
-  @apply z-40 w-full flex flex-row overflow-hidden justify-start items-center bg-primary-100;
+  @apply z-40 w-full flex flex-row overflow-hidden justify-start items-center bg-background border-t border-b border-background-light;
   top: 67px;
   height: 0px;
   -webkit-transition: height 250ms ease-in-out;
@@ -145,11 +151,11 @@ hr {
 }
 
 .smallNavActive {
-  @apply h-8 w-full;
+  @apply h-16 w-full;
 }
 
 .bigNav {
-  @apply flex flex-col fixed bg-primary-100 text-secondary-100 overflow-hidden h-screen z-40 top-0 shadow-lg;
+  @apply flex flex-col fixed bg-background overflow-hidden h-screen z-40 top-0 shadow-lg;
   top: 106px;
   width: 0px;
   -webkit-transition: width 250ms ease-in-out;
@@ -163,7 +169,7 @@ hr {
 }
 
 .bigNavEntry {
-  @apply flex text-secondary-100 h-16 pl-4 pr-16 items-center;
+  @apply flex  h-16 pl-4 pr-16 items-center;
 
   -webkit-transition: all 250ms ease-in-out;
   -moz-transition: all 250ms ease-in-out;
@@ -172,20 +178,20 @@ hr {
 }
 
 .bigNavEntry:hover {
-  @apply bg-primary-25;
+  @apply bg-background-light;
 }
 
 .bigNavEntry.is-active {
-  @apply bg-primary-50 pl-8;
+  @apply bg-background-dark pl-8;
 }
 
 .toggle {
-  @apply .ml-4 .h-8 .w-12 bg-background-100 ;
+  @apply .ml-4 .h-8 .w-12 bg-background-dark;
   transition: all 0.2s ease-out;
 }
 
 .toggle:hover {
-  @apply text-primary-100 ;
+  @apply;
   left: 235px;
 }
 
@@ -240,7 +246,7 @@ hr {
 }
 
 input:checked + .slider {
-  @apply bg-background-100 ;
+  @apply bg-background-dark;
 }
 
 input:focus + .slider {
@@ -263,11 +269,13 @@ input:checked + .slider:before {
 
 @screen md {
   .bigNav {
-    top: 67px;
+    top: 77px;
   }
   .bigNavActive {
     @apply w-80;
   }
+  .smallNavActive {
+    @apply h-8;
+  }
 }
-
 </style>

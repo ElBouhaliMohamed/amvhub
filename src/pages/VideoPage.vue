@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col bg-background-100 pagePadding">
+  <div class="flex flex-col bg-background-dark pagePadding">
     <div class="flex flex-row pb-8">
-      <div class="flex flex-col w-3/4 bg-background text-secondary-100">
+      <div class="flex flex-col w-3/4 bg-background ">
         <div class="w-full">
           <video-player :poster="poster" :options="options" :captions="captions"></video-player>
         </div>
@@ -34,7 +34,7 @@
 
           <div
             class="flex flex-wrap"
-          >Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni molestiae nam architecto quia amet minus et praesentium enim facilis culpa voluptates perferendis laboriosam temporibus, aliquid natus ea rem neque tempore adipisci ab iusto quibusdam nostrum nemo! Quibusdam quis incidunt corrupti consectetur aliquid pariatur eveniet expedita possimus harum unde quisquam ipsum voluptatibus sed inventore laudantium neque, tempore ducimus ad quam optio nam magnam consequatur. Consequatur deserunt doloremque accusantium asperiores. Inventore recusandae consequuntur aut obcaecati, nihil enim eveniet labore, amet totam fugit, delectus eaque ipsam impedit esse qui. Assumenda cumque, eligendi, quaerat consectetur velit id placeat dolorum inventore illum perferendis rem nisi?</div>
+          >Lorem ipsum dolor sit amet consectetur adipisicing elitMagni molestiae nam architecto quia amet minus et praesentium enim facilis culpa voluptates perferendis laboriosam temporibus, aliquid natus ea rem neque tempore adipisci ab iusto quibusdam nostrum nemo! Quibusdam quis incidunt corrupti consectetur aliquid pariatur eveniet expedita possimus harum unde quisquam ipsum voluptatibus sed inventore laudantium neque, tempore ducimus ad quam optio nam magnam consequaturConsequatur deserunt doloremque accusantium asperioresInventore recusandae consequuntur aut obcaecati, nihil enim eveniet labore, amet totam fugit, delectus eaque ipsam impedit esse quiAssumenda cumque, eligendi, quaerat consectetur velit id placeat dolorum inventore illum perferendis rem nisi?</div>
 
           <div class="flex flex-col flex-wrap">
             <div class="flex">
@@ -50,7 +50,7 @@
           <div class="flex flex-wrap">
             <router-link
               :to="'/search/tag/' + tag"
-              class="bg-secondary-50 text-background-100 mr-2 mt-2 p-1 rounded-sm text-sm"
+              class="bg-background-dark text-background-100 mr-2 mt-2 p-1 rounded-sm text-sm"
               v-for="tag in tags"
             >{{ tag }}</router-link>
           </div>
@@ -73,12 +73,12 @@
         </div>
         <div class="flex flex-row justify-end pt-2">
           <button
-            class="bg-transparent hover:bg-primary-100 text-secondary-100 font-semibold hover:text-white mb-2 py-2 px-4 border border-primary-100 hover:border-transparent rounded uppercase"
+            class="bg-transparent hover:bg-background  font-semibold hover:text-white mb-2 py-2 px-4 border border-primary-100 hover:border-transparent rounded uppercase"
           >Comment</button>
         </div>
       </div>
 
-      <div id="commentsection" class="flex flex-col bg-background-25 p-2">
+      <div id="commentsection" class="flex flex-col bg-background-dark p-2">
         <div class="flex flex-row mb-2">
           <span class="flex flex-col items-center">
             <img src="@/assets/avatar.jpg" alt="avatar" class="avatar">
@@ -88,27 +88,27 @@
           <div class="flex flex-col w-full">
             <div class="flex flex-row justify-start items-center text-center">
               <a class="text-sm" href>Kazumoe</a>
-              <span class="text-xs text-secondary-25 pl-2" href>@Kazumoe</span>
-              <span class="text-xs text-secondary-25 px-4">&#8226;</span>
-              <span class="text-secondary-100 text-sm font-thin">8 hours ago</span>
+              <span class="text-xs  pl-2" href>@Kazumoe</span>
+              <span class="text-xs  px-4">&#8226;</span>
+              <span class=" text-sm font-thin">8 hours ago</span>
             </div>
 
             <div
               class="flex"
-            >Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi eum sint temporibus error inventore minus in porro doloribus accusantium. Ipsam quam sapiente inventore, ex atque natus, necessitatibus eum eligendi asperiores consectetur harum vero obcaecati voluptatum odio? Veritatis ea cupiditate necessitatibus voluptatum, tempore voluptate iusto blanditiis cum iure similique quod libero architecto dicta aliquid soluta? Quas praesentium dolorum molestiae excepturi sed, sequi culpa cumque libero voluptate optio ullam odit! Nobis molestiae commodi tempore at numquam ullam voluptate odit dicta veritatis illum quisquam, adipisci ipsam. Corporis nam dolorem accusamus, accusantium, ipsum vitae iusto expedita quidem sit error laudantium nisi modi et perferendis?</div>
+            >Lorem ipsum dolor sit amet consectetur adipisicing elitEligendi eum sint temporibus error inventore minus in porro doloribus accusantiumIpsam quam sapiente inventore, ex atque natus, necessitatibus eum eligendi asperiores consectetur harum vero obcaecati voluptatum odio? Veritatis ea cupiditate necessitatibus voluptatum, tempore voluptate iusto blanditiis cum iure similique quod libero architecto dicta aliquid soluta? Quas praesentium dolorum molestiae excepturi sed, sequi culpa cumque libero voluptate optio ullam odit! Nobis molestiae commodi tempore at numquam ullam voluptate odit dicta veritatis illum quisquam, adipisci ipsamCorporis nam dolorem accusamus, accusantium, ipsum vitae iusto expedita quidem sit error laudantium nisi modi et perferendis?</div>
 
             <div class="flex flex-row pt-2 items-center">
-              <button class="rounded-full hover:bg-primary-25 p-2">
+              <button class="rounded-full hover:bg-background p-2">
                 <span class="px-1">6</span>
                 <span class="fas fa-heart"></span>
               </button>
 
-              <button class="rounded-full hover:bg-primary-25 p-2">
+              <button class="rounded-full hover:bg-background p-2">
                 <span class="px-1">2</span>
                 <span class="fas fa-comments"></span>
               </button>
 
-              <button class="rounded-full hover:bg-primary-25 p-2">
+              <button class="rounded-full hover:bg-background p-2">
                 <span class="fas fa-retweet"></span>
               </button>
             </div>
@@ -123,27 +123,27 @@
           <div class="flex flex-col w-full">
             <div class="flex flex-row justify-start items-center text-center">
               <a class="text-sm" href>Kazumoe</a>
-              <span class="text-xs text-secondary-25 pl-2" href>@Kazumoe</span>
-              <span class="text-xs text-secondary-25 px-4">&#8226;</span>
-              <span class="text-secondary-100 text-sm font-thin">8 hours ago</span>
+              <span class="text-xs  pl-2" href>@Kazumoe</span>
+              <span class="text-xs  px-4">&#8226;</span>
+              <span class=" text-sm font-thin">8 hours ago</span>
             </div>
 
             <div
               class="flex"
-            >Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi eum sint temporibus error inventore minus in porro doloribus accusantium. Ipsam quam sapiente inventore, ex atque natus, necessitatibus eum eligendi asperiores consectetur harum vero obcaecati voluptatum odio? Veritatis ea cupiditate necessitatibus voluptatum, tempore voluptate iusto blanditiis cum iure similique quod libero architecto dicta aliquid soluta? Quas praesentium dolorum molestiae excepturi sed, sequi culpa cumque libero voluptate optio ullam odit! Nobis molestiae commodi tempore at numquam ullam voluptate odit dicta veritatis illum quisquam, adipisci ipsam. Corporis nam dolorem accusamus, accusantium, ipsum vitae iusto expedita quidem sit error laudantium nisi modi et perferendis?</div>
+            >Lorem ipsum dolor sit amet consectetur adipisicing elitEligendi eum sint temporibus error inventore minus in porro doloribus accusantiumIpsam quam sapiente inventore, ex atque natus, necessitatibus eum eligendi asperiores consectetur harum vero obcaecati voluptatum odio? Veritatis ea cupiditate necessitatibus voluptatum, tempore voluptate iusto blanditiis cum iure similique quod libero architecto dicta aliquid soluta? Quas praesentium dolorum molestiae excepturi sed, sequi culpa cumque libero voluptate optio ullam odit! Nobis molestiae commodi tempore at numquam ullam voluptate odit dicta veritatis illum quisquam, adipisci ipsamCorporis nam dolorem accusamus, accusantium, ipsum vitae iusto expedita quidem sit error laudantium nisi modi et perferendis?</div>
 
             <div class="flex flex-row pt-2 items-center">
-              <button class="rounded-full hover:bg-primary-25 p-2">
+              <button class="rounded-full hover:bg-background p-2">
                 <span class="px-1">3</span>
                 <span class="fas fa-heart"></span>
               </button>
 
-              <button class="rounded-full hover:bg-primary-25 p-2">
+              <button class="rounded-full hover:bg-background p-2">
                 <span class="px-1"></span>
                 <span class="fas fa-comments"></span>
               </button>
 
-              <button class="rounded-full hover:bg-primary-25 p-2">
+              <button class="rounded-full hover:bg-background p-2">
                 <span class="fas fa-retweet"></span>
               </button>
             </div>
@@ -158,27 +158,27 @@
           <div class="flex flex-col w-full">
             <div class="flex flex-row justify-start items-center text-center">
               <a class="text-sm" href>Kazumoe</a>
-              <span class="text-xs text-secondary-25 pl-2" href>@Kazumoe</span>
-              <span class="text-xs text-secondary-25 px-4">&#8226;</span>
-              <span class="text-secondary-100 text-sm font-thin">8 hours ago</span>
+              <span class="text-xs  pl-2" href>@Kazumoe</span>
+              <span class="text-xs  px-4">&#8226;</span>
+              <span class=" text-sm font-thin">8 hours ago</span>
             </div>
 
             <div
               class="flex"
-            >Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi eum sint temporibus error inventore minus in porro doloribus accusantium. Ipsam quam sapiente inventore, ex atque natus, necessitatibus eum eligendi asperiores consectetur harum vero obcaecati voluptatum odio? Veritatis ea cupiditate necessitatibus voluptatum, tempore voluptate iusto blanditiis cum iure similique quod libero architecto dicta aliquid soluta? Quas praesentium dolorum molestiae excepturi sed, sequi culpa cumque libero voluptate optio ullam odit! Nobis molestiae commodi tempore at numquam ullam voluptate odit dicta veritatis illum quisquam, adipisci ipsam. Corporis nam dolorem accusamus, accusantium, ipsum vitae iusto expedita quidem sit error laudantium nisi modi et perferendis?</div>
+            >Lorem ipsum dolor sit amet consectetur adipisicing elitEligendi eum sint temporibus error inventore minus in porro doloribus accusantiumIpsam quam sapiente inventore, ex atque natus, necessitatibus eum eligendi asperiores consectetur harum vero obcaecati voluptatum odio? Veritatis ea cupiditate necessitatibus voluptatum, tempore voluptate iusto blanditiis cum iure similique quod libero architecto dicta aliquid soluta? Quas praesentium dolorum molestiae excepturi sed, sequi culpa cumque libero voluptate optio ullam odit! Nobis molestiae commodi tempore at numquam ullam voluptate odit dicta veritatis illum quisquam, adipisci ipsamCorporis nam dolorem accusamus, accusantium, ipsum vitae iusto expedita quidem sit error laudantium nisi modi et perferendis?</div>
 
             <div class="flex flex-row pt-2 items-center">
-              <button class="rounded-full hover:bg-primary-25 p-2">
+              <button class="rounded-full hover:bg-background p-2">
                 <span class="px-1">6</span>
                 <span class="fas fa-heart"></span>
               </button>
 
-              <button class="rounded-full hover:bg-primary-25 p-2">
+              <button class="rounded-full hover:bg-background p-2">
                 <span class="px-1"></span>
                 <span class="fas fa-comments"></span>
               </button>
 
-              <button class="rounded-full hover:bg-primary-25 p-2">
+              <button class="rounded-full hover:bg-background p-2">
                 <span class="fas fa-retweet"></span>
               </button>
             </div>

@@ -107,7 +107,7 @@ export default {
 }
 
 .vue-back-to-top .default {
-  @apply .bg-primary-100 .text-secondary-100;
+  @apply .bg-background-light;
   border-radius: 3px;
   height: 30px;
   line-height: 30px;
@@ -116,7 +116,6 @@ export default {
 }
 
 .vue-back-to-top .default span {
-  @apply .text-secondary-100;
 }
 
 .vue-back-to-top--is-footer {

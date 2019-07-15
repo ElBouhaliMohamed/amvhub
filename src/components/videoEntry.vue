@@ -1,6 +1,6 @@
 <template>
   <div data-aos="fade-up" data-aos-once="true" class="videoEntry">
-    <router-link :to="url" class="text-secondary-100 w-full">
+    <router-link :to="url" class=" w-full">
       <div class="thumbnailWrapper">
         <!-- <div class="fa fa-5x fa-play-circle videoPlayCircle"></div> -->
         <div
@@ -15,7 +15,7 @@
 
     <div class="videoLengthBackground"></div>
     <div class="videoLength">{{length}}</div>
-    <div :class="{videoInfoBackground: isLightMode}"></div>
+    <div class="videoInfoBackground"></div>
 
     <div class="videoInfoWrapper">
       <router-link to="#" class="videoEditor">{{editor}}</router-link>
@@ -135,7 +135,7 @@ export default {
 }
 
 .videoPlayCircle {
-  @apply .text-secondary-100 .z-10 .opacity-100;
+  @apply .z-10 .opacity-100;
   transform: translate(40%,40%);
 }
 
@@ -145,28 +145,29 @@ export default {
 }
 
 .videoTitle {
-  @apply .text-3xl .uppercase .text-secondary-100 .leading-tight;
+  @apply .text-3xl .uppercase .leading-tight;
 }
 
 .videoEditor {
-  @apply .font-thin .text-base .uppercase .text-secondary-100;
+  @apply .font-thin .text-base .uppercase;
 }
 
 .videoLength {
-  @apply .absolute .top-0 .right-0 .mt-3 .mr-3 .px-2 .py-1 .text-secondary-100 .text-xs;
+  @apply .absolute .top-0 .right-0 .mt-3 .mr-3 .px-2 .py-1 .text-xs;
 }
 
 .videoLengthBackground {
-  @apply .absolute .top-0 .right-0 .mt-3 .mr-4 .h-5 .w-8 .bg-background-100 .opacity-25;
+  @apply .absolute .top-0 .right-0 .mt-3 .mr-4 .h-5 .w-8 .bg-background-dark .opacity-25;
 }
 
 .videoStatus {
-  @apply .absolute .bottom-0 .font-bold .text-xs .uppercase .text-secondary-100;
+  @apply .absolute .bottom-0 .font-bold .text-xs .uppercase;
   bottom: -20px;
 }
 
 .videoInfoBackground {
-  @apply .absolute .bottom-0 .h-20 .bg-background-100 .opacity-25 w-full;
+  @apply .absolute .bottom-0 .h-20 .opacity-25 w-full;
+  background-image: linear-gradient(to top, config('colors.background-dark'), rgba(0,0,0,0));
 }
 
 .videoEntry {
@@ -180,7 +181,7 @@ export default {
 }
 
 .videoPlayCircle {
-  @apply .absolute .text-secondary-100;
+  @apply .absolute;
   left: 200px;
   bottom: 115px;
 }

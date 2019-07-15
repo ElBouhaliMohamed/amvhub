@@ -2,8 +2,8 @@
 import channel from '../pages/profile/Channel.vue'
 
 // single pages
-import homePage from '../pages/Home.vue'
 import trending from '../pages/Trending.vue'
+import feed from '../pages/Feed.vue'
 import notFoundPage from '../pages/NotFound.vue'
 import videoPage from '../pages/VideoPage.vue'
 
@@ -12,15 +12,22 @@ import { DOMAIN_TITLE } from '../.env'
 export const routes = [
   {
     path: '/',
-    name: 'index',
-    component: homePage,
-    meta: { title: `${DOMAIN_TITLE} | home`, enableSmallNavigation: false}
+    alias: '/feed',
+    name: 'feed',
+    component: feed,
+    meta: { title: `${DOMAIN_TITLE} | feed`, enableSmallNavigation: true}
   },
   {
     path: '/trending',
     name: 'trending',
     component: trending,
     meta: { title: `${DOMAIN_TITLE} | trending`, enableSmallNavigation: true}
+  },  
+  {
+    path: '/featured',
+    name: 'featured',
+    component: trending,
+    meta: { title: `${DOMAIN_TITLE} | featured`, enableSmallNavigation: true}
   },
   {
     path: '/channel',

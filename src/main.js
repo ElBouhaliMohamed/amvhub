@@ -25,7 +25,7 @@ new Vue({
   router,
   store,
   created() {
-    AOS.init({ disable: "phone" });
+    AOS.init();
   },
   mounted() {
     store.commit("dom/SET_WINDOW_WIDTH", window.innerWidth);

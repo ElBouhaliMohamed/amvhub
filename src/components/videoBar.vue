@@ -2,12 +2,12 @@
   <div class="flex relative items-center justify-center align-center">
     <button
       v-if="horizontal"
-      class="absolute left-0 mx-4 z-10 fas fa-chevron-left bg-secondary-100 text-primary-100 rounded-full shadow-lg w-8 h-8 navigation"
+      class="absolute left-0 mx-4 z-10 fas fa-chevron-left bg-background-dark  rounded-full shadow-lg w-8 h-8 navigation"
       @click="scroll(false)"
     ></button>
     <button
       v-if="horizontal"
-      class="absolute right-0 z-10 fas fa-chevron-right bg-secondary-100 text-primary-100 rounded-full shadow-lg w-8 h-8 navigation"
+      class="absolute right-0 z-10 fas fa-chevron-right bg-background-dark  rounded-full shadow-lg w-8 h-8 navigation"
       @click="scroll(true)"
     ></button>
 
@@ -230,23 +230,23 @@ export default {
 }
 
 .videoTitle {
-  @apply flex pt-2 text-sm font-bold text-secondary-100 justify-start;
+  @apply flex pt-2 text-sm font-bold  justify-start;
 }
 
 .videoChannel {
-  @apply flex text-sm text-secondary-100 justify-start;
+  @apply flex text-sm  justify-start;
 }
 
 .videoViews {
-  @apply flex pt-2 text-sm text-secondary-100 justify-start;
+  @apply flex pt-2 text-sm  justify-start;
 }
 
 .videoStatus {
-  @apply flex uppercase text-sm text-secondary-100 justify-start;
+  @apply flex uppercase text-sm  justify-start;
 }
 
 .scrollButton {
-  @apply absolute mx-4 z-10 bg-secondary-100 text-primary-100 rounded-full shadow-lg w-8 h-8;
+  @apply absolute mx-4 z-10 bg-background-dark  rounded-full shadow-lg w-8 h-8;
   transition: all 0.2s ease-in-out;
   margin: 0;
 }

@@ -1,8 +1,43 @@
-
 .top-nav-item {
-  @apply .mr-4 .font-semibold;
+  @apply mr-4 font-semibold;
 }
 
 .top-nav-item:hover {
-  @apply .text-secondary-50;
+  @apply text-primary-dark;
 }
+
+.btn {
+  @apply font-bold py-2 px-4 rounded;
+}
+
+.btn-xs {
+  @apply font-bold p-1 rounded;
+}
+
+.btn-xs-rounded {
+  @apply font-bold p-1 rounded-full;
+}
+
+.btn-brand {
+ @apply bg-brand-light text-background;
+}
+
+.btn-brand:hover {
+  @apply bg-brand;
+}
+
+.btn-brand:focus {
+  @apply bg-brand-dark;
+}
+
+.btn-primary {
+  @apply bg-primary-light text-background;
+ }
+ 
+ .btn-primary:hover {
+   @apply bg-primary;
+ }
+ 
+ .btn-primary:focus {
+   @apply bg-primary-dark;
+ }

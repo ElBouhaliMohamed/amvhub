@@ -92,7 +92,7 @@ export default {
 }
 
 .vue-floatingNavButton .default {
-  @apply bg-primary-100;
+  @apply bg-background;
   border-radius: 3px;
   color: #ffffff;
   height: 30px;
