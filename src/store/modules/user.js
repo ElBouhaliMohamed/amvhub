@@ -12,6 +12,11 @@ export default {
       state.currentUser = currentUserData
     }
   },
+  // getters: {
+  //   isLoggedIn(state) {
+  //     return firebase.auth().currentUser == null?false:true;
+  //   }
+  // },
   actions: {
     getCurrent ({ commit }) {
       return UsersService.getCurrent()

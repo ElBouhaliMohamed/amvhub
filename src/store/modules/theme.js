@@ -35,9 +35,9 @@ export default {
       '--danger-dark': '#6e1f33'
     },
     darkTheme: {
-      '--background-light': '#8795a1',
-      '--background': '#3d4852',
-      '--background-dark': '#000000',
+      '--background-light': '#4A5568',
+      '--background': '#000',
+      '--background-dark': '',
 
       '--primary-light': '#bcdefa',
       '--primary': '#6cb2eb',

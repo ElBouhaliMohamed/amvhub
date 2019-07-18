@@ -7,12 +7,14 @@
   "scripts": {
     "dev": "set NODE_ENV=development && vue-cli-service serve",
     "build": "vue-cli-service build",
+    "deploy": "vue-cli-service build && firebase deploy",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@tweenjs/tween.js": "^17.3.0",
     "aos": "^3.0.0-beta.6",
     "axios": "^0.18.0",
+    "firebase": "^6.3.0",
     "moment": "^2.24.0",
     "plyr": "^3.5.4",
     "vue": "^2.6.6",

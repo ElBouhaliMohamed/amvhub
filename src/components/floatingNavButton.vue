@@ -71,7 +71,7 @@ export default {
   },
   computed: {
     isActive: function () {
-      return this.$store.state.navBar.isActive
+      return this.$store.state.navbar.isActive
     }
   }
 }

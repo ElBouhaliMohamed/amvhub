@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     navbarIsActive: function () {
-      return this.$store.state.navBar.isActive
+      return this.$store.state.navbar.isActive
     }
   }
 }

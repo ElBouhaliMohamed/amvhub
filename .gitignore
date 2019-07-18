@@ -23,3 +23,6 @@ yarn-error.log*
 /public/videos
 /public/previews
 /public/thumbnails
+
+/src/firebaseConfig.json
+.firebaserc

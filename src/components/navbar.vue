@@ -62,6 +62,7 @@
             class="slider round"
           ></span>
         </label>
+        <button class="btn btn-primary" @click="logout">Logout</button>
       </div>
 
       <!-- <div class="flex text-xs pl-4 pr-16 opacity-50">
@@ -79,6 +80,7 @@
 import logo from '../components/logo.vue'
 import backToTop from '../components/backToTop.vue'
 import floatingNavButton from '../components/floatingNavButton.vue'
+import firebase from 'firebase'
 
 export default {
   name: 'Navbar',
@@ -91,12 +93,12 @@ export default {
   computed: {
     smallNavIsEnabled: function () {
       return (
-        this.$store.state.navBar.smallNavIsEnabled &&
-        !this.$store.state.navBar.isActive
+        this.$store.state.navbar.smallNavIsEnabled &&
+        !this.$store.state.navbar.isActive
       )
     },
     isActive: function () {
-      return this.$store.state.navBar.isActive
+      return this.$store.state.navbar.isActive
     },
     isDarkMode: function () {
       return this.$store.state.theme.isDarkMode
@@ -108,6 +110,11 @@ export default {
     },
     switchTheme () {
       this.$store.dispatch('theme/switchTheme')
+    },
+    logout() {
+      firebase.auth().signOut().then(() => {
+        this.$router.replace('login')
+      })
     }
   },
   components: {

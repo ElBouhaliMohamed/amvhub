@@ -27,7 +27,8 @@
       </a>
       <div class="mr-4">
         <router-link to="/channel">
-          <img src="@/assets/avatar.jpg" alt="avatar" class="avatar">
+          <button v-if="isLoggedIn" class="btn btn-primary" @click="login">LOG IN</button>
+          <img v-else src="@/assets/avatar.jpg" alt="avatar" class="avatar">
         </router-link>
       </div>
     </div>
@@ -36,8 +37,8 @@
 </template>
 
 <script>
-import * as authService from '../services/auth.service'
 import logo from '../components/logo.vue'
+import firebase from 'firebase'
 
 export default {
   name: 'Header',
@@ -48,12 +49,18 @@ export default {
   },
   methods: {
     toggleNavigation () {
-      this.$store.commit('navbar/toggleNavigation', !this.isActive)
+      this.$store.commit('navbar/toggleNavigation', !this.isActive);
+    },
+    login () {
+      this.$router.push('login');
     }
   },
   computed: {
     isActive: function () {
-      return this.$store.state.navBar.isActive
+      return this.$store.state.navbar.isActive;
+    },
+    isLoggedIn: function() {
+      return firebase.auth().currentUser == null ? false : true;
     }
   },
   components: {

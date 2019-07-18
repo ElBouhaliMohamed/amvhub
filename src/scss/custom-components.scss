@@ -41,3 +41,15 @@
  .btn-primary:focus {
    @apply bg-primary-dark;
  }
+
+ .btn-social {
+  @apply bg-black text-white rounded-full shadow-lg px-2 py-2;
+ }
+ 
+ .btn-social:hover {
+   @apply bg-gray-900;
+ }
+ 
+ .btn-social:focus {
+   @apply bg-gray-800;
+ }
