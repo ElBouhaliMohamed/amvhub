@@ -21,9 +21,9 @@
                         Login
                     </button>
 
-                    <a class="no-underline inline-block align-baseline font-bold text-sm text-blue hover:text-blue-dark float-right" @click="forgotPassword">
+                    <router-link to="passwordreset" class="no-underline inline-block align-baseline font-bold text-sm text-blue hover:text-blue-dark float-right">
                         Forgot Password?
-                    </a>
+                    </router-link>
                 </div>
                 
             </div>

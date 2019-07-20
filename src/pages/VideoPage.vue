@@ -196,11 +196,38 @@ import videoPlayer from '../components/videoPlayer.vue'
 import videoBar from '../components/videoBar.vue'
 import { DOMAIN_TITLE } from '../.env'
 
+import firebase from 'firebase'
+
 export default {
   name: 'VideoPage',
   components: {
     videoPlayer,
     videoBar
+  },
+  async beforeRouteEnter(to,from,next) {
+    var listRef = firebase.storage().ref(`videos/${to.params.id}/`);
+    let res = await listRef.listAll();
+    let options = [];
+    if(res) {
+      for(let item of res.items) {
+        let metadata = await item.getMetadata()
+        if(metadata) {
+          let url = await firebase.storage().ref(metadata.fullPath).getDownloadURL();
+
+          options.push({
+            source: url,
+            type: metadata.contentType,
+            size: parseInt(metadata.name.split('-')[1].split('.')[0]),
+          })
+        }
+      }
+    }
+    next(vm => vm.setVideoOptions(options));
+  },
+  methods: {
+    setVideoOptions(options) {
+      this.options = options;
+    } 
   },
   title () {
     return `${DOMAIN_TITLE} | ${this.title}`
@@ -208,16 +235,16 @@ export default {
   data: function () {
     return {
       options: [
-        {
-          size: 1080,
-          source: `/videos/dqw16qwd5qwh1b2d-960.mp4`,
-          type: 'video/mp4'
-        },
-        {
-          size: 1440,
-          source: `/videos/dqw16qwd5qwh1b2d-1080.mp4`,
-          type: 'video/mp4'
-        }
+        // {
+        //   size: 1080,
+        //   source: `/videos/dqw16qwd5qwh1b2d-960.mp4`,
+        //   type: 'video/mp4'
+        // },
+        // {
+        //   size: 1440,
+        //   source: `/videos/dqw16qwd5qwh1b2d-1080.mp4`,
+        //   type: 'video/mp4'
+        // }
       ],
       captions: [],
       poster: '/thumbnails/dqw16qwd5qwh1b2d.png',

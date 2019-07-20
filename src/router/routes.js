@@ -1,5 +1,6 @@
 import login from '../pages/Login.vue'
 import signup from '../pages/SignUp.vue'
+import passwordreset from '../pages/PasswordReset.vue'
 import channel from '../pages/profile/Channel.vue'
 
 import trending from '../pages/Trending.vue'
@@ -52,6 +53,12 @@ export const routes = [
     name: 'signup',
     component: signup,
     meta: { title: `${DOMAIN_TITLE} | signup`, enableSmallNavigation: false, requiresAuth: false }
+  },
+  {
+    path: '/passwordreset/',
+    name: 'passwordreset',
+    component: passwordreset,
+    meta: { title: `${DOMAIN_TITLE} | password reset`, enableSmallNavigation: false, requiresAuth: false }
   },
   {
     path: '*',

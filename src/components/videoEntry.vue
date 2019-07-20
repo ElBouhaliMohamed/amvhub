@@ -30,6 +30,7 @@
 <script>
 export default {
   props: {
+    uid: String,
     title: String,
     editor: String,
     length: String,
@@ -42,7 +43,7 @@ export default {
   },
   data: function () {
     return {
-      url: `/video/${this.title.trim()}`,
+      url: `/video/${this.uid.trim()}`,
       previewUrl: `/videos/${this.preview}`,
       previewLoaded: false,
       previewVideo: Object,

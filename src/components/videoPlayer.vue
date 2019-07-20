@@ -24,8 +24,6 @@ import Plyr from 'plyr'
 
 export default {
   mounted () {
-    this.player = new Plyr('#player')
-    console.log(this.player)
   },
   data () {
     return {
@@ -36,6 +34,13 @@ export default {
     options: Array,
     captions: Array,
     poster: String
+  },
+  watch: {
+    options() {
+      this.player = new Plyr('#player', { 
+        quality: { default: 576, options: [4320, 2880, 2160, 1440, 1080, 960, 720, 576, 480, 360, 240] }
+      });
+    }
   }
 }
 </script>
