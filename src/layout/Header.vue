@@ -27,8 +27,8 @@
       </a>
       <div class="mr-4">
         <router-link to="/channel">
-          <button v-if="isLoggedIn" class="btn btn-primary" @click="login">LOG IN</button>
-          <img v-else src="@/assets/avatar.jpg" alt="avatar" class="avatar">
+          <button v-if="!isLoggedIn" class="btn btn-primary" @click="login">LOG IN</button>
+          <img v-else :src="avatar" alt="avatar" class="avatar">
         </router-link>
       </div>
     </div>
@@ -56,11 +56,14 @@ export default {
     }
   },
   computed: {
+    avatar: function() {
+      return this.$store.state.user.currentUser != null ? this.$store.state.user.currentUser.userInfo.photoURL : '';
+    },
     isActive: function () {
       return this.$store.state.navbar.isActive;
     },
     isLoggedIn: function() {
-      return firebase.auth().currentUser == null ? false : true;
+      return this.$store.state.user.isLoggedIn;
     }
   },
   components: {

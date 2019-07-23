@@ -62,7 +62,7 @@
             class="slider round"
           ></span>
         </label>
-        <button class="btn btn-primary" @click="logout">Logout</button>
+        <button v-if="isLoggedIn" class="btn btn-primary" @click="logout">Logout</button>
       </div>
 
       <!-- <div class="flex text-xs pl-4 pr-16 opacity-50">
@@ -102,6 +102,9 @@ export default {
     },
     isDarkMode: function () {
       return this.$store.state.theme.isDarkMode
+    },
+    isLoggedIn: function() {
+      return this.$store.state.user.isLoggedIn;
     }
   },
   methods: {
@@ -113,6 +116,7 @@ export default {
     },
     logout() {
       firebase.auth().signOut().then(() => {
+        this.$store.commit('user/SET_LOGGED_IN', false);
         this.$router.replace('login')
       })
     }

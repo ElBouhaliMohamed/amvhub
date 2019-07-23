@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import UsersService from '../services/users.service'
 
 export default {
   name: 'Login',
@@ -68,19 +68,23 @@ export default {
       }
 
       if(this.error.length == 0) {
-        firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-        .then((user) => {this.$router.push('feed')})
+        UsersService.login(this.email, this.password)
+        .then((user) => {
+          this.loginSucceeded();
+        })
         .catch((err) => { this.error = err.message})
       }
     },
     loginWithGoogle() {
-      const provider = new firebase.auth.GoogleAuthProvider();
-
-      firebase.auth().signInWithPopup(provider).then((result) => {
-        this.$router.push('feed');
+      UsersService.loginWithGoogle().then((result) => {
+        this.loginSucceeded();
       }).catch((err) => {
         this.error = err.message;
       })
+    },
+    loginSucceeded() {
+      UsersService.afterLogin();
+      this.$router.push('feed');
     }
   }
 }
