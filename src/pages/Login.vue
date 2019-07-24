@@ -58,6 +58,7 @@ export default {
     },
     login() {
       this.error = '';
+      this.$Progress.start();
 
       if(this.password.length == 0) {
         this.error = 'Please enter a password.'
@@ -72,19 +73,25 @@ export default {
         .then((user) => {
           this.loginSucceeded();
         })
-        .catch((err) => { this.error = err.message})
+        .catch((err) => { 
+          this.error = err.message
+          this.$Progress.fail();
+        })
       }
     },
     loginWithGoogle() {
+      this.$Progress.start();
       UsersService.loginWithGoogle().then((result) => {
         this.loginSucceeded();
       }).catch((err) => {
         this.error = err.message;
+        this.$Progress.fail();      
       })
     },
     loginSucceeded() {
       UsersService.afterLogin();
       this.$router.push('feed');
+      this.$Progress.finish();
     }
   }
 }

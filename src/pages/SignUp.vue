@@ -38,28 +38,60 @@ import UsersService from '../services/users.service'
 
 
 export default {
-  name: 'Login',
+  name: 'SignUp',
   data () {
     return {
         username: '',
         email: '',
         password: '',
-        avatar: null
+        avatar: null,
     }
   },
   methods: {
-      signUp: function() {
+    signUp: function() {
+        this.$Progress.start();
         UsersService.signUp(this.username, this.email, this.password, this.avatar)
         .then((user) => {
-            alert('Your account has been created!')
+            this.$Progress.finish();
+            this.showSuccessMsg();
+            this.loginSucceeded();
         }).catch((err) => {
-            alert('Error: ' + err.message)
+            console.log(err);
+            this.showErrorMsg({message: err.message});
+            this.$Progress.fail();
         });
-      },
-      uploaded: function(file) {
+    },
+    loginSucceeded() {
+        UsersService.afterLogin();
+        this.$router.push('feed');
+        this.$Progress.finish();
+    },
+    uploaded: function(file) {
         this.avatar = file;
         console.log(file);
-      }
+    }
+  },
+  notifications: {
+    showSuccessMsg: {
+      type: 'success',
+      title: 'Success',
+      message: 'You successfully signed up!'
+    },
+    showInfoMsg: {
+      type: 'info',
+      title: 'Hey you',
+      message: 'Here is some info for you'
+    },
+    showWarnMsg: {
+      type: 'warn',
+      title: 'Wow, man',
+      message: 'That\'s the kind of warning'
+    },
+    showErrorMsg: {
+      type: 'error',
+      title: 'Error',
+      message: ''
+    }
   },
   components: {avatar}
 }

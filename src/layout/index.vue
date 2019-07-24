@@ -4,6 +4,7 @@
       <AppNavbar></AppNavbar>
       <!-- <div :class="[{wrapper: navbarIsActive}, {navbarMargin: !navbarIsActive}]"> -->
       <div class="wrapper">
+          <vue-progress-bar></vue-progress-bar>
           <transition name="fade">
             <router-view></router-view>
           </transition>
