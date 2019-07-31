@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col bg-background-dark pagePadding">
+  <div class="flex flex-col bg-white py-4 sm:px-4 md:px-32">
     <div class="flex flex-row pb-8">
-      <div class="flex flex-col w-3/4 bg-background ">
+      <div class="flex flex-col w-3/4 bg-white">
         <div class="w-full">
           <video-player :poster="poster" :options="options" :captions="captions"></video-player>
         </div>
@@ -16,21 +16,33 @@
             </div>
 
             <div class="w-3/4 flex flex-row justify-end items-center text-sm">
+
+              <ratingModal :show="showRatingModal" :closeCallback="ratingClosed"></ratingModal>
+
               <div class="pl-6">{{uploadedAt}}</div>
+              
               <div class="pl-6">
-                <div class="fa fa-eye"></div>
+                <span class="fa fa-eye"></span>
                 {{views}}
               </div>
 
-              <span class="fas fa-star fa-sm pl-6"></span>
-              <div class="inline-block align-text-bottom">
-                <span class="text-lg font-semibold">9,3/</span>
-                <span class="text-sm font-light">10</span>
+              <div class="pl-6">
+                <button class="hover:bg-background-light px-2 rounded-full">
+                  <span class="fa fa-heart"></span>
+                  {{hearts}}
+                 </button>
+              </div>
+
+              <div class="pl-6">
+                <button class="hover:bg-background-light px-2 rounded-full" @click="openRatingModal()">
+                  <span class="fas fa-poll mr-1"></span>
+                  <span class="text-sm font-light">9,3</span>
+                  <span class="text-sm font-light">/</span>
+                  <span class="text-sm font-light">10</span>
+                </button>
               </div>
             </div>
           </div>
-
-          <div class="flex flex-wrap"></div>
 
           <div
             class="flex flex-wrap"
@@ -50,7 +62,7 @@
           <div class="flex flex-wrap">
             <router-link
               :to="'/search/tag/' + tag"
-              class="bg-background-dark text-background-100 mr-2 mt-2 p-1 rounded-sm text-sm"
+              class="bg-background-dark text-background-100 mr-2 mt-2 p-2 rounded-full text-sm"
               v-for="tag in tags"
             >{{ tag }}</router-link>
           </div>
@@ -68,17 +80,17 @@
             name="comment"
             class="w-full border-2"
             rows="10"
-            placeholder="What are your thoughts?"
+            placeholder=" What are your thoughts?"
           ></textarea>
         </div>
         <div class="flex flex-row justify-end pt-2">
           <button
-            class="bg-transparent hover:bg-background  font-semibold hover:text-white mb-2 py-2 px-4 border border-primary-100 hover:border-transparent rounded uppercase"
+            class="bg-transparent hover:bg-white hover:text-black font-semibold mb-2 py-2 px-4 border border-primary-100 hover:border-transparent rounded uppercase"
           >Comment</button>
         </div>
       </div>
 
-      <div id="commentsection" class="flex flex-col bg-background-dark p-2">
+      <div id="commentsection" class="flex flex-col bg-white-dark p-2">
         <div class="flex flex-row mb-2">
           <span class="flex flex-col items-center">
             <img src="@/assets/avatar.jpg" alt="avatar" class="avatar">
@@ -98,17 +110,17 @@
             >Lorem ipsum dolor sit amet consectetur adipisicing elitEligendi eum sint temporibus error inventore minus in porro doloribus accusantiumIpsam quam sapiente inventore, ex atque natus, necessitatibus eum eligendi asperiores consectetur harum vero obcaecati voluptatum odio? Veritatis ea cupiditate necessitatibus voluptatum, tempore voluptate iusto blanditiis cum iure similique quod libero architecto dicta aliquid soluta? Quas praesentium dolorum molestiae excepturi sed, sequi culpa cumque libero voluptate optio ullam odit! Nobis molestiae commodi tempore at numquam ullam voluptate odit dicta veritatis illum quisquam, adipisci ipsamCorporis nam dolorem accusamus, accusantium, ipsum vitae iusto expedita quidem sit error laudantium nisi modi et perferendis?</div>
 
             <div class="flex flex-row pt-2 items-center">
-              <button class="rounded-full hover:bg-background p-2">
+              <button class="rounded-full hover:bg-white p-2">
                 <span class="px-1">6</span>
                 <span class="fas fa-heart"></span>
               </button>
 
-              <button class="rounded-full hover:bg-background p-2">
+              <button class="rounded-full hover:bg-white p-2">
                 <span class="px-1">2</span>
                 <span class="fas fa-comments"></span>
               </button>
 
-              <button class="rounded-full hover:bg-background p-2">
+              <button class="rounded-full hover:bg-white p-2">
                 <span class="fas fa-retweet"></span>
               </button>
             </div>
@@ -133,17 +145,17 @@
             >Lorem ipsum dolor sit amet consectetur adipisicing elitEligendi eum sint temporibus error inventore minus in porro doloribus accusantiumIpsam quam sapiente inventore, ex atque natus, necessitatibus eum eligendi asperiores consectetur harum vero obcaecati voluptatum odio? Veritatis ea cupiditate necessitatibus voluptatum, tempore voluptate iusto blanditiis cum iure similique quod libero architecto dicta aliquid soluta? Quas praesentium dolorum molestiae excepturi sed, sequi culpa cumque libero voluptate optio ullam odit! Nobis molestiae commodi tempore at numquam ullam voluptate odit dicta veritatis illum quisquam, adipisci ipsamCorporis nam dolorem accusamus, accusantium, ipsum vitae iusto expedita quidem sit error laudantium nisi modi et perferendis?</div>
 
             <div class="flex flex-row pt-2 items-center">
-              <button class="rounded-full hover:bg-background p-2">
+              <button class="rounded-full hover:bg-white p-2">
                 <span class="px-1">3</span>
                 <span class="fas fa-heart"></span>
               </button>
 
-              <button class="rounded-full hover:bg-background p-2">
+              <button class="rounded-full hover:bg-white p-2">
                 <span class="px-1"></span>
                 <span class="fas fa-comments"></span>
               </button>
 
-              <button class="rounded-full hover:bg-background p-2">
+              <button class="rounded-full hover:bg-white p-2">
                 <span class="fas fa-retweet"></span>
               </button>
             </div>
@@ -168,17 +180,17 @@
             >Lorem ipsum dolor sit amet consectetur adipisicing elitEligendi eum sint temporibus error inventore minus in porro doloribus accusantiumIpsam quam sapiente inventore, ex atque natus, necessitatibus eum eligendi asperiores consectetur harum vero obcaecati voluptatum odio? Veritatis ea cupiditate necessitatibus voluptatum, tempore voluptate iusto blanditiis cum iure similique quod libero architecto dicta aliquid soluta? Quas praesentium dolorum molestiae excepturi sed, sequi culpa cumque libero voluptate optio ullam odit! Nobis molestiae commodi tempore at numquam ullam voluptate odit dicta veritatis illum quisquam, adipisci ipsamCorporis nam dolorem accusamus, accusantium, ipsum vitae iusto expedita quidem sit error laudantium nisi modi et perferendis?</div>
 
             <div class="flex flex-row pt-2 items-center">
-              <button class="rounded-full hover:bg-background p-2">
+              <button class="rounded-full hover:bg-white p-2">
                 <span class="px-1">6</span>
                 <span class="fas fa-heart"></span>
               </button>
 
-              <button class="rounded-full hover:bg-background p-2">
+              <button class="rounded-full hover:bg-white p-2">
                 <span class="px-1"></span>
                 <span class="fas fa-comments"></span>
               </button>
 
-              <button class="rounded-full hover:bg-background p-2">
+              <button class="rounded-full hover:bg-white p-2">
                 <span class="fas fa-retweet"></span>
               </button>
             </div>
@@ -194,6 +206,7 @@
 <script>
 import videoPlayer from '../components/videoPlayer.vue'
 import videoBar from '../components/videoBar.vue'
+import ratingModal from '../components/modals/rating.vue'
 import { DOMAIN_TITLE } from '../.env'
 
 import firebase from 'firebase'
@@ -202,7 +215,8 @@ export default {
   name: 'VideoPage',
   components: {
     videoPlayer,
-    videoBar
+    videoBar,
+    ratingModal
   },
   async beforeRouteEnter(to,from,next) {
     var listRef = firebase.storage().ref(`videos/${to.params.id}/`);
@@ -227,13 +241,21 @@ export default {
   methods: {
     setVideoOptions(options) {
       this.options = options;
-    } 
+    },
+    ratingClosed() {
+      this.showRatingModal = false;
+      console.log("rating closed");
+    },
+    openRatingModal() {
+      this.showRatingModal = true;
+    }
   },
   title () {
     return `${DOMAIN_TITLE} | ${this.title}`
   },
   data: function () {
     return {
+      showRatingModal:false,
       options: [
         // {
         //   size: 1080,
@@ -252,27 +274,10 @@ export default {
       author: 'Kazumoe',
       uploadedAt: 'Januar 12, 2019',
       views: 612,
+      hearts: 120,
       tags: [
-        'Naruto',
-        'Sakura',
-        'Bestamv',
-        'Kazu',
-        'Indigo Team',
-        'Naruto',
-        'Sakura',
-        'Bestamv',
-        'Kazu',
-        'Indigo Team',
-        'Naruto',
-        'Sakura',
-        'Bestamv',
-        'Kazu',
-        'Indigo Team',
-        'Naruto',
-        'Sakura',
-        'Bestamv',
-        'Kazu',
-        'Indigo Team'
+        'Drama',
+        'Action'
       ],
       categories: ['Action', 'Drama'],
       songs: [
@@ -297,7 +302,4 @@ export default {
   @apply .h-10 .w-10 .mr-2 .rounded-lg;
 }
 
-.pagePadding {
-  @apply .py-4 .mx-32;
-}
 </style>

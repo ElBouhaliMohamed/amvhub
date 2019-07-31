@@ -2,7 +2,7 @@
  <div class="container mx-auto h-full flex justify-center items-center py-16">
         <div class="w-full md:w-1/2">
             <div class="border-primary p-8 border-t-12 bg-white mb-6 rounded-lg shadow-lg">
-                <div v-if="error.length > 0" class="rounded font-bold background-red-600">
+                <div v-if="error.length > 0" class="rounded font-bold bg-danger py-2 px-2">
                   {{error}}
                 </div>
                 <div class="mb-4">
@@ -36,17 +36,43 @@ export default {
   },
   methods: {
       sendReset: function() {
+        this.$Progress.start();
+        this.error = '';
+
         if(this.email.length == 0) {
             this.error = 'Please enter an email.'
         }
-        firebase.auth().sendPasswordResetEmail(this.email).then(() => {
-            alert("success");
-        })
-        .catch((err) => {
-            this.error = err.message;
-        });
+
+        if(this.error.length == 0) {
+            firebase.auth().sendPasswordResetEmail(this.email).then(() => {
+                this.$Progress.finish();
+                this.showSuccessMsg({
+                    message: `An email was send to ${this.email}`
+                });
+                this.$router.push('login');
+                })
+            .catch((err) => {
+                this.showErrorMsg({
+                    message: err.message
+                })                
+                this.$Progress.fail();
+            });
+        }
       }
-  }
+  },
+  
+  notifications: {
+    showSuccessMsg: {
+      type: 'success',
+      title: 'Success',
+      message: ''
+    },
+    showErrorMsg: {
+      type: 'error',
+      title: 'Error',
+      message: ''
+    }
+  },
 }
 </script>
 

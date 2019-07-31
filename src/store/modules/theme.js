@@ -31,7 +31,7 @@ export default {
       '--success-dark': '#345e39',
 
       '--danger-light': '#ffd0d6',
-      '--danger': '#e52564',
+      '--danger': '#fc0516',
       '--danger-dark': '#6e1f33'
     },
     darkTheme: {

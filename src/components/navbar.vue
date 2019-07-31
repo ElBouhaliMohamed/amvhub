@@ -3,7 +3,7 @@
     <div :class="[smallNav, {smallNavActive: smallNavIsEnabled}]">
       <div class="hidden md:block w-1/8 lg:w-1/4"></div>
       <div class="flex flex-col md:flex-row w-1/2">
-        <span class="flex ml-2 items-center">
+        <!-- <span class="flex ml-2 items-center">
           <span class="uppercase text-xs font-bold">view</span>
           <button>
             <span class="fas fa-list ml-2"></span>
@@ -12,8 +12,8 @@
             <span class="fas fa-th ml-2"></span>
           </button>
         </span>
-
-        <span class="border-l-2 border-background-light h-5 mx-4 hidden md:block"></span>
+      -->
+        <span class="border-l-2 border-background-light h-5 mr-4 hidden md:block"></span>
 
         <span class="flex ml-2 md:ml-0">
           <router-link class="flex text-center items-center pr-2" tag="a" to="/trending">

@@ -6,7 +6,7 @@
                   {{error}}
                 </div>
 
-                <div class="mb-4">
+                <div class="mb-4"> 
                     <label class="font-bold text-grey-darker block mb-2">Email</label>
                     <input type="text" v-model="email" class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" placeholder="Your Email">
                 </div>
