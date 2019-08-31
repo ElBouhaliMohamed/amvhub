@@ -63,7 +63,7 @@ export default {
     },
     loginSucceeded() {
         UsersService.afterLogin();
-        this.$router.push('feed');
+        this.$router.push('audienceChoice');
         this.$Progress.finish();
     },
     uploaded: function(file) {

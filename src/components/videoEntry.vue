@@ -1,20 +1,20 @@
 <template>
   <div data-aos="fade-up" data-aos-once="true" class="videoEntry">
-    <router-link :to="url" class=" w-full">
+    <a @click="loadVideo" class=" w-full">
       <div class="thumbnailWrapper">
         <!-- <div class="fa fa-5x fa-play-circle videoPlayCircle"></div> -->
         <div
           :id="preview"
           class="thumbnail small md:large"
-          :style="{backgroundImage: `url(${require(`../assets/${this.thumbnail}`)})`}"
+          :style="{backgroundImage: `url(${require(`../assets/thumbnails/${this.uuid}.jpg`)})`}"
           @mouseenter="showPreview()"
           @mouseleave="hidePreview()"
         ></div>
       </div>
-    </router-link>
+    </a>
 
-    <div class="videoLengthBackground"></div>
-    <div class="videoLength">{{length}}</div>
+    <!-- <div class="videoLengthBackground"></div>
+    <div class="videoLength">{{lengthInMinutes}}</div> -->
     <div class="videoInfoBackground"></div>
 
     <div class="videoInfoWrapper">
@@ -22,7 +22,11 @@
       <span class="videoTitle">{{title}}</span>
     </div>
 
-    <div class="videoStatus">{{status}}</div>
+    <div class="videoStatus">
+      <span class="flex" v-for="tag in tags" :key="tag">
+      {{tag}}
+      </span>
+    </div>
     <!-- <img src="@/assets/avatar.jpg" alt="avatar" class="videoAvatar"> -->
   </div>
 </template>
@@ -30,12 +34,12 @@
 <script>
 export default {
   props: {
-    uid: String,
+    uuid: String,
     title: String,
     editor: String,
     length: String,
     thumbnail: String,
-    status: String,
+    tags: Array,
     preview: {
       type: String,
       default: ''
@@ -43,7 +47,7 @@ export default {
   },
   data: function () {
     return {
-      url: `/video/${this.uid.trim()}`,
+      url: `/video/${this.uuid.trim()}`,
       previewUrl: `/videos/${this.preview}`,
       previewLoaded: false,
       previewVideo: Object,
@@ -51,11 +55,19 @@ export default {
     }
   },
   computed: {
+    lengthInMinutes() {
+      return parseFloat(this.length / 60).toFixed(2);
+    },
     isLightMode () {
       return !this.$store.getters['theme/isDarkMode']
     }
   },
   methods: {
+    loadVideo() {
+      // this.$Progress.start();
+      let routeData = this.$router.resolve(this.url);
+      window.open(routeData.href, '_blank');
+    },
     videoFullyBuffered () {
       console.log('I think I can play thru the entire ' + ' video without ever having to stop to buffer.')
       this.previewLoaded = true
@@ -133,6 +145,8 @@ export default {
   width: 100%;
   text-align: center;
   vertical-align: middle;
+
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
 }
 
 .videoPlayCircle {
@@ -141,7 +155,7 @@ export default {
 }
 
 .videoInfoWrapper {
-  @apply .absolute .ml-10 .flex .flex-col;
+  @apply .absolute .ml-20 .flex .flex-col;
   bottom: -27px;
 }
 
@@ -168,7 +182,6 @@ export default {
 
 .videoInfoBackground {
   @apply .absolute .bottom-0 .h-20 .opacity-25 w-full;
-  background-image: linear-gradient(to top, config('colors.background-dark'), rgba(0,0,0,0));
 }
 
 .videoEntry {
@@ -225,7 +238,7 @@ export default {
   }
 
   .videoInfoWrapper {
-    @apply .ml-16
+    @apply .ml-28
   }
 
   .videoTitle {

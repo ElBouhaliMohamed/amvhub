@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="">
+    <!-- <div class="">
         <trending-carousel />
-    </div>
+    </div> -->
     <div class="container w-full lg:w-3/4 mx-auto videoWrapper">
-        <video-entry v-for="video in videos" :key="video.uid" :uid="video.uid" :title="video.title" :editor="video.editor" :length="video.length" :thumbnail="video.thumbnail" :preview="video.preview" :status="video.status"></video-entry>
+        <video-entry v-for="video in videos" :key="video.uuid" :uuid="video.uuid" :title="video.title" :editor="video.editor" :length="video.length" :thumbnail="video.thumbnail" :preview="video.preview" :tags="video.tags"></video-entry>
     </div>
   </div>
 </template>
@@ -21,7 +21,7 @@ export default {
   },
   data: function () {
     return {
-      videos: []
+      videos: [],
     }
   },
   components: {
@@ -29,21 +29,30 @@ export default {
     trendingCarousel
   },
   methods: {
+    shuffle(array) {
+      return array.sort(() => Math.random() - 0.5);
+    },
     async fetchVideos() {
       let videosQuery = await firebase.firestore().collection("videos").get();
+      let size = videosQuery.size;
+      let index = 1;
       videosQuery.forEach(async (result) => {
         let data = result.data();
         let editor = await data.user.get();
         let video = {
-          uid: result.id,
+          uuid: result.id,
           title: data.title, 
           editor: editor.data().name, 
-          length: "4:20", 
-          thumbnail: "thumbnail.png", 
-          preview: "dqw16qwd5qwh1b2e-preview.mp4", 
-          status: "test"
+          length: data.length, 
+          thumbnail: "", 
+          preview: "", 
+          tags: data.tags
         }
         this.videos.push(video);
+        if(index === size) {
+          this.videos = this.shuffle(this.videos);
+        }
+        index++;
       })
     }
   }

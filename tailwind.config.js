@@ -40,6 +40,7 @@ module.exports = {
     spacing: {
       ...defaultTheme.spacing,
       '7': '1.75rem',
+      '28': '7rem',
       '80': '20rem',
       '112': '28rem'
     },

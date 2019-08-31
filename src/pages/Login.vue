@@ -2,6 +2,19 @@
  <div class="container mx-auto h-full flex justify-center items-center py-16">
         <div class="w-full md:w-1/2">
             <div class="border-primary p-8 border-t-12 bg-white mb-6 rounded-lg shadow-lg">
+                <div class="mb-2 text-center">
+                  <p class="text-grey-dark text-sm mb-2 font-bold uppercase">Sign in with Google</p>
+                  <button class="btn btn-social w-24" @click="loginWithGoogle">
+                    <img class="block m-auto w-8 h-8" src="/google.png"/>
+                  </button>
+                </div>
+
+                <div class="flex justify-center w-full mb-4">
+                  <span class="w-1/2 self-center h-1 border-b border-black"></span>
+                  <p class="w-1/8 text-center text-grey-dark text-sm font-bold uppercase">Or</p>
+                  <span class="w-1/2 self-center h-1 border-b border-black"></span>
+                </div>
+
                 <div v-if="error.length > 0" class="rounded font-bold background-red-600">
                   {{error}}
                 </div>
@@ -17,7 +30,7 @@
                 </div>
 
                 <div class="flex items-center justify-between">
-                    <button class="btn btn-primary" @click="login">
+                    <button class="btn btn-primary w-32" @click="login">
                         Login
                     </button>
 
@@ -26,12 +39,6 @@
                     </router-link>
                 </div>
                 
-            </div>
-            <div class="mb-6 text-center">
-              <p class="text-grey-dark text-sm mb-2 font-bold">Or sign in with Google</p>
-              <button class="btn btn-social" @click="loginWithGoogle">
-                <i class="fab fa-google fa-4x"></i>
-              </button>
             </div>
 
             <div class="text-center">
@@ -62,10 +69,12 @@ export default {
 
       if(this.password.length == 0) {
         this.error = 'Please enter a password.'
+        this.$Progress.fail();
       }
 
       if(this.email.length == 0) {
         this.error = 'Please enter an email.'
+        this.$Progress.fail();
       }
 
       if(this.error.length == 0) {
@@ -90,7 +99,7 @@ export default {
     },
     loginSucceeded() {
       UsersService.afterLogin();
-      this.$router.push('feed');
+      this.$router.push('audienceChoice');
       this.$Progress.finish();
     }
   }

@@ -1,7 +1,7 @@
 <template>
   <nav class="headerContainer">
-    <div class="w-11/12 flex md:w-1/2">
-      <button class="ml-4 h-8 w-12 flex items-center justify-center " @click="toggleNavigation">
+    <div class="w-11/12 flex md:w-1/4">
+      <!-- <button class="ml-4 h-8 w-12 flex items-center justify-center " @click="toggleNavigation">
         <div class="fa fa-bars"></div>
       </button>
       <span class="flex w-full">
@@ -9,27 +9,28 @@
         <a href="#" class="searchIcon">
           <div class="fa fa-search  hover:"></div>
         </a>
-      </span>
+      </span> -->
     </div>
 
-    <div class="logo">
+    <div class="w-2/4 logo flex items-center text-center justify-center">
       <router-link to="/">
         <logo/>
       </router-link>
     </div>
 
-    <div class="w-full mt-2 md:w-1/2 flex items-center text-center justify-end">
-      <a href="#" class="top-nav-item ">
+    <div class="w-full mt-2 md:w-1/4 flex items-center text-center justify-end">
+      <!-- <a href="#" class="top-nav-item ">
         <div class="fa fa-bell"></div>
       </a>
       <a href="#" class="top-nav-item ">
         <div class="fa fa-envelope"></div>
-      </a>
+      </a> -->
+      <button v-if="isLoggedIn" class="btn btn-primary mr-4" @click="logout">LOGOUT</button>
       <div class="mr-4">
-        <router-link to="/channel">
+        <!-- <router-link to="/channel"> -->
           <button v-if="!isLoggedIn" class="btn btn-primary" @click="login">LOG IN</button>
           <img v-else :src="avatar" alt="avatar" class="avatar">
-        </router-link>
+        <!-- </router-link> -->
       </div>
     </div>
 
@@ -52,7 +53,13 @@ export default {
       this.$store.commit('navbar/toggleNavigation', !this.isActive);
     },
     login () {
-      this.$router.push('login');
+      this.$router.push('/login');
+    },
+    logout() {
+      firebase.auth().signOut().then(() => {
+        this.$store.commit('user/SET_LOGGED_IN', false);
+        this.$router.replace('/login')
+      })
     }
   },
   computed: {
@@ -100,7 +107,7 @@ export default {
 }
 
 .avatar {
-  @apply .h-8 .w-8 .rounded-full;
+  @apply .h-12 .w-12 .rounded-full;
   -webkit-transition: width 0.4s, height 0.4s ease-in-out;
   transition: width 0.4s, height 0.4s ease-in-out;
 }
@@ -110,7 +117,7 @@ export default {
     @apply .flex-row .items-center;
   }
   .logo {
-    @apply .w-32 .ml-4 .block;
+    @apply .block;
   }
   .searchBox {
     @apply .w-1/4 .py-2;

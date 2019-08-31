@@ -1,16 +1,19 @@
 <template>
   <div class="footer">
     <div class="links">
-      <a class="icon" href="https://discord.gg/UmaHtz">
+      <!-- <a class="icon" href="https://discord.gg/UmaHtz">
         <div class="fab fa-discord fa-4x"></div>
-      </a>
-      <a class="icon" href="https://discord.gg/UmaHtz">
+      </a> -->
+      <a class="icon" href="https://twitter.com/indigoteamamv">
         <div class="fab fa-twitter fa-4x"></div>
+      </a>
+      <a class="icon" href="https://www.youtube.com/channel/UCxrPkSZ9do1_mzkjAsVZ2hw">
+        <div class="fab fa-youtube fa-4x"></div>
       </a>
     </div>
 
     <div class="name">
-      Mohamed El Bouhali
+      Indigo Team
     </div>
 
     <div class="copyrightNotice">
@@ -52,7 +55,7 @@ export default {
 }
 
 .name {
-  @apply .flex .justify-center .uppercase .font-semibold .py-2;
+  @apply .flex .justify-center .font-semibold .py-2;
 }
 
 </style>

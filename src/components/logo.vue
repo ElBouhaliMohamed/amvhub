@@ -9,7 +9,7 @@
         <path fill="var(--primary-100-color)" d="M913.12,265.52v42.24h5.64c23.17,0,27.65,18.44,27.65,25.48,0,8.83-4.48,26.75-27.78,26.75H899.56V270.64Zm3.2,56.19h-3.2v25.22h3.2c13.44,0,15.62-8.19,15.62-12.93S929.76,321.71,916.32,321.71Z" transform="translate(-592.74 -252)"/>
     </svg> -->
     <p class="text-3xl  font-nunito tracking-wide">
-        amvhub
+        Indigo Team IC 4 Audience Choice
     </p>
 </template>
 

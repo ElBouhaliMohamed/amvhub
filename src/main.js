@@ -16,14 +16,14 @@ import './scss/videoPlayer/plyr.scss'
 
 import AOS from 'aos'
 import firebase from 'firebase'
-import firebaseConfig from './firebaseConfig.json';
+import firebaseConfig from './firebaseConfig.json'
 
 setGlobalHelpers()
 Vue.config.productionTip = false
 
-let app = '';
+let app = ''
 
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig)
 
 firebase.auth().onAuthStateChanged(() => {
   if (!app) {
@@ -33,7 +33,7 @@ firebase.auth().onAuthStateChanged(() => {
       router,
       store,
       created () {
-        AOS.init({disable: true})
+        AOS.init({ disable: true })
       },
       mounted () {
         store.commit('dom/SET_WINDOW_WIDTH', window.innerWidth)

@@ -12,23 +12,23 @@ import { DOMAIN_TITLE } from '../.env'
 
 export const routes = [
   {
-    path: '/',
-    alias: '/feed',
+    path: '/feed',
     name: 'feed',
     component: feed,
-    meta: { title: `${DOMAIN_TITLE} | feed`, enableSmallNavigation: true, requiresAuth: false }
+    meta: { title: `${DOMAIN_TITLE} | feed`, enableSmallNavigation: false, requiresAuth: false }
   },
   {
-    path: '/trending',
-    name: 'trending',
+    path: '/',
+    alias: '/audiencechoice',
+    name: 'audienceChoice',
     component: trending,
-    meta: { title: `${DOMAIN_TITLE} | trending`, enableSmallNavigation: true, requiresAuth: false }
+    meta: { title: `${DOMAIN_TITLE} | Audience Choice`, enableSmallNavigation: false, requiresAuth: false }
   },
   {
     path: '/featured',
     name: 'featured',
     component: trending,
-    meta: { title: `${DOMAIN_TITLE} | featured`, enableSmallNavigation: true,requiresAuth: false }
+    meta: { title: `${DOMAIN_TITLE} | featured`, enableSmallNavigation: false, requiresAuth: false }
   },
   {
     path: '/channel',
