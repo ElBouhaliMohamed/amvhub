@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <!-- <div class="">
+  <div class="bg-gray-1000 block">
+    <div class="absolute w-full background-gradient">
         <trending-carousel />
-    </div> -->
-    <div class="container w-full lg:w-3/4 mx-auto videoWrapper">
+    </div>
+    <div class="absolute left-0 right-0 container w-full lg:w-3/4 mx-auto videoWrapper">
         <video-entry v-for="video in videos" :key="video.uuid" :uuid="video.uuid" :title="video.title" :editor="video.editor" :length="video.length" :thumbnail="video.thumbnail" :preview="video.preview" :tags="video.tags"></video-entry>
     </div>
   </div>
@@ -62,6 +62,7 @@ export default {
 <style lang="scss" scoped>
     .videoWrapper {
       @apply .flex .flex-wrap .justify-center;
+      top: 850px;
     }
 
 </style>

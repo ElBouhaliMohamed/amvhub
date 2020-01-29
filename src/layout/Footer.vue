@@ -1,28 +1,28 @@
 <template>
-  <div class="footer">
-    <div class="links">
-      <!-- <a class="icon" href="https://discord.gg/UmaHtz">
-        <div class="fab fa-discord fa-4x"></div>
-      </a> -->
-      <a class="icon" href="https://twitter.com/indigoteamamv">
-        <div class="fab fa-twitter fa-4x"></div>
-      </a>
-      <a class="icon" href="https://www.youtube.com/channel/UCxrPkSZ9do1_mzkjAsVZ2hw">
-        <div class="fab fa-youtube fa-4x"></div>
-      </a>
-    </div>
+    <div class="footer footer-gradient">
+      <div class="links">
+        <!-- <a class="icon" href="https://discord.gg/UmaHtz">
+          <div class="fab fa-discord fa-4x"></div>
+        </a> -->
+        <a class="icon" href="https://twitter.com/indigoteamamv">
+          <div class="fab fa-twitter fa-4x"></div>
+        </a>
+        <a class="icon" href="https://www.youtube.com/channel/UCxrPkSZ9do1_mzkjAsVZ2hw">
+          <div class="fab fa-youtube fa-4x"></div>
+        </a>
+      </div>
 
-    <div class="name">
-      Indigo Team
-    </div>
+      <div class="name">
+        Indigo Team
+      </div>
 
-    <div class="copyrightNotice">
-      @ Copyright 2019
+      <div class="copyrightNotice">
+        @ Copyright 2019
+      </div>
+      <div class="copyrightNotice">
+        All rights reserved.
+      </div>
     </div>
-    <div class="copyrightNotice">
-      All rights reserved.
-    </div>
-  </div>
 </template>
 
 <script>
@@ -39,7 +39,7 @@ export default {
 <style lang="scss" scoped>
 
 .footer {
-  @apply .flex .flex-col .h-80 .bg-background .py-16;
+  @apply .w-screen .flex .flex-col .h-full .py-16 .text-white;
 }
 
 .links {

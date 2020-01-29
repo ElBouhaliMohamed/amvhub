@@ -2,12 +2,12 @@
   <div class="flex relative items-center justify-center align-center">
     <button
       v-if="horizontal"
-      class="absolute left-0 mx-4 z-10 fas fa-chevron-left bg-background-dark  rounded-full shadow-lg w-8 h-8 navigation"
+      class="absolute left-0 mx-4 z-10 fas fa-chevron-left  rounded-full shadow-lg w-8 h-8 navigation"
       @click="scroll(false)"
     ></button>
     <button
       v-if="horizontal"
-      class="absolute right-0 z-10 fas fa-chevron-right bg-background-dark  rounded-full shadow-lg w-8 h-8 navigation"
+      class="absolute right-0 z-10 fas fa-chevron-right  rounded-full shadow-lg w-8 h-8 navigation"
       @click="scroll(true)"
     ></button>
 
@@ -246,7 +246,7 @@ export default {
 }
 
 .scrollButton {
-  @apply absolute mx-4 z-10 bg-background-dark  rounded-full shadow-lg w-8 h-8;
+  @apply absolute mx-4 z-10  rounded-full shadow-lg w-8 h-8;
   transition: all 0.2s ease-in-out;
   margin: 0;
 }

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import { initCurrentUserStateMiddleware, checkAccessMiddleware, setPageTitleMiddleware, checkIfSmallNavigationNeeded } from './middlewares'
+import { checkAlreadySignedInUserAccessMiddleware, checkAccessMiddleware, setPageTitleMiddleware, checkIfSmallNavigationNeeded } from './middlewares'
 import { routes } from './routes'
 
 Vue.use(Router)
@@ -15,5 +15,6 @@ const router = new Router({
 router.beforeEach(checkAccessMiddleware)
 router.beforeEach(setPageTitleMiddleware)
 router.beforeEach(checkIfSmallNavigationNeeded)
+router.beforeEach(checkAlreadySignedInUserAccessMiddleware)
 
 export default router

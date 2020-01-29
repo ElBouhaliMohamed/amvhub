@@ -8,8 +8,8 @@
           <transition name="fade">
             <router-view></router-view>
           </transition>
-          <AppFooter></AppFooter>
       </div>
+      <!-- <AppFooter></AppFooter> -->
   </div>
 </template>
 
@@ -38,7 +38,7 @@ export default {
 
 <style lang="scss" scoped>
 #app {
-  @apply antialiased bg-background-light;
+  @apply .antialiased;
   transition: color 700ms ease;
 }
 

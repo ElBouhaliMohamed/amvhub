@@ -33,7 +33,7 @@ firebase.auth().onAuthStateChanged(() => {
       router,
       store,
       created () {
-        AOS.init({ disable: true })
+        AOS.init()
       },
       mounted () {
         store.commit('dom/SET_WINDOW_WIDTH', window.innerWidth)

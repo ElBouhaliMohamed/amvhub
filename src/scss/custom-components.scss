@@ -3,7 +3,7 @@
 }
 
 .top-nav-item:hover {
-  @apply text-primary-dark;
+  @apply;
 }
 
 .btn {
@@ -19,27 +19,35 @@
 }
 
 .btn-brand {
- @apply bg-brand-light text-background;
+ @apply;
 }
 
 .btn-brand:hover {
-  @apply bg-brand;
+  @apply;
 }
 
 .btn-brand:focus {
-  @apply bg-brand-dark;
+  @apply;
+}
+
+.btn-action {
+  @apply text-white;
+}
+
+.btn-action:hover {
+  @apply text-purple-600;
 }
 
 .btn-primary {
-  @apply bg-primary-light text-background;
+  @apply bg-purple-500 text-white py-2 px-4 rounded;
  }
  
  .btn-primary:hover {
-   @apply bg-primary;
+   @apply bg-purple-700;
  }
  
  .btn-primary:focus {
-   @apply bg-primary-dark;
+   @apply;
  }
 
  .btn-social {
@@ -53,3 +61,19 @@
  .btn-social:focus {
    @apply bg-gray-800;
  }
+
+ .background-gradient {
+  background: rgb(22,26,31);
+  background: -moz-linear-gradient(top,  rgb(22,26,31) 0%, rgb(12,14,20) 100%);
+  background: -webkit-linear-gradient(top,  rgb(22,26,31) 0%,rgb(12,14,20) 100%);
+  background: linear-gradient(to bottom,  rgb(22,26,31) 0%,rgb(12,14,20) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#161a1f', endColorstr='#0c0e14',GradientType=0 );
+}
+
+.footer-gradient {
+  background: rgb(22,26,31);
+  background: -moz-linear-gradient(right,  rgb(22,26,31) 0%, rgb(12,14,20) 100%);
+  background: -webkit-linear-gradient(right,  rgb(22,26,31) 0%,rgb(12,14,20) 100%);
+  background: linear-gradient(to left,  rgb(22,26,31) 0%,rgb(12,14,20) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#161a1f', endColorstr='#0c0e14',GradientType=0 );
+}

@@ -5,37 +5,18 @@ module.exports = {
   theme: {
     colors: {
       ...defaultTheme.colors,
-      'background-light': 'var(--background-light)',
-      'background': 'var(--background)',
-      'background-dark': 'var(--background-dark)',
-
-      'primary-light': 'var(--primary-light)',
-      'primary': 'var(--primary)',
-      'primary-dark': 'var(--primary-dark)',
-
-      'brand-light': 'var(--brand-light)',
-      'brand': 'var(--brand)',
-      'brand-dark': 'var(--brand-dark)',
-
-      'cta-light': 'var(--cta-light)',
-      'cta': 'var(--cta)',
-      'cta-dark': 'var(--cta-dark)',
-
-      'info-light': 'var(--info-light)',
-      'info': 'var(--info)',
-      'info-dark': 'var(--info-dark)',
-
-      'warning-light': 'var(--warning-light)',
-      'warning': 'var(--warning)',
-      'warning-dark': 'var(--warning-dark)',
-
-      'success-light': 'var(--success-light)',
-      'success': 'var(--success)',
-      'success-dark': 'var(--success-dark)',
-
-      'danger-light': 'var(--danger-light)',
-      'danger': 'var(--danger)',
-      'danger-dark': 'var(--danger-dark)'
+      'gray': {
+        '100': '#f2f2f2',
+        '200': '#E6E6E7',
+        '300': '#b1b1b9',
+        '400': '#838592',
+        '500': '#5d5d6c',
+        '600': '#292f34',
+        '700': '#22272b',
+        '800': '#161a1f',
+        '900': '#06070d',
+        '1000': '#0C0E14'
+       }
     },
     spacing: {
       ...defaultTheme.spacing,
@@ -52,10 +33,41 @@ module.exports = {
       ...defaultTheme.screens,
       'xll': '1696px'
     },
-    extends: {
+    extend: {
       width: {
         '1/8': '12.5%'
+      },
+      spacing:{
+        '1/2': '50%',
+        '1/3': '33.33333%',
+        '2/3': '66.66667%',
+        '1/4': '25%',
+        '2/4': '50%',
+        '3/4': '75%',
+        '1/5': '20%',
+        '2/5': '40%',
+        '3/5': '60%',
+        '4/5': '80%',
+        '1/6': '16.66667%',
+        '2/6': '33.33333%',
+        '3/6': '50%',
+        '4/6': '66.66667%',
+        '5/6': '83.33333%',
+        '1/8': '12.5%',
+        '1/12': '8.33333%',
+        '2/12': '16.66667%',
+        '3/12': '25%',
+        '4/12': '33.33333%',
+        '5/12': '41.66667%',
+        '6/12': '50%',
+        '7/12': '58.33333%',
+        '8/12': '66.66667%',
+        '9/12': '75%',
+        '10/12': '83.33333%',
+        '11/12': '91.66667%',
+        full: '100%'
       }
+
     }
   },
   variants: {

@@ -21,7 +21,7 @@
           @click="saveComment"
         >COMMENT</button>
         <button
-          class="flex-shrink-0 border-transparent border-4 text-primary-light hover:text-teal-800 text-sm py-1 px-2 rounded"
+          class="flex-shrink-0 border-transparent border-4 hover:text-teal-800 text-sm py-1 px-2 rounded"
           type="button"
           @click="cancel"
         >Cancel</button>

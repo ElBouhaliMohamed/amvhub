@@ -34,14 +34,14 @@
               </div>
 
               <div class="pl-6">
-                <button @click="giveHeart" class="hover:bg-background-light px-2 rounded-full">
+                <button @click="giveHeart" class="hover px-2 rounded-full">
                   <span class="fa fa-heart" v-bind:class="{'text-red-600': alreadyGaveHeart}"></span>
                   {{hearts}}
                 </button>
               </div>
 
               <!-- <div class="pl-6">
-                <button class="hover:bg-background-light px-2 rounded-full" @click="openRatingModal()">
+                <button class="hover px-2 rounded-full" @click="openRatingModal()">
                   <span class="fas fa-poll mr-1"></span>
                   <span class="text-sm font-light">9,3</span>
                   <span class="text-sm font-light">/</span>
@@ -69,7 +69,7 @@
           <!-- <div class="flex flex-wrap">
             <router-link
               :to="'/search/tag/' + tag"
-              class="bg-background-dark text-background-100 mr-2 mt-2 p-2 rounded-full text-sm"
+              class= mr-2 mt-2 p-2 rounded-full text-sm"
               v-for="tag in tags"
             >{{ tag }}</router-link>
           </div> -->

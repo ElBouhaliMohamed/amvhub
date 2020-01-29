@@ -1,0 +1,8 @@
+.gradient-to-transparent {
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+}
+
+.blur-full {
+  filter: blur(1rem);
+  transform: scale(1.02);
+}

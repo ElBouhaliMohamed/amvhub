@@ -1,15 +1,15 @@
 <template>
   <nav class="headerContainer">
     <div class="w-11/12 flex md:w-1/4">
-      <!-- <button class="ml-4 h-8 w-12 flex items-center justify-center " @click="toggleNavigation">
-        <div class="fa fa-bars"></div>
+      <button class="ml-4 h-8 w-12 flex items-center justify-center " @click="toggleNavigation">
+        <div class="fa fa-bars btn-action"></div>
       </button>
       <span class="flex w-full">
         <input type="text" class="searchBox" placeholder="Search">
         <a href="#" class="searchIcon">
-          <div class="fa fa-search  hover:"></div>
+          <div class="fa fa-search btn-action"></div>
         </a>
-      </span> -->
+      </span>
     </div>
 
     <div class="w-2/4 logo flex items-center text-center justify-center">
@@ -25,10 +25,10 @@
       <a href="#" class="top-nav-item ">
         <div class="fa fa-envelope"></div>
       </a> -->
-      <button v-if="isLoggedIn" class="btn btn-primary mr-4" @click="logout">LOGOUT</button>
+      <button v-if="isLoggedIn" class="btn btn-action mr-4" @click="logout">Log Out</button>
       <div class="mr-4">
         <!-- <router-link to="/channel"> -->
-          <button v-if="!isLoggedIn" class="btn btn-primary" @click="login">LOG IN</button>
+          <button v-if="!isLoggedIn" class="btn btn-action" @click="login">Log In</button>
           <img v-else :src="avatar" alt="avatar" class="avatar">
         <!-- </router-link> -->
       </div>
@@ -55,7 +55,7 @@ export default {
     login () {
       this.$router.push('/login');
     },
-    logout() {
+    logout () {
       firebase.auth().signOut().then(() => {
         this.$store.commit('user/SET_LOGGED_IN', false);
         this.$router.replace('/login')
@@ -82,10 +82,10 @@ export default {
 <style lang="scss" scoped>
 
 .searchBox {
-  @apply .w-full .rounded-l .text-xs .py-1 .px-2;
+  @apply .w-full .rounded-l .text-xs .py-1 .px-2 text-white;
   -webkit-transition: width 0.4s ease-in-out;
   transition: width 0.4s ease-in-out;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .searchBox:focus {
@@ -94,7 +94,7 @@ export default {
 
 .searchIcon {
   @apply .rounded-r .h-8 .py-2 .px-2;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.05);
   height: 34px;
 }
 
@@ -103,11 +103,11 @@ export default {
 }
 
 .headerContainer {
-  @apply .sticky .top-0 .z-50 .w-full .mx-auto .flex .flex-col .items-start .py-4 .bg-background;
+  @apply .flex .flex-col .z-50 .w-full .mx-auto .items-start .py-4 .bg-gray-900 .shadow-lg .border-0;
 }
 
 .avatar {
-  @apply .h-12 .w-12 .rounded-full;
+  @apply .h-8 .w-8 .rounded-full;
   -webkit-transition: width 0.4s, height 0.4s ease-in-out;
   transition: width 0.4s, height 0.4s ease-in-out;
 }

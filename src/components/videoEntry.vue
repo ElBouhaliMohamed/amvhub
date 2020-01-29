@@ -172,7 +172,7 @@ export default {
 }
 
 .videoLengthBackground {
-  @apply .absolute .top-0 .right-0 .mt-3 .mr-4 .h-5 .w-8 .bg-background-dark .opacity-25;
+  @apply .absolute .top-0 .right-0 .mt-3 .mr-4 .h-5 .w-8  .opacity-25;
 }
 
 .videoStatus {
@@ -185,7 +185,7 @@ export default {
 }
 
 .videoEntry {
-  @apply .flex .relative .my-8 .mx-2 .w-full;
+  @apply .text-white .flex .relative .my-8 .mx-2 .w-full;
 }
 
 .videoAvatar {

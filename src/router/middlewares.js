@@ -1,7 +1,6 @@
 import $store from '../store'
 import firebase from 'firebase'
 
-
 export function setPageTitleMiddleware (to, from, next) {
   const pageTitle = to.matched.find(item => item.meta.title)
 
@@ -23,10 +22,22 @@ export function checkIfSmallNavigationNeeded (to, from, next) {
  * Check access permission to auth routes
  */
 export function checkAccessMiddleware (to, from, next) {
-  const currentUser = firebase.auth().currentUser;
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const currentUser = firebase.auth().currentUser
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
 
   if (requiresAuth && currentUser) return next()
   if (requiresAuth) return next({ name: 'login' })
+  next()
+}
+
+/**
+ * Check access permission to auth routes
+ */
+export function checkAlreadySignedInUserAccessMiddleware (to, from, next) {
+  const currentUser = firebase.auth().currentUser
+  const cantOpenWhenSignedIn = to.matched.some(record => record.meta.cantOpenWhenSignedIn)
+
+  if (!cantOpenWhenSignedIn) return next()
+  if (cantOpenWhenSignedIn && currentUser) return next(from)
   next()
 }

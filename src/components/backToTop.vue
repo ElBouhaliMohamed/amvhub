@@ -1,7 +1,7 @@
 <template>
   <transition name="back-to-top-fade">
     <div
-      class="vue-back-to-top"
+      class="vue-back-to-top btn-primary"
       :style="`bottom:${this.bottom};right:${this.right};`"
       v-show="visible"
       @click="backToTop"
@@ -107,12 +107,10 @@ export default {
 }
 
 .vue-back-to-top .default {
-  @apply .bg-background-light;
+  @apply ;
   border-radius: 3px;
-  height: 30px;
   line-height: 30px;
   text-align: center;
-  width: 160px;
 }
 
 .vue-back-to-top .default span {

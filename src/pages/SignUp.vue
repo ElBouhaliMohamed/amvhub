@@ -48,7 +48,7 @@ export default {
     }
   },
   methods: {
-    signUp: function() {
+    signUp: function () {
         this.$Progress.start();
         UsersService.signUp(this.username, this.email, this.password, this.avatar)
         .then((user) => {
@@ -57,16 +57,16 @@ export default {
             this.loginSucceeded();
         }).catch((err) => {
             console.log(err);
-            this.showErrorMsg({message: err.message});
+            this.showErrorMsg({ message: err.message });
             this.$Progress.fail();
         });
     },
-    loginSucceeded() {
+    loginSucceeded () {
         UsersService.afterLogin();
         this.$router.push('audienceChoice');
         this.$Progress.finish();
     },
-    uploaded: function(file) {
+    uploaded: function (file) {
         this.avatar = file;
         console.log(file);
     }
@@ -93,7 +93,7 @@ export default {
       message: ''
     }
   },
-  components: {avatar}
+  components: { avatar }
 }
 </script>
 

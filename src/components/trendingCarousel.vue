@@ -1,20 +1,44 @@
 <template>
-  <carousel
-    :per-page="perPage"
-    :autoplay="autoplay"
-    :autoplayHoverPause="autoplayHoverPause"
-    :autoPlayTimeout="autoPlayTimeout"
-    :loop="loop"
-    :paginationColor="paginationColor"
-    :paginationActiveColor="paginationActiveColor"
-    :centerMode="centerMode"
-  >
-    <slide>
-      <div class="bannerWrapper">
-        <img src="@/assets/thumbnail.png" class="banner">
-      </div>
-    </slide>
-  </carousel>
+  <div class="w-full">
+      <carousel
+        :per-page="perPage"
+        :autoplay="autoplay"
+        :autoplayHoverPause="autoplayHoverPause"
+        :autoPlayTimeout="autoPlayTimeout"
+        :loop="loop"
+        :paginationColor="paginationColor"
+        :paginationActiveColor="paginationActiveColor"
+        :centerMode="centerMode"
+        class=""
+      >
+        <slide>
+          <div class="relative pb-3/6  text-white">
+            <div class="absolute h-full w-full gradient-to-transparent">
+              <img src="@/assets/thumbnail.png" class="h-full w-full object-cover blur-full small-scale">
+            </div>
+            <div class="absolute w-full flex py-28 px-16">
+              <div class="w-1/2 shadow-md">
+                <img src="@/assets/thumbnail.png" class="h-full w-full object-cover">
+              </div>
+              <div class="flex flex-col w-1/2 items-start self-end">
+                <span class="flex flex-row">
+                  <button class="btn btn-primary">Play</button>
+                  <button class="bton btn-primary">More Info</button>
+                </span>
+                <span class="text-3xl font-bold">
+                  Watch now: 
+                  "Beautiful Crime" by Kazumoe
+                </span>
+                <span class="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam ullam quia velit ipsum tempore eum, exercitationem explicabo dolore quis deserunt qui asperiores iure veritatis, blanditiis id aperiam ipsa consectetur hic aliquid iusto nisi, vitae accusantium neque! Minus alias laboriosam facere!
+                </span>
+              </div>
+            </div>
+            <!-- <button class="absolute bottom-0 mb-16 ml-16 btn">Play</button> -->
+          </div>
+        </slide>
+      </carousel>
+  </div>
 </template>
 
 <script>
@@ -27,9 +51,9 @@ export default {
       autoplayHoverPause: true,
       loop: true,
       centerMode: true,
-      autoPlayTimeout: 4000,
-      paginationColor: 'var(--secondary-color)',
-      paginationActiveColor: 'var(--primary-100)',
+      autoPlayTimeout: 8000,
+      paginationColor: '#000000',
+      paginationActiveColor: '#efefef',
       poster: 'thumbnail.png'
     }
   }
@@ -44,19 +68,6 @@ export default {
   top: 0;
   bottom: 0;
   margin: auto;
-}
-
-.bannerWrapper {
-  @apply relative .w-full .overflow-hidden .h-112;
-}
-
-.banner {
-  position: absolute;
-  margin: auto;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
 }
 
 .bannerTitle {

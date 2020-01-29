@@ -13,7 +13,7 @@
           </button>
         </span>
       -->
-        <span class="border-l-2 border-background-light h-5 mr-4 hidden md:block"></span>
+        <span class="border-l-2 h-5 mr-4 hidden md:block"></span>
 
         <span class="flex ml-2 md:ml-0">
           <router-link class="flex text-center items-center pr-2" tag="a" to="/trending">
@@ -30,7 +30,7 @@
           </router-link>
         </span>
 
-        <span class="border-l-2 border-background-light h-5 mx-4 hidden md:block"></span>
+        <span class="border-l-2 h-5 mx-4 hidden md:block"></span>
       </div>
       <div class="w-1/4"></div>
     </div>
@@ -55,13 +55,13 @@
       </ul>
 
       <div class="flex h-16 pl-4 pr-16 items-center">
-        Darkmode
+        <!-- Darkmode
         <label class="switch">
           <input type="checkbox" value:="isDarkMode" @click="switchTheme">
           <span
             class="slider round"
           ></span>
-        </label>
+        </label> -->
         <button v-if="isLoggedIn" class="btn btn-primary" @click="logout">Logout</button>
       </div>
 
@@ -152,7 +152,7 @@ hr {
 }
 
 .smallNav {
-  @apply z-40 w-full flex flex-row overflow-hidden justify-start items-center bg-background border-t border-b border-background-light;
+  @apply z-40 w-full flex flex-row overflow-hidden justify-start items-center;
   top: 67px;
   height: 0px;
   -webkit-transition: height 250ms ease-in-out;
@@ -166,8 +166,8 @@ hr {
 }
 
 .bigNav {
-  @apply flex flex-col fixed bg-background overflow-hidden h-screen z-40 top-0 shadow-lg;
-  top: 106px;
+  @apply flex flex-col fixed overflow-hidden h-screen z-40 top-0 shadow-lg bg-gray-800;
+  top: 110px;
   width: 0px;
   -webkit-transition: width 250ms ease-in-out;
   -moz-transition: width 250ms ease-in-out;
@@ -180,7 +180,7 @@ hr {
 }
 
 .bigNavEntry {
-  @apply flex  h-16 pl-4 pr-16 items-center;
+  @apply flex  h-16 pl-4 pr-16 items-center text-white;
 
   -webkit-transition: all 250ms ease-in-out;
   -moz-transition: all 250ms ease-in-out;
@@ -188,16 +188,17 @@ hr {
   transition: all 250ms ease-in-out;
 }
 
+
 .bigNavEntry:hover {
-  @apply bg-background-light;
+  @apply bg-gray-700 text-purple-500;
 }
 
 .bigNavEntry.is-active {
-  @apply bg-background-dark pl-8;
+  @apply pl-8 bg-gray-600 text-purple-500;
 }
 
 .toggle {
-  @apply .ml-4 .h-8 .w-12 bg-background-dark;
+  @apply .ml-4 .h-8 .w-12;
   transition: all 0.2s ease-out;
 }
 
@@ -257,7 +258,7 @@ hr {
 }
 
 input:checked + .slider {
-  @apply bg-background-dark;
+  @apply;
 }
 
 input:focus + .slider {
@@ -280,7 +281,7 @@ input:checked + .slider:before {
 
 @screen md {
   .bigNav {
-    top: 77px;
+    top: 80px;
   }
   .bigNavActive {
     @apply w-80;
