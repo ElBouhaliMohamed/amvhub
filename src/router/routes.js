@@ -35,7 +35,7 @@ export const routes = [
     path: '/channel',
     name: 'channel',
     component: channel,
-    meta: { title: `${DOMAIN_TITLE} | trending`, enableSmallNavigation: false, requiresAuth: true, cantOpenWhenSignedIn: false }
+    meta: { title: `${DOMAIN_TITLE}`, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: false }
   },
   {
     path: '/upload',

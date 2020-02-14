@@ -1,6 +1,7 @@
 <template>
-  <div class="h-80 w-full bg-center bg-no-repeat bg-contain" :style="{backgroundImage: `url(${require(`../assets/${this.banner}`)})`}">
-  </div>
+  <!-- <div class="h-80 w-full bg-center bg-no-repeat bg-contain" :style="{backgroundImage: `url(${require(`../assets/${this.banner}`)})`}">
+  </div> -->
+
 </template>
 
 <script>
@@ -16,5 +17,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>
