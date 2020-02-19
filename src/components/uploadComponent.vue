@@ -57,7 +57,6 @@ export default {
         }, function () {
           uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
             console.log('File available at', downloadURL)
-            self.$store.commit('upload/SET_URL', downloadURL)
             self.$store.commit('upload/SET_UUID', videoDbRef.id)
           })
         })

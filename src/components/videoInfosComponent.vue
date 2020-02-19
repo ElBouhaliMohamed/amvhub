@@ -4,7 +4,7 @@
                 <div class="flex w-full py-2">
                   Please fill out the Informations while your Video gets uploaded!
                  {{progress}}%
-                  <loadingAnimation></loadingAnimation>
+                  <!-- <loadingAnimation></loadingAnimation> -->
                 </div>
 
                 <div class="flex w-full py-2">
@@ -112,9 +112,11 @@ export default {
     async saveInfos () {
       let uuid = this.$store.getters['upload/uuid']
       let videoDbRef = await firebase.firestore().collection('videos').doc(uuid)
-      
+
       let userUuid = this.$store.state.user.currentUser.currentUser.uid
-      let userRef = await firebase.firestore().doc(`/users/${userUuid}`).ref
+      console.log(userUuid)
+      let userRef = await firebase.firestore().collection('users').doc(userUuid)
+      console.log(userRef)
 
       // TODO: add validation checks for the input
       await videoDbRef.set({
@@ -127,7 +129,7 @@ export default {
         hearts: 0
       })
 
-      this.$store.commit('upload/SET_URL', `${this.$route.query.page}/video/${uuid}`)
+      this.$store.commit('upload/SET_URL', `localhost:8080/video/${uuid}`)
 
       this.$emit('next') // next screen
     }

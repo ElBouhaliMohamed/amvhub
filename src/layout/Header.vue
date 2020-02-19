@@ -50,27 +50,27 @@ export default {
   },
   methods: {
     toggleNavigation () {
-      this.$store.commit('navbar/toggleNavigation', !this.isActive);
+      this.$store.commit('navbar/toggleNavigation', !this.isActive)
     },
     login () {
-      this.$router.push('/login');
+      this.$router.push('/login')
     },
     logout () {
       firebase.auth().signOut().then(() => {
-        this.$store.commit('user/SET_LOGGED_IN', false);
+        this.$store.commit('user/SET_LOGGED_IN', false)
         this.$router.replace('/login')
       })
     }
   },
   computed: {
-    avatar: function() {
-      return this.$store.state.user.currentUser != null ? this.$store.state.user.currentUser.userInfo.photoURL : '';
+    avatar: function () {
+      return this.$store.state.user.currentUser != null ? this.$store.state.user.currentUser.userInfo.photoURL : ''
     },
     isActive: function () {
-      return this.$store.state.navbar.isActive;
+      return this.$store.state.navbar.isActive
     },
-    isLoggedIn: function() {
-      return this.$store.state.user.isLoggedIn;
+    isLoggedIn: function () {
+      return this.$store.state.user.isLoggedIn
     }
   },
   components: {

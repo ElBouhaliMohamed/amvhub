@@ -1,6 +1,6 @@
 <template>
     <div id="infos" class="h-full flex flex-col justify-center items-center py-4 text-white">
-        {{ url }}
+        <a :href="url">{{ url }}</a>
     </div>
 </template>
 

@@ -70,6 +70,6 @@ export const routes = [
   {
     path: '*',
     component: notFoundPage,
-    meta: { title: `${DOMAIN_TITLE} | not found`, enableSmallNavigation: false, requiresAuth: false }
+    meta: { title: `${DOMAIN_TITLE} | not found`, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: false }
   }
 ]
