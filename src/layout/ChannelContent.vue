@@ -1,18 +1,18 @@
 <template>
-  <div class="container mx-auto flex text-sm leading-normal">
-    <div class="w-96 px-4 py-20 bg-white shadow-md">
-      <div class="container mx-auto flex items-center">
+  <div class="flex flex-col sm:flex-row text-sm leading-normal">
+    <div class="w-full sm:2/6 md:w-2/6 px-4 py-1/12 md:py-1/8 xl:py-1/12 bg-gray-800 text-white rounded-b-lg shadow-md">
+      <div class="container mx-auto flex flex-col md:flex-row">
         <h1 class="text-2xl font-bold">
           <a href="#" class="text-platinum tracking-wide">Kazumoe</a>
         </h1>
 
-        <div class="flex float-right px-2 justify-end items-center">
+        <!-- <div class="flex float-right px-2 justify-end items-center">
           <div class="pr-2">
             <button
-              class="bg-black text-white py-2 px-4 rounded-lg"
+              class="btn-primary"
             >FOLLOW</button>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <div class="mb-2">
@@ -22,7 +22,7 @@
       <hr class="mb-4">
 
       <div class="mb-2 text-platinum">
-        <span>Member of Indigo Team</span>
+        <span>Member of Dreambox</span>
         <br>
         <br>
         <span>you can hit me up at twitter @iamkazumoe or discord Kazumoe#3232</span>
@@ -34,10 +34,10 @@
         <li v-for="entry in urls" :key="entry.url">
           <a
             :href="'//' + entry.url"
-            class="text-platinum text-sm font-thin"
+            class="flex text-platinum text-sm font-thin"
           >
             <img :src="faviconService + entry.baseurl" class="h-4 w-4">
-            {{ entry.name }}
+            <span class="ml-2">{{ entry.name }}</span>
           </a>
         </li>
       </ul>
@@ -45,7 +45,7 @@
 
     <div class="w-full">
       <div class="px-4 mb-4">
-        <div class="px-2 mx-8 mt-8 font-medium text-3xl text-white uppercase tracking-wide">Uploads</div>
+        <!-- <div class="px-2 mx-8 mt-8 font-medium text-3xl text-white uppercase tracking-wide">Uploads</div> -->
         <div class="flex content-start flex-wrap">
           <video-entry title="Versteckspiel" editor="Kazumoe" length="4:20" thumbnail="thumbnail2.png"></video-entry>
           <video-entry title="Beautiful Crime" editor="Kazumoe" length="4:20" thumbnail="thumbnail.png"></video-entry>

@@ -1,6 +1,6 @@
 <template>
   <nav class="headerContainer">
-    <div class="w-11/12 flex md:w-1/4">
+    <div class="w-11/12 flex sm:w-2/5">
       <button class="ml-4 h-8 w-12 flex items-center justify-center " @click="toggleNavigation">
         <div class="fa fa-bars btn-action"></div>
       </button>
@@ -12,13 +12,13 @@
       </span>
     </div>
 
-    <div class="w-2/4 logo flex items-center text-center justify-center">
+    <div class="hidden md:flex w-1/5 logo items-center text-center justify-center">
       <router-link to="/">
         <logo/>
       </router-link>
     </div>
 
-    <div class="w-full mt-2 md:w-1/4 flex items-center text-center justify-end">
+    <div class="w-full mt-2 md:w-2/5 flex items-center text-center justify-end">
       <!-- <a href="#" class="top-nav-item ">
         <div class="fa fa-bell"></div>
       </a>
@@ -103,7 +103,7 @@ export default {
 }
 
 .headerContainer {
-  @apply .flex .flex-col .z-50 .w-full .mx-auto .items-start .py-4 .bg-gray-900 .shadow-lg .border-0;
+  @apply .fixed .flex .flex-col .z-50 .w-full .mx-auto .items-start .py-4 .bg-gray-900 .shadow-lg .border-0;
 }
 
 .avatar {

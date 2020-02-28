@@ -2,37 +2,10 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
   important: true,
+  plugins: [
+    require('@tailwindcss/ui')
+  ],
   theme: {
-    colors: {
-      ...defaultTheme.colors,
-      'gray': {
-        '100': '#f2f2f2',
-        '200': '#E6E6E7',
-        '300': '#b1b1b9',
-        '400': '#838592',
-        '500': '#5d5d6c',
-        '600': '#292f34',
-        '700': '#22272b',
-        '800': '#161a1f',
-        '900': '#06070d',
-        '1000': '#0C0E14'
-       }
-    },
-    spacing: {
-      ...defaultTheme.spacing,
-      '7': '1.75rem',
-      '28': '7rem',
-      '80': '20rem',
-      '112': '28rem'
-    },
-    opacity: {
-      ...defaultTheme.opacity,
-      '10': '.10'
-    },
-    screens: {
-      ...defaultTheme.screens,
-      'xll': '1696px'
-    },
     extend: {
       width: {
         '1/8': '12.5%'
@@ -66,8 +39,17 @@ module.exports = {
         '10/12': '83.33333%',
         '11/12': '91.66667%',
         full: '100%'
+        // '7': '1.75rem',
+        // '28': '7rem',
+        // '80': '20rem',
+        // '112': '28rem'
+      },
+      opacity: {
+        '10': '.10'
+      },
+      screens: {
+        'xll': '1696px'
       }
-
     }
   },
   variants: {

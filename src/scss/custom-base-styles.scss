@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 body, html { overflow-y: visible}
-body { @apply .bg-gray-1000}
+body { @apply .bg-gray-900}
 
 html * {
   font-family: 'Muli', sans-serif;
@@ -17,3 +17,10 @@ a {
 }
 
 button:focus {outline:0;}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s easy;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}

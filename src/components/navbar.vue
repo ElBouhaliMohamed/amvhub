@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav class="flex">
     <div :class="[smallNav, {smallNavActive: smallNavIsEnabled}]">
       <div class="hidden md:block w-1/8 lg:w-1/4"></div>
       <div class="flex flex-col md:flex-row w-1/2">
@@ -35,7 +35,7 @@
       <div class="w-1/4"></div>
     </div>
     <div id="bigNav" :class="[bigNav, {bigNavActive:isActive}]">
-      <ul class="flex flex-col">
+      <div class="flex-1 h-0 overflow-y-auto pb-4">
         <router-link tag="li" class="bigNavEntry" to="/trending">
           <div class="fas fa-fire fa-sm w-8 pr-6"></div>Trending
         </router-link>
@@ -52,18 +52,37 @@
         <router-link tag="li" class="bigNavEntry" to="/e">
           <div class="fas fa-trophy fa-sm w-8 pr-6"></div>Contests
         </router-link>
-      </ul>
+      </div>
 
-      <div class="flex h-16 pl-4 pr-16 items-center">
-        <!-- Darkmode
+      <!-- <div class="flex h-16 pl-4 pr-16 items-center">
+        Darkmode
         <label class="switch">
           <input type="checkbox" value:="isDarkMode" @click="switchTheme">
           <span
             class="slider round"
           ></span>
-        </label> -->
-        <button v-if="isLoggedIn" class="btn btn-primary" @click="logout">Logout</button>
+        </label>
+      </div> -->
+
+      <div class="flex-shrink-0 flex border-t border-indigo-700 p-4">
+        <a href="#" class="flex-shrink-0 group block focus:outline-none">
+          <div class="flex items-center">
+            <div>
+              <img class="inline-block h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+            </div>
+            <div class="ml-3">
+              <p class="text-base leading-6 font-medium text-white">
+                Tom Cook
+              </p>
+              <p class="text-sm leading-5 font-medium text-indigo-300 group-hover:text-indigo-100 group-focus:underline transition ease-in-out duration-150">
+                View profile
+              </p>
+            </div>
+            <button v-if="isLoggedIn" class="btn btn-primary ml-3" @click="logout">Logout</button>
+          </div>
+        </a>
       </div>
+
 
       <!-- <div class="flex text-xs pl-4 pr-16 opacity-50">
         @ 2019 amvhub
@@ -103,8 +122,8 @@ export default {
     isDarkMode: function () {
       return this.$store.state.theme.isDarkMode
     },
-    isLoggedIn: function() {
-      return this.$store.state.user.isLoggedIn;
+    isLoggedIn: function () {
+      return this.$store.state.user.isLoggedIn
     }
   },
   methods: {
@@ -116,7 +135,7 @@ export default {
     },
     logout() {
       firebase.auth().signOut().then(() => {
-        this.$store.commit('user/SET_LOGGED_IN', false);
+        this.$store.commit('user/SET_LOGGED_IN', false)
         this.$router.replace('login')
       })
     }
@@ -166,7 +185,7 @@ hr {
 }
 
 .bigNav {
-  @apply flex flex-col fixed overflow-hidden h-screen z-40 top-0 shadow-lg bg-gray-800;
+  @apply flex-1 flex flex-col fixed overflow-hidden h-screen z-40 top-0 shadow-lg bg-gray-800;
   top: 110px;
   width: 0px;
   -webkit-transition: width 250ms ease-in-out;
