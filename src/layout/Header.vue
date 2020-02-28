@@ -26,9 +26,10 @@
         <div class="fa fa-envelope"></div>
       </a> -->
       <button v-if="isLoggedIn" class="btn btn-action mr-4" @click="logout">Log Out</button>
-      <div class="mr-4">
+      <div class="mr-4 flex">
         <!-- <router-link to="/channel"> -->
           <button v-if="!isLoggedIn" class="btn btn-action" @click="login">Log In</button>
+          <router-link v-if="!isLoggedIn" to="signup" class="btn btn-action">Sign Up</router-link>
           <img v-else :src="avatar" alt="avatar" class="avatar">
         <!-- </router-link> -->
       </div>

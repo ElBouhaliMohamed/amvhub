@@ -45,7 +45,6 @@
         <router-link tag="li" class="bigNavEntry" to="/featured">
           <div class="fas fa-bullhorn fa-sm w-8 pr-6"></div>Featured
         </router-link>
-
         <router-link tag="li" class="bigNavEntry" to="/t">
           <div class="fas fa-book-open fa-sm w-8 pr-6"></div>Guides
         </router-link>
@@ -82,16 +81,9 @@
           </div>
         </a>
       </div>
-
-
-      <!-- <div class="flex text-xs pl-4 pr-16 opacity-50">
-        @ 2019 amvhub
-      </div>-->
-      <!-- dark mode toggle -->
     </div>
 
     <backToTop text="Back to top" visibleoffset="500"></backToTop>
-    <!-- <floatingNavButton visibleoffset="100"></floatingNavButton> -->
   </nav>
 </template>
 

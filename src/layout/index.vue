@@ -3,7 +3,7 @@
       <AppHeader></AppHeader>
       <AppNavbar></AppNavbar>
       <!-- <div :class="[{wrapper: navbarIsActive}, {navbarMargin: !navbarIsActive}]"> -->
-      <div class="wrapper mt-20">
+      <div class="wrapper pt-20">
           <vue-progress-bar></vue-progress-bar>
           <transition name="fade">
             <router-view></router-view>
