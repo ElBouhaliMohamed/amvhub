@@ -1,19 +1,19 @@
 <template>
   <div class="text-white bg-white">
     <div class="md:py-2 md:container md:mx-auto md:w-3/4 shadow overflow-hidden sm:rounded-md">
-      <ul>
+      <ul v-for="video in feed" v-bind:key="video.id">
         <li>
-          <div class="block hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out sm:border-b sm:border-gray-200">
-            <div class="flex items-center px-2 py-4">
-              <div class="min-w-0 flex-1 flex flex-col">
+          <div class="block hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out "> <!-- sm:border-b sm:border-gray-200 -->
+            <div class="px-2 py-4">
+              <div class="min-w-0 flex-1 flex flex-row md:flex-col">
                 <div class="flex-shrink-0 group block focus:outline-none pl-4">
                   <div class="flex items-center">
                     <a href="#">
-                      <img class="inline-block h-16 w-16 rounded-full" src="../assets/avatar.jpg" alt="avatar" />
+                      <img class="inline-block h-8 w-8 md:h-16 md:w-16 rounded-full" src="../assets/avatar.jpg" alt="avatar" />
                     </a>
                     <div class="ml-3 hidden md:block">
                       <p class="text-xl leading-5 font-bold text-gray-700 group-hover:text-gray-900">
-                        Kazumoe
+                        {{video.editor}}
                       </p>
                       <a href="#" class="text-xs leading-4 font-medium text-gray-500 group-hover:text-gray-900 group-focus:underline transition ease-in-out duration-150">
                         View profile
@@ -21,39 +21,27 @@
                     </div>
                   </div>
                 </div>
-                <div class="flex flex-row pt-2">
+                <div class="flex flex-row md:pt-2">
                   <a href="#" class="flex-shrink-0 pl-4">
                       <img class="w-40 h-24 md:w-64 md:h-40 object-cover" src="../assets/thumbnail3.png">
                   </a>
                   <div class="min-w-0 flex flex-1 pl-4">
-                    <div class="block">
-                      <!-- <div>
-                        <div class="text-sm leading-5 text-gray-900">
-                          Applied on
-                          <time datetime="2020-01-07">January 7, 2020</time>
+                      <div class="pt-1 flex md:block">
+                        <div class="block w-3/5">
+                          <span class="px-4 font-bold text-2xl text-gray-900 leading-5">
+                            <a href="#">{{video.title}}</a>
+                          </span>
+                          <span class="flex flex-col md:flex-row px-4 font-thin text-sm leading-5 text-gray-500">
+                            <a href="#" class="block md:hidden leading-5 font-medium truncate">{{video.editor}}</a>
+                            <span>{{video.views}} views</span>
+                            <span class="px-2 hidden md:block">&#8226;</span>
+                            <time v-bind:datetime="video.date[0]">{{video.date[1]}}</time>
+                          </span>
                         </div>
-                        <div class="mt-2 flex items-center text-sm leading-5 text-gray-500">
-                          <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                          </svg>
-                          Completed phone screening
-                        </div>
-                      </div> -->
-                      <div class="pt-1">
-                        <span class="px-4 font-bold text-2xl text-gray-900 leading-5">
-                          <a href="#">Atonement</a>
-                        </span>
-                        <span class="flex flex-col md:flex-row px-4 font-thin text-sm leading-5 text-gray-500">
-                          <a href="#" class="block md:hidden leading-5 font-medium truncate">Kazumoe</a>
-                          <span>688 views</span>
-                          <span class="px-2 hidden md:block">&#8226;</span>
-                          <time datetime="2020-12-15">December 15, 2020</time>
-                        </span>
-                        <span
-                          class="px-4 py-2 text-gray-900 font-thin text-sm hidden md:block"
-                        >Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, totam in? Magni dignissimos eveniet autem, corporis rerum est quas porro officia numquam non voluptatibus, doloribus aliquid esse voluptatum a odit.</span>
+                        <p class="px-4 py-2 text-gray-900 font-thin text-sm truncate w-2/5">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, totam in? Magni dignissimos eveniet autem, corporis rerum est quas porro officia numquam non voluptatibus, doloribus aliquid esse voluptatum a odit.
+                        </p>
                       </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -213,7 +201,34 @@
 export default {
   name: 'Feed',
   data: function () {
-    return {}
+    return {
+      feed: [
+        {
+          id: 1,
+          editor: 'Kazumoe',
+          title: 'Atonement',
+          views: 301,
+          date: ['2020-12-15', 'December 15, 2020'],
+          avatar: '../assets/avatar.jpg'
+        },
+        {
+          id: 2,
+          editor: 'Kazumoe',
+          title: 'Beautiful Crime',
+          views: 602,
+          date: ['2020-12-01', 'December 1, 2020'],
+          avatar: '../assets/avatar.jpg'
+        },
+        {
+          id: 3,
+          editor: 'Kazumoe',
+          title: 'Test video 3',
+          views: 1100,
+          date: ['2020-01-07', 'Januar 7, 2020'],
+          avatar: '../assets/avatar.jpg'
+        }
+      ]
+    }
   },
   components: {}
 }
