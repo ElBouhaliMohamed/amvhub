@@ -7,10 +7,7 @@ module.exports = {
   ],
   theme: {
     extend: {
-      width: {
-        '1/8': '12.5%'
-      },
-      spacing:{
+      spacing: {
         '1/2': '50%',
         '1/3': '33.33333%',
         '2/3': '66.66667%',

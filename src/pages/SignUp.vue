@@ -326,7 +326,7 @@ export default {
       if (!droppedFiles) return;
       ([...droppedFiles]).forEach(f => {
         this.startUpload(f)
-      });
+      })
     },
     startUpload (file) {
       console.log(file)
