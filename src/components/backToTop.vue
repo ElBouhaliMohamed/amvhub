@@ -1,14 +1,14 @@
 <template>
   <transition name="back-to-top-fade">
     <div
-      class="vue-back-to-top btn-primary"
+      class="vue-back-to-top px-2 py-1 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150"
       :style="`bottom:${this.bottom};right:${this.right};`"
       v-show="visible"
       @click="backToTop"
     >
       <slot>
         <div class="default">
-          <span>{{ text }}</span>
+          {{ text }}
         </div>
       </slot>
     </div>

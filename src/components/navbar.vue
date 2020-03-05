@@ -1,5 +1,5 @@
 <template>
-  <nav class="flex">
+  <nav>
     <div :class="[smallNav, {smallNavActive: smallNavIsEnabled}]">
       <div class="hidden md:block w-1/8 lg:w-1/4"></div>
       <div class="flex flex-col md:flex-row w-1/2">
@@ -34,7 +34,7 @@
       </div>
       <div class="w-1/4"></div>
     </div>
-    <div id="bigNav" :class="[bigNav, {bigNavActive:isActive}]">
+    <!-- <div id="bigNav" :class="[bigNav, {bigNavActive:isActive}]">
       <div class="flex-1 h-0 overflow-y-auto pb-4">
         <router-link tag="li" class="bigNavEntry" to="/trending">
           <div class="fas fa-fire fa-sm w-8 pr-6"></div>Trending
@@ -51,7 +51,7 @@
         <router-link tag="li" class="bigNavEntry" to="/e">
           <div class="fas fa-trophy fa-sm w-8 pr-6"></div>Contests
         </router-link>
-      </div>
+      </div> -->
 
       <!-- <div class="flex h-16 pl-4 pr-16 items-center">
         Darkmode
@@ -63,7 +63,7 @@
         </label>
       </div> -->
 
-      <div class="flex-shrink-0 flex border-t border-indigo-700 p-4">
+      <!-- <div class="flex-shrink-0 flex border-t border-indigo-700 p-4">
         <a href="#" class="flex-shrink-0 group block focus:outline-none">
           <div class="flex items-center">
             <div>
@@ -81,6 +81,70 @@
           </div>
         </a>
       </div>
+    </div> -->
+
+    <div class="flex overflow-hidden z-50 top-0 bg-gray-100" @keydown.esc="isActive = false">
+      <!-- Off-canvas menu for mobile -->
+      <div @click="isActive = false" class="fixed inset-0 z-30 bg-gray-600 opacity-0 pointer-events-none transition-opacity ease-linear duration-300" :class="{'opacity-75 pointer-events-auto': isActive, 'opacity-0 pointer-events-none': !isActive}"></div>
+      <div class="fixed inset-y-0 left-0 flex flex-col z-40 max-w-xs w-full bg-gray-800 transform ease-in-out duration-300 " :class="{'translate-x-0': isActive, '-translate-x-full': !isActive}">
+          <div class="absolute top-0 right-0 -mr-14 p-1">
+              <button v-if="isActive" @click="isActive = false" class="flex items-center justify-center h-12 w-12 rounded-full focus:outline-none focus:bg-gray-600">
+                  <svg class="h-6 w-6 text-white" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+              </button>
+          </div>
+          <!-- <div class="flex-shrink-0 flex items-center h-20 px-4 bg-gray-800">
+              <logo/>
+          </div> -->
+          <div class="flex-1 h-0 overflow-y-auto">
+              <nav class="px-2 py-4">
+                  <router-link to="/feed" class="group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 transition ease-in-out duration-150">
+                      <svg class="mr-4 h-6 w-6 text-gray-300 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10M9 21h6"/>
+                      </svg>
+                      Feed
+                  </router-link>
+                  <router-link to="/trending" class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                      Trending
+                  </router-link>
+                  <router-link to="/featured" class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                      <svg class="mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+                      </svg>
+                      Featured
+                  </router-link>
+                  <router-link to="/guides" class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                      Guides
+                  </router-link>
+                  <router-link to="/contests" class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                      <svg class="mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+                      </svg>
+                      Contests
+                  </router-link>
+              </nav>
+          </div>
+          <div class="flex-shrink-0 flex bg-gray-700 p-4" v-if="isLoggedIn">
+            <a href="#" class="flex-shrink-0 group block">
+              <div class="flex items-center">
+                <div>
+                  <img class="inline-block h-10 w-10 rounded-full" :src="$currentUser.userInfo.photoURL" alt="avatar" />
+                </div>
+                <div class="ml-3">
+                  <p class="text-base leading-6 font-medium text-white">
+                    {{$currentUser.userInfo.name}}
+                  </p>
+                  <p class="text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
+                    View profile
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+      </div>
     </div>
 
     <backToTop text="Back to top" visibleoffset="500"></backToTop>
@@ -88,10 +152,9 @@
 </template>
 
 <script>
-import logo from '../components/logo.vue'
 import backToTop from '../components/backToTop.vue'
-import floatingNavButton from '../components/floatingNavButton.vue'
 import firebase from 'firebase'
+import logo from '../components/logo.vue'
 
 export default {
   name: 'Navbar',
@@ -108,8 +171,13 @@ export default {
         !this.$store.state.navbar.isActive
       )
     },
-    isActive: function () {
-      return this.$store.state.navbar.isActive
+    isActive: {
+      get: function () {
+        return this.$store.state.navbar.isActive
+      },
+      set: function (newValue) {
+        this.$store.commit('navbar/toggleNavigation', newValue)
+      }
     },
     isDarkMode: function () {
       return this.$store.state.theme.isDarkMode
@@ -125,7 +193,7 @@ export default {
     switchTheme () {
       this.$store.dispatch('theme/switchTheme')
     },
-    logout() {
+    logout () {
       firebase.auth().signOut().then(() => {
         this.$store.commit('user/SET_LOGGED_IN', false)
         this.$router.replace('login')
@@ -133,14 +201,21 @@ export default {
     }
   },
   components: {
-    logo,
     backToTop,
-    floatingNavButton
+    logo
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.is-active {
+  @apply text-white bg-gray-900;
+}
+
+.is-active:hover {
+  @apply bg-gray-800;
+}
+
 hr {
   @apply z-50;
   height: 0.25rem;
@@ -163,7 +238,7 @@ hr {
 }
 
 .smallNav {
-  @apply z-40 w-full flex flex-row overflow-hidden justify-start items-center;
+  @apply z-40 w-full flex flex-row overflow-hidden justify-start items-center text-black;
   top: 67px;
   height: 0px;
   -webkit-transition: height 250ms ease-in-out;
@@ -198,7 +273,6 @@ hr {
   -o-transition: all 250ms ease-in-out;
   transition: all 250ms ease-in-out;
 }
-
 
 .bigNavEntry:hover {
   @apply bg-gray-700 text-purple-500;
@@ -295,7 +369,7 @@ input:checked + .slider:before {
     top: 80px;
   }
   .bigNavActive {
-    @apply w-80;
+    @apply w-64;
   }
   .smallNavActive {
     @apply h-8;

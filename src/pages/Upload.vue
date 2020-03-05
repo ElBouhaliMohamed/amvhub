@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto">
+  <div class="container mx-auto bg-gray-500">
 
     <div id="stepper" class="flex justify-center items-center py-16 text-white ">
         <div :class="['flex items-center', state.id < states.length-1 ? 'w-48' : '' ]" v-for="state in states" v-bind:key="state.id">

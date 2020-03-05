@@ -25,12 +25,38 @@
       <a href="#" class="top-nav-item ">
         <div class="fa fa-envelope"></div>
       </a> -->
-      <button v-if="isLoggedIn" class="btn btn-action mr-4" @click="logout">Log Out</button>
+      <button v-if="isLoggedIn" class="btn btn-action" @click="logout">Log Out</button>
+      <button v-if="isLoggedIn" class="mr-4 border-2 border-transparent text-gray-400 rounded-full hover:text-gray-300 focus:outline-none focus:text-gray-500 focus:bg-gray-100 transition duration-150 ease-in-out">
+        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+        </svg>
+      </button>
       <div class="mr-4 flex">
         <!-- <router-link to="/channel"> -->
           <button v-if="!isLoggedIn" class="btn btn-action" @click="login">Log In</button>
           <router-link v-if="!isLoggedIn" to="signup" class="btn btn-action">Sign Up</router-link>
-          <img v-else :src="avatar" alt="avatar" class="avatar">
+          <div v-else v-on-clickaway="closePopup" class="ml-3 relative">
+            <div>
+              <button @click="open = !open" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out">
+                <img :src="avatar" alt="avatar" class="avatar">
+              </button>
+            </div>
+            <transition
+            enter-class="ease-out duration-100"
+            enter-active-class="opacity-0 scale-95"
+            enter-to-class="opacity-100 scale-100"
+            leave-class="ease-in duration-75"
+            leave-active-class="opacity-100 scale-100"
+            leave-to-class="opacity-0 scale-95">
+              <div v-show="open" class="transform origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
+                <div class="py-1 rounded-md bg-white shadow-xs">
+                  <a href="#" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">Your Profile</a>
+                  <a href="#" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">Settings</a>
+                  <a href="#" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">Sign out</a>
+                </div>
+              </div>
+            </transition>
+          </div>
         <!-- </router-link> -->
       </div>
     </div>
@@ -46,10 +72,14 @@ export default {
   name: 'Header',
   data () {
     return {
-      lightMode: true
+      lightMode: true,
+      open: false
     }
   },
   methods: {
+    closePopup () {
+      this.open = false
+    },
     toggleNavigation () {
       this.$store.commit('navbar/toggleNavigation', !this.isActive)
     },
@@ -104,7 +134,7 @@ export default {
 }
 
 .headerContainer {
-  @apply .fixed .flex .flex-col .z-50 .w-full .mx-auto .items-start .py-4 .bg-gray-900 .shadow-lg .border-0;
+  @apply .fixed .flex .flex-col .z-40 .w-full .mx-auto .items-start .py-4 .bg-gray-900 .shadow-lg .border-0;
 }
 
 .avatar {

@@ -1,6 +1,6 @@
-import firebase from 'firebase';
-import BaseService from './base.service';
-import store from '../store';
+import firebase from 'firebase'
+import BaseService from './base.service'
+import store from '../store'
 
 class UsersService extends BaseService {
   get entity () {
@@ -18,6 +18,16 @@ class UsersService extends BaseService {
             .get()
 
           let userInfo = await userRef.data()
+
+          if (userInfo.uid === undefined) {
+            await firebase
+              .firestore()
+              .collection('users')
+              .doc(currentUser.uid)
+              .update({
+                uid: currentUser.uid
+              })
+          }
 
           if (!userInfo.isGoogleAccount) {
             userInfo.photoURL = await firebase
@@ -82,7 +92,8 @@ class UsersService extends BaseService {
             .set({
               isGoogleAccount: true,
               name: result.user.displayName,
-              photoURL: result.user.photoURL
+              photoURL: result.user.photoURL,
+              uid: result.user.uid
             })
 
           resolve(result)
@@ -99,7 +110,7 @@ class UsersService extends BaseService {
         let usersRef = await firebase.firestore().collection('users').get()
 
         usersRef.forEach((userRef) => {
-          if(userRef.exists && userRef.data().name === username) {
+          if (userRef.exists && userRef.data().name === username) {
             reject(new Error('Username is already being used!'))
           }
         })
@@ -121,7 +132,8 @@ class UsersService extends BaseService {
           .set({
             isGoogleAccount: false,
             name: username,
-            photo: result.user.uid
+            photo: result.user.uid,
+            uid: result.user.uid
           })
 
         resolve(userRef)

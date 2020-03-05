@@ -8,10 +8,14 @@ import Vue from 'vue'
 import VueCarousel from 'vue-carousel'
 
 import Vue2TouchEvents from 'vue2-touch-events'
-Vue.use(VueCarousel)
-Vue.use(Vue2TouchEvents)
 
 import VueProgressBar from 'vue-progressbar'
+
+import VueNotifications from 'vue-notifications'
+import swal from 'sweetalert'
+
+Vue.use(VueCarousel)
+Vue.use(Vue2TouchEvents)
 
 Vue.use(VueProgressBar, {
   color: 'rgb(143, 255, 199)',
@@ -19,10 +23,7 @@ Vue.use(VueProgressBar, {
   height: '3px'
 })
 
-import VueNotifications from 'vue-notifications'
-import swal from 'sweetalert'
-
-function toast ({title, message, type, timeout, cb}) {
+function toast ({ title, message, type, timeout, cb }) {
   if (type === VueNotifications.types.warn) type = 'warning'
   return swal(title, message, type)
 }

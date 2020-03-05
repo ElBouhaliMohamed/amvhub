@@ -1,9 +1,9 @@
 <template>
   <div class="text-white bg-white">
-    <div class="md:py-2 md:container md:mx-auto md:w-3/4 shadow overflow-hidden sm:rounded-md">
+    <div class="md:container md:mx-auto md:w-3/4 overflow-hidden sm:rounded-md">
       <ul v-for="video in feed" v-bind:key="video.id">
         <li>
-          <div class="block hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out "> <!-- sm:border-b sm:border-gray-200 -->
+          <div class="block hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out sm:border-b sm:border-gray-300"> <!--  -->
             <div class="px-2 py-4">
               <div class="min-w-0 flex-1 flex flex-row md:flex-col">
                 <div class="flex-shrink-0 group block focus:outline-none pl-4">
@@ -25,9 +25,9 @@
                   <a href="#" class="flex-shrink-0 pl-4">
                       <img class="w-40 h-24 md:w-64 md:h-40 object-cover" src="../assets/thumbnail3.png">
                   </a>
-                  <div class="min-w-0 flex flex-1 pl-4">
+                  <div class="min-w-0 flex flex-1 pl-4 hidden md:block">
                       <div class="pt-1 flex md:block">
-                        <div class="block w-3/5">
+                        <div class="block">
                           <span class="px-4 font-bold text-2xl text-gray-900 leading-5">
                             <a href="#">{{video.title}}</a>
                           </span>
@@ -38,7 +38,7 @@
                             <time v-bind:datetime="video.date[0]">{{video.date[1]}}</time>
                           </span>
                         </div>
-                        <p class="px-4 py-2 text-gray-900 font-thin text-sm truncate w-2/5">
+                        <p class="px-4 py-2 text-gray-900 font-thin text-sm hidden md:block">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, totam in? Magni dignissimos eveniet autem, corporis rerum est quas porro officia numquam non voluptatibus, doloribus aliquid esse voluptatum a odit.
                         </p>
                       </div>
@@ -221,6 +221,14 @@ export default {
         },
         {
           id: 3,
+          editor: 'Kazumoe',
+          title: 'Test video 3',
+          views: 1100,
+          date: ['2020-01-07', 'Januar 7, 2020'],
+          avatar: '../assets/avatar.jpg'
+        },
+        {
+          id: 4,
           editor: 'Kazumoe',
           title: 'Test video 3',
           views: 1100,
