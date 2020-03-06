@@ -55,7 +55,7 @@ export default {
     }
   },
   computed: {
-    lengthInMinutes() {
+    lengthInMinutes () {
       return parseFloat(this.length / 60).toFixed(2);
     },
     isLightMode () {
@@ -63,7 +63,7 @@ export default {
     }
   },
   methods: {
-    loadVideo() {
+    loadVideo () {
       // this.$Progress.start();
       let routeData = this.$router.resolve(this.url);
       window.open(routeData.href, '_blank');
@@ -155,7 +155,7 @@ export default {
 }
 
 .videoInfoWrapper {
-  @apply .absolute .ml-20 .flex .flex-col;
+  @apply .absolute .ml-20 .flex .flex-col text-black;
   bottom: -27px;
 }
 
@@ -172,11 +172,11 @@ export default {
 }
 
 .videoLengthBackground {
-  @apply .absolute .top-0 .right-0 .mt-3 .mr-4 .h-5 .w-8  .opacity-25;
+  @apply .absolute .top-0 .right-0 .mt-3 .mr-4 .py-2 .px-2 .h-5 .w-8 .opacity-25 .rounded-sm;
 }
 
 .videoStatus {
-  @apply .absolute .bottom-0 .font-bold .text-xs .uppercase;
+  @apply .absolute .bottom-0 .font-bold .text-xs .uppercase text-black;
   bottom: -20px;
 }
 

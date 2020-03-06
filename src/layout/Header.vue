@@ -36,7 +36,7 @@
           <router-link v-if="!isLoggedIn" to="signup" class="btn btn-action">Sign Up</router-link>
           <div v-else v-on-clickaway="closePopup" class="ml-3 relative">
             <div>
-              <button @click="open = !open" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out">
+              <button @click="open = !open" class="flex text-sm rounded-full focus:outline-none transition duration-150 ease-in-out">
                 <img :src="avatar" alt="avatar" class="avatar">
               </button>
             </div>
