@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-black block">
+  <div class="block">
     <!-- <div class="absolute w-full background-gradient">
         <trending-carousel />
     </div> -->
