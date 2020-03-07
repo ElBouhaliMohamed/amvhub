@@ -99,14 +99,14 @@
           <div class="hidden sm:block">
             <div class="border-b border-indigo-200">
               <nav class="-mb-px flex">
-                <router-link to="/channel/videos" class="w-1/4 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm leading-5 text-gray-400 hover:text-gray-100 hover:border-indigo-300 focus:outline-none focus:text-gray-50 focus:border-indigo-300">
-                  My Account
+                <router-link active-class="text-gray-50 border-indigo-700 border-b-4" to="/channel/videos" class="w-1/4 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm leading-5 text-gray-400 hover:text-gray-100 hover:border-indigo-300 focus:outline-none focus:text-gray-50 focus:border-indigo-300">
+                  Videos
                 </router-link>
-                <router-link to="/channel/test" class="w-1/4 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm leading-5 text-gray-400 hover:text-gray-100 hover:border-indigo-300 focus:outline-none focus:text-gray-50 focus:border-indigo-300">
-                  Company
+                <router-link active-class="text-gray-50 border-indigo-700 border-b-4" to="/channel/test" class="w-1/4 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm leading-5 text-gray-400 hover:text-gray-100 hover:border-indigo-300 focus:outline-none focus:text-gray-50 focus:border-indigo-300">
+                  Comments
                 </router-link>
-                <router-link to="/channel/test2" class="w-1/4 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm leading-5 text-gray-400 hover:text-gray-100 hover:border-indigo-300 focus:outline-none focus:text-gray-50 focus:border-indigo-300">
-                  Team Members
+                <router-link active-class="text-gray-50 border-indigo-700 border-b-4" to="/channel/test2" class="w-1/4 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm leading-5 text-gray-400 hover:text-gray-100 hover:border-indigo-300 focus:outline-none focus:text-gray-50 focus:border-indigo-300">
+                  Informations
                 </router-link>
               </nav>
             </div>
