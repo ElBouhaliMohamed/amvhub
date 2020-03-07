@@ -3,7 +3,7 @@
       <AppHeader></AppHeader>
       <AppNavbar></AppNavbar>
       <!-- <div :class="[{wrapper: navbarIsActive}, {navbarMargin: !navbarIsActive}]"> -->
-      <div class="wrapper pt-28 md:pt-20">
+      <div class="wrapper" :class="{'pt-28 md:pt-20' : headerEnabled}">
           <vue-progress-bar></vue-progress-bar>
           <transition name="fade">
             <router-view></router-view>
@@ -31,6 +31,11 @@ export default {
   computed: {
     navbarIsActive: function () {
       return this.$store.state.navbar.isActive
+    },
+    headerEnabled: function () {
+      return (
+        this.$store.state.navbar.headerIsEnabled
+      )
     }
   }
 }

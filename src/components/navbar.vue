@@ -85,8 +85,8 @@
 
     <div class="flex overflow-hidden z-50 top-0 bg-gray-100" @keydown.esc="isActive = false">
       <!-- Off-canvas menu for mobile -->
-      <div @click="isActive = false" class="fixed inset-0 z-30 bg-gray-600 opacity-0 pointer-events-none transition-opacity ease-linear duration-300" :class="{'opacity-75 pointer-events-auto': isActive, 'opacity-0 pointer-events-none': !isActive}"></div>
-      <div class="fixed inset-y-0 left-0 flex flex-col z-40 max-w-xs w-full bg-gray-800 transform ease-in-out duration-300 " :class="{'translate-x-0': isActive, '-translate-x-full': !isActive}">
+      <div @click="isActive = false" class="bg-gray-400 fixed inset-0 z-40 opacity-0 pointer-events-none transition-opacity ease-linear duration-300" :class="{'opacity-75 pointer-events-auto': isActive, 'opacity-0 pointer-events-none': !isActive}"></div>
+      <div class="fixed inset-y-0 left-0 flex flex-col z-50 max-w-xs w-full bg-gray-800 transform ease-in-out duration-300 " :class="{'translate-x-0': isActive, '-translate-x-full': !isActive}">
           <div class="absolute top-0 right-0 -mr-14 p-1">
               <button v-if="isActive" @click="isActive = false" class="flex items-center justify-center h-12 w-12 rounded-full focus:outline-none focus:bg-gray-600">
                   <svg class="h-6 w-6 text-white" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -208,6 +208,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .is-active {
   @apply text-white bg-gray-900;
 }

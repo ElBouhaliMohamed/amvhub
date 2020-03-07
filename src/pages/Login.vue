@@ -7,7 +7,9 @@
             <span v-if="error.length != 0" class="inline-flex text-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-red-100 text-red-800">
               {{error}}
             </span>
-            <logo class="mx-auto h-12 w-auto text-gray-900 text-center text-4xl"/>
+            <router-link to="/">
+              <logo class="mx-auto h-12 w-auto text-gray-900 text-center text-4xl"/>
+            </router-link>
             <h2 class="my-6 text-center px-2 bg-white text-gray-500 leading-5 text-lg">
               Sign in to your account via
             </h2>
@@ -95,6 +97,15 @@
                 </span>
                 Sign in
               </button>
+            </div>
+            
+            <div class="mt-6 flex items-center justify-center p-2 border border-gray-200 rounded-lg">
+              <p class="text-gray-500 mr-2">
+                New to amvhub?
+              </p>
+              <router-link to="signup" class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+                Create an account.
+              </router-link>
             </div>
           </form>
         </div>

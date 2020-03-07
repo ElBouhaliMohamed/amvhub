@@ -18,6 +18,16 @@ export function checkIfSmallNavigationNeeded (to, from, next) {
   next()
 }
 
+export function checkIfHeaderIsNeeded (to, from, next) {
+  const enabled = to.matched.find(item => item.meta.enableHeader)
+  if (enabled) {
+    $store.commit('navbar/toggleHeader', true)
+  } else {
+    $store.commit('navbar/toggleHeader', false)
+  }
+  next()
+}
+
 /**
  * Check access permission to auth routes
  */

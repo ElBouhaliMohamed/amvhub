@@ -16,60 +16,78 @@ export const routes = [
     path: '/feed',
     name: 'feed',
     component: feed,
-    meta: { title: `${DOMAIN_TITLE} | feed`, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: false }
+    meta: { title: `${DOMAIN_TITLE} | feed`, enableHeader: true, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: false }
   },
   {
     path: '/',
     alias: '/trending',
     name: 'trending',
     component: trending,
-    meta: { title: `${DOMAIN_TITLE} | trending`, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: false }
+    meta: { title: `${DOMAIN_TITLE} | trending`, enableHeader: true, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: false }
   },
   {
     path: '/featured',
     name: 'featured',
     component: trending,
-    meta: { title: `${DOMAIN_TITLE} | featured`, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: false }
+    meta: { title: `${DOMAIN_TITLE} | featured`, enableHeader: true, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: false }
   },
   {
     path: '/channel',
     name: 'channel',
     component: channel,
-    meta: { title: `${DOMAIN_TITLE}`, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: false }
+    meta: { title: `${DOMAIN_TITLE}`, enableHeader: true, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: false },
+    children: [
+      {
+        path: '',
+        component: login
+      },
+      {
+        path: 'videos',
+        component: login
+      },
+      {
+        path: 'test',
+        component: signup
+      },
+      {
+        path: 'test2',
+        component: passwordreset
+      }
+    ]
   },
   {
     path: '/upload',
     name: 'upload',
     component: upload,
-    meta: { title: `${DOMAIN_TITLE} | upload`, enableSmallNavigation: false, requiresAuth: true, cantOpenWhenSignedIn: false }
+    meta: { title: `${DOMAIN_TITLE} | upload`, enableHeader: true, enableSmallNavigation: false, requiresAuth: true, cantOpenWhenSignedIn: false }
   },
   {
     path: '/video/:id',
     name: 'video',
     component: videoPage,
-    meta: { title: `${DOMAIN_TITLE} | video`, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: false }
+    meta: { title: `${DOMAIN_TITLE} | video`, enableHeader: true, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: false }
   },
   {
     path: '/login/',
     name: 'login',
     component: login,
-    meta: { title: `${DOMAIN_TITLE} | login`, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: true }
+    meta: { title: `${DOMAIN_TITLE} | login`, enableHeader: false, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: true }
   },
   {
     path: '/signup/',
     name: 'signup',
     component: signup,
-    meta: { title: `${DOMAIN_TITLE} | signup`, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: true }
+    meta: { title: `${DOMAIN_TITLE} | signup`, enableHeader: false, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: true }
   },
   {
     path: '/passwordreset/',
     name: 'passwordreset',
     component: passwordreset,
-    meta: { title: `${DOMAIN_TITLE} | password reset`, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: true }
+    meta: { title: `${DOMAIN_TITLE} | password reset`, enableHeader: false, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: true }
   },
   {
     path: '*',
     component: notFoundPage,
-    meta: { title: `${DOMAIN_TITLE} | not found`, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: false }
+    meta: { title: `${DOMAIN_TITLE} | not found`, enableHeader: true, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: false }
   }
 ]

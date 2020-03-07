@@ -29,7 +29,9 @@
                 <span v-if="error.length != 0" class="inline-flex text-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-red-100 text-red-800">
                 {{error}}
                 </span>
-                <logo class="mx-auto h-12 w-auto text-gray-900 text-center text-4xl"/>
+                <router-link to="/">
+                  <logo class="mx-auto h-12 w-auto text-gray-900 text-center text-4xl"/>
+                </router-link>
             <div>
 
               <div class="mt-6 relative">

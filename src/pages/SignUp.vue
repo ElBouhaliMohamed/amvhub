@@ -44,7 +44,9 @@
           <div>
             <div>
               <div>
-                <logo class="mx-auto h-12 w-auto text-gray-900 text-center text-4xl"/>
+                <router-link to="/">
+                  <logo class="mx-auto h-12 w-auto text-gray-900 text-center text-4xl"/>
+                </router-link>
                 <div class="mt-6 relative">
                 <div class="absolute inset-0 flex items-center">
                   <div class="w-full border-t border-gray-300"></div>

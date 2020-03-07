@@ -6,7 +6,8 @@ export default {
   namespaced: true,
   state: {
     isActive: false,
-    smallNavIsEnabled: true
+    smallNavIsEnabled: true,
+    headerIsEnabled: true
   },
   
   mutations: {
@@ -15,6 +16,9 @@ export default {
     },
     toggleSmallNavigation (state, status) {
       state.smallNavIsEnabled = status
+    },
+    toggleHeader (state, status) {
+      state.headerIsEnabled = status
     }
   }
 }
