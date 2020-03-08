@@ -25,17 +25,22 @@
                   <a href="#" class="flex-shrink-0 pl-4">
                       <img class="w-40 h-24 md:w-64 md:h-40 object-cover" src="../assets/thumbnail3.png">
                   </a>
-                  <div class="min-w-0 flex flex-1 pl-4 hidden md:block">
+                  <div class="min-w-0 flex flex-1 pl-2 block">
                       <div class="pt-1 flex md:block">
                         <div class="block">
                           <span class="px-4 font-bold text-2xl text-gray-900 leading-5">
                             <a href="#">{{video.title}}</a>
                           </span>
-                          <span class="flex flex-col md:flex-row px-4 font-thin text-sm leading-5 text-gray-500">
+                          <span class="flex flex-col md:flex-row px-4 font-thin text-xs md:text-sm leading-5 text-gray-500">
                             <a href="#" class="block md:hidden leading-5 font-medium truncate">{{video.editor}}</a>
-                            <span>{{video.views}} views</span>
-                            <span class="px-2 hidden md:block">&#8226;</span>
-                            <time v-bind:datetime="video.date[0]">{{video.date[1]}}</time>
+                            <span class="flex flex-row">
+                              <span>{{video.views}} views</span>
+                              <span class="px-1 md:px-2 block">&#8226;</span>
+                              <time v-bind:datetime="video.date[0]">{{video.date[1]}}</time>
+                            </span>
+                            <p class="text-gray-900 font-thin text-sm block md:hidden w-full">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, totam in? Magni dignissimos eveniet autem, corporis rerum est quas porro officia numquam non voluptatibus, doloribus aliquid esse voluptatum a odit.
+                            </p>
                           </span>
                         </div>
                         <p class="px-4 py-2 text-gray-900 font-thin text-sm hidden md:block">

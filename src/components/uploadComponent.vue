@@ -1,15 +1,28 @@
 <template>
-  <div id="upload" class="h-full flex flex-col justify-center items-center py-4 text-white">
-    <i
-      class="fas fa-upload fa-6x bg-gray-600 rounded-full p-10 cursor-pointer hover:bg-gray-500"
-      v-cloak
-      @drop.prevent="addFile"
-      @dragover.prevent
-      @click="triggerFileExplorer"
-    ></i>
-    <input type="file" id="inputfile" name="inputfile" class="inputfile" />
-    <span class="py-4">Drag and drop the AMV you want to upload</span>
-    <button class="btn btn-primary uppercase" @click="triggerFileExplorer">select file</button>
+  <div id="upload" class="h-full flex flex-col justify-center items-center py-4 text-black">
+    <div>
+      <div class="mt-3 text-center sm:mt-5">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">
+          Payment successful
+        </h3>
+        <div class="mt-2">
+          <p class="text-sm leading-5 text-gray-500">
+            Drag and drop the AMV you want to upload.
+          </p>
+        </div>
+        <i class="fas fa-upload fa-6x bg-gray-200 text-gray-500 rounded-full p-10 cursor-pointer hover:bg-gray-300 hover:text-gray-700"
+          v-cloak
+          @drop.prevent="addFile"
+          @dragover.prevent
+        @click="triggerFileExplorer"/>
+        <input type="file" id="inputfile" name="inputfile" class="inputfile" />
+      </div>
+    </div>
+    <span class="flex w-full rounded-md shadow-sm mt-5 sm:mt-6">
+      <button @click="triggerFileExplorer" type="button" class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-indigo-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+        Select file
+      </button>
+    </span>
   </div>
 </template>
 

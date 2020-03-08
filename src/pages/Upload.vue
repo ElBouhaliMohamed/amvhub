@@ -1,21 +1,27 @@
 <template>
-  <div class="container mx-auto bg-gray-500">
 
-    <div id="stepper" class="flex justify-center items-center py-16 text-white ">
-        <div :class="['flex items-center', state.id < states.length-1 ? 'w-48' : '' ]" v-for="state in states" v-bind:key="state.id">
-          <transition name="component-fade">
-            <i v-if="stateId > state.id" :class="[baseStyling, baseIcon]"></i>
-            <i v-else :class="[baseStyling, state.icon]"></i>
-          </transition>
-          <span v-if="state.id < states.length-1" :class="['stepper', (stateId > state.id) ? progressed : notProgressed]"></span>
-        </div>
+  <div class="fixed bottom-0 inset-x-0 px-4 pb-6 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center">
+
+    <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+    <div class="bg-white rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all sm:max-w-sm sm:w-full sm:p-6">
+
+      <div id="stepper" class="flex justify-center items-center py-16">
+          <div :class="['flex items-center', state.id < states.length-1 ? 'w-48' : '' ]" v-for="state in states" v-bind:key="state.id">
+            <transition name="component-fade">
+              <i v-if="stateId > state.id" :class="[baseStyling, baseIcon]"></i>
+              <i v-else :class="[baseStyling, state.icon]"></i>
+            </transition>
+            <span v-if="state.id < states.length-1" :class="['stepper', (stateId > state.id) ? progressed : notProgressed]"></span>
+          </div>
+      </div>
+
+      <transition name="component-fade" mode="out-in">
+        <component v-bind:is="currentView" @next="nextComponent"></component>
+      </transition>
+
     </div>
-
-    <transition name="component-fade" mode="out-in">
-      <component v-bind:is="currentView" @next="nextComponent"></component>
-    </transition>
-
   </div>
+
 </template>
 
 <script>

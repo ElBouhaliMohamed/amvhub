@@ -25,68 +25,76 @@
       <a href="#" class="top-nav-item ">
         <div class="fa fa-envelope"></div>
       </a> -->
-      <button v-if="isLoggedIn" class="mr-2 border-2 border-transparent text-gray-400 rounded-full hover:text-gray-300 focus:outline-none focus:text-gray-500 focus:bg-gray-100 transition-all duration-500 ease-in-out">
+      
+      <router-link to="/upload" v-if="isLoggedIn" class="mr-4 border-2 border-transparent text-gray-400 rounded-full hover:text-gray-300 focus:outline-none focus:text-indigo-600 transition-all duration-500 ease-in-out">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 17a5 5 0 01-.916-9.916 5.002 5.002 0 019.832 0A5.002 5.002 0 0116 17m-7-5l3-3m0 0l3 3m-3-3v12"></path></svg>
+      </router-link>
+
+      <button v-if="isLoggedIn" class="mr-4 border-2 border-transparent text-gray-400 rounded-full hover:text-gray-300 focus:outline-none focus:text-gray-500 focus:bg-gray-100 transition-all duration-500 ease-in-out">
         <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
         </svg>
       </button>
+
+      <!-- <transition
+        enter-class="transition-all ease-out duration-500"
+        enter-active-class="opacity-0 scale-95"
+        enter-to-class="opacity-100 scale-100"
+        leave-class="transition-all ease-in duration-500"
+        leave-active-class="opacity-100 scale-100"
+        leave-to-class="opacity-0 scale-95"> -->
       <div class="mr-8 flex">
         <!-- <router-link to="/channel"> -->
           <button v-if="!isLoggedIn" class="btn btn-action" @click="login">Log In</button>
           <router-link v-if="!isLoggedIn" to="signup" class="btn btn-action">Sign Up</router-link>
-          <div v-else v-on-clickaway="closePopup" class="ml-3 relative">
-            <div>
-              <button @click="open = !open" class="flex text-sm rounded-full focus:outline-none transition duration-150 ease-in-out">
-                <img :src="avatar" alt="avatar" class="avatar">
-              </button>
-            </div>
-            <transition
-            enter-class="transition-all ease-out duration-500"
-            enter-active-class="opacity-0 scale-95"
-            enter-to-class="opacity-100 scale-100"
-            leave-class="transition-all ease-in duration-500"
-            leave-active-class="opacity-100 scale-100"
-            leave-to-class="opacity-0 scale-95">
-              <div v-if="open" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
-                <div class="py-1 rounded-md bg-white shadow-xs">
-                  <div class="px-4 py-3">
-                      <div class="flex items-center justify-start">
-                        <div>
-                          <img class="inline-block h-10 w-10 rounded-full" :src="$currentUser.userInfo.photoURL" alt="avatar" />
+
+            <div v-else v-on-clickaway="closePopup" class="ml-3 relative">
+              <div>
+                <button @click="open = !open" class="flex text-sm rounded-full focus:outline-none transition duration-150 ease-in-out">
+                  <img :src="avatar" alt="avatar" class="avatar">
+                </button>
+              </div>
+                <div v-if="open" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
+                  <div class="py-1 rounded-md bg-white shadow-xs">
+                    <div class="px-4 py-3">
+                        <div class="flex items-center justify-start">
+                          <div>
+                            <img class="inline-block h-10 w-10 rounded-full" :src="$currentUser.userInfo.photoURL" alt="avatar" />
+                          </div>
+                          <div class="ml-2">
+                            <p class="text-base font-bold text-black">
+                              {{$currentUser.userInfo.name}}
+                            </p>
+                          </div>
                         </div>
-                        <div class="ml-2">
-                          <p class="text-base font-bold text-black">
-                            {{$currentUser.userInfo.name}}
-                          </p>
-                        </div>
-                      </div>
-                  </div>
-                  <div class="border-t border-gray-100"></div>
-                  <div class="py-1">
-                    <a href="#" class="group flex items-center px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">
-                      <svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                      </svg>
-                      Your Profile
-                    </a>
-                    <a href="#" class="group flex items-center px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">
-                      <svg viewBox="0 0 20 20" fill="currentColor" class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path></svg>
-                      Settings
-                    </a>
-                  </div>
-                  <div class="border-t border-gray-100"></div>
-                  <div class="py-1">
-                    <a class="group flex items-center px-4 py-2 text-sm leading-5 text-gray-700 cursor-pointer hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" @click="logout">
-                      <svg viewBox="0 0 20 20" fill="currentColor" class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
-                      Logout
-                    </a>
+                    </div>
+                    <div class="border-t border-gray-100"></div>
+                    <div class="py-1">
+                      <a href="#" class="group flex items-center px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">
+                        <svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                        Your Profile
+                      </a>
+                      <a href="#" class="group flex items-center px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">
+                        <svg viewBox="0 0 20 20" fill="currentColor" class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path></svg>
+                        Settings
+                      </a>
+                    </div>
+                    <div class="border-t border-gray-100"></div>
+                    <div class="py-1">
+                      <a class="group flex items-center px-4 py-2 text-sm leading-5 text-gray-700 cursor-pointer hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" @click="logout">
+                        <svg viewBox="0 0 20 20" fill="currentColor" class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
+                        Logout
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </transition>
-          </div>
+            </div>
+
         <!-- </router-link> -->
       </div>
+      <!-- </transition> -->
     </div>
 
   </nav>
