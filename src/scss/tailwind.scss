@@ -6,3 +6,10 @@
 
 @import "tailwindcss/utilities.css";
 @import "./custom-utilities.scss";
+
+$progressbar-background: #c3dafe;
+$progressbar-bar-background: #4c51bf;
+$progressbar-height: 0.25rem;
+// find more variables in /src/scss/_progressbar-variables.scss 
+ 
+@import "./node_modules/vue-progressbar-component/src/scss/progressbar";

@@ -12,9 +12,11 @@ import Vue2TouchEvents from 'vue2-touch-events'
 import VueProgressBar from 'vue-progressbar'
 
 import VueNotifications from 'vue-notifications'
+
 import swal from 'sweetalert'
 
 Vue.use(VueCarousel)
+
 Vue.use(Vue2TouchEvents)
 
 Vue.use(VueProgressBar, {

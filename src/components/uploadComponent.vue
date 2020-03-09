@@ -1,16 +1,16 @@
 <template>
-  <div id="upload" class="h-full flex flex-col justify-center items-center py-4 text-black">
+  <div id="upload" class="h-full flex flex-col justify-center items-center">
     <div>
       <div class="mt-3 text-center sm:mt-5">
         <h3 class="text-lg leading-6 font-medium text-gray-900">
-          Payment successful
+          Upload the Video
         </h3>
-        <div class="mt-2">
+        <div class="my-2">
           <p class="text-sm leading-5 text-gray-500">
             Drag and drop the AMV you want to upload.
           </p>
         </div>
-        <i class="fas fa-upload fa-6x bg-gray-200 text-gray-500 rounded-full p-10 cursor-pointer hover:bg-gray-300 hover:text-gray-700"
+        <i class="fas fa-upload fa-6x bg-gray-100 text-gray-500 rounded-full p-10 cursor-pointer hover:bg-gray-300 hover:text-gray-700"
           v-cloak
           @drop.prevent="addFile"
           @dragover.prevent

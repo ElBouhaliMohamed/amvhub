@@ -2,8 +2,12 @@ export default {
   namespaced: true,
   state: {
     title: '',
-    songs: [''],
-    sources: [''],
+    songs: [
+      { artist: 'Test', title: 'Test' }
+    ],
+    sources: [
+      { title: 'Test' }
+    ],
     tags: [],
     progress: 0,
     url: '',
@@ -36,11 +40,20 @@ export default {
     SET_TITLE: (state, title) => {
       state.title = title
     },
-    SET_SONGS: (state, songs) => {
-      state.songs = songs
+    PUSH_SONG: (state, song) => {
+      state.songs.push(song)
     },
-    SET_SOURCES: (state, sources) => {
-      state.sources = sources
+    REMOVE_SONG: (state, index) => {
+      state.songs.splice(index, 1)
+    },
+    PUSH_SOURCE: (state, source) => {
+      state.sources.push(source)
+    },
+    REMOVE_SOURCE: (state, index) => {
+      state.sources.splice(index, 1)
+    },
+    PUSH_TAG: (state, tag) => {
+      state.tags.push(tag)
     },
     SET_TAGS: (state, tags) => {
       state.tags = tags

@@ -1,11 +1,11 @@
 <template>
 
-  <div class="fixed bottom-0 inset-x-0 px-4 pb-6 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center">
+  <div class="fixed bottom-0 inset-x-0 px-4 pb-6 sm:inset-0 sm:p-16 sm:flex sm:items-center sm:justify-center z-50">
 
     <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-    <div class="bg-white rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all sm:max-w-sm sm:w-full sm:p-6">
+    <div class="bg-white rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full sm:p-6">
 
-      <div id="stepper" class="flex justify-center items-center py-16">
+      <div id="stepper" class="flex justify-center items-center pb-4">
           <div :class="['flex items-center', state.id < states.length-1 ? 'w-48' : '' ]" v-for="state in states" v-bind:key="state.id">
             <transition name="component-fade">
               <i v-if="stateId > state.id" :class="[baseStyling, baseIcon]"></i>
@@ -35,9 +35,9 @@ export default {
     return {
       stateId: 0,
       currentView: 'uploadComponent',
-      notProgressed: 'w-full h-1 bg-white rounded-full',
+      notProgressed: 'w-full h-1 bg-gray-500 rounded-full',
       progressed: 'w-full h-1 bg-purple-500 rounded-full',
-      baseStyling: 'stepper fas rounded-full border-2 m-4 p-4',
+      baseStyling: 'transition-all fas text-gray-500 rounded-full border-2 m-4 p-4',
       baseIcon: 'fa-check text-purple-500  border-purple-500',
       states: [
         { id: 0, icon: 'fa-upload' },
@@ -74,10 +74,4 @@ export default {
     opacity: 0;
   }
 
-  .stepper {
-    -webkit-transition: all 1s linear;
-    -moz-transition: all 1s linear;
-    -o-transition: all 1s linear;
-    transition: all 1s linear;
-  }
 </style>
