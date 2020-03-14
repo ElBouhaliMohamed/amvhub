@@ -26,7 +26,7 @@
         <div class="fa fa-envelope"></div>
       </a> -->
       
-      <router-link to="/upload" v-if="isLoggedIn" class="mr-4 border-2 border-transparent text-gray-400 rounded-full hover:text-gray-300 focus:outline-none focus:text-indigo-600 transition-all duration-500 ease-in-out">
+      <router-link to="/admin/upload" v-if="isLoggedIn" class="mr-4 border-2 border-transparent text-gray-400 rounded-full hover:text-gray-300 focus:outline-none focus:text-indigo-600 transition-all duration-500 ease-in-out">
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 17a5 5 0 01-.916-9.916 5.002 5.002 0 019.832 0A5.002 5.002 0 0116 17m-7-5l3-3m0 0l3 3m-3-3v12"></path></svg>
       </router-link>
 

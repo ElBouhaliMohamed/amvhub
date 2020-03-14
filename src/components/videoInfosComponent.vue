@@ -88,7 +88,7 @@
         </span>
 
         <span class="flex rounded-md shadow-sm sm:col-span-2 sm:col-start-5 justify-center items-center">
-          <button @click="saveInfos" type="button" class="inline-flex justify-center w-3/4 rounded-md border border-transparent px-2 py-2 bg-indigo-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+          <button @click="saveInfos" type="button" :class="{'cursor-not-allowed' : !doneUploading}" class="inline-flex justify-center w-3/4 rounded-md border border-transparent px-2 py-2 bg-indigo-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition ease-in-out duration-150 sm:text-sm sm:leading-5">
             Save
           </button>
         </span>
@@ -115,6 +115,9 @@ export default {
     }
   },
   computed: {
+    doneUploading () {
+      return !(this.progress < 100)
+    },
     items () {
       return this.autocompleteItems.filter(a => {
         return a.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1

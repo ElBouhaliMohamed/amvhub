@@ -3,6 +3,7 @@ import signup from '../pages/SignUp.vue'
 import passwordreset from '../pages/PasswordReset.vue'
 import channel from '../pages/profile/Channel.vue'
 import upload from '../pages/Upload.vue'
+import admin from '../pages/Admin.vue'
 
 import trending from '../pages/Trending.vue'
 import feed from '../pages/Feed.vue'
@@ -52,10 +53,17 @@ export const routes = [
     ]
   },
   {
-    path: '/upload',
-    name: 'upload',
-    component: upload,
-    meta: { title: `${DOMAIN_TITLE} | upload`, enableHeader: true, enableSmallNavigation: false, requiresAuth: true, cantOpenWhenSignedIn: false }
+    path: '/admin/',
+    name: 'admin',
+    component: admin,
+    meta: { title: `${DOMAIN_TITLE} | admin`, enableHeader: true, enableSmallNavigation: false, requiresAuth: true, cantOpenWhenSignedIn: false },
+    children: [
+      {
+        path: 'upload',
+        name: 'upload',
+        component: upload
+      }
+    ]
   },
   {
     path: '/video/:id',

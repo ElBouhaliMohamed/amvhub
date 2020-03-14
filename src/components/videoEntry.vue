@@ -1,6 +1,6 @@
 <template>
   <div data-aos="fade-up" data-aos-once="true" class="videoEntry">
-    <a @click="loadVideo" class=" w-full">
+    <router-link :to="this.url" class=" w-full">
       <div class="thumbnailWrapper">
         <!-- <div class="fa fa-5x fa-play-circle videoPlayCircle"></div> -->
         <div
@@ -11,7 +11,7 @@
           @mouseleave="hidePreview()"
         ></div>
       </div>
-    </a>
+    </router-link>
 
     <!-- <div class="videoLengthBackground"></div>
     <div class="videoLength">{{lengthInMinutes}}</div> -->
@@ -56,7 +56,7 @@ export default {
   },
   computed: {
     lengthInMinutes () {
-      return parseFloat(this.length / 60).toFixed(2);
+      return parseFloat(this.length / 60).toFixed(2)
     },
     isLightMode () {
       return !this.$store.getters['theme/isDarkMode']
