@@ -3,9 +3,17 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
   important: true,
   plugins: [
-    require('@tailwindcss/ui')
+    require('@tailwindcss/ui'),
+    require('tailwindcss-aspect-ratio')
   ],
   theme: {
+    aspectRatio: { // defaults to {}
+      'none': 0,
+      'square': [1, 1],
+      '16/9': [16, 9],
+      '4/3': [4, 3],
+      '21/9': [21, 9]
+    },
     extend: {
       spacing: {
         '1/2': '50%',
@@ -46,10 +54,14 @@ module.exports = {
       },
       screens: {
         'xll': '1696px'
+      },
+      maxHeight: {
+        'screen-xl': '720px'
       }
     }
   },
   variants: {
-    opacity: ['responsive', 'hover']
+    opacity: ['responsive', 'hover'],
+    aspectRatio: ['responsive']
   }
 }

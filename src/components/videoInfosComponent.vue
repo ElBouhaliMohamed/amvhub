@@ -2,7 +2,7 @@
 
     <div id="infos" class="flex flex-col justify-center items-left">
 
-      <h3 class="text-lg leading-6 font-medium text-gray-900">
+      <h3 class="text-lg font-medium leading-6 text-gray-900">
         Video Information
       </h3>
 
@@ -10,13 +10,13 @@
         Please fill out the Information while your Video gets uploaded!
       </p>
 
-      <div class="mt-6 grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
+      <div class="grid grid-cols-1 row-gap-6 col-gap-4 mt-6 sm:grid-cols-6">
         <div class="sm:col-span-6">
           <label for="title" class="block text-sm font-medium leading-5 text-gray-700">
             Title
           </label>
           <div class="mt-1 rounded-md shadow-sm">
-            <input id="title" v-model="title" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+            <input id="title" v-model="title" class="block w-full transition duration-150 ease-in-out form-input sm:text-sm sm:leading-5" />
           </div>
         </div>
 
@@ -24,20 +24,20 @@
           <label for="song" class="block text-sm font-medium leading-5 text-gray-700">
             Songs
           </label>
-          <div class="mt-1 flex rounded-md shadow-sm" v-for="(song, index) in songs" :key="index">
+          <div class="flex mt-1 rounded-md shadow-sm" v-for="(song, index) in songs" :key="index">
             <div class="relative flex focus-within:z-10">
-              <div class="w-1/2 flex-1 min-w-0">
-                <input v-model="song.artist" aria-label="Song Artists" class="form-input relative block w-full rounded-none rounded-l-md bg-transparent focus:z-10 transition ease-in-out duration-150 sm:text-sm sm:leading-5" placeholder="Artists" />
+              <div class="flex-1 w-1/2 min-w-0">
+                <input v-model="song.artist" aria-label="Song Artists" class="relative block w-full transition duration-150 ease-in-out bg-transparent rounded-none form-input rounded-l-md focus:z-10 sm:text-sm sm:leading-5" placeholder="Artists" />
               </div>
               <div>
-                <input v-model="song.title" aria-label="Song Title" class="form-input block w-full rounded-none border-l-0 border-t border-b transition ease-in-out duration-150 sm:text-sm sm:leading-5" placeholder="Title" />
+                <input v-model="song.title" aria-label="Song Title" class="block w-full transition duration-150 ease-in-out border-t border-b border-l-0 rounded-none form-input sm:text-sm sm:leading-5" placeholder="Title" />
               </div>
             </div>
-            <button v-if="index == (songs.length - 1)" @click="addSong" class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-r-md text-gray-700 bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
-              <svg viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5 text-gray-400"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"></path></svg>
+            <button v-if="index == (songs.length - 1)" @click="addSong" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out border border-gray-300 rounded-r-md bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">
+              <svg viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-gray-400"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"></path></svg>
             </button>
-            <button v-else @click="removeSong(index)" class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-r-md text-gray-700 bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
-              <svg viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5 text-gray-400"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path></svg>
+            <button v-else @click="removeSong(index)" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out border border-gray-300 rounded-r-md bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">
+              <svg viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-gray-400"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path></svg>
             </button>
           </div>
         </div>
@@ -46,15 +46,15 @@
           <label for="sources" class="block text-sm font-medium leading-5 text-gray-700">
             Sources
           </label>
-          <div class="mt-1 flex rounded-md shadow-sm" v-for="(source, index) in sources" :key="index">
+          <div class="flex mt-1 rounded-md shadow-sm" v-for="(source, index) in sources" :key="index">
             <div class="relative flex-grow focus-within:z-10">
-              <input v-model="source.title" aria-label="Sources Title"  class="form-input block w-full rounded-none rounded-l-md transition ease-in-out duration-150 sm:text-sm sm:leading-5" />
+              <input v-model="source.title" aria-label="Sources Title"  class="block w-full transition duration-150 ease-in-out rounded-none form-input rounded-l-md sm:text-sm sm:leading-5" />
             </div>
-            <button v-if="index == (sources.length - 1)" @click="addSource" class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-r-md text-gray-700 bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
-              <svg viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5 text-gray-400"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"></path></svg>
+            <button v-if="index == (sources.length - 1)" @click="addSource" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out border border-gray-300 rounded-r-md bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">
+              <svg viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-gray-400"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"></path></svg>
             </button>
-            <button v-else @click="removeSource(index)" class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-r-md text-gray-700 bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
-              <svg viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5 text-gray-400"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path></svg>
+            <button v-else @click="removeSource(index)" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out border border-gray-300 rounded-r-md bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">
+              <svg viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-gray-400"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path></svg>
             </button>
           </div>
         </div>
@@ -64,7 +64,7 @@
             Tags
           </label>
           <div class="mt-1 rounded-md shadow-sm">
-            <!-- <input id="anime" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" /> -->
+            <!-- <input id="anime" class="block w-full transition duration-150 ease-in-out form-input sm:text-sm sm:leading-5" /> -->
             <vue-tags-input
               id="tags"
               class="block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
@@ -77,18 +77,18 @@
             />
           </div>
         </div>
-        <span class="sm:col-span-4 flex flex-row justify-center items-center">
+        <span class="flex flex-row items-center justify-center sm:col-span-4">
             <progress-bar
               :value="progress"
               class="w-11/12 m-auto"
             />
-            <span class="w-1/12 sm:col-span-1 text-xs text-gray-500 leading-5 pl-2">
+            <span class="w-1/12 pl-2 text-xs leading-5 text-gray-500 sm:col-span-1">
                   {{progress}}%
             </span>
         </span>
 
-        <span class="flex rounded-md shadow-sm sm:col-span-2 sm:col-start-5 justify-center items-center">
-          <button @click="saveInfos" type="button" :class="{'cursor-not-allowed' : !doneUploading}" class="inline-flex justify-center w-3/4 rounded-md border border-transparent px-2 py-2 bg-indigo-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+        <span class="flex items-center justify-center rounded-md shadow-sm sm:col-span-2 sm:col-start-5">
+          <button @click="saveInfos" type="button" :class="{'cursor-not-allowed' : !doneUploading}" class="inline-flex justify-center w-3/4 px-2 py-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo sm:text-sm sm:leading-5">
             Save
           </button>
         </span>

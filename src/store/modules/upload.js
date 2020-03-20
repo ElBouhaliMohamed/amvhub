@@ -1,18 +1,14 @@
 const getDefaultState = () => {
   return {
     title: '',
-    songs: [
-      { artist: '', title: '' }
-    ],
-    sources: [
-      { title: '' }
-    ],
+    songs: [],
+    sources: [],
     tags: [],
     progress: 0,
     url: '',
     uuid: '',
     stateId: 0,
-    currentView: 'uploadComponent',
+    currentView: 'publishComponent',
     isDone: false,
     thumbnailsProcessed: false,
     thumbnailUrls: [],

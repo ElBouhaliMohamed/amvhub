@@ -1,87 +1,131 @@
 <template>
-  <video :poster="poster" id="player" controls playsinline>
-    <source
-      v-for="option in options"
-      v-bind:key="option.size"
-      v-bind:src="option.src"
-      type="video/mp4"
-      v-bind:size="option.size"
-    />
-    <track
-      v-for="caption in captions"
-      v-bind:key="caption.label"
-      kind="captions"
-      v-bind:label="caption.label"
-      v-bind:srclang="caption.srclang"
-      v-bind:src="caption.src"
-    />
-  </video>
+  <video controls preload="auto" ref="videoPlayer" class="video-js vjs-sublime-skin"></video>
 </template>
 
 <script>
-import Plyr from "plyr";
+import videojs from 'video.js' // :class=" {TheaterMode: theaterMode}"
 
 export default {
-  mounted() {
-    // This is the bare minimum JavaScript. You can opt to pass no arguments to setup.
-    this.player = new Plyr("#player", {
-      debug: true,
-      previewThumbnails: {
-        enabled: true,
-        src: this.thumbnails
+  mounted () {
+    this.player = videojs(this.$refs.videoPlayer, {
+      responsive: true,
+      fluid: true,
+      controlBar: {
+        children: [
+          'playToggle',
+          'currentTimeDisplay',
+          'progressControl',
+          'remainingTimeDisplay',
+          'volumePanel',
+          'fullscreenToggle'
+        ]
+      }
+    }, function onPlayerReady () {
+      console.log('onPlayerReady', this)
+    })
+
+    var Button = videojs.getComponent('Button')
+    let self = this
+    var theaterButton = videojs.extend(Button, {
+      constructor: function () {
+        Button.apply(this, arguments)
+        this.addClass('vjs-control')
+        this.addClass('vjs-button')
+        this.addClass('vjs-theaterMode-control')
+        this.addClass('fas')
+        this.addClass('fa-film')
+        this.controlText('Theater Mode')
       },
-      controls: [
-          'play-large', // The large play button in the center
-          'restart', // Restart playback
-          'rewind', // Rewind by the seek time (default 10 seconds)
-          'play', // Play/pause playback
-          'fast-forward', // Fast forward by the seek time (default 10 seconds)
-          'progress', // The progress bar and scrubber for playback and buffering
-          'current-time', // The current time of playback
-          'duration', // The full duration of the media
-          'mute', // Toggle mute
-          'volume', // Volume control
-          'captions', // Toggle captions
-          'settings', // Settings menu
-          'pip', // Picture-in-picture (currently Safari only)
-          'airplay', // Airplay (currently Safari only)
-          'fullscreen', // Toggle fullscreen
-      ],
-      volume: 0.7
-    });
+      handleClick: function () {
+        console.log('Theater Mode')
+        self.$emit('theaterMode')
+      }
+    })
+
+    videojs.registerComponent('theaterButton', theaterButton)
+    this.player.getChild('controlBar').addChild('theaterButton', {}, 5)
   },
-  data() {
+  beforeDestroy () {
+    if (this.player) {
+      this.player.dispose()
+    }
+  },
+  data () {
     return {
       player: null
-    };
+    }
+  },
+  computed: {
+    aspectRatio: {
+      get () {
+        return this.$store.getters['videoPage/aspectRatio']
+      },
+      set (newVal) {
+        this.$store.commit('videoPage/SET_ASPECTRATIO', newVal)
+      }
+    }
   },
   props: {
-    options: Array,
+    options: {
+      type: Object,
+      default () {
+        return {}
+      }
+    },
     captions: Array,
     thumbnails: Array,
     poster: String
   },
   watch: {
-    options() {
-      console.log(this.options);
+    async options () {
+      console.log(this.options)
+      this.player.src(this.options.sources)
 
-      this.player.source = {
-        type: 'video',
-        title: '',
-        sources: this.options,
-        poster: this.poster,
-        tracks: this.captions
+      // calculate aspect ratio
+      console.log(this.player.videoWidth())
+      console.log(this.player.videoHeight())
+      switch (this.player.videoWidth() / this.player.videoHeight()) {
+        case (16 / 9):
+          this.aspectRatio = '16-9'
+          break
+        case (21 / 9):
+          this.aspectRatio = '21-9'
+          break
+        case (4 / 3):
+          this.aspectRatio = '4-3'
+          break
+        default:
+          this.aspectRatio = '16-9'
       }
-
-      setTimeout(
-        function() {
-        document.getElementsByClassName('plyr__volume')[0].hidden = false;
-      }, 2000);
-
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
+
+/* Make the video relative, instead of absolute, so that
+   the parent container will size based on the video. Also,
+   note the max-height rule. Note the line-height 0 is to prevent
+   a small artifact on the bottom of the video.
+ */
+.video-js.vjs-fluid,
+.video-js.vjs-16-9,
+.video-js.vjs-4-3,
+video.video-js,
+video.vjs-tech, {
+  max-height: calc(100vh - 85px);
+  position: relative !important;
+  width: 100%;
+  height: auto !important;
+  max-width: 100% !important;
+  padding-top: 0 !important;
+  line-height: 0;
+}
+
+/* Fix the control bar due to us resetting the line-height on the video-js */
+.vjs-control-bar {
+  line-height: 1;
+}
+
 </style>

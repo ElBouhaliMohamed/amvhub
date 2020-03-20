@@ -13,3 +13,5 @@ $progressbar-height: 0.25rem;
 // find more variables in /src/scss/_progressbar-variables.scss 
  
 @import "./node_modules/vue-progressbar-component/src/scss/progressbar";
+@import "./videoPlayer/videojs-sublime-skin.scss";
+@import "./videoPlayer/video-js.min.css";

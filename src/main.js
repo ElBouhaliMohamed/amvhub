@@ -12,7 +12,6 @@ import './thirdParty'
 import './scss/main.scss'
 import './scss/tailwind.scss'
 import 'aos/dist/aos.css'
-import './scss/videoPlayer/plyr.scss'
 
 import AOS from 'aos'
 import firebase from 'firebase'
