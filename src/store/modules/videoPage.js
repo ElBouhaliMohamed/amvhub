@@ -11,16 +11,16 @@ export default {
     hearts: 0,
     tags: Array,
     categories: Array,
-    aspectRatio: '16-9'
+    theaterMode: false
   },
   getters: {
-    aspectRatio: state => {
-      return state.aspectRatio
+    theaterMode: state => {
+      return state.theaterMode
     }
   },
   mutations: {
-    SET_ASPECTRATIO: (state, aspectRatio) => {
-      state.aspectRatio = aspectRatio
+    SET_THEATERMODE: (state, theaterMode) => {
+      state.theaterMode = theaterMode
     }
   }
 }

@@ -1,11 +1,13 @@
 <template>
   <div class="flex flex-col bg-white">
 
-    <div class="flex items-center justify-center" :class="[{'container mx-auto': !theaterMode, 'flex-col': theaterMode}]">
+    <div class="flex justify-center" :class="[{'container mx-auto flex-col md:flex-row': !theaterMode, 'flex-col': theaterMode}]">
       <div :class="[{'max-w-screen-lg': !theaterMode, 'w-full': theaterMode}]">
-          <video-player v-on:theaterMode="toggleTheaterMode" v-bind:options.sync="options"></video-player>
+          <video-player id="video-player" v-on:theaterMode="toggleTheaterMode" v-bind:options.sync="options" v-bind:hoverThumbnails.sync="hoverThumbnails"></video-player>
       </div>
-      <span :class="[{'w-1/4': !theaterMode, 'w-full': theaterMode}]">Lorem ipsum dolor sit amet consectetur adipisicing elit. In, earum magni soluta corporis maxime debitis similique hic eveniet. Maiores quam beatae saepe error ipsum inventore eligendi nihil obcaecati, in sed.</span>
+      <span :class="[{'w-1/4': !theaterMode, 'w-full': theaterMode}]">
+        <videoBar class="" :horizontal="theaterMode ? true : false"/>
+      </span>
     </div>
 
     <div class="w-full">
@@ -68,8 +70,6 @@
       </div> -->
     </div>
 
-    <!-- <videoBar class="pt-6" :horizontal="true -->
-
     <comment-section :comments="comments" :videoRef="videoRef"/>
   </div>
 </template>
@@ -99,6 +99,9 @@ export default {
       delay: 100,
       timeout: 2000
     })
+  },
+  beforeDestroy () {
+    this.$store.commit('videoPage/SET_THEATERMODE', false)
   },
   async mounted () {
     this.$Progress.start()
@@ -185,6 +188,7 @@ export default {
   methods: {
     toggleTheaterMode () {
       this.theaterMode = !this.theaterMode
+      this.$store.commit('videoPage/SET_THEATERMODE', this.theaterMode)
     },
     ratingClosed () {
       this.showRatingModal = false
@@ -231,7 +235,7 @@ export default {
       showRatingModal: false,
       options: {},
       captions: [],
-      thumbnails: [`https://amvhub.de/vtt/${this.$route.params.id}.vtt`],
+      hoverThumbnails: `http://localhost:8080/vtt/${this.$route.params.id}.jpg`,
       poster: `url(../assets/thumbnails/${this.uuid}.jpg)`,
       title: '',
       author: '',

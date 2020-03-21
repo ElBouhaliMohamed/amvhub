@@ -4,51 +4,16 @@
 
 <script>
 import videojs from 'video.js' // :class=" {TheaterMode: theaterMode}"
+import 'videojs-sprite-thumbnails'
 
 export default {
-  mounted () {
-    this.player = videojs(this.$refs.videoPlayer, {
-      responsive: true,
-      fluid: true,
-      controlBar: {
-        children: [
-          'playToggle',
-          'currentTimeDisplay',
-          'progressControl',
-          'remainingTimeDisplay',
-          'volumePanel',
-          'fullscreenToggle'
-        ]
-      }
-    }, function onPlayerReady () {
-      console.log('onPlayerReady', this)
-    })
-
-    var Button = videojs.getComponent('Button')
-    let self = this
-    var theaterButton = videojs.extend(Button, {
-      constructor: function () {
-        Button.apply(this, arguments)
-        this.addClass('vjs-control')
-        this.addClass('vjs-button')
-        this.addClass('vjs-theaterMode-control')
-        this.addClass('fas')
-        this.addClass('fa-film')
-        this.controlText('Theater Mode')
-      },
-      handleClick: function () {
-        console.log('Theater Mode')
-        self.$emit('theaterMode')
-      }
-    })
-
-    videojs.registerComponent('theaterButton', theaterButton)
-    this.player.getChild('controlBar').addChild('theaterButton', {}, 5)
-  },
   beforeDestroy () {
     if (this.player) {
       this.player.dispose()
     }
+  },
+  mounted () {
+    this.prepareVideoPlayer()
   },
   data () {
     return {
@@ -56,12 +21,12 @@ export default {
     }
   },
   computed: {
-    aspectRatio: {
+    theaterMode: {
       get () {
-        return this.$store.getters['videoPage/aspectRatio']
+        return this.$store.getters['videoPage/theaterMode']
       },
       set (newVal) {
-        this.$store.commit('videoPage/SET_ASPECTRATIO', newVal)
+        this.$store.commit('videoPage/SET_THEATERMODE', newVal)
       }
     }
   },
@@ -73,30 +38,63 @@ export default {
       }
     },
     captions: Array,
-    thumbnails: Array,
+    hoverThumbnails: String,
     poster: String
   },
-  watch: {
-    async options () {
-      console.log(this.options)
-      this.player.src(this.options.sources)
+  methods: {
+    prepareVideoPlayer () {
+      this.player = videojs(this.$refs.videoPlayer, {
+        responsive: true,
+        fluid: true,
+        controlBar: {
+          children: [
+            'playToggle',
+            'currentTimeDisplay',
+            'progressControl',
+            'remainingTimeDisplay',
+            'volumePanel',
+            'fullscreenToggle'
+          ]
+        }
+      })
 
-      // calculate aspect ratio
-      console.log(this.player.videoWidth())
-      console.log(this.player.videoHeight())
-      switch (this.player.videoWidth() / this.player.videoHeight()) {
-        case (16 / 9):
-          this.aspectRatio = '16-9'
-          break
-        case (21 / 9):
-          this.aspectRatio = '21-9'
-          break
-        case (4 / 3):
-          this.aspectRatio = '4-3'
-          break
-        default:
-          this.aspectRatio = '16-9'
-      }
+      var Button = videojs.getComponent('Button')
+      let self = this
+      var theaterButton = videojs.extend(Button, {
+        constructor: function () {
+          Button.apply(this, arguments)
+          this.addClass('vjs-control')
+          this.addClass('vjs-button')
+          this.addClass('vjs-theaterMode-control')
+          this.addClass('fas')
+          this.addClass('fa-film')
+          this.controlText('Theater Mode')
+        },
+        handleClick: function () {
+          console.log('Theater Mode')
+          self.$emit('theaterMode')
+        }
+      })
+
+      videojs.registerComponent('theaterButton', theaterButton)
+      this.player.getChild('controlBar').addChild('theaterButton', {}, 5)
+    }
+  },
+  watch: {
+    options () {
+      this.player.src(this.options.sources)
+      console.log(this.hoverThumbnails)
+      // this.player.vttThumbnails({
+      //   src: this.hoverThumbnails
+      // })
+      this.player.spriteThumbnails({
+        interval: 5,
+        url: this.hoverThumbnails,
+        width: 256,
+        height: 144,
+        responsive: 1024
+      })
+      console.log(this.player)
     }
   }
 }

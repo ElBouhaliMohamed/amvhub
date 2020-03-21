@@ -1,21 +1,21 @@
 <template>
-  <div class="flex relative items-center justify-center align-center">
+  <div class="relative flex items-center justify-center align-center">
     <button
       v-if="horizontal"
-      class="absolute left-0 mx-4 z-10 fas fa-chevron-left  rounded-full shadow-lg w-8 h-8 navigation"
+      class="absolute left-0 z-10 w-8 h-8 mx-4 rounded-full shadow-lg fas fa-chevron-left navigation"
       @click="scroll(false)"
     ></button>
     <button
       v-if="horizontal"
-      class="absolute right-0 z-10 fas fa-chevron-right  rounded-full shadow-lg w-8 h-8 navigation"
+      class="absolute right-0 z-10 w-8 h-8 rounded-full shadow-lg fas fa-chevron-right navigation"
       @click="scroll(true)"
     ></button>
 
-    <button v-if="!horizontal" class="scrollButton top-0 fas fa-chevron-up" @click="scroll(false)"></button>
-    <button v-if="!horizontal" class="scrollButton bottom-0 fas fa-chevron-down" @click="scroll(true)"></button>
+    <button v-if="!horizontal" class="top-0 scrollButton fas fa-chevron-up" @click="scroll(false)"></button>
+    <button v-if="!horizontal" class="bottom-0 scrollButton fas fa-chevron-down" @click="scroll(true)"></button>
 
     <div
-      :class="[{hRecommendations: horizontal},{vRecommendations: !horizontal }]"
+      :class="[{hRecommendations: horizontal},{'vRecommendations': !horizontal }]"
       id="suggested"
       v-touch:swipe="handleSwipe"
     >
@@ -177,7 +177,6 @@ export default {
 
 .vRecommendations {
   @apply flex flex-col overflow-hidden;
-  max-height: 745px;
 }
 
 @keyframes float {
