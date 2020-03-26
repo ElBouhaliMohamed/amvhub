@@ -1,196 +1,88 @@
 <template>
-  <div class="relative flex items-center justify-center align-center">
-    <button
-      v-if="horizontal"
-      class="absolute left-0 z-10 w-8 h-8 mx-4 rounded-full shadow-lg fas fa-chevron-left navigation"
-      @click="scroll(false)"
-    ></button>
-    <button
-      v-if="horizontal"
-      class="absolute right-0 z-10 w-8 h-8 rounded-full shadow-lg fas fa-chevron-right navigation"
-      @click="scroll(true)"
-    ></button>
-
-    <button v-if="!horizontal" class="top-0 scrollButton fas fa-chevron-up" @click="scroll(false)"></button>
-    <button v-if="!horizontal" class="bottom-0 scrollButton fas fa-chevron-down" @click="scroll(true)"></button>
-
-    <div
-      :class="[{hRecommendations: horizontal},{'vRecommendations': !horizontal }]"
-      id="suggested"
-      v-touch:swipe="handleSwipe"
-    >
-      <div class="videoRecommendation" v-for="video in videos" v-bind:key="video.title">
-        <router-link draggable="false" to="/channel/" class="thumbnailWrapper">
-          <div
-            class="thumbnail"
-            :style="{backgroundImage: `url(${require(`../assets/${video.thumbnail}`)})`}"
-          ></div>
-        </router-link>
-
-        <div class="flex flex-row justify-between">
-          <div class="flex flex-col">
-            <div class="videoTitle">{{video.title}}</div>
-            <div class="videoChannel">Kazumoe</div>
-          </div>
-          <div class="flex flex-col">
-            <div class="videoViews">2k Views</div>
-            <div class="videoStatus">hot</div>
-          </div>
+  <div class="absolute left-0 flex flex-col items-center justify-center w-full pl-8 overflow-hidden align-center" id="suggested">
+    <div class="flex flex-row justify-start w-full mb-3" v-for="video in videos" v-bind:key="video.title">
+      <!-- <router-link draggable="false" to="/channel/" class="relative pb-2/3">
+      </router-link> -->
+      <div class="w-1/2">
+        <div class="relative aspect-ratio-16/9">
+          <img class="absolute object-cover w-full h-full transition-all duration-200 ease-in-out transform hover:scale-70" src="@/assets/thumbnail.png"/>
         </div>
-
       </div>
+
+      <div class="flex flex-col w-1/2 pl-2"> <!-- video infos here -->
+        <span class="text-lg font-bold leading-6 text-gray-900">{{video.title}}</span>
+        <span class="text-sm font-medium leading-6 text-gray-900">{{video.editor}}</span>
+        <span class="flex flex-row text-xs leading-5">
+          <span>{{video.views}} views</span>
+          <span class="block px-1 md:px-2">&#8226;</span>
+          <time v-bind:datetime="video.date[0]">{{video.date[1]}}</time>
+        </span>
+      </div>
+
     </div>
+    <button type="button" class="inline-flex items-center justify-center w-full px-4 py-2 text-base font-medium leading-6 text-center text-indigo-700 transition duration-150 ease-in-out bg-indigo-200 border border-transparent rounded-md hover:bg-indigo-100 focus:outline-none focus:border-indigo-300 focus:shadow-outline-indigo active:bg-indigo-200">
+      Load more...
+    </button>
   </div>
 </template>
 
 <script>
-import TWEEN from '@tweenjs/tween.js'
 
 export default {
-  props: {
-    horizontal: Boolean // true horizontal and false vertical
-  },
   data: function () {
     return {
-      pixelPerElementV: 149.5,
-      pixelPerElementH: 232,
-      itemsPerScroll: 4,
-      tweenDuriation: 600,
-
       videos: [
-        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
-        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
-        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
-        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
-        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
-        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
-        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
-        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
-        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
-        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
-        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
-        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
-        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
-        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
-        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
-        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' },
-        { title: 'Versteckspiel', thumbnail: 'thumbnail.png' }
+        {
+          id: 1,
+          editor: 'Kazumoe',
+          title: 'Atonement',
+          views: 301,
+          date: ['2020-12-15', 'December 15, 2020'],
+          avatar: '../assets/avatar.jpg'
+        },
+        {
+          id: 2,
+          editor: 'Spike',
+          title: 'Beautiful Crime',
+          views: 602,
+          date: ['2020-12-01', 'December 1, 2020'],
+          avatar: '../assets/avatar.jpg'
+        },
+        {
+          id: 3,
+          editor: 'Dr Penguin',
+          title: 'Test video 3',
+          views: 1100,
+          date: ['2020-01-07', 'Januar 7, 2020'],
+          avatar: '../assets/avatar.jpg'
+        },
+        {
+          id: 4,
+          editor: "Soul's Team",
+          title: 'This is a logn ass title just too test the looks',
+          views: 500,
+          date: ['2020-01-07', 'Januar 7, 2020'],
+          avatar: '../assets/avatar.jpg'
+        },
+        {
+          id: 5,
+          editor: "Soul's Team",
+          title: 'Another one',
+          views: 25000,
+          date: ['2020-01-07', 'Januar 7, 2020'],
+          avatar: '../assets/avatar.jpg'
+        }
       ]
     }
   },
   computed: {
-    scrollHorizontalAmount () {
-      return this.pixelPerElementH * this.itemsPerScroll
-    },
-    scrollVerticalAmount () {
-      return this.pixelPerElementV * this.itemsPerScroll
-    }
   },
   methods: {
-    handleSwipe (scrollDirection) {
-      switch (scrollDirection) {
-        case 'top':
-          this.scroll(true)
-          break
-        case 'bottom':
-          this.scroll(false)
-          break
-        case 'left':
-          this.scroll(false)
-          break
-        case 'right':
-          this.scroll(true)
-          break
-      }
-    },
-    scroll (scrollDirection) {
-      // false = left and true = right
-      if (this.horizontal) {
-        if (scrollDirection) {
-          this.tween(
-            document.getElementById('suggested').scrollLeft,
-            document.getElementById('suggested').scrollLeft +
-              this.scrollHorizontalAmount,
-            this.horizontal
-          )
-        } else {
-          this.tween(
-            document.getElementById('suggested').scrollLeft,
-            document.getElementById('suggested').scrollLeft -
-              this.scrollHorizontalAmount,
-            this.horizontal
-          )
-        }
-      } else {
-        if (scrollDirection) {
-          this.tween(
-            document.getElementById('suggested').scrollTop,
-            document.getElementById('suggested').scrollTop +
-              this.scrollVerticalAmount,
-            this.horizontal
-          )
-        } else {
-          this.tween(
-            document.getElementById('suggested').scrollTop,
-            document.getElementById('suggested').scrollTop -
-              this.scrollVerticalAmount,
-            this.horizontal
-          )
-        }
-      }
-    },
-    tween (start, end, horizontal) {
-      let frameHandler
-
-      const animate = function (currentTime) {
-        TWEEN.update(currentTime)
-        frameHandler = requestAnimationFrame(animate)
-      }
-
-      const myTween = new TWEEN.Tween({ tweeningValue: start })
-        .to({ tweeningValue: end }, this.tweenDuration)
-        .easing(TWEEN.Easing.Exponential.InOut)
-        .onUpdate(function (object) {
-          if (horizontal) {
-            document.getElementById('suggested').scrollLeft =
-              object.tweeningValue
-          } else {
-            document.getElementById('suggested').scrollTop =
-              object.tweeningValue
-          }
-        })
-        .onComplete(() => {
-          cancelAnimationFrame(frameHandler)
-        })
-        .start()
-
-      frameHandler = requestAnimationFrame(animate)
-    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.hRecommendations {
-  @apply flex flex-row overflow-hidden w-full;
-}
-
-.vRecommendations {
-  @apply flex flex-col overflow-hidden;
-}
-
-@keyframes float {
-  0% {
-    transform: translatey(0px);
-  }
-  50% {
-    transform: translatey(-5px);
-  }
-  100% {
-    transform: translatey(0px);
-  }
-}
-
 .thumbnail {
   display: block;
   text-align: center;
@@ -215,42 +107,6 @@ export default {
 }
 
 .thumbnailWrapper {
-  @apply .self-center;
-  height: 123.5px;
-  width: 220px;
-  overflow: hidden;
-
   transition: all 500ms ease-in-out;
-}
-
-.videoRecommendation {
-  @apply flex flex-col justify-center mr-3;
-  max-width: 220px;
-}
-
-.videoTitle {
-  @apply flex pt-2 text-sm font-bold  justify-start;
-}
-
-.videoChannel {
-  @apply flex text-sm  justify-start;
-}
-
-.videoViews {
-  @apply flex pt-2 text-sm  justify-start;
-}
-
-.videoStatus {
-  @apply flex uppercase text-sm  justify-start;
-}
-
-.scrollButton {
-  @apply absolute mx-4 z-10  rounded-full shadow-lg w-8 h-8;
-  transition: all 0.2s ease-in-out;
-  margin: 0;
-}
-
-.scrollButton:hover {
-  animation: float 2s ease-in-out infinite;
 }
 </style>

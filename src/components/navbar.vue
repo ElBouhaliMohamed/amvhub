@@ -2,142 +2,94 @@
   <nav>
     <div :class="[smallNav, {smallNavActive: smallNavIsEnabled}]">
       <div class="hidden md:block w-1/8 lg:w-1/4"></div>
-      <div class="flex flex-col md:flex-row w-1/2">
-        <!-- <span class="flex ml-2 items-center">
-          <span class="uppercase text-xs font-bold">view</span>
+      <div class="flex flex-col w-1/2 md:flex-row">
+        <!-- <span class="flex items-center ml-2">
+          <span class="text-xs font-bold uppercase">view</span>
           <button>
-            <span class="fas fa-list ml-2"></span>
+            <span class="ml-2 fas fa-list"></span>
           </button>
           <button>
-            <span class="fas fa-th ml-2"></span>
+            <span class="ml-2 fas fa-th"></span>
           </button>
         </span>
       -->
-        <span class="border-l-2 h-5 mr-4 hidden md:block"></span>
+        <span class="hidden h-5 mr-4 border-l-2 md:block"></span>
 
         <span class="flex ml-2 md:ml-0">
-          <router-link class="flex text-center items-center pr-2" tag="a" to="/trending">
+          <router-link class="flex items-center pr-2 text-center" tag="a" to="/trending">
             <div class="fas fa-fire fa-sm"></div>
-            <span class="uppercase text-xs font-bold pl-1">Trending</span>
+            <span class="pl-1 text-xs font-bold uppercase">Trending</span>
           </router-link>
-          <router-link class="flex text-center items-center px-2" tag="a" to="/feed">
+          <router-link class="flex items-center px-2 text-center" tag="a" to="/feed">
             <div class="fas fa-home fa-sm"></div>
-            <span class="uppercase text-xs font-bold pl-1">Feed</span>
+            <span class="pl-1 text-xs font-bold uppercase">Feed</span>
           </router-link>
-          <router-link class="flex text-center items-center pl-2" tag="a" to="/featured">
+          <router-link class="flex items-center pl-2 text-center" tag="a" to="/featured">
             <div class="fas fa-bullhorn fa-sm"></div>
-            <span class="uppercase text-xs font-bold pl-1">Featured</span>
+            <span class="pl-1 text-xs font-bold uppercase">Featured</span>
           </router-link>
         </span>
 
-        <span class="border-l-2 h-5 mx-4 hidden md:block"></span>
+        <span class="hidden h-5 mx-4 border-l-2 md:block"></span>
       </div>
       <div class="w-1/4"></div>
     </div>
-    <!-- <div id="bigNav" :class="[bigNav, {bigNavActive:isActive}]">
-      <div class="flex-1 h-0 overflow-y-auto pb-4">
-        <router-link tag="li" class="bigNavEntry" to="/trending">
-          <div class="fas fa-fire fa-sm w-8 pr-6"></div>Trending
-        </router-link>
-        <router-link tag="li" class="bigNavEntry" to="/feed">
-          <div class="fas fa-home fa-sm w-8 pr-6"></div>Feed
-        </router-link>
-        <router-link tag="li" class="bigNavEntry" to="/featured">
-          <div class="fas fa-bullhorn fa-sm w-8 pr-6"></div>Featured
-        </router-link>
-        <router-link tag="li" class="bigNavEntry" to="/t">
-          <div class="fas fa-book-open fa-sm w-8 pr-6"></div>Guides
-        </router-link>
-        <router-link tag="li" class="bigNavEntry" to="/e">
-          <div class="fas fa-trophy fa-sm w-8 pr-6"></div>Contests
-        </router-link>
-      </div> -->
 
-      <!-- <div class="flex h-16 pl-4 pr-16 items-center">
-        Darkmode
-        <label class="switch">
-          <input type="checkbox" value:="isDarkMode" @click="switchTheme">
-          <span
-            class="slider round"
-          ></span>
-        </label>
-      </div> -->
-
-      <!-- <div class="flex-shrink-0 flex border-t border-indigo-700 p-4">
-        <a href="#" class="flex-shrink-0 group block focus:outline-none">
-          <div class="flex items-center">
-            <div>
-              <img class="inline-block h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-            </div>
-            <div class="ml-3">
-              <p class="text-base leading-6 font-medium text-white">
-                Tom Cook
-              </p>
-              <p class="text-sm leading-5 font-medium text-indigo-300 group-hover:text-indigo-100 group-focus:underline transition ease-in-out duration-150">
-                View profile
-              </p>
-            </div>
-            <button v-if="isLoggedIn" class="btn btn-primary ml-3" @click="logout">Logout</button>
-          </div>
-        </a>
-      </div>
-    </div> -->
-
-    <div class="flex overflow-hidden z-50 top-0 bg-gray-100" @keydown.esc="isActive = false">
+    <div class="top-0 z-50 flex overflow-hidden bg-gray-100" @keydown.esc="isActive = false">
       <!-- Off-canvas menu for mobile -->
-      <div @click="isActive = false" class="bg-gray-400 fixed inset-0 z-40 opacity-0 pointer-events-none transition-opacity ease-linear duration-300" :class="{'opacity-75 pointer-events-auto': isActive, 'opacity-0 pointer-events-none': !isActive}"></div>
-      <div class="fixed inset-y-0 left-0 flex flex-col z-50 max-w-xs w-full bg-gray-800 transform ease-in-out duration-300 " :class="{'translate-x-0': isActive, '-translate-x-full': !isActive}">
-          <div class="absolute top-0 right-0 -mr-14 p-1">
-              <button v-if="isActive" @click="isActive = false" class="flex items-center justify-center h-12 w-12 rounded-full focus:outline-none focus:bg-gray-600">
-                  <svg class="h-6 w-6 text-white" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+      <div @click="isActive = false" class="fixed inset-0 z-40 transition-opacity duration-300 ease-linear bg-gray-400 opacity-0 pointer-events-none" :class="{'opacity-75 pointer-events-auto': isActive, 'opacity-0 pointer-events-none': !isActive}"></div>
+      <div class="fixed inset-y-0 left-0 z-50 flex flex-col w-full max-w-xs duration-300 ease-in-out transform bg-gray-800 " :class="{'translate-x-0': isActive, '-translate-x-full': !isActive}">
+          <div class="absolute top-0 right-0 p-1 mt-1 -mr-14">
+              <button v-if="isActive" @click="isActive = false" class="flex items-center justify-center w-12 h-12 rounded-full focus:outline-none focus:bg-gray-600">
+                  <svg class="w-6 h-6 text-white" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                   </svg>
               </button>
           </div>
-          <!-- <div class="flex-shrink-0 flex items-center h-20 px-4 bg-gray-800">
+          <!-- <div class="flex items-center flex-shrink-0 h-20 px-4 bg-gray-800">
               <logo/>
           </div> -->
           <div class="flex-1 h-0 overflow-y-auto">
               <nav class="px-2 py-4">
-                  <router-link to="/feed" class="group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 transition ease-in-out duration-150">
-                      <svg class="mr-4 h-6 w-6 text-gray-300 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                  <router-link to="/feed" class="flex items-center px-2 py-2 text-base font-medium leading-6 text-gray-300 transition duration-150 ease-in-out rounded-md group hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700">
+                      <svg class="w-6 h-6 mr-4 text-gray-300 transition duration-150 ease-in-out group-hover:text-gray-300 group-focus:text-gray-300" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10M9 21h6"/>
                       </svg>
                       Feed
                   </router-link>
-                  <router-link to="/trending" class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                  <router-link to="/trending" class="flex items-center px-2 py-2 mt-1 text-base font-medium leading-6 text-gray-300 transition duration-150 ease-in-out rounded-md group hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">
+                      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 mr-4 text-gray-400 transition duration-150 ease-in-out group-hover:text-gray-300 group-focus:text-gray-300"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
                       Trending
                   </router-link>
-                  <router-link to="/featured" class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                      <svg class="mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                  <router-link to="/featured" class="flex items-center px-2 py-2 mt-1 text-base font-medium leading-6 text-gray-300 transition duration-150 ease-in-out rounded-md group hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">
+                      <svg class="w-6 h-6 mr-4 text-gray-400 transition duration-150 ease-in-out group-hover:text-gray-300 group-focus:text-gray-300" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
                       </svg>
                       Featured
                   </router-link>
-                  <router-link to="/guides" class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                  <router-link to="/guides" class="flex items-center px-2 py-2 mt-1 text-base font-medium leading-6 text-gray-300 transition duration-150 ease-in-out rounded-md group hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">
+                      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 mr-4 text-gray-400 transition duration-150 ease-in-out group-hover:text-gray-300 group-focus:text-gray-300"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                       Guides
                   </router-link>
-                  <router-link to="/contests" class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                      <svg class="mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                  <router-link to="/contests" class="flex items-center px-2 py-2 mt-1 text-base font-medium leading-6 text-gray-300 transition duration-150 ease-in-out rounded-md group hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">
+                      <svg class="w-6 h-6 mr-4 text-gray-400 transition duration-150 ease-in-out group-hover:text-gray-300 group-focus:text-gray-300" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
                       </svg>
                       Contests
                   </router-link>
               </nav>
           </div>
-          <div class="flex-shrink-0 flex bg-gray-700 p-4" v-if="isLoggedIn">
-            <a href="#" class="flex-shrink-0 group block">
+          <div class="flex flex-shrink-0 p-4 bg-gray-700" v-if="isLoggedIn">
+            <a href="#" class="flex-shrink-0 block group">
               <div class="flex items-center">
                 <div>
-                  <img class="inline-block h-10 w-10 rounded-full" :src="$currentUser.userInfo.photoURL" alt="avatar" />
+                  <img class="inline-block w-10 h-10 rounded-full" :src="$currentUser.userInfo.photoURL" alt="avatar" />
                 </div>
                 <div class="ml-3">
-                  <p class="text-base leading-6 font-medium text-white">
+                  <p class="text-base font-medium leading-6 text-white">
                     {{$currentUser.userInfo.name}}
                   </p>
-                  <p class="text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
+                  <p class="text-sm font-medium leading-5 text-gray-400 transition duration-150 ease-in-out group-hover:text-gray-300">
                     View profile
                   </p>
                 </div>

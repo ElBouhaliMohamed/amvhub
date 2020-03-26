@@ -3,7 +3,7 @@
     <!-- <div class="absolute w-full background-gradient">
         <trending-carousel />
     </div> -->
-    <div class="container w-full lg:w-3/4 mx-auto videoWrapper">
+    <div class="container grid justify-center w-full grid-cols-1 mx-auto md:gap-2 md:grid-cols-2">
         <video-entry v-for="video in videos" :key="video.uuid" :uuid="video.uuid" :title="video.title" :editor="video.editor" :length="video.length" :thumbnail="video.thumbnail" :preview="video.preview" :tags="video.tags"></video-entry>
     </div>
   </div>
@@ -39,13 +39,18 @@ export default {
       videosQuery.forEach(async (result) => {
         let data = result.data()
         let editor = await data.user.get()
+        let thumbnailsRef = await firebase.firestore().doc(`thumbnails/${result.id}/`)
+        let thumbnailsQuery = await thumbnailsRef.get()
+        let thumbnails = thumbnailsQuery.data()
+        let currThumbnail = thumbnails.active > 3 ? thumbnails.customThumbnail : thumbnails.thumbnails[thumbnails.active]
+
         let video = {
           uuid: result.id,
           title: data.title,
           editor: editor.data().name,
           length: data.length,
-          thumbnail: '',
-          preview: '',
+          thumbnail: currThumbnail,
+          preview: result.id,
           tags: data.tags
         }
         this.videos.push(video)
@@ -60,9 +65,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .videoWrapper {
-      @apply .flex .flex-wrap .justify-center;
-      top: 850px;
-    }
 
 </style>

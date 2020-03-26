@@ -194,7 +194,8 @@ export default {
         editor: 'TestUpload',
         user: userRef,
         views: 0,
-        hearts: 0
+        hearts: 0,
+        public: false
       })
 
       this.$store.commit('upload/SET_URL', `localhost:8080/video/${uuid}`)

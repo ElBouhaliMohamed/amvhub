@@ -8,7 +8,7 @@ const getDefaultState = () => {
     url: '',
     uuid: '',
     stateId: 0,
-    currentView: 'publishComponent',
+    currentView: 'uploadComponent',
     isDone: false,
     thumbnailsProcessed: false,
     thumbnailUrls: [],

@@ -82,7 +82,7 @@
       </div>
 
       <div class="mt-6">
-        <button type="submit" class="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md group hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700">
+        <button @click="save" type="submit" class="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md group hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700">
           <span class="absolute left-0 pl-3 inset-y">
             <svg class="w-5 h-5 text-indigo-500 transition duration-150 ease-in-out group-hover:text-indigo-400" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
@@ -149,6 +149,14 @@ export default {
       firebase.firestore().collection('thumbnails').doc(this.videoUID).update({
         customThumbnail: thumbURL.toString()
       })
+    },
+    async thumbnailChoosen (activeId) {
+      firebase.firestore().collection('thumbnails').doc(this.videoUID).update({
+        active: activeId
+      })
+    },
+    async save () {
+      this.thumbnailChoosen(this.selectedThumbnail)
     }
   },
   computed: {

@@ -1,16 +1,9 @@
 <template>
-  <div data-aos="fade-up" data-aos-once="true" class="videoEntry">
-    <router-link :to="this.url" class=" w-full">
-      <div class="thumbnailWrapper">
-        <!-- <div class="fa fa-5x fa-play-circle videoPlayCircle"></div> -->
-        <div
-          :id="preview"
-          class="thumbnail small md:large"
-          :style="{backgroundImage: `url(${require(`../assets/thumbnails/${this.uuid}.jpg`)})`}"
-          @mouseenter="showPreview()"
-          @mouseleave="hidePreview()"
-        ></div>
-      </div>
+  <div data-aos="fade-up" data-aos-once="true" class="relative flex w-full my-8 text-white md:mx-2">
+    <router-link :to="this.url" class="w-full">
+        <div :id="preview" class="relative aspect-ratio-16/9" @mouseenter="showPreview()" @mouseleave="hidePreview()">
+          <img :src="thumbnail" class="absolute object-cover w-full h-full thumbnailWrapper"/>
+        </div>
     </router-link>
 
     <!-- <div class="videoLengthBackground"></div>
@@ -71,6 +64,8 @@ export default {
     videoFullyBuffered () {
       console.log('I think I can play thru the entire ' + ' video without ever having to stop to buffer.')
       this.previewLoaded = true
+      this.previewVideo.muted = false
+      this.previewVideo.volume = 0.3
       if (this.hovering) {
         let thumbnail = document.getElementById(this.preview)
         thumbnail.appendChild(this.previewVideo)
@@ -81,24 +76,26 @@ export default {
       this.hovering = true
       if (this.preview.length > 0 && !this.previewLoaded) {
         this.previewVideo = document.createElement('video')
-        this.previewVideo.classList.add('container', 'mx-auto', 'opacity-100')
+        this.previewVideo.classList.add('absolute', 'object-cover', 'w-full', 'h-full', 'opacity-100', 'transition-opacity', 'duration-500')
         this.previewVideo.id = `${this.preview}`
         this.previewVideo.src = `${this.previewUrl}`
         this.previewVideo.autoplay = true
         this.previewVideo.controls = false
-        this.previewVideo.volume = 0.3
         this.previewVideo.loop = false
+        this.previewVideo.muted = true
         this.previewVideo.oncanplaythrough = this.videoFullyBuffered()
       } else if (this.previewLoaded && this.previewVideo) {
         console.log('The Video is already fully loaded.')
-        this.previewVideo.hidden = false
+        this.previewVideo.classList.remove('opacity-0')
+        this.previewVideo.classList.add('opacity-100')
         this.previewVideo.play().catch(err => { console.log(err) })
       }
     },
     hidePreview () {
       this.hovering = false
       if (this.preview.length > 0) {
-        this.previewVideo.hidden = true
+        this.previewVideo.classList.remove('opacity-100')
+        this.previewVideo.classList.add('opacity-0')
         this.previewVideo.pause()
       }
     }
@@ -107,19 +104,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.thumbnail {
-  display: block;
-  text-align: center;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  width: 100%;
-  height: 220px;
-
-  -webkit-transition: all 1s ease-in-out;
-  -moz-transition: all 1s ease-in-out;
-  transition: all 1s ease-in-out;
-  transform: scale(1.01);
+.thumbnailWrapper {
+    -webkit-mask-image: linear-gradient(to top, transparent 5%, black 95%);
+    mask-image: linear-gradient(to top, transparent 5%, black 95%)
 }
 
 .large {
@@ -130,23 +117,6 @@ export default {
 .mid {
   width: 100%;
   height: 420px;
-}
-
-.thumbnail:hover {
-  -webkit-transform: scale(1.05);
-  -moz-transform: scale(1.05);
-  -ms-transform: scale(1.05);
-  -o-transform: scale(1.05);
-  transform: scale(1.05);
-}
-
-.thumbnailWrapper {
-  @apply .inline-block .overflow-hidden;
-  width: 100%;
-  text-align: center;
-  vertical-align: middle;
-
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
 }
 
 .videoPlayCircle {
@@ -185,7 +155,7 @@ export default {
 }
 
 .videoEntry {
-  @apply .text-white .flex .relative .my-8 .mx-2 .w-full;
+  
 }
 
 .videoAvatar {
