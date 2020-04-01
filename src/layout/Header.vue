@@ -34,7 +34,7 @@
           </svg>
         </button>
 
-        <div class="flex mr-8">
+        <div class="flex flex-shrink-0 mr-8">
             <button v-if="!isLoggedIn" class="btn btn-action" @click="login">Log In</button>
             <router-link v-if="!isLoggedIn" to="signup" class="btn btn-action">Sign Up</router-link>
 

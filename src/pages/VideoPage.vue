@@ -3,7 +3,7 @@
 
     <div class="flex justify-center" :class="[{'flex-col md:flex-row': !theaterMode, 'flex-col': theaterMode}]">
       <div class="" :class="[{'max-w-screen-lg': !theaterMode, 'w-full': theaterMode}]">
-          <video-player id="video-player" v-on:theaterMode="toggleTheaterMode" v-bind:options.sync="options" v-bind:hoverThumbnails.sync="hoverThumbnails"></video-player>
+          <video-player id="video-player" v-on:theaterMode="toggleTheaterMode" v-bind:options.sync="options" v-bind:spriteSheet.sync="spriteSheet" v-bind:poster.sync="poster"></video-player>
           <span class="flex flex-row justify-start max-w-screen-lg my-4 text-3xl font-bold text-start font-lg">
               {{title}}
           </span>
@@ -134,7 +134,7 @@
 
           </div>
 
-          <!-- <comment-section :comments="comments" :videoRef="videoRef"/> -->
+          <comment-section :comments="comments" :videoRef="videoRef"/>
       </div>
       <span class="relative" :class="[{'w-1/4': !theaterMode, 'w-full': theaterMode}]">
         <videoBar :horizontal="false"/>
@@ -222,7 +222,25 @@ export default {
     this.author = data.editor
     this.tags = data.tags
 
-    if (data.views == undefined || data.views == null) {
+    let thumbnailsRef = await firebase.firestore().doc(`thumbnails/${this.videoId}/`)
+    let thumbnailsQuery = await thumbnailsRef.get()
+    let thumbnails = thumbnailsQuery.data()
+    let currThumbnail = thumbnails.active > 3 ? thumbnails.customThumbnail : thumbnails.thumbnails[thumbnails.active]
+
+    this.spriteDimensions = {
+      width: data.spriteWidth,
+      height: data.spriteHeight
+    }
+    this.spriteSheet = {
+      spriteSheet: data.spriteSheet,
+      spriteDimensions: this.spriteDimensions
+    }
+
+    this.poster = currThumbnail
+    this.$emit('update:spriteSheet', this.spriteSheet)
+    this.$emit('update:poster', currThumbnail)
+
+    if (data.views === undefined || data.views == null) {
       videoQueryRef.update({
         views: 1
       })
@@ -233,13 +251,13 @@ export default {
       })
     }
 
-    if (data.hearts == undefined || data.hearts == null) {
+    if (data.hearts === undefined || data.hearts == null) {
       videoQueryRef.update({
         hearts: 0
       })
     }
 
-    if (data.usersThatGaveHearts == undefined || data.usersThatGaveHearts == null) {
+    if (data.usersThatGaveHearts === undefined || data.usersThatGaveHearts == null) {
       videoQueryRef.update({
         usersThatGaveHearts: []
       })
@@ -313,8 +331,14 @@ export default {
       showRatingModal: false,
       options: {},
       captions: [],
-      hoverThumbnails: `http://localhost:8080/vtt/${this.$route.params.id}.jpg`,
-      poster: `url(../assets/thumbnails/${this.uuid}.jpg)`,
+      spriteSheet: {
+        type: Object,
+        default () {
+          return {}
+        }
+      },
+      spriteDimensions: {},
+      poster: ``,
       title: '',
       author: '',
       uploadedAt: '',

@@ -3,7 +3,7 @@
     <!-- <div class="absolute w-full background-gradient">
         <trending-carousel />
     </div> -->
-    <div class="container grid justify-center w-full grid-cols-1 mx-auto md:gap-2 md:grid-cols-2">
+    <div class="container grid justify-center w-full grid-cols-1 mx-auto mb-16 md:gap-2 md:grid-cols-2">
         <video-entry v-for="video in videos" :key="video.uuid" :uuid="video.uuid" :title="video.title" :editor="video.editor" :length="video.length" :thumbnail="video.thumbnail" :preview="video.preview" :tags="video.tags"></video-entry>
     </div>
   </div>
@@ -50,7 +50,7 @@ export default {
           editor: editor.data().name,
           length: data.length,
           thumbnail: currThumbnail,
-          preview: result.id,
+          preview: data.preview,
           tags: data.tags
         }
         this.videos.push(video)

@@ -99,7 +99,7 @@
 
 <script>
 import VueTagsInput from '@johmun/vue-tags-input'
-import firebase from 'firebase'
+import firebase, { firestore } from 'firebase'
 import ProgressBar from 'vue-progressbar-component'
 
 export default {
@@ -111,7 +111,7 @@ export default {
     return {
       tag: '',
       tags: [],
-      autocompleteItems: ['Drama', 'Action', 'Romance', 'Psyche', 'Horror']
+      autocompleteItems: ['Drama', 'Action', 'Romance', 'Psyche', 'Horror', 'Fun', 'Dance']
     }
   },
   computed: {
@@ -186,16 +186,19 @@ export default {
       let userRef = await firebase.firestore().collection('users').doc(userUuid)
       console.log(userRef)
 
+      let cleanTags = Array.from(this.tags, tag => tag.text)
+
       // TODO: add validation checks for the input
-      await videoDbRef.set({
+      await videoDbRef.update({
         title: this.title,
         songs: this.songs,
-        tags: this.tags,
+        tags: cleanTags,
         editor: 'TestUpload',
         user: userRef,
         views: 0,
         hearts: 0,
-        public: false
+        public: true,
+        createdAt: firestore.FieldValue.serverTimestamp()
       })
 
       this.$store.commit('upload/SET_URL', `localhost:8080/video/${uuid}`)

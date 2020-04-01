@@ -38,7 +38,12 @@ export default {
       }
     },
     captions: Array,
-    hoverThumbnails: String,
+    spriteSheet: {
+      type: Object,
+      default () {
+        return {}
+      }
+    },
     poster: String
   },
   methods: {
@@ -83,18 +88,23 @@ export default {
   watch: {
     options () {
       this.player.src(this.options.sources)
-      console.log(this.hoverThumbnails)
+      console.log(this.spriteSheet)
       // this.player.vttThumbnails({
-      //   src: this.hoverThumbnails
+      //   src: this.spriteSheet
       // })
+      console.log(this.player)
+    },
+    poster (newValue) {
+      this.player.poster(newValue)
+    },
+    spriteSheet (newValue) {
       this.player.spriteThumbnails({
         interval: 5,
-        url: this.hoverThumbnails,
-        width: 256,
-        height: 144,
+        url: newValue.spriteSheet,
+        width: newValue.spriteDimensions.width,
+        height: newValue.spriteDimensions.height,
         responsive: 1024
       })
-      console.log(this.player)
     }
   }
 }

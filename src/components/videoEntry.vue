@@ -1,5 +1,5 @@
 <template>
-  <div data-aos="fade-up" data-aos-once="true" class="relative flex w-full my-8 text-white md:mx-2">
+  <div data-aos="fade-up" data-aos-once="true" class="relative flex w-full my-12 text-white">
     <router-link :to="this.url" class="w-full">
         <div :id="preview" class="relative aspect-ratio-16/9" @mouseenter="showPreview()" @mouseleave="hidePreview()">
           <img :src="thumbnail" class="absolute object-cover w-full h-full thumbnailWrapper"/>
@@ -8,15 +8,15 @@
 
     <!-- <div class="videoLengthBackground"></div>
     <div class="videoLength">{{lengthInMinutes}}</div> -->
-    <div class="videoInfoBackground"></div>
+    <!-- <div class="videoInfoBackground"></div> -->
 
-    <div class="videoInfoWrapper">
+    <div class="absolute bottom-0 flex flex-col text-black transition-all duration-300 ease-in-out transform pl-28 videoInfoWrapper" :class="{'translate-y-24': isPlaying}">
       <router-link to="#" class="videoEditor">{{editor}}</router-link>
-      <span class="videoTitle">{{title}}</span>
+      <span class="inline-block text-3xl uppercase align-text-bottom md:text-4xl lg:text-5xl">{{title}}</span>
     </div>
 
-    <div class="videoStatus">
-      <span class="flex" v-for="tag in tags" :key="tag">
+    <div class="absolute bottom-0 flex flex-col transition-all duration-200 ease-in-out transform" :class="{'translate-y-24': isPlaying}">
+      <span class="inline-block font-bold text-black uppercase align-text-top lg:text-lg" v-for="tag in tags" :key="tag">
       {{tag}}
       </span>
     </div>
@@ -41,10 +41,11 @@ export default {
   data: function () {
     return {
       url: `/video/${this.uuid.trim()}`,
-      previewUrl: `/videos/${this.preview}`,
+      previewUrl: `${this.preview}`,
       previewLoaded: false,
       previewVideo: Object,
-      hovering: false
+      hovering: false,
+      isPlaying: false
     }
   },
   computed: {
@@ -70,18 +71,21 @@ export default {
         let thumbnail = document.getElementById(this.preview)
         thumbnail.appendChild(this.previewVideo)
         this.previewVideo.play().catch(err => { console.log(err) })
+        this.isPlaying = true
+        this.previewVideo.classList.remove('opacity-0')
+        this.previewVideo.classList.add('opacity-100')
       }
     },
     showPreview () {
       this.hovering = true
       if (this.preview.length > 0 && !this.previewLoaded) {
         this.previewVideo = document.createElement('video')
-        this.previewVideo.classList.add('absolute', 'object-cover', 'w-full', 'h-full', 'opacity-100', 'transition-opacity', 'duration-500')
+        this.previewVideo.classList.add('absolute', 'object-cover', 'w-full', 'h-full', 'opacity-0', 'transition-opacity', 'duration-500')
         this.previewVideo.id = `${this.preview}`
         this.previewVideo.src = `${this.previewUrl}`
         this.previewVideo.autoplay = true
         this.previewVideo.controls = false
-        this.previewVideo.loop = false
+        this.previewVideo.loop = true
         this.previewVideo.muted = true
         this.previewVideo.oncanplaythrough = this.videoFullyBuffered()
       } else if (this.previewLoaded && this.previewVideo) {
@@ -89,11 +93,13 @@ export default {
         this.previewVideo.classList.remove('opacity-0')
         this.previewVideo.classList.add('opacity-100')
         this.previewVideo.play().catch(err => { console.log(err) })
+        this.isPlaying = true
       }
     },
     hidePreview () {
       this.hovering = false
       if (this.preview.length > 0) {
+        this.isPlaying = false
         this.previewVideo.classList.remove('opacity-100')
         this.previewVideo.classList.add('opacity-0')
         this.previewVideo.pause()
@@ -125,12 +131,7 @@ export default {
 }
 
 .videoInfoWrapper {
-  @apply .absolute .ml-20 .flex .flex-col text-black;
-  bottom: -27px;
-}
-
-.videoTitle {
-  @apply .text-3xl .uppercase .leading-tight;
+  bottom: -40px;
 }
 
 .videoEditor {
@@ -145,17 +146,8 @@ export default {
   @apply .absolute .top-0 .right-0 .mt-3 .mr-4 .py-2 .px-2 .h-5 .w-8 .opacity-25 .rounded-sm;
 }
 
-.videoStatus {
-  @apply .absolute .bottom-0 .font-bold .text-xs .uppercase text-black;
-  bottom: -20px;
-}
-
 .videoInfoBackground {
-  @apply .absolute .bottom-0 .h-20 .opacity-25 w-full;
-}
-
-.videoEntry {
-  
+  @apply .absolute .bottom-0 .h-20 .opacity-25 .bg-gray-50 .w-full;
 }
 
 .videoAvatar {
@@ -192,10 +184,6 @@ export default {
     @apply mid;
   }
 
-  .videoTitle {
-     @apply .text-4xl;
-  }
-
 }
 
 @screen xll {
@@ -205,19 +193,6 @@ export default {
 
   .thumbnail {
     @apply large;
-  }
-
-  .videoInfoWrapper {
-    @apply .ml-28
-  }
-
-  .videoTitle {
-    @apply .text-5xl;
-  }
-
-  .videoStatus {
-    @apply .text-lg;
-    bottom: -18px;
   }
 
   .videoInfoBackground {
