@@ -125,7 +125,6 @@
 import UsersService from '../services/users.service'
 import logo from '../components/logo'
 import loadingAnimation from '../components/loadingAnimation'
-import firebase from 'firebase'
 
 export default {
   name: 'Login',
@@ -172,13 +171,6 @@ export default {
     },
     loginSucceeded () {
       UsersService.afterLogin()
-
-      var generateFeed = firebase.functions().httpsCallable('firestoreGenerateFeed')
-      generateFeed({ uid: this.getCurrentUser.userInfo.uid }).then((result) => {
-        console.log(result)
-      }).catch((err) => {
-        console.log(err)
-      })
 
       this.load = false
       this.$router.push('feed')

@@ -33,7 +33,7 @@ export const routes = [
     meta: { title: `${DOMAIN_TITLE} | featured`, enableHeader: true, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: false }
   },
   {
-    path: '/channel',
+    path: '/channel/:id',
     name: 'channel',
     component: channel,
     meta: { title: `${DOMAIN_TITLE}`, enableHeader: true, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: false },
