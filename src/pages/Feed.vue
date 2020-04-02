@@ -1,9 +1,9 @@
 <template>
   <div class="h-full bg-white">
     <div v-if="isLoggedIn">
-      <div class="overflow-hidden md:container md:mx-auto md:w-3/4 sm:rounded-md">
-        <ul v-for="video in feed" v-bind:key="video.id">
-          <li>
+      <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="limit" class="overflow-hidden md:container md:mx-auto md:w-3/4 sm:rounded-md">
+        <ul>
+          <li data-aos="fade-up" data-aos-once="true" v-for="video in feed" v-bind:key="video.id">
             <div class="block transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus:bg-gray-100 sm:border-b sm:border-gray-300"> <!--  -->
               <div class="px-2 py-4">
                 <div class="flex flex-row flex-1 min-w-0 md:flex-col">
@@ -16,21 +16,23 @@
                         <p class="text-xl font-bold leading-5 text-gray-700 group-hover:text-gray-900">
                           {{video.editor}}
                         </p>
-                        <a href="#" class="text-xs font-medium leading-4 text-gray-500 transition duration-150 ease-in-out group-hover:text-gray-900 group-focus:underline">
+                        <router-link to="" class="text-xs font-medium leading-4 text-gray-500 transition duration-150 ease-in-out group-hover:text-gray-900 group-focus:underline">
                           View profile
-                        </a>
+                        </router-link>
                       </div>
                     </div>
                   </div>
                   <div class="flex flex-row md:pt-2">
-                    <a href="#" class="flex-shrink-0 pl-4">
-                        <img class="object-cover w-40 h-24 md:w-64 md:h-40" src="../assets/thumbnail3.png">
-                    </a>
+                    <router-link :to="`/video/${video.uuid}`" class="flex-shrink-0 w-1/4 pl-4">
+                      <div class="relative aspect-ratio-16/9">
+                        <img class="absolute object-cover w-full h-full" :src="video.thumbnail">
+                      </div>
+                    </router-link>
                     <div class="flex flex-1 block min-w-0 pl-2">
                         <div class="flex pt-1 md:block">
                           <div class="block">
                             <span class="px-4 text-2xl font-bold leading-5 text-gray-900">
-                              <a href="#">{{video.title}}</a>
+                              <router-link :to="`/video/${video.uuid}`">{{video.title}}</router-link>
                             </span>
                             <span class="flex flex-col px-4 text-xs font-thin leading-5 text-gray-500 md:flex-row md:text-sm">
                               <a href="#" class="block font-medium leading-5 truncate md:hidden">{{video.editor}}</a>
@@ -233,7 +235,7 @@ export default {
   name: 'Feed',
   data: function () {
     return {
-      feed: [
+      oldFeed: [
         {
           id: 1,
           editor: 'Kazumoe',
@@ -266,18 +268,55 @@ export default {
           date: ['2020-01-07', 'Januar 7, 2020'],
           avatar: '../assets/avatar.jpg'
         }
-      ]
+      ],
+      limit: 5,
+      busy: false
     }
   },
   components: {},
   computed: {
     isLoggedIn () {
       return this.$store.state.user.isLoggedIn
+    },
+    feed () {
+      return this.$store.state.feed.currentTimeline
+    },
+    hasReachedEndOfTimeline () {
+      return this.$store.state.feed.reachedEndOfTimeline
     }
+  },
+  mounted () {
+    // this.$store.dispatch('feed/fetchFeed', this.$currentUser.userInfo.uid).then((result) => {
+    //   console.log(result)
+    // }).catch((err) => {
+    //   console.log(err)
+    // })
+    this.$store.commit('feed/clearFeed')
+    this.busy = true
+    this.$store.dispatch('feed/fetchFeed', this.$currentUser.userInfo.uid).then((result) => {
+      this.busy = false
+      console.log(result)
+    }).catch((err) => {
+      console.log(err)
+    })
+  },
+  beforeDestroy () {
+    this.$store.commit('feed/clearFeed')
   },
   methods: {
     login () {
       this.$router.push('/login')
+    },
+    loadMore () {
+      if (!this.hasReachedEndOfTimeline) {
+        this.busy = true
+        this.$store.dispatch('feed/fetchFeed', this.$currentUser.userInfo.uid).then((result) => {
+          this.busy = false
+          console.log(result)
+        }).catch((err) => {
+          console.log(err)
+        })
+      }
     }
   }
 }

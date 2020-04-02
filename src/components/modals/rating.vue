@@ -12,7 +12,7 @@
                     />
                 </div>
 
-                <div class="flex w-full justify-between">                
+                <div class="flex w-full justify-between">
                     <label class="">Concept:</label>
                     <VueStars
                         name="demo"
@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="flex w-full justify-between">
-                    <label class="">Editing:</label>       
+                    <label class="">Editing:</label>
                     <VueStars
                         name="demo"
                         :max="10"
@@ -35,18 +35,18 @@
 </template>
 
 <script>
-import modal from './modal.vue';
-import { VueStars } from 'vue-stars'  
+import modal from './modal.vue'
+import { VueStars } from 'vue-stars'
 
 export default {
-    components: {
-        modal,
-        VueStars
-    },
-    props: {
-        show: Boolean,
-        closeCallback: Function
-    }
+  components: {
+    modal,
+    VueStars
+  },
+  props: {
+    show: Boolean,
+    closeCallback: Function
+  }
 }
 </script>
 

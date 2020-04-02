@@ -19,7 +19,7 @@
         <button @click="selectedThumbnail = index" :class="{'opacity-100' : (index === selectedThumbnail)}" class="col-span-1 transition-all duration-200 opacity-50 hover:opacity-100" v-for="(thumbnail, index) in thumbnailUrls" v-bind:key="index">
           <img class="w-48" :src="thumbnail"/>
         </button>
-        <div :class="{'relative flex items-center justify-center transition-all duration-200 opacity-50 hover:opacity-100' : hasCustomThumbnail, 'opacity-100' : (hasCustomThumbnail && selectedThumbnail === 4)}" class="w-48 h-32 col-span-1 text-center" 
+        <div :class="{'relative flex items-center justify-center transition-all duration-200 opacity-50 hover:opacity-100' : hasCustomThumbnail, 'opacity-100' : (hasCustomThumbnail && selectedThumbnail === 4)}" class="w-48 h-32 col-span-1 text-center"
         v-cloak>
           <svg v-if="!hasCustomThumbnail" class="w-12 h-12 mx-auto text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
             <path
@@ -63,7 +63,7 @@
                 <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
               </svg>
             </div>
-            <select id="team" class="block w-full pl-10 transition duration-150 ease-in-out rounded-none rounded-r form-input rounded-l-md sm:text-sm sm:leading-5"> 
+            <select id="team" class="block w-full pl-10 transition duration-150 ease-in-out rounded-none rounded-r form-input rounded-l-md sm:text-sm sm:leading-5">
                 <option>Dream Box</option>
                 <option>Soul's Team</option>
                 <option>Indigo Team</option>
@@ -157,6 +157,7 @@ export default {
     },
     async save () {
       this.thumbnailChoosen(this.selectedThumbnail)
+      this.$store.dispatch('feed/generateFeedForFollowers', this.$currentUser.userInfo.uid)
     }
   },
   computed: {

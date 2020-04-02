@@ -72,13 +72,13 @@ export default {
     },
     uploadFormData: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     },
     cropperOptions: {
       type: Object,
-      default() {
+      default () {
         return {
           aspectRatio: 1,
           autoCropArea: 1,
@@ -105,7 +105,7 @@ export default {
     },
     labels: {
       type: Object,
-      default() {
+      default () {
         return {
           submit: '提交',
           cancel: '取消'
@@ -113,7 +113,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       cropper: undefined,
       dataUrl: undefined,
@@ -121,12 +121,12 @@ export default {
     }
   },
   methods: {
-    destroy() {
+    destroy () {
       this.cropper.destroy()
       this.$refs.input.value = ''
       this.dataUrl = undefined
     },
-    submit() {
+    submit () {
       this.$emit('submit')
       if (this.uploadUrl) {
         this.uploadImage()
@@ -135,15 +135,15 @@ export default {
       }
       this.destroy()
     },
-    pickImage(e) {
+    pickImage (e) {
       this.$refs.input.click()
       e.preventDefault()
       e.stopPropagation()
     },
-    createCropper() {
+    createCropper () {
       this.cropper = new Cropper(this.$refs.img, this.cropperOptions)
     },
-    uploadImage() {
+    uploadImage () {
       this.cropper.getCroppedCanvas(this.outputOptions).toBlob(
         blob => {
           this.$emit('uploaded', blob)
@@ -153,10 +153,10 @@ export default {
       )
     }
   },
-  mounted() {
+  mounted () {
     // listen for click event on trigger
     let trigger =
-      typeof this.trigger == 'object'
+      typeof this.trigger === 'object'
         ? this.trigger
         : document.querySelector(this.trigger)
     if (!trigger) {

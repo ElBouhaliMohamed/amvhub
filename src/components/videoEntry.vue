@@ -3,6 +3,9 @@
     <router-link :to="this.url" class="w-full">
         <div :id="preview" class="relative aspect-ratio-16/9" @mouseenter="showPreview()" @mouseleave="hidePreview()">
           <img :src="thumbnail" class="absolute object-cover w-full h-full thumbnailWrapper"/>
+          <span class="absolute z-20 inline-block w-8 h-8 text-center text-gray-900 border-2 border-gray-900 rounded-full opacity-25 top-3 right-3 bg-gray-50">
+            <i class="fas fa-volume-mute"></i>
+          </span>
         </div>
     </router-link>
 
@@ -59,8 +62,8 @@ export default {
   methods: {
     loadVideo () {
       // this.$Progress.start();
-      let routeData = this.$router.resolve(this.url);
-      window.open(routeData.href, '_blank');
+      let routeData = this.$router.resolve(this.url)
+      window.open(routeData.href, '_blank')
     },
     videoFullyBuffered () {
       console.log('I think I can play thru the entire ' + ' video without ever having to stop to buffer.')

@@ -166,6 +166,7 @@ export default {
 
         this.followed = true
       }
+      this.$store.dispatch('feed/generate', this.$currentUser.userInfo.uid)
     }
   }
 }

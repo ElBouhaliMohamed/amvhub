@@ -26,7 +26,7 @@
                   <button class="bton btn-primary">More Info</button>
                 </span>
                 <span class="text-3xl font-bold">
-                  Watch now: 
+                  Watch now:
                   "Beautiful Crime" by Kazumoe
                 </span>
                 <span class="text-xl">

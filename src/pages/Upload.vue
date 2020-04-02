@@ -78,7 +78,7 @@ export default {
       get: function () {
         return this.$store.getters['upload/isDone']
       }
-    },
+    }
   },
   beforeRouteLeave (to, from, next) {
     if (this.stateId > 0 && !this.isDone) {

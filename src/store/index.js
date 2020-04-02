@@ -4,7 +4,8 @@ import modules from './modules'
 import VuexPersistence from 'vuex-persist'
 
 const vuexLocal = new VuexPersistence({
-  storage: window.localStorage
+  storage: window.localStorage,
+  supportCircular: true
 })
 
 Vue.use(Vuex)

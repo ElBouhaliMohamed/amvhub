@@ -138,104 +138,104 @@
 </template>
 
 <script>
-import firebase from "firebase";
+import firebase from 'firebase'
 
 export default {
-  data() {
+  data () {
     return {
-      comment: "",
+      comment: '',
       sections: []
-    };
+    }
   },
   props: {
     comments: Array,
     videoRef: Object
   },
   methods: {
-    saveComment() {
+    saveComment () {
       if (this.comment.length > 0) {
-        let uid = this.$store.state.user.currentUser.currentUser.uid;
+        let uid = this.$store.state.user.currentUser.currentUser.uid
         let commentRef = firebase
           .firestore()
-          .collection("comments")
-          .doc();
+          .collection('comments')
+          .doc()
 
         commentRef.set({
           text: this.comment,
           user: firebase.firestore().doc(`/users/${uid}`),
 		  video: this.videoRef,
 		  commentedAt: Date.now()
-        });
+        })
 
-        this.comments.push(commentRef.id);
+        this.comments.push(commentRef.id)
         this.videoRef.update({
           comments: this.comments
-        });
+        })
 
-        this.comment = "";
+        this.comment = ''
       }
     },
-    cancel() {
-      this.comment = "";
+    cancel () {
+      this.comment = ''
     }
   },
-mounted() {
+  mounted () {
     // if (this.isLoggedIn) {
     //   let uid = this.$store.state.user.currentUser.currentUser.uid;
-	// }
+    // }
 
   },
   computed: {
-    isLoggedIn: function() {
-      return this.$store.state.user.isLoggedIn;
-	},
-	avatar: function() {
-      return this.$store.state.user.currentUser != null ? this.$store.state.user.currentUser.userInfo.photoURL : '';
+    isLoggedIn: function () {
+      return this.$store.state.user.isLoggedIn
     },
+    avatar: function () {
+      return this.$store.state.user.currentUser != null ? this.$store.state.user.currentUser.userInfo.photoURL : ''
+    }
   },
   watch: {
-	//   async comments() {
-	// 	for(let comment in comments) {
-	// 		let commentSnap = await firebase.firestore().doc(`/comments/${comment}`).get();
-	// 		commentSnap.data().user
-	// 	}
-	//   }
-	videoRef(newRef, oldRef) {
-		if(oldRef == undefined || oldRef == null) {
-			let foundComments = firebase.firestore().collection("comments").where("video", "==", newRef);
+    //   async comments() {
+    // 	for(let comment in comments) {
+    // 		let commentSnap = await firebase.firestore().doc(`/comments/${comment}`).get();
+    // 		commentSnap.data().user
+    // 	}
+    //   }
+    videoRef (newRef, oldRef) {
+      if (oldRef == undefined || oldRef == null) {
+        let foundComments = firebase.firestore().collection('comments').where('video', '==', newRef)
 
-			foundComments.onSnapshot((querySnapshot) => {
-				var sections = [];
-				querySnapshot.forEach(async function(doc) {
-					let data = doc.data()
-					let user = await data.user.get()
-					let userInfo = user.data();
+        foundComments.onSnapshot((querySnapshot) => {
+          var sections = []
+          querySnapshot.forEach(async function (doc) {
+            let data = doc.data()
+            let user = await data.user.get()
+            let userInfo = user.data()
 
-					if (!userInfo.isGoogleAccount) {
-						userInfo.photoURL = await firebase
-						.storage()
-						.ref(`profilePictures/${userInfo.photo}`)
-						.getDownloadURL()
-					}
+            if (!userInfo.isGoogleAccount) {
+              userInfo.photoURL = await firebase
+                .storage()
+                .ref(`profilePictures/${userInfo.photo}`)
+                .getDownloadURL()
+            }
 
-					sections.push({
-						uid: data.id,
-						user: userInfo.name,
-						avatar: userInfo.photoURL,
-						text: data.text,
-						commentedAt: data.commentedAt
-					});
+            sections.push({
+              uid: data.id,
+              user: userInfo.name,
+              avatar: userInfo.photoURL,
+              text: data.text,
+              commentedAt: data.commentedAt
+            })
 
-					sections.sort(function(a,b) {
-						return b.commentedAt - a.commentedAt
-					});
-				});
-				this.sections = sections;
-			});
-		}
-	}
+            sections.sort(function (a, b) {
+              return b.commentedAt - a.commentedAt
+            })
+          })
+          this.sections = sections
+        })
+      }
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

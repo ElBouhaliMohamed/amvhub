@@ -16,7 +16,7 @@ export default {
     getCurrent ({ commit }) {
       return UsersService.getCurrent()
         .then(user => commit('SET_CURRENT_USER', user))
-        .catch(error => console.log(error)) 
+        .catch(error => console.log(error))
     }
   }
 }

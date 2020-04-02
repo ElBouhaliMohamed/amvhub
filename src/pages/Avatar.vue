@@ -20,42 +20,42 @@
 </template>
 
 <script>
-import AvatarCropper from "vue-avatar-cropper";
+import AvatarCropper from 'vue-avatar-cropper'
 
 export default {
   components: { AvatarCropper },
-  data() {
+  data () {
     return {
-      message: "ready",
+      message: 'ready',
       user: {
         id: 1,
-        nickname: "安正超",
-        username: "overtrue",
-        avatar: "https://avatars0.githubusercontent.com/u/1472352?s=460&v=4"
+        nickname: '安正超',
+        username: 'overtrue',
+        avatar: 'https://avatars0.githubusercontent.com/u/1472352?s=460&v=4'
       }
-    };
+    }
   },
   methods: {
-    handleUploading(form, xhr) {
-      this.message = "uploading...";
+    handleUploading (form, xhr) {
+      this.message = 'uploading...'
     },
-    handleUploaded(response) {
-      if (response.status == "success") {
-        this.user.avatar = response.url;
+    handleUploaded (response) {
+      if (response.status == 'success') {
+        this.user.avatar = response.url
         // Maybe you need call vuex action to
         // update user avatar, for example:
         // this.$dispatch('updateUser', {avatar: response.url})
-        this.message = "user avatar updated.";
+        this.message = 'user avatar updated.'
       }
     },
-    handleCompleted(response, form, xhr) {
-      this.message = "upload completed.";
+    handleCompleted (response, form, xhr) {
+      this.message = 'upload completed.'
     },
-    handlerError(message, type, xhr) {
-      this.message = "Oops! Something went wrong...";
+    handlerError (message, type, xhr) {
+      this.message = 'Oops! Something went wrong...'
     }
   }
-};
+}
 </script>
 
 <style>

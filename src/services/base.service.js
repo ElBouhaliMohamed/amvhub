@@ -31,5 +31,4 @@ export default class BaseService {
    * @API_CALLS_PUBLIC
    * ------------------------------
    */
-
 }

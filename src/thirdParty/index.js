@@ -15,6 +15,10 @@ import VueNotifications from 'vue-notifications'
 
 import swal from 'sweetalert'
 
+import infiniteScroll from 'vue-infinite-scroll'
+
+Vue.use(infiniteScroll)
+
 Vue.use(VueCarousel)
 
 Vue.use(Vue2TouchEvents)
