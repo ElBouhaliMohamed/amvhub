@@ -77,7 +77,30 @@ export default {
         },
         handleClick: function () {
           console.log('Theater Mode')
-          self.$emit('theaterMode')
+          if (!self.player.isFullscreen()) {
+            self.$emit('theaterMode')
+            // use queryselector to find the child video element
+            var videoElement = self.player.el().querySelector('video')
+            // if one is found, we're using html5 tech, so add a custom class
+            if (videoElement) {
+              if (videoElement.classList.contains('vjs-maxScreen')) {
+                videoElement.classList.remove('vjs-maxScreen')
+              } else {
+                videoElement.classList.add('vjs-maxScreen')
+              }
+            }
+          }
+        }
+      })
+  
+      this.player.on('fullscreenchange', () => {
+        if (self.player.isFullscreen()) {
+          var videoElement = self.player.el().querySelector('video')
+          videoElement.classList.remove('vjs-maxScreen')
+
+          if (self.theaterMode) {
+            self.$emit('theaterMode')
+          }
         }
       })
 
@@ -122,13 +145,17 @@ export default {
 .video-js.vjs-4-3,
 video.video-js,
 video.vjs-tech, {
-  max-height: calc(100vh - 85px);
   position: relative !important;
   width: 100%;
   height: auto !important;
   max-width: 100% !important;
   padding-top: 0 !important;
   line-height: 0;
+}
+
+/* For theater mode */
+video.vjs-tech.vjs-maxScreen {
+  max-height: calc(100vh - 85px);
 }
 
 /* Fix the control bar due to us resetting the line-height on the video-js */
