@@ -1,13 +1,19 @@
 <template>
   <div data-aos="fade-up" data-aos-once="true" class="relative flex w-full my-12 text-white">
-    <router-link :to="this.url" class="w-full">
-        <div :id="preview" class="relative aspect-ratio-16/9" @mouseenter="showPreview()" @mouseleave="hidePreview()">
+    <div class="w-full">
+      <div class="relative aspect-ratio-16/9" @mouseenter="showPreview()" @mouseleave="hidePreview()">
+        <router-link :id="preview" :to="this.url">
           <img :src="thumbnail" class="absolute object-cover w-full h-full thumbnailWrapper"/>
-          <span class="absolute z-20 inline-block w-8 h-8 text-center text-gray-900 border-2 border-gray-900 rounded-full opacity-25 top-3 right-3 bg-gray-50">
-            <i class="fas fa-volume-mute"></i>
-          </span>
-        </div>
-    </router-link>
+        </router-link>
+          <button v-if="isPlaying" @click="mute" class="absolute top-0 right-0 z-20 transition-all duration-300 ease-in-out transform scale-100 group hover:scale-125">
+            <span class="absolute w-8 h-8 bg-white rounded-full opacity-50 top-3 right-3 group-hover:opacity-100"/>
+            <span class="absolute w-8 h-8 text-center text-gray-900 rounded-full top-4 right-3">
+              <i v-if="isMuted" class="fas fa-volume-mute"></i>
+              <i v-else class="fas fa-volume-up"></i>
+            </span>
+          </button>
+      </div>
+    </div>
 
     <!-- <div class="videoLengthBackground"></div>
     <div class="videoLength">{{lengthInMinutes}}</div> -->
@@ -57,9 +63,21 @@ export default {
     },
     isLightMode () {
       return !this.$store.getters['theme/isDarkMode']
+    },
+    isMuted: {
+      get () {
+        return this.$store.getters['trending/isMuted']
+      },
+      set (val) {
+        this.$store.commit('trending/toggleMute', val)
+      }
     }
   },
   methods: {
+    mute () {
+      this.isMuted = !this.isMuted
+      this.previewVideo.muted = this.isMuted
+    },
     loadVideo () {
       // this.$Progress.start();
       let routeData = this.$router.resolve(this.url)
@@ -68,7 +86,7 @@ export default {
     videoFullyBuffered () {
       console.log('I think I can play thru the entire ' + ' video without ever having to stop to buffer.')
       this.previewLoaded = true
-      this.previewVideo.muted = false
+      this.previewVideo.muted = this.isMuted
       this.previewVideo.volume = 0.3
       if (this.hovering) {
         let thumbnail = document.getElementById(this.preview)

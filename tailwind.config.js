@@ -63,7 +63,7 @@ module.exports = {
     }
   },
   variants: {
-    opacity: ['responsive', 'hover'],
+    opacity: ['responsive', 'hover', 'group-hover'],
     aspectRatio: ['responsive']
   }
 }
