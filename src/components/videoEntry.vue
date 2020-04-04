@@ -5,6 +5,7 @@
         <router-link :id="preview" :to="this.url">
           <img :src="thumbnail" class="absolute object-cover w-full h-full thumbnailWrapper"/>
         </router-link>
+        <transition >
           <button v-if="isPlaying" @click="mute" class="absolute top-0 right-0 z-20 transition-all duration-300 ease-in-out transform scale-100 group hover:scale-125">
             <span class="absolute w-8 h-8 bg-white rounded-full opacity-50 top-3 right-3 group-hover:opacity-100"/>
             <span class="absolute w-8 h-8 text-center text-gray-900 rounded-full top-4 right-3">
@@ -12,6 +13,7 @@
               <i v-else class="fas fa-volume-up"></i>
             </span>
           </button>
+        </transition>
       </div>
     </div>
 
@@ -73,10 +75,14 @@ export default {
       }
     }
   },
+  watch: {
+    isMuted (newVal) {
+      this.previewVideo.muted = newVal
+    }
+  },
   methods: {
     mute () {
       this.isMuted = !this.isMuted
-      this.previewVideo.muted = this.isMuted
     },
     loadVideo () {
       // this.$Progress.start();
