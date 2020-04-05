@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute left-0 flex flex-col items-center justify-center w-full pl-8 overflow-hidden align-center" id="suggested">
+  <div class="flex flex-col items-center justify-center w-full pl-8 overflow-hidden align-center" id="suggested">
     <div class="flex flex-row justify-start w-full mb-3" v-for="video in videos" v-bind:key="video.title">
       <!-- <router-link draggable="false" to="/channel/" class="relative pb-2/3">
       </router-link> -->

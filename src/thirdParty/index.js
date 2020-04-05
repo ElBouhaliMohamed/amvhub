@@ -17,6 +17,10 @@ import swal from 'sweetalert'
 
 import infiniteScroll from 'vue-infinite-scroll'
 
+import vueHeadful from 'vue-headful'
+
+Vue.component('headful', vueHeadful)
+
 Vue.use(infiniteScroll)
 
 Vue.use(VueCarousel)

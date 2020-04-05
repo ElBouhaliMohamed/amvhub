@@ -155,7 +155,7 @@ video.vjs-tech, {
 
 /* For theater mode */
 video.vjs-tech.vjs-maxScreen {
-  max-height: calc(100vh - 85px);
+  max-height: calc(100vh - 235px);
 }
 
 /* Fix the control bar due to us resetting the line-height on the video-js */

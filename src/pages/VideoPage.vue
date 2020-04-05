@@ -1,152 +1,152 @@
 <template>
-  <div class="flex flex-col bg-white" :class="{'pt-6': !theaterMode}">
-
+  <div class="bg-white" :class="{'pt-4': !theaterMode}">
+    <headful
+      :title="`${author} - ${title} | amvhub`"
+    />
     <div class="flex justify-center" :class="[{'flex-col md:flex-row': !theaterMode, 'flex-col': theaterMode}]">
-      <div class="" :class="[{'max-w-screen-lg': !theaterMode, 'w-full': theaterMode}]">
+      <div :class="[{'max-w-screen-lg w-2/4': !theaterMode, 'w-full': theaterMode}]">
           <video-player id="video-player" v-on:theaterMode="toggleTheaterMode" v-bind:options.sync="options" v-bind:spriteSheet.sync="spriteSheet" v-bind:poster.sync="poster"></video-player>
-          <span class="flex flex-row justify-start max-w-screen-lg my-4 text-3xl font-bold text-start font-lg">
-              {{title}}
-          </span>
-
-          <!-- <div class="flex my-4">
-            <img class="w-1/4 h-auto cursor-pointer" :class="{'w-auto' : watchThumbnail}" src="@/assets/thumbnail2.png" @click="watchThumbnail = !watchThumbnail" />
-          </div> -->
-
-          <div class="flex flex-row items-center justify-center max-w-screen-lg mb-4 text-lg">
-            <div class="flex items-center w-1/2">
-              <user-infos parent="authorAvatar" :visible="showUserInfos"/>
-              <img id="authorAvatar" @mouseenter="showUserInfos = true" @mouseout="showUserInfos = false" src="@/assets/avatar2.png" class="w-16 h-16 mr-2 rounded-full cursor-pointer" />
-              <span class="text-lg font-bold">
-                {{author}}
+          <div class="flex flex-wrap justify-center">
+            <div :class="[{'w-full': !theaterMode, 'max-w-screen-lg w-3/4': theaterMode}]">
+              <span class="flex flex-row justify-start max-w-screen-lg my-4 text-3xl font-bold text-start font-lg">
+                  {{title}}
               </span>
-            </div>
 
-            <div class="flex flex-row items-center justify-end w-1/2 text-sm">
+              <!-- <div class="flex my-4">
+                <img class="w-1/4 h-auto cursor-pointer" :class="{'w-auto' : watchThumbnail}" src="@/assets/thumbnail2.png" @click="watchThumbnail = !watchThumbnail" />
+              </div> -->
 
-              <ratingModal :show="showRatingModal" :closeCallback="ratingClosed"></ratingModal>
-              
-              <div class="pl-6">
-                <span class="fa fa-eye"></span>
-                {{views}}
+              <div class="flex flex-row items-center justify-center max-w-screen-lg mb-4 text-lg">
+                <div class="flex items-center w-1/2">
+                  <user-infos parent="authorAvatar" :visible="showUserInfos"/>
+                  <img id="authorAvatar" @mouseenter="showUserInfos = true" @mouseout="showUserInfos = false" src="@/assets/avatar2.png" class="w-16 h-16 mr-2 rounded-full cursor-pointer" />
+                  <span class="text-lg font-bold">
+                    {{author}}
+                  </span>
+                </div>
+
+                <div class="flex flex-row items-center justify-end w-1/2 text-sm">
+
+                  <ratingModal :show="showRatingModal" :closeCallback="ratingClosed"></ratingModal>
+                  
+                  <div class="pl-6">
+                    <span class="fa fa-eye"></span>
+                    {{views}}
+                  </div>
+
+                  <div class="pl-6">
+                    <button @click="giveHeart" class="px-2 rounded-full hover">
+                      <span class="fa fa-heart" v-bind:class="{'text-red-600': alreadyGaveHeart}"></span>
+                      {{hearts}}
+                    </button>
+                  </div>
+
+                  <div class="pl-6">
+                    <button class="px-2 rounded-full hover">
+                      <span class="text-yellow-400 fa fa-star"></span>
+                      7.9 <span class="text-xs font-thin">/ 10 (60 Votes)</span>
+                    </button>
+                  </div>
+
+                </div>
               </div>
 
-              <div class="pl-6">
-                <button @click="giveHeart" class="px-2 rounded-full hover">
-                  <span class="fa fa-heart" v-bind:class="{'text-red-600': alreadyGaveHeart}"></span>
-                  {{hearts}}
-                </button>
+              <div class="flex flex-wrap font-light leading-7">
+                Lorem ipsum dolor sit amet consectetur adipisicing elitMagni molestiae nam architecto quia amet minus et praesentium enim facilis culpa voluptates perferendis laboriosam temporibus, aliquid natus ea rem neque tempore adipisci ab iusto quibusdam nostrum nemo! Quibusdam quis incidunt corrupti consectetur aliquid pariatur eveniet expedita possimus harum unde quisquam ipsum voluptatibus sed inventore laudantium neque, tempore ducimus ad quam optio nam magnam consequaturConsequatur deserunt doloremque accusantium asperioresInventore recusandae consequuntur aut obcaecati, nihil enim eveniet labore, amet totam fugit, delectus eaque ipsam impedit esse quiAssumenda cumque, eligendi, quaerat consectetur velit id placeat dolorum inventore illum perferendis rem nisi?
               </div>
 
-              <div class="pl-6">
-                <button class="px-2 rounded-full hover">
-                  <span class="text-yellow-400 fa fa-star"></span>
-                  7.9 <span class="text-xs font-thin">/ 10 (60 Votes)</span>
-                </button>
+              <!-- <div class="flex flex-col flex-wrap">
+                <div class="flex">
+                  <div class="mr-1 fas fa-music"></div>
+                </div>
+                <div>
+                  <div class="mr-1 fas fa-tv"></div>
+                    <span v-for="(anime, index) in animes"><span v-if="index > 0">, </span> <a :href="'https://myanimelist.net/search/all?q=' + anime.replace(/\s/g, '%20')"> {{anime}} </a></span>
+                </div>
               </div>
 
-            </div>
-          </div>
+              <div class="flex flex-wrap">
+                <router-link
+                  :to="'/search/tag/' + tag"
+                  class="p-2 mt-2 mr-2 text-sm rounded-full"
+                  v-for="tag in tags" :key="tag"
+                >{{ tag }}</router-link>
+              </div> -->
 
-          <div class="flex flex-wrap font-light leading-7">
-            Lorem ipsum dolor sit amet consectetur adipisicing elitMagni molestiae nam architecto quia amet minus et praesentium enim facilis culpa voluptates perferendis laboriosam temporibus, aliquid natus ea rem neque tempore adipisci ab iusto quibusdam nostrum nemo! Quibusdam quis incidunt corrupti consectetur aliquid pariatur eveniet expedita possimus harum unde quisquam ipsum voluptatibus sed inventore laudantium neque, tempore ducimus ad quam optio nam magnam consequaturConsequatur deserunt doloremque accusantium asperioresInventore recusandae consequuntur aut obcaecati, nihil enim eveniet labore, amet totam fugit, delectus eaque ipsam impedit esse quiAssumenda cumque, eligendi, quaerat consectetur velit id placeat dolorum inventore illum perferendis rem nisi?
-          </div>
-
-          <!-- <div class="flex flex-col flex-wrap">
-            <div class="flex">
-              <div class="mr-1 fas fa-music"></div>
-            </div>
-            <div>
-              <div class="mr-1 fas fa-tv"></div>
-                <span v-for="(anime, index) in animes"><span v-if="index > 0">, </span> <a :href="'https://myanimelist.net/search/all?q=' + anime.replace(/\s/g, '%20')"> {{anime}} </a></span>
-            </div>
-          </div>
-
-          <div class="flex flex-wrap">
-            <router-link
-              :to="'/search/tag/' + tag"
-              class="p-2 mt-2 mr-2 text-sm rounded-full"
-              v-for="tag in tags" :key="tag"
-            >{{ tag }}</router-link>
-          </div> -->
-
-          <div class="py-4">
-            <div class="pt-5 mt-5 border-t border-gray-200">
-              <dl>
-                <div class=" sm:grid sm:grid-cols-3 sm:gap-4">
-                  <dt class="text-sm font-medium leading-5 text-gray-500">
-                    <span class="fas fa-tv"></span>
-                    Animes
-                  </dt>
-                  <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                    Monster + various
-                  </dd>
-                </div>
-                <div class="mt-8 sm:grid sm:mt-5 sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-                  <dt class="text-sm font-medium leading-5 text-gray-500">
-                    <span class="fas fa-music"></span>
-                    Songs
-                  </dt>
-                  <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                    <span v-for="(song, index) in songs"><span v-if="index > 0">, </span>{{song.artist}} - {{song.title}}</span>
-                  </dd>
-                </div>
-                <div class="mt-8 sm:grid sm:mt-5 sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-                  <dt class="text-sm font-medium leading-5 text-gray-500">
-                    <span class="fas fa-users"></span>
-                    Editors
-                  </dt>
-                  <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                    <span class="flex items-center justify-start">
-                      <img src="@/assets/avatar2.png" class="w-16 h-auto pr-2" />
-                      <span class="text-lg font-bold">
-                        Kazumoe
-                      </span>
-                    </span>
-                  </dd>
-                </div>
-                <div class="mt-8 sm:grid sm:mt-5 sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-                  <dt class="text-sm font-medium leading-5 text-gray-500">
-                    <span class="fas fa-paperclip"></span>
-                    Downloads
-                  </dt>
-                  <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                    <ul class="border border-gray-200 rounded-md">
-                      <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm leading-5">
-                        <div class="flex items-center flex-1 w-0">
-                          <span class="flex-1 w-0 ml-2 truncate">
-                            1920x1080@25fps
+              <div class="py-4">
+                <div class="pt-5 mt-5 border-t border-gray-200">
+                  <dl>
+                    <div class=" sm:grid sm:grid-cols-3 sm:gap-4">
+                      <dt class="text-sm font-medium leading-5 text-gray-500">
+                        <span class="fas fa-tv"></span>
+                        Animes
+                      </dt>
+                      <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                        Monster + various
+                      </dd>
+                    </div>
+                    <div class="mt-8 sm:grid sm:mt-5 sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                      <dt class="text-sm font-medium leading-5 text-gray-500">
+                        <span class="fas fa-music"></span>
+                        Songs
+                      </dt>
+                      <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                        <span v-for="(song, index) in songs"><span v-if="index > 0">, </span>{{song.artist}} - {{song.title}}</span>
+                      </dd>
+                    </div>
+                    <div class="mt-8 sm:grid sm:mt-5 sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                      <dt class="text-sm font-medium leading-5 text-gray-500">
+                        <span class="fas fa-users"></span>
+                        Editors
+                      </dt>
+                      <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                        <span class="flex items-center justify-start">
+                          <img src="@/assets/avatar2.png" class="w-16 h-auto pr-2" />
+                          <span class="text-lg font-bold">
+                            Kazumoe
                           </span>
-                        </div>
-                        <div class="flex-shrink-0 ml-4">
-                          <a href="#" class="font-medium text-indigo-600 transition duration-150 ease-in-out hover:text-indigo-500">
-                            Download
-                          </a>
-                        </div>
-                      </li>
-                    </ul>
-                  </dd>
+                        </span>
+                      </dd>
+                    </div>
+                    <div class="mt-8 sm:grid sm:mt-5 sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                      <dt class="text-sm font-medium leading-5 text-gray-500">
+                        <span class="fas fa-paperclip"></span>
+                        Downloads
+                      </dt>
+                      <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                        <ul class="border border-gray-200 rounded-md">
+                          <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm leading-5">
+                            <div class="flex items-center flex-1 w-0">
+                              <span class="flex-1 w-0 ml-2 truncate">
+                                1920x1080@25fps
+                              </span>
+                            </div>
+                            <div class="flex-shrink-0 ml-4">
+                              <a href="#" class="font-medium text-indigo-600 transition duration-150 ease-in-out hover:text-indigo-500">
+                                Download
+                              </a>
+                            </div>
+                          </li>
+                        </ul>
+                      </dd>
+                    </div>
+                  </dl>
                 </div>
-              </dl>
+              </div>
+              
+              <comment-section :comments="comments" :videoRef="videoRef"/>
+            </div>
+            <div class="w-1/4 my-6">
+              <div class="relative" :class="{'hidden': !theaterMode}">
+                <videoBar class="absolute left-0" :horizontal="false"/>
+              </div>
             </div>
           </div>
-
-          <div class="flex flex-col py-4">
-
-          </div>
-
-          <comment-section :comments="comments" :videoRef="videoRef"/>
       </div>
-      <span class="relative" :class="[{'w-1/4': !theaterMode, 'w-full': theaterMode}]">
-        <videoBar :horizontal="false"/>
+      <span class="relative w-1/4" :class="{'hidden': theaterMode}">
+        <videoBar class="absolute left-0" :horizontal="false"/>
       </span>
     </div>
-    
-    <!-- <div class="flex justify-center w-full">
-      <div class="max-w-screen-lg">
-
-      </div>
-      <div class="w-1/4"></div>
-    </div> -->
   </div>
 </template>
 
