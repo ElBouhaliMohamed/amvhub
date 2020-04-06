@@ -25,11 +25,11 @@
             Songs
           </label>
           <div class="flex mt-1 rounded-md shadow-sm" v-for="(song, index) in songs" :key="index">
-            <div class="relative flex focus-within:z-10">
+            <div class="relative flex flex-grow focus-within:z-10">
               <div class="flex-1 w-1/2 min-w-0">
                 <input v-model="song.artist" aria-label="Song Artists" class="relative block w-full transition duration-150 ease-in-out bg-transparent rounded-none form-input rounded-l-md focus:z-10 sm:text-sm sm:leading-5" placeholder="Artists" />
               </div>
-              <div>
+              <div class="w-1/2">
                 <input v-model="song.title" aria-label="Song Title" class="block w-full transition duration-150 ease-in-out border-t border-b border-l-0 rounded-none form-input sm:text-sm sm:leading-5" placeholder="Title" />
               </div>
             </div>
@@ -87,8 +87,8 @@
             </span>
         </span>
 
-        <span class="flex items-center justify-center rounded-md shadow-sm sm:col-span-2 sm:col-start-5">
-          <button @click="saveInfos" type="button" :class="{'cursor-not-allowed' : !doneUploading}" class="inline-flex justify-center w-3/4 px-2 py-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo sm:text-sm sm:leading-5">
+        <span class="flex items-center justify-center rounded-md shadow-sm sm:justify-end sm:col-span-2 sm:col-start-5">
+          <button @click="saveInfos" type="button" :class="{'cursor-not-allowed' : !doneUploading}" class="inline-flex justify-center w-full px-2 py-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo sm:text-sm sm:leading-5">
             Save
           </button>
         </span>
@@ -217,6 +217,6 @@ export default {
 <style lang="scss" scoped>
 
 .vue-tags-input {
-  @apply w-full
+  @apply max-w-full
 }
 </style>

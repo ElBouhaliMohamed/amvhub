@@ -1,8 +1,8 @@
 const getDefaultState = () => {
   return {
     title: '',
-    songs: [],
-    sources: [],
+    songs: [{ artist: '', title: '' }],
+    sources: [{ title: '' }],
     tags: [],
     progress: 0,
     url: '',
