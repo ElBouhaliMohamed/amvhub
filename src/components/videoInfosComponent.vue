@@ -33,11 +33,11 @@
                 <input v-model="song.title" aria-label="Song Title" class="block w-full transition duration-150 ease-in-out border-t border-b border-l-0 rounded-none form-input sm:text-sm sm:leading-5" placeholder="Title" />
               </div>
             </div>
-            <button v-if="index == (songs.length - 1)" @click="addSong" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out border border-gray-300 rounded-r-md bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">
-              <svg viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-gray-400"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"></path></svg>
-            </button>
-            <button v-else @click="removeSong(index)" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out border border-gray-300 rounded-r-md bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">
+            <button @click="removeSong(index)" :class="{'cursor-not-allowed': songs.length <= 1}" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out border border-gray-300 bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">
               <svg viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-gray-400"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path></svg>
+            </button>
+            <button @click="addSong" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out border border-gray-300 rounded-r-md bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">
+              <svg viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-gray-400"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"></path></svg>
             </button>
           </div>
         </div>
@@ -50,12 +50,33 @@
             <div class="relative flex-grow focus-within:z-10">
               <input v-model="source.title" aria-label="Sources Title"  class="block w-full transition duration-150 ease-in-out rounded-none form-input rounded-l-md sm:text-sm sm:leading-5" />
             </div>
-            <button v-if="index == (sources.length - 1)" @click="addSource" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out border border-gray-300 rounded-r-md bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">
-              <svg viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-gray-400"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"></path></svg>
-            </button>
-            <button v-else @click="removeSource(index)" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out border border-gray-300 rounded-r-md bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">
+            <button @click="removeSource(index)" :class="{'cursor-not-allowed': sources.length <= 1}" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out border border-gray-300 rounded-none bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">
               <svg viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-gray-400"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path></svg>
             </button>
+            <button @click="addSource" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out border border-gray-300 rounded-r-md bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">
+              <svg viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-gray-400"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"></path></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="sm:col-span-6">
+          <label for="anime" class="block text-sm font-medium leading-5 text-gray-700">
+            Categorys
+          </label>
+          <div class="mt-1 rounded-md shadow-sm">
+            <!-- <input id="anime" class="block w-full transition duration-150 ease-in-out form-input sm:text-sm sm:leading-5" /> -->
+            <vue-tags-input
+              id="categorys"
+              class="block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+              v-model="category"
+              :tags="categorys"
+              :allow-edit-tags="true"
+              :add-only-from-autocomplete="true"
+              :autocomplete-items="items"
+              :avoid-adding-duplicates="true"
+              placeholder="Add Category"
+              @tags-changed="newCategorys => categorys = newCategorys"
+            />
           </div>
         </div>
 
@@ -71,12 +92,12 @@
               v-model="tag"
               :tags="tags"
               :allow-edit-tags="true"
-              :add-only-from-autocomplete="true"
-              :autocomplete-items="items"
+              :avoid-adding-duplicates="true"
               @tags-changed="newTags => tags = newTags"
             />
           </div>
         </div>
+
         <span class="flex flex-row items-center justify-center sm:col-span-4">
             <progress-bar
               :value="progress"
@@ -88,7 +109,7 @@
         </span>
 
         <span class="flex items-center justify-center rounded-md shadow-sm sm:justify-end sm:col-span-2 sm:col-start-5">
-          <button @click="saveInfos" type="button" :class="{'cursor-not-allowed' : !doneUploading}" class="inline-flex justify-center w-full px-2 py-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo sm:text-sm sm:leading-5">
+          <button @click="proceed" type="button" :class="{'cursor-not-allowed' : !doneUploading}" class="inline-flex justify-center w-full px-2 py-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo sm:text-sm sm:leading-5">
             Save
           </button>
         </span>
@@ -99,7 +120,6 @@
 
 <script>
 import VueTagsInput from '@johmun/vue-tags-input'
-import firebase, { firestore } from 'firebase'
 import ProgressBar from 'vue-progressbar-component'
 
 export default {
@@ -111,7 +131,9 @@ export default {
     return {
       tag: '',
       tags: [],
-      autocompleteItems: ['Drama', 'Action', 'Romance', 'Psyche', 'Horror', 'Fun', 'Dance']
+      category: '',
+      categorys: [],
+      autocompleteItems: ['Action', 'Character Profile', 'Comedy', 'Cross-Over', 'Dance', 'Drama', 'Game Music Video (GMV)', 'Horror', 'Multi Editor Project (MEP)', 'Manga Music Video (MMV)', 'Psychedelic', 'Romance', 'Sentimental', 'Trailer']
     }
   },
   computed: {
@@ -120,7 +142,7 @@ export default {
     },
     items () {
       return this.autocompleteItems.filter(a => {
-        return a.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1
+        return a.toLowerCase().indexOf(this.category.toLowerCase()) !== -1
       }).map(a => ({ text: a }))
     },
     title: {
@@ -146,14 +168,6 @@ export default {
       set: function (newValue) {
         this.$store.commit('upload/PUT_SOURCE', newValue)
       }
-    // },
-    // tags: {
-    //   get: function () {
-    //     return this.$store.getters['upload/tags']
-    //   },
-    //   set: function (newValue) {
-    //     this.$store.commit('upload/SET_SOURCES', newValue)
-    //   }
     },
     progress: {
       get: function () {
@@ -169,46 +183,28 @@ export default {
       this.$store.commit('upload/PUSH_SONG', { artist: '', title: '' })
     },
     removeSong (index) {
-      this.$store.commit('upload/REMOVE_SONG', index)
+      if (this.songs.length > 1) {
+        this.$store.commit('upload/REMOVE_SONG', index)
+      }
     },
     addSource () {
       this.$store.commit('upload/PUSH_SOURCE', { title: '' })
     },
     removeSource (index) {
-      this.$store.commit('upload/REMOVE_SOURCE', index)
+      if (this.sources.length > 1) {
+        this.$store.commit('upload/REMOVE_SOURCE', index)
+      }
     },
-    async saveInfos () {
-      let uuid = this.$store.getters['upload/uuid']
-      let videoDbRef = await firebase.firestore().collection('videos').doc(uuid)
-
-      let userUuid = this.$store.state.user.currentUser.currentUser.uid
-      console.log(userUuid)
-      let userRef = await firebase.firestore().collection('users').doc(userUuid)
-      console.log(userRef)
-
-      let cleanTags = Array.from(this.tags, tag => tag.text)
-
-      // TODO: add validation checks for the input
-      await videoDbRef.update({
-        title: this.title,
-        songs: this.songs,
-        tags: cleanTags,
-        editor: 'TestUpload',
-        user: userRef,
-        views: 0,
-        hearts: 0,
-        public: true,
-        createdAt: firestore.FieldValue.serverTimestamp()
-      })
-
-      this.$store.commit('upload/SET_URL', `localhost:8080/video/${uuid}`)
-
+    proceed () {
       this.$emit('next') // next screen
     }
   },
   watch: {
     tags: function (newTags) {
       this.$store.commit('upload/SET_TAGS', newTags)
+    },
+    categorys: function (newCategorys) {
+      this.$store.commit('upload/SET_CATEGORYS', newCategorys)
     }
   }
 }

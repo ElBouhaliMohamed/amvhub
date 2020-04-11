@@ -86,14 +86,18 @@ export default {
           let thumbnails = thumbnailsQuery.data()
           let currThumbnail = thumbnails.active > 3 ? thumbnails.customThumbnail : thumbnails.thumbnails[thumbnails.active]
 
+          let userSnapshot = await data.user.get()
+          let userData = userSnapshot.data()
+
           context.commit('pushEntry', {
             id: index,
-            editor: data.editor,
+            editors: data.editors,
             title: data.title,
             uuid: data.uuid,
             views: data.views,
             date: [createdAt.toISOString(), createdAt.toGMTString()],
-            thumbnail: currThumbnail
+            thumbnail: currThumbnail,
+            user: userData
           })
 
           // if (index % 5 === 0) {

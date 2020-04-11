@@ -128,7 +128,7 @@ export default {
   },
   async mounted () {
     let followersCollection = await firebase.firestore().collection('users').doc(this.userId).collection('followers')
-    let query = await followersCollection.where('uid', '==', this.$currentUser.userInfo.uid).get()
+    let query = await followersCollection.where('uid', '==', this.$currentUser.userInfo.uuid).get()
 
     if (query.empty) {
       this.followed = false
@@ -140,12 +140,12 @@ export default {
     async follow () {
       if (this.followed) {
         let followersCollection = await firebase.firestore().collection('users').doc(this.userId).collection('followers')
-        let followersQuery = await followersCollection.where('uid', '==', this.$currentUser.userInfo.uid).get()
+        let followersQuery = await followersCollection.where('uid', '==', this.$currentUser.userInfo.uuid).get()
         for (let follow of followersQuery.docs) {
           follow.ref.delete()
         }
 
-        let followsCollection = await firebase.firestore().collection('users').doc(this.$currentUser.userInfo.uid).collection('follows')
+        let followsCollection = await firebase.firestore().collection('users').doc(this.$currentUser.userInfo.uuid).collection('follows')
         let followsQuery = await followsCollection.where('uid', '==', this.userId).get()
         for (let follow of followsQuery.docs) {
           follow.ref.delete()
@@ -154,19 +154,19 @@ export default {
         this.followed = false
       } else {
         // update follows collection of curr user
-        let currUserRef = await firebase.firestore().collection('users').doc(this.$currentUser.userInfo.uid).collection('follows').doc()
+        let currUserRef = await firebase.firestore().collection('users').doc(this.$currentUser.userInfo.uuid).collection('follows').doc()
         await currUserRef.set({
           uid: this.userId // id of channel to follow
         })
         // update followers collection on this channel
         let currChannelRef = await firebase.firestore().collection('users').doc(this.userId).collection('followers').doc()
         await currChannelRef.set({
-          uid: this.$currentUser.userInfo.uid
+          uid: this.$currentUser.userInfo.uuid
         })
 
         this.followed = true
       }
-      this.$store.dispatch('feed/generate', this.$currentUser.userInfo.uid)
+      this.$store.dispatch('feed/generate', this.$currentUser.userInfo.uuid)
     }
   }
 }

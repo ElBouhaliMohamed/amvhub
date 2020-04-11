@@ -1,8 +1,10 @@
 const getDefaultState = () => {
   return {
     title: '',
+    description: '',
     songs: [{ artist: '', title: '' }],
     sources: [{ title: '' }],
+    categorys: [],
     tags: [],
     progress: 0,
     url: '',
@@ -12,7 +14,9 @@ const getDefaultState = () => {
     isDone: false,
     thumbnailsProcessed: false,
     thumbnailUrls: [],
-    selectedThumbnail: 1
+    selectedThumbnail: 1,
+    creationDate: new Date().toISOString().slice(0, 10),
+    visibility: 0 // 0 private, 1 unlisted, 2 public
   }
 }
 
@@ -35,6 +39,9 @@ export default {
     currentView: state => {
       return state.currentView
     },
+    visibility: state => {
+      return state.visibility
+    },
     title: state => {
       return state.title
     },
@@ -47,6 +54,9 @@ export default {
     tags: state => {
       return state.tags
     },
+    categorys: state => {
+      return state.categorys
+    },
     progress: state => {
       return state.progress
     },
@@ -58,6 +68,12 @@ export default {
     },
     stateId: state => {
       return state.stateId
+    },
+    description: state => {
+      return state.description
+    },
+    creationDate: state => {
+      return state.creationDate
     }
   },
   mutations: {
@@ -70,6 +86,9 @@ export default {
     SET_THUMBNAILSPROCESSED: (state, thumbnailsProcessed) => {
       state.thumbnailsProcessed = thumbnailsProcessed
     },
+    SET_CREATIONDATE: (state, creationDate) => {
+      state.creationDate = creationDate
+    },
     SET_ISDONE: (state, isDone) => {
       state.isDone = isDone
     },
@@ -79,8 +98,14 @@ export default {
     SET_STATEID: (state, stateId) => {
       state.stateId = stateId
     },
+    SET_VISIBILITY: (state, visibility) => {
+      state.visibility = visibility
+    },
     SET_TITLE: (state, title) => {
       state.title = title
+    },
+    SET_DESCRIPTION: (state, description) => {
+      state.description = description
     },
     PUSH_SONG: (state, song) => {
       state.songs.push(song)
@@ -99,6 +124,12 @@ export default {
     },
     SET_TAGS: (state, tags) => {
       state.tags = tags
+    },
+    PUSH_CATEGORY: (state, tag) => {
+      state.categorys.push(tag)
+    },
+    SET_CATEGORYS: (state, tags) => {
+      state.categorys = tags
     },
     SET_PROGRESS: (state, progress) => {
       state.progress = progress

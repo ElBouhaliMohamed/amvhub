@@ -26,5 +26,6 @@ yarn-error.log*
 /public/thumbnails
 
 /src/firebaseConfig.json
+/src/elasticSearchConfig.json
 .firebaserc
 package-lock.json

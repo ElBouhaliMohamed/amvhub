@@ -21,9 +21,9 @@
     <div class="videoLength">{{lengthInMinutes}}</div> -->
     <!-- <div class="videoInfoBackground"></div> -->
 
-    <div class="absolute bottom-0 flex flex-col text-black transition-all duration-300 ease-in-out transform pl-28 videoInfoWrapper" :class="{'translate-y-24': isPlaying}">
+    <div class="absolute bottom-0 flex flex-col w-full text-black transition-all duration-300 ease-in-out transform pl-28 videoInfoWrapper" :class="{'translate-y-24': isPlaying}">
       <router-link to="#" class="videoEditor">{{editor}}</router-link>
-      <span class="inline-block text-3xl uppercase align-text-bottom md:text-4xl lg:text-5xl">{{title}}</span>
+      <span class="inline-block text-3xl uppercase truncate align-text-bottom md:text-4xl lg:text-5xl">{{title}}</span>
     </div>
 
     <div class="absolute bottom-0 flex flex-col transition-all duration-200 ease-in-out transform" :class="{'translate-y-24': isPlaying}">

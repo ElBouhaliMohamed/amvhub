@@ -19,13 +19,13 @@ class UsersService extends BaseService {
 
           let userInfo = await userRef.data()
 
-          if (userInfo.uid === undefined) {
+          if (userInfo.uuid === undefined) {
             await firebase
               .firestore()
               .collection('users')
               .doc(currentUser.uid)
               .update({
-                uid: currentUser.uid
+                uuid: currentUser.uid
               })
           }
 
@@ -93,7 +93,7 @@ class UsersService extends BaseService {
               isGoogleAccount: true,
               name: result.user.displayName,
               photoURL: result.user.photoURL,
-              uid: result.user.uid
+              uuid: result.user.uid
             })
 
           resolve(result)

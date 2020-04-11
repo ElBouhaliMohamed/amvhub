@@ -15,33 +15,40 @@
         <label for="email" class="block pr-2 text-sm font-medium leading-5 text-gray-700">Thumbnail</label>
         <loading-animation class="w-4 h-4"></loading-animation>
       </span>
-      <span class="grid grid-cols-4 gap-2" v-if="isProcessed">
-        <button @click="selectedThumbnail = index" :class="{'opacity-100' : (index === selectedThumbnail)}" class="col-span-1 transition-all duration-200 opacity-50 hover:opacity-100" v-for="(thumbnail, index) in thumbnailUrls" v-bind:key="index">
-          <img class="w-48" :src="thumbnail"/>
-        </button>
-        <div :class="{'relative flex items-center justify-center transition-all duration-200 opacity-50 hover:opacity-100' : hasCustomThumbnail, 'opacity-100' : (hasCustomThumbnail && selectedThumbnail === 4)}" class="w-48 h-32 col-span-1 text-center"
-        v-cloak>
-          <svg v-if="!hasCustomThumbnail" class="w-12 h-12 mx-auto text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-            <path
-              d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-          <p v-if="!hasCustomThumbnail" class="mt-1 text-sm text-gray-600">
-            <button
-              @click="triggerFileExplorer"
-              type="button"
-              class="font-medium text-indigo-600 transition duration-150 ease-in-out hover:text-indigo-500 focus:outline-none focus:underline"
-            >Upload a file</button>
-          </p>
-          <p v-if="!hasCustomThumbnail" class="mt-1 text-xs text-gray-500">PNG or JPG up to 3MB</p>
-          <img v-else class="w-48 cursor-pointer" @click="selectedThumbnail = 4" :src="customThumbnail"/>
-          <span v-if="hasCustomThumbnail" class="absolute top-0 right-0 p-2 mt-4 mr-3 text-white bg-gray-700 rounded-full opacity-50 hover:opacity-100" @click="triggerFileExplorer">
-            <svg viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-          </span>
-          <input type="file" id="inputfile" name="inputfile" class="hidden" />
+      <span class="flex flex-row" v-if="isProcessed">
+        <div class="flex-shrink-0 w-1/4" v-for="(thumbnail, index) in thumbnailUrls" v-bind:key="index">
+          <button class="relative w-full transition-all duration-200 opacity-50 aspect-ratio-16/9 hover:opacity-100" @click="selectedThumbnail = index" :class="{'opacity-100' : (index === selectedThumbnail)}">
+            <img class="absolute object-cover w-full h-full" :src="thumbnail"/>
+          </button>
+        </div>
+        <div class="flex-shrink-0 w-1/4">
+          <div
+            class="relative justify-center w-full text-center aspect-ratio-16/9"
+            :class="{'transition-all duration-200 opacity-50 hover:opacity-100' : hasCustomThumbnail, 'opacity-100' : (hasCustomThumbnail && selectedThumbnail === 4)}"
+            v-cloak
+          >
+            <svg v-if="!hasCustomThumbnail" class="w-12 h-12 mx-auto text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+              <path
+                d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <p v-if="!hasCustomThumbnail" class="mt-1 text-sm text-gray-600">
+              <button
+                @click="triggerFileExplorer"
+                type="button"
+                class="font-medium text-indigo-600 transition duration-150 ease-in-out hover:text-indigo-500 focus:outline-none focus:underline"
+              >Upload a file</button>
+            </p>
+            <p v-if="!hasCustomThumbnail" class="mt-1 text-xs text-gray-500">PNG or JPG up to 3MB</p>
+            <img v-else class="absolute object-cover w-full h-full" @click="selectedThumbnail = 4" :src="customThumbnail"/>
+            <span v-if="hasCustomThumbnail" class="absolute top-0 right-0 p-2 mt-4 mr-3 text-white bg-gray-700 rounded-full opacity-50 hover:opacity-100" @click="triggerFileExplorer">
+              <svg viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+            </span>
+            <input type="file" id="inputfile" name="inputfile" class="hidden" />
+          </div>
         </div>
       </span>
       <span class="grid grid-cols-4 col-gap-2" v-else> <!-- not processed yet -->
@@ -55,28 +62,61 @@
       </span>
 
       <div class="mt-6">
-        <label for="email" class="block text-sm font-medium leading-5 text-gray-700">Studio/Team</label>
-        <div class="flex mt-1 rounded-md shadow-sm">
-          <div class="relative flex-grow focus-within:z-10">
-            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
-              </svg>
+        <label for="about" class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2">
+            Description
+          </label>
+          <div class="mt-1 shadow-sm rouneded-md">
+            <div class="flex rounded-md shadow-sm">
+              <textarea v-model="description" id="description" rows="3" class="block w-full transition duration-150 ease-in-out form-textarea sm:text-sm sm:leading-5"></textarea>
             </div>
-            <select id="team" class="block w-full pl-10 transition duration-150 ease-in-out rounded-none rounded-r form-input rounded-l-md sm:text-sm sm:leading-5">
-                <option>Dream Box</option>
-                <option>Soul's Team</option>
-                <option>Indigo Team</option>
-            </select>
+            <p class="mt-2 text-sm text-gray-500">Write a few sentences about the video.</p>
           </div>
-        </div>
       </div>
 
       <div class="mt-6">
         <label for="email" class="block text-sm font-medium leading-5 text-gray-700">Creation date</label>
         <div class="flex mt-1 rounded-md shadow-sm">
           <div class="relative flex-grow focus-within:z-10">
-            <input type="date" id="creationdate" class="block w-full transition duration-150 ease-in-out rounded-none rounded-r form-input rounded-l-md sm:text-sm sm:leading-5"/>
+            <input v-model="creationDate" type="date" id="creationdate" class="block w-full transition duration-150 ease-in-out rounded-none rounded-r form-input rounded-l-md sm:text-sm sm:leading-5"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <label for="email" class="block text-sm font-medium leading-5 text-gray-700">Studio/Team</label>
+        <div class="flex mt-1 rounded-md shadow-sm">
+          <!-- <div class="relative flex-grow focus-within:z-10">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+              </svg>
+            </div>
+            <select id="team" class="block w-full pl-10 transition duration-150 ease-in-out rounded-none rounded-r form-input rounded-l-md sm:text-sm sm:leading-5">
+                <option>Dreambox</option>
+                <option>Soul's Team</option>
+                <option>Indigo Team</option>
+            </select>
+          </div> -->
+          <treeselect :multiple="true" :async="true" :load-options="loadOptions" />
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <label for="email" class="block text-sm font-medium leading-5 text-gray-700">Editor/s</label>
+        <div class="flex mt-1 rounded-md shadow-sm">
+          <treeselect :multiple="true" :async="true" :load-options="loadOptions" />
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <label for="email" class="block text-sm font-medium leading-5 text-gray-700">Visibility</label>
+        <div class="flex mt-1 rounded-md shadow-sm">
+          <div class="relative flex-grow focus-within:z-10">
+            <select id="visibility" v-model="visibility" class="block w-full transition duration-150 ease-in-out rounded-none rounded-r form-input rounded-l-md sm:text-sm sm:leading-5">
+                <option value="0">Private</option>
+                <option value="1">Unlisted</option>
+                <option value="2">Public</option>
+            </select>
           </div>
         </div>
       </div>
@@ -99,6 +139,8 @@
 <script>
 import firebase from 'firebase'
 import loadingAnimation from '../components/loadingAnimation2.vue'
+import Treeselect, { ASYNC_SEARCH } from '@riophae/vue-treeselect'
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 
 export default {
   mounted () {
@@ -121,9 +163,33 @@ export default {
     }
   },
   components: {
-    loadingAnimation
+    loadingAnimation,
+    Treeselect
   },
   methods: {
+    loadOptions ({ action, searchQuery, callback }) {
+      if (action === ASYNC_SEARCH) {
+        // simulateAsyncOperation(() => {
+        //   const options = [ 1, 2, 3, 4, 5 ].map(i => ({
+        //     id: `${searchQuery}-${i}`,
+        //     label: `${searchQuery}-${i}`
+        //   }))
+        //   callback(null, options)
+        // })
+        let searchUserByName = firebase.functions().httpsCallable('elasticsearchUserSearchByName')
+        searchUserByName({ searchQuery: searchQuery }).then((result) => {
+          console.log(result)
+          const options = result.data.hits.hits.map(i => ({
+            id: i._source.uuid,
+            label: i._source.name
+          }))
+
+          callback(null, options)
+        }).catch((err) => {
+          console.log(err)
+        })
+      }
+    },
     triggerFileExplorer () {
       document.getElementById('inputfile').addEventListener('change', e => {
         var selectedFile = document.getElementById('inputfile').files[0]
@@ -157,10 +223,68 @@ export default {
     },
     async save () {
       this.thumbnailChoosen(this.selectedThumbnail)
-      this.$store.dispatch('feed/generateFeedForFollowers', this.$currentUser.userInfo.uid)
+
+      let videoDbRef = await firebase.firestore().collection('videos').doc(this.videoUID)
+
+      let userUuid = this.$store.state.user.currentUser.currentUser.uid
+      console.log(userUuid)
+      let userRef = await firebase.firestore().collection('users').doc(userUuid)
+      console.log(userRef)
+
+      let cleanTags = Array.from(this.tags, tag => tag.text)
+      let cleanCategorys = Array.from(this.categorys, category => category.text)
+
+      await videoDbRef.update({
+        title: this.title,
+        songs: this.songs,
+        tags: cleanTags,
+        categorys: cleanCategorys,
+        user: userRef,
+        views: 0,
+        hearts: 0,
+        rating: 0,
+        ratingsCount: 0,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        description: this.description,
+        visibility: this.visibility,
+        creationDate: firebase.firestore.Timestamp.fromDate(new Date(this.creationDate)),
+        editors: [],
+        teams: []
+      })
+      this.$store.commit('upload/SET_URL', `localhost:8080/video/${this.videoUID}`)
+      
+      if (this.visibility === 2) {
+        this.$store.dispatch('feed/generateFeedForFollowers', this.$currentUser.userInfo.uuid)
+      }
+
+      this.$emit('next') // next screen
     }
   },
   computed: {
+    visibility: {
+      get: function () {
+        return this.$store.getters['upload/visibility']
+      },
+      set: function (newValue) {
+        this.$store.commit('upload/SET_VISIBILITY', newValue)
+      }
+    },
+    creationDate: {
+      get: function () {
+        return this.$store.getters['upload/creationDate']
+      },
+      set: function (newValue) {
+        this.$store.commit('upload/SET_CREATIONDATE', newValue)
+      }
+    },
+    description: {
+      get: function () {
+        return this.$store.getters['upload/description']
+      },
+      set: function (newValue) {
+        this.$store.commit('upload/SET_DESCRIPTION', newValue)
+      }
+    },
     selectedThumbnail: {
       get () {
         return this.$store.getters['upload/selectedThumbnail']
@@ -184,6 +308,36 @@ export default {
       set (newValue) {
         this.$store.commit('upload/SET_THUMBNAILSPROCESSED', newValue)
       }
+    },
+    title: {
+      get: function () {
+        return this.$store.getters['upload/title']
+      },
+      set: function (newValue) {
+        this.$store.commit('upload/SET_TITLE', newValue)
+      }
+    },
+    songs: {
+      get: function () {
+        return this.$store.getters['upload/songs']
+      },
+      set: function (newValue) {
+        this.$store.commit('upload/PUT_SONG', newValue)
+      }
+    },
+    sources: {
+      get: function () {
+        return this.$store.getters['upload/sources']
+      },
+      set: function (newValue) {
+        this.$store.commit('upload/PUT_SOURCE', newValue)
+      }
+    },
+    categorys () {
+      return this.$store.getters['upload/categorys']
+    },
+    tags () {
+      return this.$store.getters['upload/tags']
     },
     videoUID () {
       return this.$store.getters['upload/uuid']

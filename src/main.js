@@ -17,6 +17,11 @@ import AOS from 'aos'
 import firebase from 'firebase'
 import firebaseConfig from './firebaseConfig.json'
 
+// import elasticsearch from './elasticsearch-wrapper/wrapper.js'
+// import elasticSearchConfig from './elasticSearchConfig.json'
+
+// Vue.use(elasticsearch, elasticSearchConfig)
+
 setGlobalHelpers()
 Vue.config.productionTip = false
 

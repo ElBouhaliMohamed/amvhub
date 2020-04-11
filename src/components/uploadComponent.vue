@@ -18,7 +18,7 @@
         <input type="file" id="inputfile" name="inputfile" class="inputfile" />
       </div>
     </div>
-    <span class="flex w-full mt-5 rounded-md shadow-sm sm:mt-6">
+    <span class="flex w-64 mt-5 rounded-md shadow-sm sm:mt-6">
       <button @click="triggerFileExplorer" type="button" class="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo sm:text-sm sm:leading-5">
         Select file
       </button>

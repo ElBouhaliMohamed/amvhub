@@ -4,7 +4,7 @@
         <trending-carousel />
     </div> -->
     <div class="container grid justify-center w-full grid-cols-1 mx-auto mb-16 md:gap-2 md:grid-cols-2">
-        <video-entry v-for="video in videos" :key="video.uuid" :uuid="video.uuid" :title="video.title" :editor="video.editor" :length="video.length" :thumbnail="video.thumbnail" :preview="video.preview" :tags="video.tags"></video-entry>
+        <video-entry v-for="video in videos" :key="video.uuid" :uuid="video.uuid" :title="video.title" :editor="video.editor" :length="video.length" :thumbnail="video.thumbnail" :preview="video.preview" :tags="video.categorys"></video-entry>
     </div>
   </div>
 </template>
@@ -51,7 +51,7 @@ export default {
           length: data.length,
           thumbnail: currThumbnail,
           preview: data.preview,
-          tags: data.tags
+          categorys: data.categorys
         }
         this.videos.push(video)
         if (index === size) {
