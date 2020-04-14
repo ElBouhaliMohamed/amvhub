@@ -10,7 +10,7 @@
             <router-link to="/">
               <logo class="w-auto h-12 mx-auto text-4xl text-center text-gray-900"/>
             </router-link>
-            <h2 class="px-2 my-6 text-lg leading-5 text-center text-gray-500 bg-white">
+            <h2 class="px-2 my-6 text-lg leading-5 text-center text-gray-500 bg-gray-50">
               Sign in to your account via
             </h2>
             <div>
@@ -55,7 +55,7 @@
                   <div class="w-full border-t border-gray-300"></div>
                 </div>
                 <div class="relative flex justify-center text-sm leading-5">
-                  <span class="px-2 text-gray-500 bg-white">
+                  <span class="px-2 text-gray-500 bg-gray-50">
                     Or continue with
                   </span>
                 </div>

@@ -38,9 +38,9 @@
         type="button"
         class=""
       >Change</button> -->
-        <button id="pick-avatar" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
+        <button type="button" id="pick-avatar" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
             Change
-            <input type='file' class="hidden" />
+            <input type='file' accept="image/*" class="hidden" />
         </button>
     </span>
     <avatar-cropper

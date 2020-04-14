@@ -104,7 +104,7 @@ class UsersService extends BaseService {
     })
   }
 
-  signUp (username, email, password, avatar) {
+  signUp (username, email, password, avatar, banner, about, notifications) {
     return new Promise(async function (resolve, reject) {
       try {
         let usersRef = await firebase.firestore().collection('users').get()
@@ -125,6 +125,12 @@ class UsersService extends BaseService {
           await photoRef.put(avatar)
         }
 
+        if (banner != null) {
+          let storageRef = await firebase.storage().ref('profileBanners/')
+          let photoRef = await storageRef.child(`${result.user.uid}`)
+          await photoRef.put(banner)
+        }
+
         let userRef = await firebase
           .firestore()
           .collection('users')
@@ -133,7 +139,10 @@ class UsersService extends BaseService {
             isGoogleAccount: false,
             name: username,
             photo: result.user.uid,
-            uid: result.user.uid
+            uuid: result.user.uid,
+            about: about,
+            notifications: notifications,
+            joinedAt: firebase.firestore.Timestamp.now()
           })
 
         resolve(userRef)

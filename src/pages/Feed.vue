@@ -244,7 +244,6 @@ export default {
       busy: false
     }
   },
-  components: {},
   computed: {
     isLoggedIn () {
       return this.$store.state.user.isLoggedIn
@@ -267,7 +266,7 @@ export default {
     // })
 
     this.$store.commit('feed/clearFeed')
-    if (this.$currentUser.userInfo !== null) {
+    if (this.$currentUser !== null && this.$currentUser.userInfo !== null) {
       this.canLoad = true
       this.loadOnStartUp()
     }

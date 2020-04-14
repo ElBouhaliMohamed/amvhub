@@ -1,35 +1,4 @@
 <template>
-  <!-- <div class="container mx-auto h-full flex justify-center items-center py-16">
-        <div class="w-full md:w-1/2">
-            <div class="border-primary p-8 border-t-12 bg-white mb-6 rounded-lg shadow-lg">
-                <div class="mb-4">
-                    <label class="font-bold text-grey-darker block mb-2">Email</label>
-                    <input id="email" type="text" v-model="email" class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" placeholder="Your Email">
-                </div>
-                <div class="mb-4">
-                    <label class="font-bold text-grey-darker block mb-2">Username</label>
-                    <input id="username" type="text" v-model="username" class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" placeholder="Your Username">
-                </div>
-
-                <div class="mb-4">
-                    <label class="font-bold text-grey-darker block mb-2">Password</label>
-                    <input id="password" type="password" v-model="password" class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" placeholder="Your Password">
-                </div>
-
-                <avatar @uploaded="uploaded"/>
-
-                <div class="flex items-center justify-between">
-                    <button class="btn btn-primary" @click="signUp">
-                        Sign Up
-                    </button>
-                </div>
-                
-            </div>
-            <div class="text-center">
-                <p class="text-grey-dark text-sm">Back to <router-link to="login" class="no-underline text-blue font-bold">Login</router-link>.</p>
-            </div>
-        </div>
-  </div>-->
   <div>
     <div class="min-h-screen flex items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8">
       <div class="max-w-xl w-full">
@@ -40,7 +9,7 @@
             </h2>
 
         </div>-->
-        <form v-on:submit.prevent class="mt-16">
+        <form v-on:submit.prevent="signUp" class="mt-16">
           <div>
             <div>
               <div>
@@ -52,7 +21,7 @@
                   <div class="w-full border-t border-gray-300"></div>
                 </div>
                 <div class="relative flex justify-center text-sm leading-5">
-                  <span class="px-2 bg-white text-gray-500">
+                  <span class="px-2 bg-gray-50 text-gray-500">
                     Sign Up
                   </span>
                 </div>
@@ -73,8 +42,9 @@
                       >amvhub.com/</span>
                       <input
                         id="username"
-                        v-model="username"
+                        v-model.lazy="username"
                         class="flex-1 form-input block w-full rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                        required                      
                       />
                     </div>
                   </div>
@@ -90,7 +60,8 @@
                   <div class="mt-1 sm:mt-0 sm:col-span-2">
                     <div class="max-w-lg flex rounded-md shadow-sm">
                       <input
-                        v-model="email"
+                        required
+                        v-model.lazy="email"
                         aria-label="Email address"
                         name="email"
                         type="email"
@@ -110,9 +81,10 @@
                   <div class="mt-1 sm:mt-0 sm:col-span-2">
                     <div class="max-w-lg flex rounded-md shadow-sm">
                       <input
+                        required
                         id="password"
                         type="password"
-                        v-model="password"
+                        v-model.lazy="password"
                         class="flex-1 form-input block w-full rounded-none rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                       />
                     </div>
@@ -129,7 +101,9 @@
                   <div class="mt-1 sm:mt-0 sm:col-span-2">
                     <div class="max-w-lg flex rounded-md shadow-sm">
                       <textarea
+                        required
                         id="about"
+                        v-model.lazy="about"
                         rows="3"
                         class="form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                       ></textarea>
@@ -165,7 +139,6 @@
                         v-cloak
                         @drop.prevent="addFile"
                         @dragover.prevent
-                        @click="triggerFileExplorer"
                       >
                         <svg
                           class="mx-auto h-12 w-12 text-gray-400"
@@ -189,7 +162,7 @@
                           or drag and drop
                         </p>
                         <p class="mt-1 text-xs text-gray-500">PNG or JPG up to 10MB</p>
-                        <input type="file" id="inputfile" name="inputfile" class="hidden" />
+                        <input type="file" id="inputfile" name="inputfile" class="hidden" accept="image/*" />
                       </div>
                     </div>
                   </div>
@@ -220,6 +193,7 @@
                                 id="comments"
                                 type="checkbox"
                                 class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+                                v-model.lazy="notifications.comments"
                               />
                             </div>
                             <div class="pl-7 text-sm leading-5">
@@ -236,6 +210,7 @@
                                   id="candidates"
                                   type="checkbox"
                                   class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+                                  v-model.lazy="notifications.subscribers"
                                 />
                               </div>
                               <div class="pl-7 text-sm leading-5">
@@ -254,6 +229,7 @@
                                   id="offers"
                                   type="checkbox"
                                   class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+                                  v-model.lazy="notifications.videos"
                                 />
                               </div>
                               <div class="pl-7 text-sm leading-5">
@@ -275,7 +251,7 @@
           <div class="my-8">
             <button
               class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
-              @click="signUp"
+              type="submit"
             >
               <span class="absolute left-0 inset-y pl-3">
                 <svg
@@ -292,6 +268,14 @@
               </span>
               Sign Up
             </button>
+            <div class="flex items-center justify-center p-2 mt-6 border border-gray-200 rounded-lg">
+              <p class="mr-2 text-gray-500">
+                Back to
+              </p>
+              <router-link to="login" class="font-medium text-indigo-600 transition duration-150 ease-in-out hover:text-indigo-500 focus:outline-none focus:underline">
+                Login
+              </router-link>
+            </div>
           </div>
         </form>
       </div>
@@ -306,12 +290,62 @@ import logo from '../components/logo'
 
 export default {
   name: 'SignUp',
-  data () {
-    return {
-      username: '',
-      email: '',
-      password: '',
-      avatar: null
+  computed: {
+    username: {
+      get() {
+        return this.$store.getters['signup/username']
+      },
+      set(newValue) {
+        this.$store.commit('signup/SET_USERNAME', newValue)
+      }
+    },
+    email: {
+      get() {
+        return this.$store.getters['signup/email']
+      },
+      set(newValue) {
+        this.$store.commit('signup/SET_EMAIL', newValue)
+      }
+    },
+    password: {
+      get() {
+        return this.$store.getters['signup/password']
+      },
+      set(newValue) {
+        this.$store.commit('signup/SET_PASSWORD', newValue)
+      }
+    },
+    about: {
+      get() {
+        return this.$store.getters['signup/about']
+      },
+      set(newValue) {
+        this.$store.commit('signup/SET_ABOUT', newValue)
+      }
+    },
+    notifications: {
+      get() {
+        return this.$store.getters['signup/notifications']
+      },
+      set(newValue) {
+        this.$store.commit('signup/SET_NOTIFICATIONS', newValue)
+      }
+    },
+    avatar: {
+      get() {
+        return this.$store.getters['signup/avatar']
+      },
+      set(newValue) {
+        this.$store.commit('signup/SET_AVATAR', newValue)
+      }
+    },
+    banner: {
+      get() {
+        return this.$store.getters['signup/banner']
+      },
+      set(newValue) {
+        this.$store.commit('signup/SET_BANNER', newValue)
+      }
     }
   },
   methods: {
@@ -331,11 +365,12 @@ export default {
       })
     },
     startUpload (file) {
+      this.banner = file
       console.log(file)
     },
     signUp: function () {
       this.$Progress.start()
-      UsersService.signUp(this.username, this.email, this.password, this.avatar)
+      UsersService.signUp(this.username, this.email, this.password, this.avatar, this.banner, this.about, this.notifications)
         .then(user => {
           this.$Progress.finish()
           this.showSuccessMsg()
@@ -349,7 +384,7 @@ export default {
     },
     loginSucceeded () {
       UsersService.afterLogin()
-      this.$router.push('audienceChoice')
+      this.$router.push('feed')
       this.$Progress.finish()
     },
     uploaded: function (file) {

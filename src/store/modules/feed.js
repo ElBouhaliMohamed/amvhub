@@ -1,37 +1,23 @@
 import firebase from 'firebase'
 
-const compare = function (a, b) {
-  let d1 = new Date(a.date[0])
-  let d2 = new Date(b.date[0])
-  if (d1.getTime() < d2.getTime()) {
-    return 1
-  } else if (d1.getTime() > d2.getTime()) {
-    return -1
-  } else {
-    return 0
+const getDefaultState = () => {
+  return {
+    currentTimeline: [],
+    lastItemUid: '',
+    indexCounter: 1,
+    reachedEndOfTimeline: false
   }
 }
 
 export default {
   namespaced: true,
-  state: {
-    currentTimeline: [],
-    lastItemUid: '',
-    indexCounter: 1,
-    reachedEndOfTimeline: false
-  },
+  state: getDefaultState(),
   mutations: {
-    clearFeed (state) {
-      state.currentTimeline = []
-      state.lastItemUid = ''
-      state.indexCOunter = 1
-      state.reachedEndOfTimeline = false
+    clearFeed: (state) => {
+      Object.assign(state, getDefaultState())
     },
     pushEntry (state, entry) {
       state.currentTimeline.push(entry)
-    },
-    sortFeed (state) {
-      state.currentTimeline.sort(compare)
     },
     setLastItemUid (state, item) {
       state.lastItemUid = item
@@ -100,14 +86,10 @@ export default {
             user: userData
           })
 
-          // if (index % 5 === 0) {
-          //   context.commit('setLastItemUid', entry.id)
-          // }
-
           index++
         }
         context.commit('setIndex', index)
-        console.log(context.state.currentTimeline)
+        // console.log(context.state.currentTimeline)
         // context.commit('sortFeed')
 
         return { success: true }
