@@ -4,11 +4,11 @@
       <button class="flex items-center justify-center w-12 h-8 ml-4 " @click="toggleNavigation">
         <div class="fa fa-bars btn-action"></div>
       </button>
-      <span class="flex w-full">
-        <input type="text" class="searchBox" placeholder="Search">
-        <a href="#" class="searchIcon">
+      <span class="flex w-full group">
+        <input type="text" class="searchBox" placeholder="Search" v-model="search">
+        <router-link :to="{path: 'search', query: {name: search}}" class="searchIcon">
           <div class="fa fa-search btn-action"></div>
-        </a>
+        </router-link>
       </span>
     </div>
 
@@ -98,7 +98,8 @@ export default {
   data () {
     return {
       lightMode: true,
-      open: false
+      open: false,
+      search: ''
     }
   },
   methods: {

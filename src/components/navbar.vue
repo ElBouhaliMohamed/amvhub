@@ -83,11 +83,11 @@
             <a href="#" class="flex-shrink-0 block group">
               <div class="flex items-center">
                 <div>
-                  <img class="inline-block w-10 h-10 rounded-full" :src="$currentUser.userInfo.photoURL" alt="avatar" />
+                  <img class="inline-block w-10 h-10 rounded-full" :src="userInfo.photoURL" alt="avatar" />
                 </div>
                 <div class="ml-3">
                   <p class="text-base font-medium leading-6 text-white">
-                    {{$currentUser.userInfo.name}}
+                    {{userInfo.name}}
                   </p>
                   <p class="text-sm font-medium leading-5 text-gray-400 transition duration-150 ease-in-out group-hover:text-gray-300">
                     View profile
@@ -136,6 +136,9 @@ export default {
     },
     isLoggedIn: function () {
       return this.$store.state.user.isLoggedIn
+    },
+    userInfo: function () {
+      return this.$currentUser.userInfo === null ? { photoURL: '', name: '' } : this.$currentUser.userInfo
     }
   },
   methods: {

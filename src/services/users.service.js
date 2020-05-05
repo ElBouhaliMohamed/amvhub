@@ -84,12 +84,14 @@ class UsersService extends BaseService {
         let userSnapshoot = await usersRef.get()
         if (userSnapshoot.exists) {
           resolve(result)
-        } else {
+        } else { // first time google sign up
           await firebase
             .firestore()
             .collection('users')
             .doc(result.user.uid)
             .set({
+              isActivated: false,
+              userInfosFilled: false,
               isGoogleAccount: true,
               name: result.user.displayName,
               photoURL: result.user.photoURL,
@@ -136,6 +138,8 @@ class UsersService extends BaseService {
           .collection('users')
           .doc(result.user.uid)
           .set({
+            isActivated: false,
+            userInfosFilled: true,
             isGoogleAccount: false,
             name: username,
             photo: result.user.uid,
@@ -145,7 +149,7 @@ class UsersService extends BaseService {
             joinedAt: firebase.firestore.Timestamp.now()
           })
 
-        resolve(userRef)
+        resolve(result)
       } catch (err) {
         console.log(err)
         reject(err)

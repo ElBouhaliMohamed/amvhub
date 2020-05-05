@@ -9,6 +9,7 @@ import trending from '../pages/Trending.vue'
 import feed from '../pages/Feed.vue'
 import notFoundPage from '../pages/NotFound.vue'
 import videoPage from '../pages/VideoPage.vue'
+import searchPage from '../pages/SearchPage.vue'
 
 import { DOMAIN_TITLE } from '../.env'
 
@@ -70,6 +71,12 @@ export const routes = [
     name: 'video',
     component: videoPage,
     meta: { title: `${DOMAIN_TITLE} | video`, enableHeader: true, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: false }
+  },
+  {
+    path: '/search/',
+    name: 'search',
+    component: searchPage,
+    meta: { title: `${DOMAIN_TITLE} | search`, enableHeader: true, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: false }
   },
   {
     path: '/login/',

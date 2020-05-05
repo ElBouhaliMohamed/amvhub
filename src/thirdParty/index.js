@@ -19,6 +19,15 @@ import infiniteScroll from 'vue-infinite-scroll'
 
 import vueHeadful from 'vue-headful'
 
+// import InnerSearch from 'vue-innersearch'
+// import elasticSearchConfig from './elasticSearchConfig.json'
+
+// InnerSearch.setHost({
+  
+// })
+
+// Vue.use(InnerSearch)
+
 Vue.component('headful', vueHeadful)
 
 Vue.use(infiniteScroll)

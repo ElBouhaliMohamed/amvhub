@@ -82,10 +82,10 @@
         </div>
       </div>
 
-      <div class="mt-6">
+      <!-- <div class="mt-6">
         <label for="email" class="block text-sm font-medium leading-5 text-gray-700">Studio/Team</label>
         <div class="flex mt-1 rounded-md shadow-sm">
-          <!-- <div class="relative flex-grow focus-within:z-10">
+          <div class="relative flex-grow focus-within:z-10">
             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
@@ -96,15 +96,26 @@
                 <option>Soul's Team</option>
                 <option>Indigo Team</option>
             </select>
-          </div> -->
+          </div>
           <treeselect :multiple="true" :async="true" :load-options="loadOptions" />
         </div>
-      </div>
+      </div> -->
 
       <div class="mt-6">
-        <label for="email" class="block text-sm font-medium leading-5 text-gray-700">Editor/s</label>
+        <label for="email" class="block text-sm font-medium leading-5 text-gray-700">Editors</label>
         <div class="flex mt-1 rounded-md shadow-sm">
-          <treeselect :multiple="true" :async="true" :load-options="loadOptions" />
+          <!-- <treeselect :multiple="true" :async="true" :load-options="loadOptions" /> -->
+            <vue-tags-input
+              id="editors"
+              class="block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+              v-model="editor"
+              :tags="editors"
+              :allow-edit-tags="true"
+              :avoid-adding-duplicates="true"
+              :autocomplete-items="autocompleteItems"
+              placeholder="Add Editors"
+              @tags-changed="newEditors => editors = newEditors"
+            />
         </div>
       </div>
 
@@ -139,8 +150,7 @@
 <script>
 import firebase from 'firebase'
 import loadingAnimation from '../components/loadingAnimation2.vue'
-import Treeselect, { ASYNC_SEARCH } from '@riophae/vue-treeselect'
-import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+import VueTagsInput from '@johmun/vue-tags-input'
 
 export default {
   mounted () {
@@ -159,36 +169,31 @@ export default {
   data () {
     return {
       customThumbnail: Image,
-      hasCustomThumbnail: false
+      hasCustomThumbnail: false,
+      editor: '',
+      editors: [],
+      autocompleteItems: []
     }
   },
   components: {
     loadingAnimation,
-    Treeselect
+    VueTagsInput
+  },
+  watch: {
+    'editor': 'loadEditors'
   },
   methods: {
-    loadOptions ({ action, searchQuery, callback }) {
-      if (action === ASYNC_SEARCH) {
-        // simulateAsyncOperation(() => {
-        //   const options = [ 1, 2, 3, 4, 5 ].map(i => ({
-        //     id: `${searchQuery}-${i}`,
-        //     label: `${searchQuery}-${i}`
-        //   }))
-        //   callback(null, options)
-        // })
-        let searchUserByName = firebase.functions().httpsCallable('elasticsearchUserSearchByName')
-        searchUserByName({ searchQuery: searchQuery }).then((result) => {
-          console.log(result)
-          const options = result.data.hits.hits.map(i => ({
-            id: i._source.uuid,
-            label: i._source.name
-          }))
-
-          callback(null, options)
-        }).catch((err) => {
-          console.log(err)
-        })
-      }
+    loadEditors () {
+      if (this.editor.length < 2) return
+      
+      let searchUserByName = firebase.functions().httpsCallable('elasticsearchUserSearchByName')
+      searchUserByName({ searchQuery: this.editor }).then((result) => {
+        console.log(result)
+        const options = result.data.hits.hits.map(i => ({ text: i._source.name }))
+        this.autocompleteItems = options
+      }).catch((err) => {
+        console.log(err)
+      })
     },
     triggerFileExplorer () {
       document.getElementById('inputfile').addEventListener('change', e => {
@@ -233,6 +238,7 @@ export default {
 
       let cleanTags = Array.from(this.tags, tag => tag.text)
       let cleanCategorys = Array.from(this.categorys, category => category.text)
+      let cleanEditors = Array.from(this.editors, editor => editor.text)
 
       await videoDbRef.update({
         title: this.title,
@@ -248,8 +254,9 @@ export default {
         description: this.description,
         visibility: this.visibility,
         creationDate: firebase.firestore.Timestamp.fromDate(new Date(this.creationDate)),
-        editors: [],
-        teams: []
+        editors: cleanEditors,
+        teams: [],
+        sources: this.sources
       })
       this.$store.commit('upload/SET_URL', `localhost:8080/video/${this.videoUID}`)
       

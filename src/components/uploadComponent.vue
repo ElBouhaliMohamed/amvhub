@@ -37,10 +37,9 @@ export default {
     addFile (e) {
       let droppedFiles = e.dataTransfer.files
       if (!droppedFiles) return
-      [...droppedFiles].forEach(f => {
-        console.log(f)
-      })
 
+      this.startUpload(droppedFiles[0])
+      console.log(droppedFiles[0])
       this.$emit('next')
     },
     triggerFileExplorer () {

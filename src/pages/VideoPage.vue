@@ -1,13 +1,13 @@
 <template>
-  <div class="bg-white" :class="{'pt-4': !theaterMode}">
+  <div class="bg-white" :class="{'lg:pt-4': !theaterMode}">
     <headful
-      :title="`${author} - ${title} | amvhub`"
+      :title="`${editors} - ${title} | amvhub`"
     />
-    <div class="flex justify-center" :class="[{'flex-col md:flex-row': !theaterMode, 'flex-col': theaterMode}]">
-      <div :class="[{'max-w-screen-lg w-2/4': !theaterMode, 'w-full': theaterMode}]">
+    <div class="flex justify-center" :class="[{'flex-col lg:flex-row': !theaterMode, 'flex-col': theaterMode}]">
+      <div :class="[{'max-w-screen-lg w-full lg:w-2/4': !theaterMode, 'w-full': theaterMode}]">
           <video-player id="video-player" v-on:theaterMode="toggleTheaterMode" v-bind:options.sync="options" v-bind:spriteSheet.sync="spriteSheet" v-bind:poster.sync="poster"></video-player>
           <div class="flex flex-wrap justify-center">
-            <div :class="[{'w-full': !theaterMode, 'max-w-screen-lg w-3/4': theaterMode}]">
+            <div class="px-4" :class="[{'w-full': !theaterMode, 'max-w-screen-lg w-3/4': theaterMode}]">
               <span class="flex flex-row justify-start max-w-screen-lg my-4 text-3xl font-bold text-start font-lg">
                   {{title}}
               </span>
@@ -21,7 +21,7 @@
                   <user-infos parent="authorAvatar" :visible="showUserInfos"/>
                   <img id="authorAvatar" @mouseenter="showUserInfos = true" @mouseout="showUserInfos = false" src="@/assets/avatar2.png" class="w-16 h-16 mr-2 rounded-full cursor-pointer" />
                   <span class="text-lg font-bold">
-                    {{author}}
+                    {{user.name}}
                   </span>
                 </div>
 
@@ -52,7 +52,7 @@
               </div>
 
               <div class="flex flex-wrap font-light leading-7">
-                Lorem ipsum dolor sit amet consectetur adipisicing elitMagni molestiae nam architecto quia amet minus et praesentium enim facilis culpa voluptates perferendis laboriosam temporibus, aliquid natus ea rem neque tempore adipisci ab iusto quibusdam nostrum nemo! Quibusdam quis incidunt corrupti consectetur aliquid pariatur eveniet expedita possimus harum unde quisquam ipsum voluptatibus sed inventore laudantium neque, tempore ducimus ad quam optio nam magnam consequaturConsequatur deserunt doloremque accusantium asperioresInventore recusandae consequuntur aut obcaecati, nihil enim eveniet labore, amet totam fugit, delectus eaque ipsam impedit esse quiAssumenda cumque, eligendi, quaerat consectetur velit id placeat dolorum inventore illum perferendis rem nisi?
+                {{description}}
               </div>
 
               <!-- <div class="flex flex-col flex-wrap">
@@ -79,10 +79,11 @@
                     <div class=" sm:grid sm:grid-cols-3 sm:gap-4">
                       <dt class="text-sm font-medium leading-5 text-gray-500">
                         <span class="fas fa-tv"></span>
-                        Animes
+                        Sources
                       </dt>
                       <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                        Monster + various
+                        <span v-for="(source, index) in sources" v-bind:key="index"><span v-if="index > 0">, </span> <a :href="'https://myanimelist.net/search/all?q=' + source.title.replace(/\s/g, '%20')"> {{source.title}} </a></span>
+
                       </dd>
                     </div>
                     <div class="mt-8 sm:grid sm:mt-5 sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
@@ -99,11 +100,11 @@
                         <span class="fas fa-users"></span>
                         Editors
                       </dt>
-                      <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                        <span class="flex items-center justify-start">
+                      <dd class="flex flex-row mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                        <span class="flex items-center justify-start mr-2" v-for="(editor, index) in editors" v-bind:key="index">
                           <img src="@/assets/avatar2.png" class="w-16 h-auto pr-2" />
                           <span class="text-lg font-bold">
-                            Kazumoe
+                            {{editor}}
                           </span>
                         </span>
                       </dd>
@@ -209,18 +210,21 @@ export default {
     let videoQuery = await videoQueryRef.get()
     let data = videoQuery.data()
     let user = await data.user.get()
-    let video = {
-      title: data.title,
-      user: user.data().name,
-      tags: data.tags,
-      editor: data.editor
-    }
 
     // Object.assign(this.options, options)
     this.options = options
     this.title = data.title
-    this.author = data.editor
+    this.editors = data.editors
     this.tags = data.tags
+    this.categories = data.categories
+    this.description = data.description
+    this.songs = data.songs
+    this.sources = data.sources
+    this.createdAt = Date.parse(data.createdAt)
+    this.creationDate = Date.parse(data.creationDate)
+    this.user = user.data()
+
+    console.log(data)
 
     let thumbnailsRef = await firebase.firestore().doc(`thumbnails/${this.videoId}/`)
     let thumbnailsQuery = await thumbnailsRef.get()
@@ -340,24 +344,27 @@ export default {
       spriteDimensions: {},
       poster: ``,
       title: '',
-      author: '',
-      uploadedAt: '',
-      views: 0,
-      hearts: 0,
-      usersThatGaveHearts: [],
+      description: '',
+      editors: [],
       tags: [],
       categories: [],
       songs: [
         { artist: 'Tamer', title: 'Beautiful Crime' },
         { artist: 'Somedude', title: 'Some Song' }
       ],
-      animes: [],
+      sources: [],
+      createdAt: Date,
+      creationDate: Date,
+      views: 0,
+      hearts: 0,
+      usersThatGaveHearts: [],
       comments: [],
       videoRef: null,
       alreadyGaveHeart: false,
       theaterMode: false,
       watchThumbnail: false,
-      showUserInfos: false
+      showUserInfos: false,
+      user: Object
     }
   },
   computed: {
