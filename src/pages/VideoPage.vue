@@ -17,13 +17,13 @@
               </div> -->
 
               <div class="flex flex-row items-center justify-center max-w-screen-lg mb-4 text-lg">
-                <div class="flex items-center w-1/2">
+                <router-link class="flex items-center w-1/2" :to="`/channel/${user.uuid}`">
                   <user-infos parent="authorAvatar" :visible="showUserInfos"/>
-                  <img id="authorAvatar" @mouseenter="showUserInfos = true" @mouseout="showUserInfos = false" src="@/assets/avatar2.png" class="w-16 h-16 mr-2 rounded-full cursor-pointer" />
+                  <img id="authorAvatar" @mouseenter="showUserInfos = true" @mouseout="showUserInfos = false" src="@/assets/avatar2.png" class="w-10 h-10 mr-2 rounded-full cursor-pointer" />
                   <span class="text-lg font-bold">
                     {{user.name}}
                   </span>
-                </div>
+                </router-link>
 
                 <div class="flex flex-row items-center justify-end w-1/2 text-sm">
 

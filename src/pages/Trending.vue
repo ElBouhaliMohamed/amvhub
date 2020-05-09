@@ -4,7 +4,7 @@
         <trending-carousel />
     </div> -->
     <div class="container grid justify-center w-full grid-cols-1 mx-auto mb-16 md:gap-2 md:grid-cols-2">
-        <video-entry v-for="video in videos" :key="video.uuid" :uuid="video.uuid" :title="video.title" :editor="video.editor" :length="video.length" :thumbnail="video.thumbnail" :preview="video.preview" :tags="video.categorys"></video-entry>
+        <video-entry v-for="video in videos" :key="video.uuid" :uuid="video.uuid" :title="video.title" :user="video.user" :length="video.length" :thumbnail="video.thumbnail" :preview="video.preview" :tags="video.categorys"></video-entry>
     </div>
   </div>
 </template>
@@ -38,7 +38,7 @@ export default {
       let index = 1
       videosQuery.forEach(async (result) => {
         let data = result.data()
-        let editor = await data.user.get()
+        let user = await data.user.get()
         let thumbnailsRef = await firebase.firestore().doc(`thumbnails/${result.id}/`)
         let thumbnailsQuery = await thumbnailsRef.get()
         let thumbnails = thumbnailsQuery.data()
@@ -47,7 +47,7 @@ export default {
         let video = {
           uuid: result.id,
           title: data.title,
-          editor: editor.data().name,
+          user: user.data(),
           length: data.length,
           thumbnail: currThumbnail,
           preview: data.preview,

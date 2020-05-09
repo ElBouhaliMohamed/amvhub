@@ -6,7 +6,7 @@
           <img :src="thumbnail" class="absolute object-cover w-full h-full thumbnailWrapper"/>
         </router-link>
         <transition >
-          <button v-if="isPlaying" @click="mute" class="absolute top-0 right-0 z-20 transition-all duration-300 ease-in-out transform scale-100 group hover:scale-125">
+          <button @click="mute" class="absolute top-0 right-0 z-20 transition-all duration-500 ease-in-out transform scale-100 opacity-0 group hover:scale-125" :class="{'opacity-100':isPlaying}">
             <span class="absolute w-8 h-8 bg-white rounded-full opacity-50 top-3 right-3 group-hover:opacity-100"/>
             <span class="absolute w-8 h-8 text-center text-gray-900 rounded-full top-4 right-3">
               <i v-if="isMuted" class="fas fa-volume-mute"></i>
@@ -21,13 +21,13 @@
     <div class="videoLength">{{lengthInMinutes}}</div> -->
     <!-- <div class="videoInfoBackground"></div> -->
 
-    <div class="absolute bottom-0 flex flex-col w-full text-black transition-all duration-300 ease-in-out transform pl-28 videoInfoWrapper" :class="{'translate-y-24': isPlaying}">
-      <router-link to="#" class="videoEditor">{{editor}}</router-link>
-      <span class="inline-block text-3xl uppercase truncate align-text-bottom md:text-4xl lg:text-5xl">{{title}}</span>
+    <div class="absolute bottom-0 left-0 flex flex-col w-3/4 text-black transition-all duration-300 ease-in-out transform " :class="{'translate-y-24': isPlaying}">
+      <router-link :to="`/channel/${user.uuid}`" class="text-base font-thin leading-none uppercase">{{user.name}}</router-link>
+      <span class="inline-block text-3xl leading-none uppercase truncate align-text-bottom md:text-4xl lg:text-5xl">{{title}}</span>
     </div>
 
-    <div class="absolute bottom-0 flex flex-col transition-all duration-200 ease-in-out transform" :class="{'translate-y-24': isPlaying}">
-      <span class="inline-block font-bold text-black uppercase align-text-top lg:text-lg" v-for="tag in tags" :key="tag">
+    <div class="absolute bottom-0 right-0 flex flex-col w-1/4 transition-all duration-200 ease-in-out transform " :class="{'translate-y-24': isPlaying}">
+      <span class="inline-block font-bold text-right text-black uppercase align-text-top lg:text-lg" v-for="tag in tags" :key="tag">
       {{tag}}
       </span>
     </div>
@@ -40,7 +40,7 @@ export default {
   props: {
     uuid: String,
     title: String,
-    editor: String,
+    user: Object,
     length: String,
     thumbnail: String,
     tags: Array,
@@ -94,20 +94,22 @@ export default {
       this.previewLoaded = true
       this.previewVideo.muted = this.isMuted
       this.previewVideo.volume = 0.3
+      let thumbnail = document.getElementById(this.preview)
+      thumbnail.appendChild(this.previewVideo)
+
       if (this.hovering) {
-        let thumbnail = document.getElementById(this.preview)
-        thumbnail.appendChild(this.previewVideo)
-        this.previewVideo.play().catch(err => { console.log(err) })
         this.isPlaying = true
-        this.previewVideo.classList.remove('opacity-0')
-        this.previewVideo.classList.add('opacity-100')
+        this.previewVideo.play().then(() => {
+          this.previewVideo.classList.remove('opacity-0')
+          this.previewVideo.classList.add('opacity-100')
+        }).catch(err => { console.log(err) })
       }
     },
     showPreview () {
       this.hovering = true
       if (this.preview.length > 0 && !this.previewLoaded) {
         this.previewVideo = document.createElement('video')
-        this.previewVideo.classList.add('absolute', 'object-cover', 'w-full', 'h-full', 'opacity-0', 'transition-opacity', 'duration-500')
+        this.previewVideo.classList.add('absolute', 'object-cover', 'w-full', 'h-full', 'opacity-0', 'transition', 'duration-500')
         this.previewVideo.id = `${this.preview}`
         this.previewVideo.src = `${this.previewUrl}`
         this.previewVideo.autoplay = true
@@ -159,10 +161,6 @@ export default {
 
 .videoInfoWrapper {
   bottom: -40px;
-}
-
-.videoEditor {
-  @apply .font-thin .text-base .uppercase;
 }
 
 .videoLength {
