@@ -1,14 +1,14 @@
 <template>
   <transition name="back-to-top-fade">
     <div
-      class="vue-back-to-top px-2 py-1 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150"
+      class="px-2 py-1 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-gray-100 border border-transparent rounded-md shadow-xl vue-back-to-top hover:bg-gray-200 focus:outline-none focus:border-gray-700 focus:shadow-outline-gray active:bg-gray-400"
       :style="`bottom:${this.bottom};right:${this.right};`"
       v-show="visible"
       @click="backToTop"
     >
       <slot>
         <div class="default">
-          {{ text }}
+          <svg class="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 20 20"><path d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
         </div>
       </slot>
     </div>

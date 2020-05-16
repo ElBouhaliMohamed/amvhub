@@ -3,7 +3,7 @@
     <!-- <div class="absolute w-full background-gradient">
         <trending-carousel />
     </div> -->
-    <div class="container grid justify-center w-full grid-cols-1 mx-auto mb-16 md:gap-2 md:grid-cols-2">
+    <div class="container grid justify-center w-full grid-cols-1 row-gap-4 col-gap-4 mx-auto my-4 md:grid-cols-2">
         <video-entry v-for="video in videos" :key="video.uuid" :uuid="video.uuid" :title="video.title" :user="video.user" :length="video.length" :thumbnail="video.thumbnail" :preview="video.preview" :tags="video.categorys"></video-entry>
     </div>
   </div>

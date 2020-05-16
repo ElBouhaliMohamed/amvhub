@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col items-center justify-center w-full pl-8 overflow-hidden align-center" id="suggested">
-    <div class="flex flex-row justify-start w-full mb-3" v-for="video in videos" v-bind:key="video.title">
+  <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="limit" class="flex flex-col items-center justify-center w-full pl-8 overflow-hidden align-center" id="suggested">
+    <div class="flex flex-row justify-start w-full mb-3" v-for="(video, index) in videos" v-bind:key="index">
       <!-- <router-link draggable="false" to="/channel/" class="relative pb-2/3">
       </router-link> -->
       <div class="w-1/2">
@@ -20,20 +20,24 @@
       </div>
 
     </div>
-    <button type="button" class="inline-flex items-center justify-center w-full px-4 py-2 text-base font-medium leading-6 text-center text-indigo-700 transition duration-150 ease-in-out bg-indigo-200 border border-transparent rounded-md hover:bg-indigo-100 focus:outline-none focus:border-indigo-300 focus:shadow-outline-indigo active:bg-indigo-200">
+    <loadingAnimation v-if="busy" class="w-4 h-4 mb-4"></loadingAnimation>
+    <!-- <button type="button" class="inline-flex items-center justify-center w-full px-4 py-2 text-base font-medium leading-6 text-center text-indigo-700 transition duration-150 ease-in-out bg-indigo-200 border border-transparent rounded-md hover:bg-indigo-100 focus:outline-none focus:border-indigo-300 focus:shadow-outline-indigo active:bg-indigo-200">
       Load more...
-    </button>
+    </button> -->
   </div>
 </template>
 
 <script>
+import loadingAnimation from './loadingAnimation2'
 
 export default {
   data: function () {
     return {
+      canLoad: false,
+      limit: 5,
+      busy: false,
       videos: [
         {
-          id: 1,
           editor: 'Kazumoe',
           title: 'Atonement',
           views: 301,
@@ -41,7 +45,6 @@ export default {
           avatar: '../assets/avatar.jpg'
         },
         {
-          id: 2,
           editor: 'Spike',
           title: 'Beautiful Crime',
           views: 602,
@@ -49,7 +52,6 @@ export default {
           avatar: '../assets/avatar.jpg'
         },
         {
-          id: 3,
           editor: 'Dr Penguin',
           title: 'Test video 3',
           views: 1100,
@@ -57,7 +59,6 @@ export default {
           avatar: '../assets/avatar.jpg'
         },
         {
-          id: 4,
           editor: "Soul's Team",
           title: 'This is a logn ass title just too test the looks',
           views: 500,
@@ -65,7 +66,6 @@ export default {
           avatar: '../assets/avatar.jpg'
         },
         {
-          id: 5,
           editor: "Soul's Team",
           title: 'Another one',
           views: 25000,
@@ -75,9 +75,28 @@ export default {
       ]
     }
   },
+  components: {
+    loadingAnimation
+  },
   computed: {
   },
   methods: {
+    loadMore () {
+      this.busy = true
+      setTimeout(() => {
+        for (var i = 0, j = 5; i < j; i++) {
+          this.videos.push({
+            id: 1,
+            editor: 'Kazumoe',
+            title: 'Atonement',
+            views: 301,
+            date: ['2020-12-15', 'December 15, 2020'],
+            avatar: '../assets/avatar.jpg'
+          })
+        }
+        this.busy = false
+      }, 1000)
+    }
   }
 }
 </script>

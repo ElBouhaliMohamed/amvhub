@@ -7,7 +7,7 @@
       <div :class="[{'max-w-screen-lg w-full lg:w-2/4': !theaterMode, 'w-full': theaterMode}]">
           <video-player id="video-player" v-on:theaterMode="toggleTheaterMode" v-bind:options.sync="options" v-bind:spriteSheet.sync="spriteSheet" v-bind:poster.sync="poster"></video-player>
           <div class="flex flex-wrap justify-center">
-            <div class="px-4" :class="[{'w-full': !theaterMode, 'max-w-screen-lg w-3/4': theaterMode}]">
+            <div class="px-4" :class="[{'w-full': !theaterMode, 'lg:max-w-screen-lg lg:w-3/4': theaterMode}]">
               <span class="flex flex-row justify-start max-w-screen-lg my-4 text-3xl font-bold text-start font-lg">
                   {{title}}
               </span>
@@ -137,7 +137,7 @@
               
               <comment-section :comments="comments" :videoRef="videoRef"/>
             </div>
-            <div class="w-1/4 my-6">
+            <div class="w-full my-6 lg:w-1/4">
               <div class="relative" :class="{'hidden': !theaterMode}">
                 <videoBar class="absolute left-0" :horizontal="false"/>
               </div>

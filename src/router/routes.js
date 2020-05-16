@@ -1,17 +1,18 @@
-import login from '../pages/Login.vue'
-import signup from '../pages/SignUp.vue'
-import passwordreset from '../pages/PasswordReset.vue'
-import channel from '../pages/profile/Channel.vue'
-import upload from '../pages/Upload.vue'
-import admin from '../pages/Admin.vue'
-
-import trending from '../pages/Trending.vue'
-import feed from '../pages/Feed.vue'
-import notFoundPage from '../pages/NotFound.vue'
-import videoPage from '../pages/VideoPage.vue'
-import searchPage from '../pages/SearchPage.vue'
-
 import { DOMAIN_TITLE } from '../.env'
+import notFoundPage from '../pages/NotFound.vue'
+
+const upload = () => import(/* webpackChunkName: "needslogin" */ '../pages/Upload.vue')
+const admin = () => import(/* webpackChunkName: "needslogin" */ '../pages/Admin.vue')
+
+const trending = () => import(/* webpackChunkName: "doesntneedlogin" */ '../pages/Trending.vue')
+const feed = () => import(/* webpackChunkName: "doesntneedlogin" */ '../pages/Feed.vue')
+const videoPage = () => import(/* webpackChunkName: "doesntneedlogin" */ '../pages/VideoPage.vue')
+const searchPage = () => import(/* webpackChunkName: "doesntneedlogin" */ '../pages/SearchPage.vue')
+const channel = () => import(/* webpackChunkName: "doesntneedlogin" */ '../pages/profile/Channel.vue')
+
+const login = () => import(/* webpackChunkName: "prelogin" */ '../pages/Login.vue')
+const signup = () => import(/* webpackChunkName: "prelogin" */ '../pages/SignUp.vue')
+const passwordreset = () => import(/* webpackChunkName: "prelogin" */ '../pages/PasswordReset.vue')
 
 export const routes = [
   {

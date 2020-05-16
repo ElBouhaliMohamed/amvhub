@@ -1,5 +1,5 @@
 <template>
-  <div data-aos="fade-up" data-aos-once="true" class="relative flex w-full my-12 text-white">
+  <div data-aos="fade-up" data-aos-once="true" class="relative flex w-full text-white">
     <div class="w-full">
       <div class="relative aspect-ratio-16/9" @mouseenter="showPreview()" @mouseleave="hidePreview()">
         <router-link :id="preview" :to="this.url">
@@ -21,12 +21,14 @@
     <div class="videoLength">{{lengthInMinutes}}</div> -->
     <!-- <div class="videoInfoBackground"></div> -->
 
-    <div class="absolute bottom-0 left-0 flex flex-col w-3/4 text-black transition-all duration-300 ease-in-out transform " :class="{'translate-y-24': isPlaying}">
+    <div class="absolute bottom-0 left-0 z-30 w-full transition-all duration-300 ease-out transform opacity-0 h-36 bg-gray-50" :class="{'translate-y-36 opacity-100': isPlaying}"></div>
+
+    <div class="absolute bottom-0 left-0 z-30 flex flex-col w-3/4 text-black transition-all duration-300 ease-in-out transform" :class="{'translate-y-16': isPlaying}">
       <router-link :to="`/channel/${user.uuid}`" class="text-base font-thin leading-none uppercase">{{user.name}}</router-link>
       <span class="inline-block text-3xl leading-none uppercase truncate align-text-bottom md:text-4xl lg:text-5xl">{{title}}</span>
     </div>
 
-    <div class="absolute bottom-0 right-0 flex flex-col w-1/4 transition-all duration-200 ease-in-out transform " :class="{'translate-y-24': isPlaying}">
+    <div class="absolute bottom-0 right-0 z-30 flex flex-col w-1/4 transition-all duration-300 ease-in-out transform " :class="{'translate-y-36': isPlaying}">
       <span class="inline-block font-bold text-right text-black uppercase align-text-top lg:text-lg" v-for="tag in tags" :key="tag">
       {{tag}}
       </span>

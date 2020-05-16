@@ -1,31 +1,18 @@
 <template>
   <div class="min-h-screen bg-gray-50">
-      <div class="relative pb-1/6">
+      <div class="relative aspect-ratio-53/9">
         <img src="@/assets/banner.jpg" class="absolute object-cover w-full h-full">
       </div>
       <div class="container relative flex items-center mx-auto">
           <img src="@/assets/avatar.jpg" alt="avatar" class="absolute w-16 h-16 ml-6 rounded-full sm:w-32 sm:h-32 lg:w-48 lg:h-48 xl:w-64 xl:h-64">
       </div>
-      <div class="px-8 pb-8 bg-gray-900 pt-36">
+      <div class="px-8 pb-8 bg-gray-900">
         <div class="lg:flex lg:items-center lg:justify-between">
           <div class="flex-1 min-w-0">
             <h2 class="text-2xl font-bold leading-7 text-white sm:text-3xl sm:leading-9 sm:truncate">
               Kazumoe
             </h2>
             <div class="flex flex-col mt-1 sm:mt-0 sm:flex-row sm:flex-wrap">
-              <div class="flex items-center mt-2 text-sm leading-5 text-gray-300 sm:mr-6">
-                <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd" />
-                  <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
-                </svg>
-                Full-time
-              </div>
-              <div class="flex items-center mt-2 text-sm leading-5 text-gray-300 sm:mr-6">
-                <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                </svg>
-                Remote
-              </div>
               <div class="flex items-center mt-2 text-sm leading-5 text-gray-300 sm:mr-6">
                 <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
@@ -62,15 +49,7 @@
         </div>
       </div>
       <div class="bg-gray-900">
-          <div class="sm:hidden">
-            <select class="block w-full form-select">
-              <option>My Account</option>
-              <option>Company</option>
-              <option selected>Team Members</option>
-              <option>Billing</option>
-            </select>
-          </div>
-          <div class="hidden sm:block">
+          <div class="block">
             <div class="border-b border-indigo-200">
               <nav class="flex -mb-px">
                 <router-link active-class="border-b-4 border-indigo-700 text-gray-50" :to="`/channel/${userId}/videos`" class="w-1/4 px-1 py-4 text-sm font-medium leading-5 text-center text-gray-400 border-b-2 border-transparent hover:text-gray-100 hover:border-indigo-300 focus:outline-none focus:text-gray-50 focus:border-indigo-300">
@@ -85,36 +64,17 @@
               </nav>
             </div>
           </div>
-        </div>
+      </div>
 
-        <router-view></router-view>
-
-      <!-- <div class="container mx-auto text-black bg-white">
-          <ul class="flex">
-              <li class="px-4 py-3 text-center"><a class="text-white" href="#" target="_blank" rel="noopener noreferrer"> Videos </a></li>
-              <li class="px-4 py-3 text-center"><a class="text-white" href="#" target="_blank" rel="noopener noreferrer"> Following </a></li>
-              <li class="px-4 py-3 text-center"><a class="text-white" href="#" target="_blank" rel="noopener noreferrer"> Followers </a></li>
-          </ul>
-      </div> -->
-
-      <!-- <app-channel-content/> -->
+      <router-view></router-view>
   </div>
 </template>
 
 <script>
-import AppChannelContent from '../../layout/ChannelContent.vue'
-import AppBanner from '../../components/banner.vue'
-import AppProfilebar from '../../components/profilebar.vue'
-
 import firebase from 'firebase'
 
 export default {
-  name: 'IndexPage',
-
   components: {
-    AppBanner,
-    AppProfilebar,
-    AppChannelContent
   },
   data () {
     return {

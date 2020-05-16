@@ -2,29 +2,10 @@
   <div id="comments">
     <div class="flex flex-col">
       <div v-if="isLoggedIn" class="flex flex-row">
-        <img :src="avatar" alt="avatar" class="avatar" />
+        <img :src="avatar" alt="avatar" class="w-10 h-10 mr-2 rounded-full" />
         <div class="w-full">
-          <div class="flex items-center py-2 border-b border-b-2 border-primary-light">
-            <textarea
-              class="w-full px-2 py-1 mr-3 leading-tight text-gray-700 bg-transparent border-none appearance-none focus:outline-none"
-              type="text"
-              placeholder="What are your thoughts"
-              v-model="comment"
-            />
-          </div>
+            <text-editor :submitButton="true" submitButtonText="COMMENT" @submit="saveComment" @textChanged="updateComment" class="mb-2"></text-editor>
         </div>
-      </div>
-      <div v-if="isLoggedIn" class="flex flex-row justify-end pt-2">
-        <button
-          class="flex-shrink-0 px-2 py-1 text-sm rounded btn btn-primary"
-          type="button"
-          @click="saveComment"
-        >COMMENT</button>
-        <button
-          class="flex-shrink-0 px-2 py-1 text-sm border-4 border-transparent rounded hover:text-teal-800"
-          type="button"
-          @click="cancel"
-        >Cancel</button>
       </div>
     </div>
 
@@ -102,7 +83,7 @@
       <div class="px-2 py-1 mb-2 border-b-2 rounded section" v-for="section in sections" :key="section.uid">
         <div class="flex flex-row content-center justify-center align-center">
           <span class="flex flex-col items-center justify-center">
-            <img :src="section.avatar" alt="avatar" class="avatar" />
+            <img :src="section.avatar" alt="avatar" class="w-10 h-10 mr-2 rounded-full" />
             <!-- <span class="h-full mt-2 mr-2 border-l-2"></span> -->
           </span>
 
@@ -114,7 +95,7 @@
               <!-- <span class="text-sm font-thin">8 hours ago</span> -->
             </div>
 
-            <div class="flex"> {{section.text}} </div>
+            <div class="flex" v-html="section.text"></div>
             <!-- <div class="flex flex-row items-center pt-2">
               <button class="p-2 rounded-full hover:bg-white">
                 <span class="px-1">6</span>
@@ -139,6 +120,7 @@
 
 <script>
 import firebase from 'firebase'
+import textEditor from './textEditor'
 
 export default {
   data () {
@@ -147,12 +129,16 @@ export default {
       sections: []
     }
   },
+  components: {
+    textEditor
+  },
   props: {
     comments: Array,
     videoRef: Object
   },
   methods: {
     saveComment () {
+      console.log("test")
       if (this.comment.length > 0) {
         let uid = this.$store.state.user.currentUser.currentUser.uid
         let commentRef = firebase
@@ -163,8 +149,8 @@ export default {
         commentRef.set({
           text: this.comment,
           user: firebase.firestore().doc(`/users/${uid}`),
-		  video: this.videoRef,
-		  commentedAt: Date.now()
+          video: this.videoRef,
+          commentedAt: Date.now()
         })
 
         this.comments.push(commentRef.id)
@@ -175,8 +161,8 @@ export default {
         this.comment = ''
       }
     },
-    cancel () {
-      this.comment = ''
+    updateComment (comment) {
+      this.comment = comment
     }
   },
   mounted () {
@@ -239,7 +225,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.avatar {
-  @apply .h-10 .w-10 .mr-2 .rounded-lg;
-}
 </style>

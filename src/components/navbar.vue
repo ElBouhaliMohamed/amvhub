@@ -99,7 +99,7 @@
       </div>
     </div>
 
-    <backToTop text="Back to top" visibleoffset="500"></backToTop>
+    <backToTop visibleoffset="500"></backToTop>
   </nav>
 </template>
 
@@ -138,7 +138,7 @@ export default {
       return this.$store.state.user.isLoggedIn
     },
     userInfo: function () {
-      return this.$currentUser.userInfo === null ? { photoURL: '', name: '' } : this.$currentUser.userInfo
+      return this.$currentUser == null ? { photoURL: '', name: '' } : this.$currentUser.userInfo
     }
   },
   methods: {
