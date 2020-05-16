@@ -1,5 +1,5 @@
 <template>
-  <div class="border-2 border-gray-200 rounded-md editor group hover:border-gray-400">
+  <div class="border-2 border-gray-200 rounded-md editor">
     <editor-content class="editor__content sm:border-b sm:border-gray-400 " :editor="editor" />
 
     <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
@@ -98,7 +98,8 @@ import {
   Link,
   Strike,
   Underline,
-  History
+  History,
+  Placeholder
 } from 'tiptap-extensions'
 export default {
   components: {
@@ -125,13 +126,14 @@ export default {
           new Italic(),
           new Strike(),
           new Underline(),
-          new History()
+          new History(),
+          new Placeholder({
+            showOnlyCurrent: false,
+            emptyNodeText: node => {
+              return this.placeholder
+            }
+          })
         ],
-        content: `
-          <p>
-            Tell us your thoughts!
-          </p>
-        `,
         onUpdate: ({ getHTML }) => {
           // get new content on update
           console.log(getHTML())
@@ -143,15 +145,27 @@ export default {
   methods: {
     submit () {
       this.$emit('submit')
-      this.editor.content = ''
+      this.editor.setContent('')
     }
   },
   props: {
     submitButton: Boolean,
-    submitButtonText: String
+    submitButtonText: String,
+    placeholder: String
   },
   beforeDestroy () {
     this.editor.destroy()
   }
 }
 </script>
+
+<style lang="scss">
+.editor *.is-empty:nth-child(1)::before,
+.editor *.is-empty:nth-child(2)::before {
+  @apply text-gray-400;
+  content: attr(data-empty-text);
+  float: left;
+  pointer-events: none;
+  height: 0;
+}
+</style>

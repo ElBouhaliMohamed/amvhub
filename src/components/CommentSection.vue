@@ -4,15 +4,15 @@
       <div v-if="isLoggedIn" class="flex flex-row">
         <img :src="avatar" alt="avatar" class="w-10 h-10 mr-2 rounded-full" />
         <div class="w-full">
-            <text-editor :submitButton="true" submitButtonText="COMMENT" @submit="saveComment" @textChanged="updateComment" class="mb-2"></text-editor>
+            <text-editor placeholder="Tell us your thoughts" :submitButton="true" submitButtonText="COMMENT" @submit="saveComment" @textChanged="updateComment" class="mb-2"></text-editor>
         </div>
       </div>
     </div>
 
     <div id="commentsection" class="flex flex-col p-2 bg-white-dark">
-      <!-- <div class="flex flex-row mb-2">
+      <div class="flex flex-row mb-2">
         <span class="flex flex-col items-center">
-          <img src="@/assets/avatar.jpg" alt="avatar" class="avatar" />
+          <img src="@/assets/avatar.jpg" alt="avatar" class="w-10 h-10 mr-2 rounded-full" />
           <span class="h-full mt-2 mr-2 border-l-2"></span>
         </span>
 
@@ -47,14 +47,13 @@
       </div>
       <div class="flex flex-row mb-2">
         <span class="flex flex-col items-center">
-          <img src="@/assets/avatar.jpg" alt="avatar" class="avatar" />
+          <img src="@/assets/avatar.jpg" alt="avatar" class="w-10 h-10 mr-2 rounded-full" />
           <span class="h-full mt-2 mr-2 border-l-2"></span>
         </span>
 
         <div class="flex flex-col w-full">
           <div class="flex flex-row items-center justify-start text-center">
             <a class="text-sm" href>Kazumoe</a>
-            <span class="pl-2 text-xs" href>@Kazumoe</span>
             <span class="px-4 text-xs">&#8226;</span>
             <span class="text-sm font-thin">8 hours ago</span>
           </div>
@@ -64,22 +63,21 @@
           >Lorem ipsum dolor sit amet consectetur adipisicing elitEligendi eum sint temporibus error inventore minus in porro doloribus accusantiumIpsam quam sapiente inventore, ex atque natus, necessitatibus eum eligendi asperiores consectetur harum vero obcaecati voluptatum odio? Veritatis ea cupiditate necessitatibus voluptatum, tempore voluptate iusto blanditiis cum iure similique quod libero architecto dicta aliquid soluta? Quas praesentium dolorum molestiae excepturi sed, sequi culpa cumque libero voluptate optio ullam odit! Nobis molestiae commodi tempore at numquam ullam voluptate odit dicta veritatis illum quisquam, adipisci ipsamCorporis nam dolorem accusamus, accusantium, ipsum vitae iusto expedita quidem sit error laudantium nisi modi et perferendis?</div>
 
           <div class="flex flex-row items-center pt-2">
-            <button class="p-2 rounded-full hover:bg-white">
+            <button class="px-2 py-1 font-bold text-gray-500 border-0 rounded-md hover:bg-gray-200 focus:bg-gray-300 focus:text-gray-900">
               <span class="px-1">3</span>
               <span class="fas fa-heart"></span>
             </button>
 
-            <button class="p-2 rounded-full hover:bg-white">
-              <span class="px-1"></span>
+            <button class="px-2 py-1 font-bold text-gray-500 border-0 rounded-md hover:bg-gray-200 focus:bg-gray-300 focus:text-gray-900">
               <span class="fas fa-comments"></span>
             </button>
 
-            <button class="p-2 rounded-full hover:bg-white">
+            <button class="px-2 py-1 font-bold text-gray-500 border-0 rounded-md hover:bg-gray-200 focus:bg-gray-300 focus:text-gray-900">
               <span class="fas fa-retweet"></span>
             </button>
           </div>
         </div>
-      </div>-->
+      </div>
       <div class="px-2 py-1 mb-2 border-b-2 rounded section" v-for="section in sections" :key="section.uid">
         <div class="flex flex-row content-center justify-center align-center">
           <span class="flex flex-col items-center justify-center">
@@ -95,7 +93,7 @@
               <!-- <span class="text-sm font-thin">8 hours ago</span> -->
             </div>
 
-            <div class="flex" v-html="section.text"></div>
+            <div class="editor__content" v-html="section.text"></div>
             <!-- <div class="flex flex-row items-center pt-2">
               <button class="p-2 rounded-full hover:bg-white">
                 <span class="px-1">6</span>
