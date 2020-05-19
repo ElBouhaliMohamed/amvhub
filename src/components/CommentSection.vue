@@ -1,6 +1,6 @@
 <template>
   <div id="comments">
-    <div class="flex flex-col">
+    <div class="flex flex-col sm:border-t sm:border-gray-200 sm:pt-5">
       <div v-if="isLoggedIn" class="flex flex-row">
         <img :src="avatar" alt="avatar" class="w-10 h-10 mr-2 rounded-full" />
         <div class="w-full">
@@ -9,165 +9,59 @@
       </div>
     </div>
 
-    <div id="commentsection" class="flex flex-col p-2 bg-white-dark">
-      <div class="flex flex-row mb-2">
-        <span class="flex flex-col items-center">
-          <img src="@/assets/avatar.jpg" alt="avatar" class="w-10 h-10 mr-2 rounded-full" />
-          <span class="h-full mt-2 mr-2 border-l-2"></span>
-        </span>
-
-        <div class="flex flex-col w-full">
-          <div class="flex flex-row items-center justify-start text-center">
-            <a class="text-sm" href>Kazumoe</a>
-            <span class="pl-2 text-xs" href>@Kazumoe</span>
-            <span class="px-4 text-xs">&#8226;</span>
-            <span class="text-sm font-thin">8 hours ago</span>
-          </div>
-
-          <div
-            class="flex"
-          >Lorem ipsum dolor sit amet consectetur adipisicing elitEligendi eum sint temporibus error inventore minus in porro doloribus accusantiumIpsam quam sapiente inventore, ex atque natus, necessitatibus eum eligendi asperiores consectetur harum vero obcaecati voluptatum odio? Veritatis ea cupiditate necessitatibus voluptatum, tempore voluptate iusto blanditiis cum iure similique quod libero architecto dicta aliquid soluta? Quas praesentium dolorum molestiae excepturi sed, sequi culpa cumque libero voluptate optio ullam odit! Nobis molestiae commodi tempore at numquam ullam voluptate odit dicta veritatis illum quisquam, adipisci ipsamCorporis nam dolorem accusamus, accusantium, ipsum vitae iusto expedita quidem sit error laudantium nisi modi et perferendis?</div>
-
-          <div class="flex flex-row items-center pt-2">
-            <button class="p-2 rounded-full hover:bg-white">
-              <span class="px-1">6</span>
-              <span class="fas fa-heart"></span>
-            </button>
-
-            <button class="p-2 rounded-full hover:bg-white">
-              <span class="px-1">2</span>
-              <span class="fas fa-comments"></span>
-            </button>
-
-            <button class="p-2 rounded-full hover:bg-white">
-              <span class="fas fa-retweet"></span>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="flex flex-row mb-2">
-        <span class="flex flex-col items-center">
-          <img src="@/assets/avatar.jpg" alt="avatar" class="w-10 h-10 mr-2 rounded-full" />
-          <span class="h-full mt-2 mr-2 border-l-2"></span>
-        </span>
-
-        <div class="flex flex-col w-full">
-          <div class="flex flex-row items-center justify-start text-center">
-            <a class="text-sm" href>Kazumoe</a>
-            <span class="px-4 text-xs">&#8226;</span>
-            <span class="text-sm font-thin">8 hours ago</span>
-          </div>
-
-          <div
-            class="flex"
-          >Lorem ipsum dolor sit amet consectetur adipisicing elitEligendi eum sint temporibus error inventore minus in porro doloribus accusantiumIpsam quam sapiente inventore, ex atque natus, necessitatibus eum eligendi asperiores consectetur harum vero obcaecati voluptatum odio? Veritatis ea cupiditate necessitatibus voluptatum, tempore voluptate iusto blanditiis cum iure similique quod libero architecto dicta aliquid soluta? Quas praesentium dolorum molestiae excepturi sed, sequi culpa cumque libero voluptate optio ullam odit! Nobis molestiae commodi tempore at numquam ullam voluptate odit dicta veritatis illum quisquam, adipisci ipsamCorporis nam dolorem accusamus, accusantium, ipsum vitae iusto expedita quidem sit error laudantium nisi modi et perferendis?</div>
-
-          <div class="flex flex-row items-center pt-2">
-            <button class="px-2 py-1 font-bold text-gray-500 border-0 rounded-md hover:bg-gray-200 focus:bg-gray-300 focus:text-gray-900">
-              <span class="px-1">3</span>
-              <span class="fas fa-heart"></span>
-            </button>
-
-            <button class="px-2 py-1 font-bold text-gray-500 border-0 rounded-md hover:bg-gray-200 focus:bg-gray-300 focus:text-gray-900">
-              <span class="fas fa-comments"></span>
-            </button>
-
-            <button class="px-2 py-1 font-bold text-gray-500 border-0 rounded-md hover:bg-gray-200 focus:bg-gray-300 focus:text-gray-900">
-              <span class="fas fa-retweet"></span>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="px-2 py-1 mb-2 border-b-2 rounded section" v-for="section in sections" :key="section.uid">
-        <div class="flex flex-row content-center justify-center align-center">
-          <span class="flex flex-col items-center justify-center">
-            <img :src="section.avatar" alt="avatar" class="w-10 h-10 mr-2 rounded-full" />
-            <!-- <span class="h-full mt-2 mr-2 border-l-2"></span> -->
-          </span>
-
-          <div class="flex flex-col w-full">
-            <div class="flex flex-row items-center justify-start text-center">
-              <a class="text-sm" href>{{section.user}}</a>
-              <!-- <span class="pl-2 text-xs" href>@Kazumoe</span> -->
-              <!-- <span class="px-4 text-xs">&#8226;</span> -->
-              <!-- <span class="text-sm font-thin">8 hours ago</span> -->
-            </div>
-
-            <div class="editor__content" v-html="section.text"></div>
-            <!-- <div class="flex flex-row items-center pt-2">
-              <button class="p-2 rounded-full hover:bg-white">
-                <span class="px-1">6</span>
-                <span class="fas fa-heart"></span>
-              </button>
-
-              <button class="p-2 rounded-full hover:bg-white">
-                <span class="px-1"></span>
-                <span class="fas fa-comments"></span>
-              </button>
-
-              <button class="p-2 rounded-full hover:bg-white">
-                <span class="fas fa-retweet"></span>
-              </button>
-            </div> -->
-          </div>
-        </div>
-      </div>
+    <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="limit" id="commentsection" class="flex flex-col p-2 rounded-md bg-gray-50">
+      <comment v-for="(comments, index) in commentSection" v-bind:key="index" :comment="comments.comment" :children="comments.children" />
     </div>
   </div>
 </template>
 
 <script>
-import firebase from 'firebase'
+import comment from './comment'
 import textEditor from './textEditor'
+import { saveComment, retrieveTopLevelComments, retrieveChildren } from '../services/comments.service'
 
 export default {
   data () {
     return {
+      length: 0,
+      limit: 5,
+      busy: false,
       comment: '',
-      sections: []
+      topLevelComments: [],
+      commentSection: []
     }
   },
   components: {
-    textEditor
+    textEditor,
+    comment
   },
   props: {
-    comments: Array,
     videoRef: Object
   },
   methods: {
     saveComment () {
-      console.log("test")
       if (this.comment.length > 0) {
-        let uid = this.$store.state.user.currentUser.currentUser.uid
-        let commentRef = firebase
-          .firestore()
-          .collection('comments')
-          .doc()
-
-        commentRef.set({
-          text: this.comment,
-          user: firebase.firestore().doc(`/users/${uid}`),
-          video: this.videoRef,
-          commentedAt: Date.now()
-        })
-
-        this.comments.push(commentRef.id)
-        this.videoRef.update({
-          comments: this.comments
-        })
-
+        let userUUID = this.$store.state.user.currentUser.userInfo.uuid
+        saveComment(this.comment, userUUID, this.videoRef)
+        
         this.comment = ''
       }
     },
     updateComment (comment) {
       this.comment = comment
+    },
+    async loadMore () { // load more comments
+      if (!this.busy && !this.topLevelComments.empty && this.length <= this.topLevelComments.size) {
+        let difference = (this.length + this.limit) - this.topLevelComments.size
+        let sliceTill = this.length + this.limit - (difference > 0 ? difference : 0)
+        let commentsToRetrieve = this.topLevelComments.docs.slice(this.length, sliceTill)
+        this.length = sliceTill
+        for (let comment of commentsToRetrieve) {
+          let section = await retrieveChildren(this.videoRef, comment.ref)
+          this.commentSection.push(section)
+        }
+      }
     }
-  },
-  mounted () {
-    // if (this.isLoggedIn) {
-    //   let uid = this.$store.state.user.currentUser.currentUser.uid;
-    // }
-
   },
   computed: {
     isLoggedIn: function () {
@@ -178,44 +72,39 @@ export default {
     }
   },
   watch: {
-    //   async comments() {
-    // 	for(let comment in comments) {
-    // 		let commentSnap = await firebase.firestore().doc(`/comments/${comment}`).get();
-    // 		commentSnap.data().user
-    // 	}
-    //   }
-    videoRef (newRef, oldRef) {
-      if (oldRef == undefined || oldRef == null) {
-        let foundComments = firebase.firestore().collection('comments').where('video', '==', newRef)
+    async videoRef (newRef, oldRef) {
+      if (oldRef === undefined || oldRef == null) {
+        this.topLevelComments = await retrieveTopLevelComments(newRef)
+        //   let foundComments = firebase.firestore().collection('comments').where('video', '==', newRef)
 
-        foundComments.onSnapshot((querySnapshot) => {
-          var sections = []
-          querySnapshot.forEach(async function (doc) {
-            let data = doc.data()
-            let user = await data.user.get()
-            let userInfo = user.data()
+        //   foundComments.onSnapshot((querySnapshot) => {
+        //     var sections = []
+        //     querySnapshot.forEach(async function (doc) {
+        //       let data = doc.data()
+        //       let user = await data.user.get()
+        //       let userInfo = user.data()
 
-            if (!userInfo.isGoogleAccount) {
-              userInfo.photoURL = await firebase
-                .storage()
-                .ref(`profilePictures/${userInfo.photo}`)
-                .getDownloadURL()
-            }
+        //       if (!userInfo.isGoogleAccount) {
+        //         userInfo.photoURL = await firebase
+        //           .storage()
+        //           .ref(`profilePictures/${userInfo.photo}`)
+        //           .getDownloadURL()
+        //       }
 
-            sections.push({
-              uid: data.id,
-              user: userInfo.name,
-              avatar: userInfo.photoURL,
-              text: data.text,
-              commentedAt: data.commentedAt
-            })
+        //       sections.push({
+        //         uid: data.id,
+        //         user: userInfo.name,
+        //         avatar: userInfo.photoURL,
+        //         text: data.text,
+        //         commentedAt: data.commentedAt
+        //       })
 
-            sections.sort(function (a, b) {
-              return b.commentedAt - a.commentedAt
-            })
-          })
-          this.sections = sections
-        })
+        //       sections.sort(function (a, b) {
+        //         return b.commentedAt - a.commentedAt
+        //       })
+        //     })
+        //     this.sections = sections
+        //   })
       }
     }
   }
