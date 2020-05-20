@@ -110,3 +110,17 @@ export function timeSince (date) {
 
   return interval + ' ' + intervalType
 }
+
+export async function getUserData (userRef) {
+  let user = await userRef.get()
+  let userInfo = user.data()
+
+  if (!userInfo.isGoogleAccount) {
+    userInfo.photoURL = await firebase
+      .storage()
+      .ref(`profilePictures/${userInfo.photo}`)
+      .getDownloadURL()
+  }
+
+  return userInfo
+}

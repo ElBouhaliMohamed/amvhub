@@ -348,10 +348,7 @@ export default {
       editors: [],
       tags: [],
       categories: [],
-      songs: [
-        { artist: 'Tamer', title: 'Beautiful Crime' },
-        { artist: 'Somedude', title: 'Some Song' }
-      ],
+      songs: [],
       sources: [],
       createdAt: Date,
       creationDate: Date,
