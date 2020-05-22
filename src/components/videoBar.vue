@@ -3,7 +3,7 @@
     <div class="flex flex-row justify-start w-full mb-3" v-for="(video, index) in videos" v-bind:key="index">
       <!-- <router-link draggable="false" to="/channel/" class="relative pb-2/3">
       </router-link> -->
-      <div class="w-1/2">
+      <div class="w-1/4 lg:w-1/2">
         <div class="relative aspect-ratio-16/9">
           <img class="absolute object-cover w-full h-full transition-all duration-200 ease-in-out transform hover:scale-70" src="@/assets/thumbnail.png"/>
         </div>
@@ -102,30 +102,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.thumbnail {
-  display: block;
-  text-align: center;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  height: 123.5px;
-  width: 220px;
 
-  -webkit-transition: all 1s ease-in-out;
-  -moz-transition: all 1s ease-in-out;
-  transition: all 1s ease-in-out;
-  transform: scale(1.01);
-}
-
-.thumbnail:hover {
-  -webkit-transform: scale(1.05);
-  -moz-transform: scale(1.05);
-  -ms-transform: scale(1.05);
-  -o-transform: scale(1.05);
-  transform: scale(1.05);
-}
-
-.thumbnailWrapper {
-  transition: all 500ms ease-in-out;
-}
 </style>

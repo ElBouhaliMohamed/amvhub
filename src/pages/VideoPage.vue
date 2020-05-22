@@ -8,7 +8,7 @@
           <video-player id="video-player" v-on:theaterMode="toggleTheaterMode" v-bind:options.sync="options" v-bind:spriteSheet.sync="spriteSheet" v-bind:poster.sync="poster"></video-player>
           <div class="flex flex-wrap justify-center">
             <div class="px-4" :class="[{'w-full': !theaterMode, 'lg:max-w-screen-lg lg:w-3/4': theaterMode}]">
-              <span class="flex flex-row justify-start max-w-screen-lg my-4 text-3xl font-bold text-start font-lg">
+              <span class="flex flex-row justify-start max-w-screen-lg my-4 text-3xl font-bold text-start font-lg" :class="{'skeleton-box h-8 w-48 rounded-md':loading}">
                   {{title}}
               </span>
 
@@ -17,13 +17,15 @@
               </div> -->
 
               <div class="flex flex-row items-center justify-center max-w-screen-lg mb-4 text-lg">
-                <router-link class="flex items-center w-1/2" :to="`/channel/${user.uuid}`">
-                  <user-infos parent="authorAvatar" :visible="showUserInfos"/>
-                  <img id="authorAvatar" @mouseenter="showUserInfos = true" @mouseout="showUserInfos = false" src="@/assets/avatar2.png" class="w-10 h-10 mr-2 rounded-full cursor-pointer" />
-                  <span class="text-lg font-bold">
-                    {{user.name}}
-                  </span>
-                </router-link>
+                <div class="flex items-center w-1/2">
+                    <user-infos parent="authorAvatar" :visible="showUserInfos"/>
+                    <img id="authorAvatar" @mouseenter="showUserInfos = true" @mouseout="showUserInfos = false" src="@/assets/avatar2.png" class="w-10 h-10 mr-2 rounded-full cursor-pointer" />
+                    <router-link class="" :to="`/channel/${user.uuid}`">
+                      <span class="text-lg font-bold" :class="{'skeleton-box h-6 w-28 rounded-md':loading}">
+                        {{user.name}}
+                      </span>
+                    </router-link>
+                </div>
 
                 <div class="flex flex-row items-center justify-end w-1/2 text-sm">
 
@@ -31,12 +33,14 @@
                   
                   <div class="pl-6">
                     <span class="fa fa-eye"></span>
+                    <span :class="{'skeleton-box h-6 w-12':loading}"></span>
                     {{views}}
                   </div>
 
                   <div class="pl-6">
                     <button @click="giveHeart" class="px-2 rounded-full hover">
                       <span class="fa fa-heart" v-bind:class="{'text-red-600': alreadyGaveHeart}"></span>
+                      <span :class="{'skeleton-box h-6 w-12':loading}"></span>
                       {{hearts}}
                     </button>
                   </div>
@@ -51,7 +55,7 @@
                 </div>
               </div>
 
-              <div class="flex flex-wrap font-light leading-7">
+              <div class="flex flex-wrap font-light leading-7" :class="{'skeleton-box h-48 w-full rounded-md':loading}">
                 {{description}}
               </div>
 
@@ -81,7 +85,7 @@
                         <span class="fas fa-tv"></span>
                         Sources
                       </dt>
-                      <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                      <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2" :class="{'skeleton-box h-8 w-full rounded-md':loading}">
                         <span v-for="(source, index) in sources" v-bind:key="index"><span v-if="index > 0">, </span> <a :href="'https://myanimelist.net/search/all?q=' + source.title.replace(/\s/g, '%20')"> {{source.title}} </a></span>
 
                       </dd>
@@ -91,7 +95,7 @@
                         <span class="fas fa-music"></span>
                         Songs
                       </dt>
-                      <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                      <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2" :class="{'skeleton-box h-8 w-full rounded-md':loading}">
                         <span v-for="(song, index) in songs"><span v-if="index > 0">, </span>{{song.artist}} - {{song.title}}</span>
                       </dd>
                     </div>
@@ -100,7 +104,7 @@
                         <span class="fas fa-users"></span>
                         Editors
                       </dt>
-                      <dd class="flex flex-row mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                      <dd class="flex flex-row mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2" :class="{'skeleton-box h-8 w-full rounded-md':loading}">
                         <span class="flex items-center justify-start mr-2" v-for="(editor, index) in editors" v-bind:key="index">
                           <img src="@/assets/avatar2.png" class="w-16 h-auto pr-2" />
                           <span class="text-lg font-bold">
@@ -114,7 +118,7 @@
                         <span class="fas fa-paperclip"></span>
                         Downloads
                       </dt>
-                      <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                      <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2" :class="{'skeleton-box h-8 w-full rounded-md':loading}">
                         <ul class="border border-gray-200 rounded-md">
                           <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm leading-5">
                             <div class="flex items-center flex-1 w-0">
@@ -135,7 +139,7 @@
                 </div>
               </div>
               
-              <comment-section :comments="comments" :videoRef="videoRef"/>
+              <comment-section :sharedComment="$route.params.comment" :videoRef="videoRef"/>
             </div>
             <div class="w-full my-6 lg:w-1/4">
               <div class="relative" :class="{'hidden': !theaterMode}">
@@ -144,7 +148,7 @@
             </div>
           </div>
       </div>
-      <span class="relative w-1/4" :class="{'hidden': theaterMode}">
+      <span class="relative lg:w-1/4" :class="{'hidden': theaterMode}">
         <videoBar class="absolute left-0" :horizontal="false"/>
       </span>
     </div>
@@ -170,7 +174,7 @@ export default {
     commentSection: () => ({
       component: import('../components/CommentSection.vue'),
       loading: {
-        template: '<div>...loading</div>'
+        template: '<div class="w-full h-screen skeleton-box"></div>'
       },
       error: {
         template: '<div>...error</div>'
@@ -183,6 +187,7 @@ export default {
     this.$store.commit('videoPage/SET_THEATERMODE', false)
   },
   async mounted () {
+    this.loading = true
     this.$Progress.start()
     var listRef = firebase.storage().ref(`videos/${this.videoId}/`)
     let res = await listRef.listAll()
@@ -284,6 +289,7 @@ export default {
 
     this.videoRef = videoQueryRef
     this.$Progress.finish()
+    this.loading = false
   },
   methods: {
     toggleTheaterMode () {
@@ -361,7 +367,11 @@ export default {
       theaterMode: false,
       watchThumbnail: false,
       showUserInfos: false,
-      user: Object
+      user: {
+        name: '',
+        uuid: ''
+      },
+      loading: false
     }
   },
   computed: {

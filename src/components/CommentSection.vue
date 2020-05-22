@@ -17,8 +17,7 @@
 
 <script>
 import comment from './comment'
-import textEditor from './textEditor'
-import { saveComment, retrieveTopLevelComments, retrieveChildren } from '../services/comments.service'
+import { saveComment, retrieveTopLevelComments, retrieveChildren, retrieveSingleComment } from '../services/comments.service'
 
 export default {
   data () {
@@ -32,11 +31,25 @@ export default {
     }
   },
   components: {
-    textEditor,
+    textEditor: () => ({
+      component: import('./textEditor'),
+      loading: {
+        template: '<div class="w-full h-48 skeleton-box"></div>'
+      },
+      error: {
+        template: '<div>Something went wrong please try again later.</div>'
+      },
+      delay: 100,
+      timeout: 2000
+    }),
     comment
   },
   props: {
-    videoRef: Object
+    videoRef: Object,
+    sharedComment: {
+      type: String,
+      required: false
+    }
   },
   methods: {
     saveComment () {
@@ -51,6 +64,8 @@ export default {
       this.comment = comment
     },
     async loadMore () { // load more comments
+      console.log(this.topLevelComments.empty)
+      console.log(this.topLevelComments.size)
       if (!this.busy && !this.topLevelComments.empty && this.length <= this.topLevelComments.size) {
         let difference = (this.length + this.limit) - this.topLevelComments.size
         let sliceTill = this.length + this.limit - (difference > 0 ? difference : 0)
@@ -74,22 +89,18 @@ export default {
   watch: {
     async videoRef (newRef, oldRef) {
       if (oldRef === undefined || oldRef == null) {
-        this.topLevelComments = await retrieveTopLevelComments(newRef)
+
+        if (this.sharedComment == null) {
+          this.topLevelComments = await retrieveTopLevelComments(newRef)
+        } else {
+          this.topLevelComments = await retrieveSingleComment(newRef, this.sharedComment)
+        }
         //   let foundComments = firebase.firestore().collection('comments').where('video', '==', newRef)
 
         //   foundComments.onSnapshot((querySnapshot) => {
         //     var sections = []
         //     querySnapshot.forEach(async function (doc) {
-        //       let data = doc.data()
-        //       let user = await data.user.get()
-        //       let userInfo = user.data()
-
-        //       if (!userInfo.isGoogleAccount) {
-        //         userInfo.photoURL = await firebase
-        //           .storage()
-        //           .ref(`profilePictures/${userInfo.photo}`)
-        //           .getDownloadURL()
-        //       }
+        //       
 
         //       sections.push({
         //         uid: data.id,

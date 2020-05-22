@@ -68,7 +68,7 @@ export const routes = [
     ]
   },
   {
-    path: '/video/:id',
+    path: '/video/:id/:comment?',
     name: 'video',
     component: videoPage,
     meta: { title: `${DOMAIN_TITLE} | video`, enableHeader: true, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: false }

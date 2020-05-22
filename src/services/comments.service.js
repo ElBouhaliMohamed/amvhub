@@ -29,6 +29,14 @@ export async function retrieveTopLevelComments (videoRef) {
   return topLevelComments
 }
 
+export async function retrieveSingleComment (videoRef, uuid) {
+  let comment = await firebase.firestore().collection('comments').where('video', '==', videoRef)
+    .where('uuid', '==', uuid)
+    .get()
+
+  return comment
+}
+
 export async function retrieveComments (videoRef) { // get toplevel and retrievechildren
   let topLevelComments = await this.retrieveTopLevelComments(videoRef)
 
@@ -62,7 +70,9 @@ export async function saveComment (html, userUUID, videoRef, parentRef = null) {
     parent: parentRef,
     isNested: parentRef != null,
     commentedAt: firebase.firestore.Timestamp.fromDate(new Date()),
-    uuid: commentRef.id
+    uuid: commentRef.id,
+    hearts: 0,
+    usersThatGaveHearts: []
   })
 
   return commentRef

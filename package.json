@@ -25,6 +25,7 @@
     "tailwindcss-aspect-ratio": "^3.0.0",
     "tiptap": "^1.27.1",
     "tiptap-extensions": "^1.27.1",
+    "v-clipboard": "^2.2.3",
     "video.js": "^7.6.6",
     "videojs-sprite-thumbnails": "^0.5.2",
     "videojs-sublime-skin": "^1.0.3",

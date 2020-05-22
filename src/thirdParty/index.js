@@ -19,6 +19,9 @@ import infiniteScroll from 'vue-infinite-scroll'
 
 import vueHeadful from 'vue-headful'
 
+import Clipboard from 'v-clipboard'
+
+Vue.use(Clipboard)
 // import InnerSearch from 'vue-innersearch'
 // import elasticSearchConfig from './elasticSearchConfig.json'
 
