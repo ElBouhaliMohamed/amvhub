@@ -2,6 +2,9 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
   important: true,
+  purge: [
+    './src/**/*.vue'
+  ],
   plugins: [
     require('@tailwindcss/ui'),
     require('tailwindcss-aspect-ratio')

@@ -5,6 +5,7 @@
 <script>
 import videojs from 'video.js' // :class=" {TheaterMode: theaterMode}"
 import 'videojs-sprite-thumbnails'
+import 'videojs-mobile-ui'
 
 export default {
   beforeDestroy () {
@@ -62,6 +63,8 @@ export default {
           ]
         }
       })
+
+      this.player.mobileUI()
 
       var Button = videojs.getComponent('Button')
       let self = this

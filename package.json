@@ -27,6 +27,7 @@
     "tiptap-extensions": "^1.27.1",
     "v-clipboard": "^2.2.3",
     "video.js": "^7.6.6",
+    "videojs-mobile-ui": "^0.4.1",
     "videojs-sprite-thumbnails": "^0.5.2",
     "videojs-sublime-skin": "^1.0.3",
     "videojs-theater-mode": "^1.0.0",
