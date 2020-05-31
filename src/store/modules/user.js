@@ -4,6 +4,11 @@ export default {
     currentUser: null,
     isLoggedIn: false
   },
+  getters: {
+    isLoggedIn (state) {
+      return state.isLoggedIn
+    }
+  },
   mutations: {
     SET_CURRENT_USER (state, currentUserData) {
       state.currentUser = currentUserData

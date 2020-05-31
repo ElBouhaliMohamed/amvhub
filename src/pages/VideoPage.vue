@@ -5,16 +5,12 @@
     />
     <div class="flex justify-center" :class="[{'flex-col lg:flex-row': !theaterMode, 'flex-col': theaterMode}]">
       <div :class="[{'max-w-screen-lg w-full lg:w-2/4': !theaterMode, 'w-full': theaterMode}]">
-          <video-player id="video-player" v-on:theaterMode="toggleTheaterMode" v-bind:options.sync="options" v-bind:spriteSheet.sync="spriteSheet" v-bind:poster.sync="poster"></video-player>
+          <video-player id="video-player" v-on:theaterMode="toggleTheaterMode" v-bind:options.sync="options" v-bind:spriteSheet.sync="spriteSheet" v-bind:poster.sync="thumbnail"></video-player>
           <div class="flex flex-wrap justify-center">
             <div class="px-4" :class="[{'w-full': !theaterMode, 'lg:max-w-screen-lg lg:w-3/4': theaterMode}]">
               <span class="flex flex-row justify-start max-w-screen-lg my-4 text-3xl font-bold text-start font-lg" :class="{'skeleton-box h-8 w-48 rounded-md':loading}">
                   {{title}}
               </span>
-
-              <!-- <div class="flex my-4">
-                <img class="w-1/4 h-auto cursor-pointer" :class="{'w-auto' : watchThumbnail}" src="@/assets/thumbnail2.png" @click="watchThumbnail = !watchThumbnail" />
-              </div> -->
 
               <div class="flex flex-row items-center justify-center max-w-screen-lg mb-4 text-lg">
                 <div class="flex items-center w-1/2">
@@ -28,8 +24,6 @@
                 </div>
 
                 <div class="flex flex-row items-center justify-end w-1/2 text-sm">
-
-                  <ratingModal :show="showRatingModal" :closeCallback="ratingClosed"></ratingModal>
                   
                   <div class="pl-6">
                     <span class="fa fa-eye"></span>
@@ -46,41 +40,28 @@
                   </div>
 
                   <div class="pl-6">
-                    <button class="px-2 rounded-full hover">
+                    <button @click="showRatingModal = !showRatingModal" class="px-2 rounded-full hover">
                       <span class="text-yellow-400 fa fa-star"></span>
-                      7.9 <span class="text-xs font-thin">/ 10 (60 Votes)</span>
+                      {{ratingsMedian}} <span class="text-xs font-thin">/ 10 (median of {{ratingsCount}} Votes)</span>
                     </button>
                   </div>
 
+                  <ratingModal :videoRef="videoRef" :userId="userId" :show="showRatingModal" :closeCallback="ratingClosed"></ratingModal>
+
                 </div>
               </div>
 
-              <div class="flex flex-wrap font-light leading-7" :class="{'skeleton-box h-48 w-full rounded-md':loading}">
-                {{description}}
+              <div class="flex flex-wrap font-light leading-7 sm:border-t sm:border-gray-200 sm:pt-5" :class="{'skeleton-box h-48 w-full rounded-md':loading}" v-html="description">
+
               </div>
 
-              <!-- <div class="flex flex-col flex-wrap">
-                <div class="flex">
-                  <div class="mr-1 fas fa-music"></div>
-                </div>
-                <div>
-                  <div class="mr-1 fas fa-tv"></div>
-                    <span v-for="(anime, index) in animes"><span v-if="index > 0">, </span> <a :href="'https://myanimelist.net/search/all?q=' + anime.replace(/\s/g, '%20')"> {{anime}} </a></span>
-                </div>
+              <div v-if="hasPoster" class="flex justify-center pt-8 max-h-96 align-center">
+                <lightbox class="w-1/2 sm:border-t sm:border-gray-200 sm:pt-5" :images="[poster]"/>
               </div>
-
-              <div class="flex flex-wrap">
-                <router-link
-                  :to="'/search/tag/' + tag"
-                  class="p-2 mt-2 mr-2 text-sm rounded-full"
-                  v-for="tag in tags" :key="tag"
-                >{{ tag }}</router-link>
-              </div> -->
-
-              <div class="py-4">
-                <div class="pt-5 mt-5 border-t border-gray-200">
+              
+              <div class="pt-8">
                   <dl>
-                    <div class=" sm:grid sm:grid-cols-3 sm:gap-4">
+                    <div class=" sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
                       <dt class="text-sm font-medium leading-5 text-gray-500">
                         <span class="fas fa-tv"></span>
                         Sources
@@ -96,7 +77,7 @@
                         Songs
                       </dt>
                       <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2" :class="{'skeleton-box h-8 w-full rounded-md':loading}">
-                        <span v-for="(song, index) in songs"><span v-if="index > 0">, </span>{{song.artist}} - {{song.title}}</span>
+                        <span v-for="(song, index) in songs" v-bind:key="index"><span v-if="index > 0">, </span>{{song.artist}} - {{song.title}}</span>
                       </dd>
                     </div>
                     <div class="mt-8 sm:grid sm:mt-5 sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
@@ -113,7 +94,7 @@
                         </span>
                       </dd>
                     </div>
-                    <div class="mt-8 sm:grid sm:mt-5 sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                    <div class="pb-5 mt-8 sm:grid sm:mt-5 sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:py-5">
                       <dt class="text-sm font-medium leading-5 text-gray-500">
                         <span class="fas fa-paperclip"></span>
                         Downloads
@@ -136,7 +117,6 @@
                       </dd>
                     </div>
                   </dl>
-                </div>
               </div>
               
               <comment-section :sharedComment="$route.params.comment" :videoRef="videoRef"/>
@@ -158,8 +138,10 @@
 <script>
 import videoPlayer from '../components/videoPlayer.vue'
 import videoBar from '../components/videoBar.vue'
-import ratingModal from '../components/modals/rating.vue'
+import ratingModal from '../components/modals/rateVideoModal.vue'
 import userInfos from '../components/modals/UserInformation.vue'
+import lightbox from '../components/Lightbox.vue'
+import ratings from '../components/ratings.vue'
 import { DOMAIN_TITLE } from '../.env'
 
 import firebase from 'firebase'
@@ -171,10 +153,12 @@ export default {
     videoBar,
     ratingModal,
     userInfos,
+    lightbox,
+    ratings,
     commentSection: () => ({
       component: import('../components/CommentSection.vue'),
       loading: {
-        template: '<div class="w-full h-screen skeleton-box"></div>'
+        template: '<div class="w-full h-96 skeleton-box"></div>'
       },
       error: {
         template: '<div>...error</div>'
@@ -185,6 +169,45 @@ export default {
   },
   beforeDestroy () {
     this.$store.commit('videoPage/SET_THEATERMODE', false)
+  },
+  data: function () {
+    return {
+      showRatingModal: false,
+      options: {},
+      captions: [],
+      spriteSheet: {
+        type: Object,
+        default () {
+          return {}
+        }
+      },
+      spriteDimensions: {},
+      poster: '',
+      thumbnail: '',
+      title: '',
+      description: '',
+      editors: [],
+      tags: [],
+      categories: [],
+      songs: [],
+      sources: [],
+      createdAt: Date,
+      creationDate: Date,
+      views: 0,
+      hearts: 0,
+      usersThatGaveHearts: [],
+      comments: [],
+      videoRef: null,
+      alreadyGaveHeart: false,
+      theaterMode: false,
+      showUserInfos: false,
+      user: {
+        name: '',
+        uuid: ''
+      },
+      loading: false,
+      hasPoster: false
+    }
   },
   async mounted () {
     this.loading = true
@@ -228,26 +251,41 @@ export default {
     this.createdAt = Date.parse(data.createdAt)
     this.creationDate = Date.parse(data.creationDate)
     this.user = user.data()
+    this.hasPoster = data.hasPoster
 
-    console.log(data)
+    this.ratings = data.ratings
+    if (data.ratings === undefined || data.ratings == null) {
+      this.ratings = []
+      videoQueryRef.update({
+        ratings: []
+      })
+    }
+    this.$store.dispatch('videoPage/processRatingsArray', this.userId)
 
     let thumbnailsRef = await firebase.firestore().doc(`thumbnails/${this.videoId}/`)
     let thumbnailsQuery = await thumbnailsRef.get()
     let thumbnails = thumbnailsQuery.data()
     let currThumbnail = thumbnails.active > 3 ? thumbnails.customThumbnail : thumbnails.thumbnails[thumbnails.active]
+    this.thumbnail = currThumbnail
 
     this.spriteDimensions = {
       width: data.spriteWidth,
       height: data.spriteHeight
     }
+    
     this.spriteSheet = {
       spriteSheet: data.spriteSheet,
       spriteDimensions: this.spriteDimensions
     }
 
-    this.poster = currThumbnail
-    this.$emit('update:spriteSheet', this.spriteSheet)
-    this.$emit('update:poster', currThumbnail)
+    if (this.hasPoster) {
+      let posterRef = await firebase.storage().ref(`poster/${this.videoId}/poster_${this.videoId}`)
+      let posterUrl = await posterRef.getDownloadURL()
+      this.poster = posterUrl
+    }
+
+    this.$emit('update:spriteSheet', this.spriteSheet) // updates videoplayer spritesheet for scrubbing
+    this.$emit('update:poster', currThumbnail) // updates videoplayer thumbnail
 
     if (data.views === undefined || data.views == null) {
       videoQueryRef.update({
@@ -279,9 +317,12 @@ export default {
       this.usersThatGaveHearts = data.usersThatGaveHearts
       this.comments = data.comments
 
+      this.rating = data.rating
+      this.$store.dispatch('videoPage/processRatingsArray', this.userId)
+
       if (this.isLoggedIn) {
-        let uid = this.$store.state.user.currentUser.currentUser.uid
-        if (this.usersThatGaveHearts.includes(uid)) { // already voted
+        let uuid = this.userId
+        if (this.usersThatGaveHearts.includes(uuid)) { // already voted
           this.alreadyGaveHeart = true
         }
       }
@@ -305,7 +346,7 @@ export default {
     },
     giveHeart () {
       if (this.isLoggedIn) {
-        let uid = this.$store.state.user.currentUser.currentUser.uid
+        let uid = this.userId
         if (this.usersThatGaveHearts.includes(uid)) { // already voted
           let index = this.usersThatGaveHearts.findIndex((element) => {
             return element === uid
@@ -336,60 +377,33 @@ export default {
   title () {
     return DOMAIN_TITLE
   },
-  data: function () {
-    return {
-      showRatingModal: false,
-      options: {},
-      captions: [],
-      spriteSheet: {
-        type: Object,
-        default () {
-          return {}
-        }
-      },
-      spriteDimensions: {},
-      poster: ``,
-      title: '',
-      description: '',
-      editors: [],
-      tags: [],
-      categories: [],
-      songs: [],
-      sources: [],
-      createdAt: Date,
-      creationDate: Date,
-      views: 0,
-      hearts: 0,
-      usersThatGaveHearts: [],
-      comments: [],
-      videoRef: null,
-      alreadyGaveHeart: false,
-      theaterMode: false,
-      watchThumbnail: false,
-      showUserInfos: false,
-      user: {
-        name: '',
-        uuid: ''
-      },
-      loading: false
-    }
-  },
   computed: {
+    userId () {
+      return this.$currentUser.userInfo.uuid
+    },
     videoId () {
       return this.$route.params.id
     },
     isLoggedIn: function () {
       return this.$store.state.user.isLoggedIn
     },
-    aspectRatio: function () {
-      return this.$store.getters['videoPage/aspectRatio']
+    ratings: {
+      get () {
+        return this.$store.getters['videoPage/ratings']
+      },
+      set (newValue) {
+        return this.$store.commit('videoPage/SET_RATINGS', newValue)
+      }
+    },
+    ratingsCount () {
+      return this.$store.getters['videoPage/ratingsCount']
+    },
+    ratingsAvg: function () {
+      return this.$store.getters['videoPage/ratingsAvg']
+    },
+    ratingsMedian: function () {
+      return this.$store.getters['videoPage/ratingsMedian']
     }
-    // ...mapState('videoPage',['author', 'title', 'views', 'hearts', 'tags', 'categories'])
-  },
-  watch: {
-    // isLoggedIn(isLoggedIn) {
-    //   this.alreadyGaveHeart = isLoggedIn ? this.alreadyGaveHeart : false;
-    // }
   },
   notifications: {
     showErrorMsg: {

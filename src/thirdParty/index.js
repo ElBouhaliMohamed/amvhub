@@ -21,7 +21,13 @@ import vueHeadful from 'vue-headful'
 
 import Clipboard from 'v-clipboard'
 
+import VueApexCharts from 'vue-apexcharts'
+
 Vue.use(Clipboard)
+
+Vue.use(VueApexCharts)
+
+Vue.component('apexchart', VueApexCharts)
 // import InnerSearch from 'vue-innersearch'
 // import elasticSearchConfig from './elasticSearchConfig.json'
 

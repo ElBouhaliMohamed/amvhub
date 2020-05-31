@@ -21,15 +21,13 @@
     <div class="videoLength">{{lengthInMinutes}}</div> -->
     <!-- <div class="videoInfoBackground"></div> -->
 
-    <div class="absolute bottom-0 left-0 z-30 w-full transition-all duration-300 ease-out transform opacity-0 h-36 bg-gray-50" :class="{'translate-y-36 opacity-100': isPlaying}"></div>
-
-    <div class="absolute bottom-0 left-0 z-30 flex flex-col w-3/4 text-black transition-all duration-300 ease-in-out transform" :class="{'translate-y-16': isPlaying}">
+    <div class="absolute bottom-0 left-0 z-30 flex flex-col w-3/4 text-black transition-all duration-300 ease-in-out transform" :class="{'translate-y-18': isPlaying}">
       <router-link :to="`/channel/${user.uuid}`" class="text-base font-thin leading-none uppercase">{{user.name}}</router-link>
       <span class="inline-block text-3xl leading-none uppercase truncate align-text-bottom md:text-4xl lg:text-5xl">{{title}}</span>
     </div>
 
-    <div class="absolute bottom-0 right-0 z-30 flex flex-col w-1/4 transition-all duration-300 ease-in-out transform " :class="{'translate-y-36': isPlaying}">
-      <span class="inline-block font-bold text-right text-black uppercase align-text-top lg:text-lg" v-for="tag in tags" :key="tag">
+    <div class="absolute bottom-0 right-0 z-30 flex flex-col w-1/4 transition-all duration-300 ease-in-out transform " :class="{'translate-y-18': isPlaying}">
+      <span class="inline-block font-bold text-right text-black uppercase align-text-top lg:text-lg" v-for="tag in sortedTags" :key="tag">
       {{tag}}
       </span>
     </div>
@@ -58,7 +56,8 @@ export default {
       previewLoaded: false,
       previewVideo: Object,
       hovering: false,
-      isPlaying: false
+      isPlaying: false,
+      sortedTags: []
     }
   },
   computed: {
@@ -77,12 +76,28 @@ export default {
       }
     }
   },
+  mounted () {
+    const sortBy = ['Game Music Video (GMV)', 'Multi Editor Project (MEP)', 'Manga Music Video (MMV)', 'Action', 'Drama', 'Psychedelic', 'Horror', 'Romance', 'Comedy', 'Dance', 'Sentimental', 'Trailer', 'Character Profile', 'Cross-Over']
+    this.sortedTags = this.customSort({
+      data: this.tags,
+      sortBy: [...sortBy, 'other']
+    }).splice(0, 2)
+    console.log(this.tags)
+    console.log(this.sortedTags)
+  },
   watch: {
     isMuted (newVal) {
       this.previewVideo.muted = newVal
     }
   },
   methods: {
+    customSort ({ data, sortBy }) {
+      const sortByObject = sortBy.reduce(
+        (obj, item, index) => ({
+          [item]: index
+        }), {})
+      return data.sort((a, b) => sortByObject[a] - sortByObject[b])
+    },
     mute () {
       this.isMuted = !this.isMuted
     },

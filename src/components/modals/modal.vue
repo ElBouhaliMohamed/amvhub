@@ -3,7 +3,7 @@
     <div class="overlay" @click="closeCallback()"></div>
     <div class="modal_content">
       <slot></slot>
-      <button title="Close" class="close_modal text-gray-500 hover:text-gray-800" @click="close">
+      <button title="Close" class="ml-4 text-gray-500 close_modal hover:text-gray-800" @click="close">
         <svg viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
       </button>
     </div>
@@ -63,7 +63,6 @@ export default {
   box-shadow: 0 1px 5px rgba(0,0,0,0.7);
   text-align: center;
   border-radius: 4px;
-  width: 520px; /* This just a default width */
 }
 
 .modal .modal_content > h2 {

@@ -37,7 +37,7 @@
             </svg>
             <p v-if="!hasCustomThumbnail" class="mt-1 text-sm text-gray-600">
               <button
-                @click="triggerFileExplorer"
+                @click="triggerFileExplorer(0)"
                 type="button"
                 class="font-medium text-indigo-600 transition duration-150 ease-in-out hover:text-indigo-500 focus:outline-none focus:underline"
               >Upload a file</button>
@@ -60,17 +60,43 @@
           <loading-animation class="w-8 h-8"></loading-animation>
         </span> -->
       </span>
-
-      <div class="mt-6">
-        <label for="about" class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2">
-            Description
-          </label>
-          <div class="mt-1 shadow-sm rouneded-md">
-            <div class="flex rounded-md shadow-sm">
-              <textarea v-model="description" id="description" rows="3" class="block w-full transition duration-150 ease-in-out form-textarea sm:text-sm sm:leading-5"></textarea>
+      <div class="flex flex-col mt-6 md:flex-row">
+        <div class="md:w-1/2 md:mr-4">
+            <label for="about" class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2">
+              Description
+            </label>
+            <div class="mt-1 shadow-sm rouneded-md">
+              <div class="flex rounded-md shadow-sm">
+                <text-editor id="description" placeholder="" :submitButton="false" @textChanged="updateDescription" class="w-full mb-2"></text-editor>
+              </div>
+              <p class="mt-2 text-sm text-gray-500">Write a few sentences about the video.</p>
             </div>
-            <p class="mt-2 text-sm text-gray-500">Write a few sentences about the video.</p>
+        </div>
+        <div class="md:w-1/2">
+          <label for="poster" class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2">Poster</label>
+          <div class="mt-1">
+            <div class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+              <div class="text-center" :class="{'hidden':hasPoster}" v-cloak @drop.prevent="addFile" @dragover.prevent>
+                <svg class="w-12 h-12 mx-auto text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                  <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <p class="mt-1 text-sm text-gray-600">
+                  <button
+                    @click="triggerFileExplorer(1)"
+                    type="button"
+                    class="font-medium text-indigo-600 transition duration-150 ease-in-out hover:text-indigo-500 focus:outline-none focus:underline"
+                  >Upload a file</button>
+                  or drag and drop
+                </p>
+                <p class="mt-1 text-xs text-gray-500">PNG or JPG up to 10MB</p>
+                <input type="file" id="inputfile" name="inputfile" class="hidden" accept="image/*" />
+              </div>
+              <div v-if="hasPoster">
+                <img class="max-h-28" v-cloak @drop.prevent="addFile" @dragover.prevent @click="triggerFileExplorer(1)" :src="poster" />
+              </div>
+            </div>
           </div>
+        </div>
       </div>
 
       <div class="mt-6">
@@ -103,7 +129,7 @@
 
       <div class="mt-6">
         <label for="email" class="block text-sm font-medium leading-5 text-gray-700">Editors</label>
-        <div class="flex mt-1 rounded-md shadow-sm">
+        <div class="flex w-full mt-1 rounded-md shadow-sm">
           <!-- <treeselect :multiple="true" :async="true" :load-options="loadOptions" /> -->
             <vue-tags-input
               id="editors"
@@ -151,6 +177,8 @@
 import firebase from 'firebase'
 import loadingAnimation from '../components/loadingAnimation2.vue'
 import VueTagsInput from '@johmun/vue-tags-input'
+import textEditor from './textEditor'
+import { snap } from 'gsap'
 
 export default {
   mounted () {
@@ -172,17 +200,23 @@ export default {
       hasCustomThumbnail: false,
       editor: '',
       editors: [],
-      autocompleteItems: []
+      autocompleteItems: [],
+      hasPoster: false,
+      poster: Image
     }
   },
   components: {
     loadingAnimation,
-    VueTagsInput
+    VueTagsInput,
+    textEditor
   },
   watch: {
     'editor': 'loadEditors'
   },
   methods: {
+    updateDescription (description) {
+      this.description = description
+    },
     loadEditors () {
       if (this.editor.length < 2) return
       
@@ -195,20 +229,33 @@ export default {
         console.log(err)
       })
     },
-    triggerFileExplorer () {
+    triggerFileExplorer (mode) { // 0 thumbnail 1 is poster
       document.getElementById('inputfile').addEventListener('change', e => {
         var selectedFile = document.getElementById('inputfile').files[0]
-        this.selectCustomThumbnail(selectedFile)
+
+        switch (mode) {
+          case 0:
+            this.selectCustomThumbnail(selectedFile)
+            break
+          case 1:
+            this.uploadPoster(selectedFile)
+            break
+        }
       })
 
       document.getElementById('inputfile').click()
     },
     addFile (e) {
       let droppedFiles = e.dataTransfer.files
-      if (!droppedFiles) return;
-      ([...droppedFiles]).forEach(f => {
-        this.selectCustomThumbnail(f)
-      })
+      if (!droppedFiles) return
+      this.uploadPoster(droppedFiles[0])
+    },
+    async uploadPoster (f) {
+      let posterRef = firebase.storage().ref(`poster/${this.videoUID}`).child(`poster_${this.videoUID}`)
+      let snapshot = await posterRef.put(f)
+      let posterURL = await snapshot.ref.getDownloadURL()
+      this.poster = posterURL.toString()
+      this.hasPoster = true
     },
     async selectCustomThumbnail (f) {
       let customThumbnailRef = firebase.storage().ref(`thumbnails/${this.videoUID}`).child(`thumb_${this.videoUID}_4`)
@@ -248,19 +295,21 @@ export default {
         user: userRef,
         views: 0,
         hearts: 0,
-        rating: 0,
+        rating: [],
         ratingsCount: 0,
+        ratingsAvg: 0,
+        ratingsMedian: 0,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         description: this.description,
         visibility: this.visibility,
         creationDate: firebase.firestore.Timestamp.fromDate(new Date(this.creationDate)),
         editors: cleanEditors,
-        teams: [],
-        sources: this.sources
+        sources: this.sources,
+        hasPoster: this.hasPoster
       })
       this.$store.commit('upload/SET_URL', `localhost:8080/video/${this.videoUID}`)
       
-      if (this.visibility === 2) {
+      if (this.visibility === '2') {
         this.$store.dispatch('feed/generateFeedForFollowers', this.$currentUser.userInfo.uuid)
       }
 

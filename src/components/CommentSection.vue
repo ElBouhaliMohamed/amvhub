@@ -9,7 +9,7 @@
       </div>
     </div>
 
-    <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="limit" id="commentsection" class="flex flex-col p-2 rounded-md bg-gray-50">
+    <div :class="{'hidden' : length === 0}" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="limit" id="commentsection" class="flex flex-col p-2 rounded-md bg-gray-50">
       <comment v-for="(comments, index) in commentSection" v-bind:key="index" :comment="comments.comment" :children="comments.children" />
     </div>
   </div>

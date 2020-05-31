@@ -4,21 +4,21 @@
       <button class="flex items-center justify-center w-12 h-8 ml-4 " @click="toggleNavigation">
         <div class="fa fa-bars btn-action"></div>
       </button>
-      <span class="flex w-full group">
+      <form class="flex w-full group">
         <input type="text" class="searchBox" placeholder="Search" v-model="search">
-        <router-link :to="{path: 'search', query: {name: search}}" class="searchIcon">
+        <button @click.stop.prevent="searchString" type="submit" class="searchIcon">
           <div class="fa fa-search btn-action"></div>
-        </router-link>
-      </span>
+        </button>
+      </form>
     </div>
 
-    <div class="items-center justify-center hidden w-1/5 text-center md:flex logo">
+    <div class="items-center justify-center hidden w-1/5 text-center text-white md:flex">
       <router-link to="/">
         <logo/>
       </router-link>
     </div>
 
-    <div class="flex items-center justify-between w-full mt-2 text-center md:justify-end md:w-2/5">
+    <div class="flex items-center justify-between w-full mt-2 text-center text-white md:justify-end md:w-2/5">
       <router-link class="ml-8 md:hidden" to="/">
         <logo/>
       </router-link>
@@ -118,6 +118,9 @@ export default {
         this.$store.commit('user/SET_LOGGED_IN', false)
         this.$router.replace('/login')
       })
+    },
+    searchString () {
+      this.$router.push({ name: 'search', query: { name: this.search } })
     }
   },
   computed: {
@@ -162,10 +165,6 @@ export default {
   @apply .rounded-r .h-8 .py-2 .px-2;
   background-color: rgba(255, 255, 255, 0.05);
   height: 34px;
-}
-
-.logo {
-    display: none;
 }
 
 .headerContainer {

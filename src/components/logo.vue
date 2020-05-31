@@ -8,13 +8,15 @@
         <path fill="var(--primary-100-color)" d="M878.6,307.68h13.69V338c0,14.08-10.11,22.27-22.4,22.27s-22.4-8.19-22.4-22.27V307.68h13.57v31a8.77,8.77,0,0,0,17.54,0Z" transform="translate(-592.74 -252)"/>
         <path fill="var(--primary-100-color)" d="M913.12,265.52v42.24h5.64c23.17,0,27.65,18.44,27.65,25.48,0,8.83-4.48,26.75-27.78,26.75H899.56V270.64Zm3.2,56.19h-3.2v25.22h3.2c13.44,0,15.62-8.19,15.62-12.93S929.76,321.71,916.32,321.71Z" transform="translate(-592.74 -252)"/>
     </svg> -->
-    <div class="flex">
-        <p class="text-3xl font-bold tracking-wide text-white font-nunito">
-            amvhub
-        </p>
-        <p class="text-xs italic font-thin tracking-wide text-white font-nunito">
-            alpha
-        </p>
+    <div class="flex justify-center">
+        <div class="relative">
+            <p class="mt-1 text-3xl font-bold tracking-wide font-nunito">
+                amvhub
+            </p>
+            <p class="absolute top-0 right-0 text-xs italic font-thin tracking-wide font-nunito">
+                alpha
+            </p>
+        </div>
     </div>
 </template>
 
