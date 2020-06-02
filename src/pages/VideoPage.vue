@@ -13,7 +13,7 @@
               </span>
 
               <div class="flex flex-row items-center justify-center max-w-screen-lg mb-4 text-lg">
-                <div class="flex items-center w-1/2">
+                <div class="flex items-center w-1/2 align-center">
                     <user-infos parent="authorAvatar" :visible="showUserInfos"/>
                     <img id="authorAvatar" @mouseenter="showUserInfos = true" @mouseout="showUserInfos = false" src="@/assets/avatar2.png" class="w-10 h-10 mr-2 rounded-full cursor-pointer" />
                     <router-link class="" :to="`/channel/${user.uuid}`">
@@ -21,7 +21,9 @@
                         {{user.name}}
                       </span>
                     </router-link>
+                    <followButton v-if="isLoggedIn" :isLoggedIn="isLoggedIn" :userId="userId"></followButton>
                 </div>
+
 
                 <div class="flex flex-row items-center justify-end w-1/2 text-sm">
                   
@@ -40,7 +42,7 @@
                   </div>
 
                   <div class="pl-6">
-                    <button @click="showRatingModal = !showRatingModal" class="px-2 rounded-full hover">
+                    <button @click="openRatingModal" class="px-2 rounded-full hover">
                       <span class="text-yellow-400 fa fa-star"></span>
                       {{ratingsMedian}} <span class="text-xs font-thin">/ 10 (median of {{ratingsCount}} Votes)</span>
                     </button>
@@ -51,9 +53,7 @@
                 </div>
               </div>
 
-              <div class="flex flex-wrap font-light leading-7 sm:border-t sm:border-gray-200 sm:pt-5" :class="{'skeleton-box h-48 w-full rounded-md':loading}" v-html="description">
-
-              </div>
+              <div class="flex flex-wrap font-light leading-7 sm:border-t sm:border-gray-200 sm:pt-5" :class="{'skeleton-box h-48 w-full rounded-md':loading}" v-html="description"></div>
 
               <div v-if="hasPoster" class="flex justify-center pt-8 max-h-96 align-center">
                 <lightbox class="w-1/2 sm:border-t sm:border-gray-200 sm:pt-5" :images="[poster]"/>
@@ -101,14 +101,14 @@
                       </dt>
                       <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2" :class="{'skeleton-box h-8 w-full rounded-md':loading}">
                         <ul class="border border-gray-200 rounded-md">
-                          <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm leading-5">
+                          <li v-for="(option,index) in options.sources" v-bind:key="index" class="flex items-center justify-between py-3 pl-3 pr-4 text-sm leading-5">
                             <div class="flex items-center flex-1 w-0">
                               <span class="flex-1 w-0 ml-2 truncate">
-                                1920x1080@25fps
+                                
                               </span>
                             </div>
                             <div class="flex-shrink-0 ml-4">
-                              <a href="#" class="font-medium text-indigo-600 transition duration-150 ease-in-out hover:text-indigo-500">
+                              <a :href="option.src" class="font-medium text-indigo-600 transition duration-150 ease-in-out hover:text-indigo-500">
                                 Download
                               </a>
                             </div>
@@ -142,6 +142,7 @@ import ratingModal from '../components/modals/rateVideoModal.vue'
 import userInfos from '../components/modals/UserInformation.vue'
 import lightbox from '../components/Lightbox.vue'
 import ratings from '../components/ratings.vue'
+import followButton from '../components/followButton.vue'
 import { DOMAIN_TITLE } from '../.env'
 
 import firebase from 'firebase'
@@ -155,6 +156,7 @@ export default {
     userInfos,
     lightbox,
     ratings,
+    followButton,
     commentSection: () => ({
       component: import('../components/CommentSection.vue'),
       loading: {
@@ -342,7 +344,11 @@ export default {
       console.log('rating closed')
     },
     openRatingModal () {
-      this.showRatingModal = true
+      if (this.isLoggedIn) {
+        this.showRatingModal = true
+      } else {
+        this.showErrorMsg()
+      }
     },
     giveHeart () {
       if (this.isLoggedIn) {

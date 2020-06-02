@@ -28,24 +28,7 @@
               </div>
             </div>
           </div>
-          <div class="flex mt-5 lg:mt-0 lg:ml-4">
-            <span class="relative z-0 inline-flex shadow-sm">
-              <button @click="follow" type="button" class="relative inline-flex items-center px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-l-md hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700">
-                <svg class="w-5 h-5 mr-2 -ml-1 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"/>
-                </svg>
-                <span v-if="!followed">
-                  Follow
-                </span>
-                <span v-else>
-                  Unfollow
-                </span>
-              </button>
-              <span class="relative inline-flex items-center px-3 py-2 -ml-px text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-r-md hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700">
-                12k
-              </span>
-            </span>
-          </div>
+          <followButton :isLoggedIn="isLoggedIn" :userId="userId"></followButton>
         </div>
       </div>
       <div class="bg-gray-900">
@@ -71,63 +54,26 @@
 </template>
 
 <script>
-import firebase from 'firebase'
-
+import followButton from '../../components/followButton.vue'
 export default {
   components: {
+    followButton
   },
   data () {
     return {
-      followed: false
     }
   },
   computed: {
     userId () {
       return this.$route.params.id
+    },
+    isLoggedIn: function () {
+      return this.$store.state.user.isLoggedIn
     }
   },
   async mounted () {
-    let followersCollection = await firebase.firestore().collection('users').doc(this.userId).collection('followers')
-    let query = await followersCollection.where('uid', '==', this.$currentUser.userInfo.uuid).get()
-
-    if (query.empty) {
-      this.followed = false
-    } else {
-      this.followed = true
-    }
   },
   methods: {
-    async follow () {
-      if (this.followed) {
-        let followersCollection = await firebase.firestore().collection('users').doc(this.userId).collection('followers')
-        let followersQuery = await followersCollection.where('uid', '==', this.$currentUser.userInfo.uuid).get()
-        for (let follow of followersQuery.docs) {
-          follow.ref.delete()
-        }
-
-        let followsCollection = await firebase.firestore().collection('users').doc(this.$currentUser.userInfo.uuid).collection('follows')
-        let followsQuery = await followsCollection.where('uid', '==', this.userId).get()
-        for (let follow of followsQuery.docs) {
-          follow.ref.delete()
-        }
-        
-        this.followed = false
-      } else {
-        // update follows collection of curr user
-        let currUserRef = await firebase.firestore().collection('users').doc(this.$currentUser.userInfo.uuid).collection('follows').doc()
-        await currUserRef.set({
-          uid: this.userId // id of channel to follow
-        })
-        // update followers collection on this channel
-        let currChannelRef = await firebase.firestore().collection('users').doc(this.userId).collection('followers').doc()
-        await currChannelRef.set({
-          uid: this.$currentUser.userInfo.uuid
-        })
-
-        this.followed = true
-      }
-      this.$store.dispatch('feed/generate', this.$currentUser.userInfo.uuid)
-    }
   }
 }
 </script>

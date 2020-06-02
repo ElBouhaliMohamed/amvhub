@@ -30,29 +30,29 @@ export default {
     }
   },
   actions: {
-    generate (context, uid) {
+    generate (context, uuid) {
       var generateFeed = firebase.functions().httpsCallable('firestoreGenerateFeed')
-      generateFeed({ uid }).then((result) => {
+      generateFeed({ uuid }).then((result) => {
         console.log(result)
       }).catch((err) => {
         console.log(err)
       })
     },
-    async generateFeedForFollowers (context, uid) {
-      let followersCollection = await firebase.firestore().collection('users').doc(uid).collection('followers').get()
+    async generateFeedForFollowers (context, uuid) {
+      let followersCollection = await firebase.firestore().collection('users').doc(uuid).collection('followers').get()
       for (let follower of followersCollection.docs) {
         let followerData = follower.data()
-        context.dispatch('generate', followerData.uid)
+        context.dispatch('generate', followerData.uuid)
       }
     },
-    async fetchFeed (context, uid) {
+    async fetchFeed (context, uuid) {
       try {
         let feedCollection = null
         if (context.state.lastItemUid === '') {
-          feedCollection = await firebase.firestore().collection('users').doc(uid).collection('feed').orderBy('createdAt', 'desc').limit(5).get()
+          feedCollection = await firebase.firestore().collection('users').doc(uuid).collection('feed').orderBy('createdAt', 'desc').limit(5).get()
         } else {
-          let lastItem = await firebase.firestore().collection('users').doc(uid).collection('feed').doc(context.state.lastItemUid).get()
-          feedCollection = await firebase.firestore().collection('users').doc(uid).collection('feed').orderBy('createdAt', 'desc').startAfter(lastItem).limit(5).get()
+          let lastItem = await firebase.firestore().collection('users').doc(uuid).collection('feed').doc(context.state.lastItemUid).get()
+          feedCollection = await firebase.firestore().collection('users').doc(uuid).collection('feed').orderBy('createdAt', 'desc').startAfter(lastItem).limit(5).get()
         }
     
         if (feedCollection.docs.length === 0) {
