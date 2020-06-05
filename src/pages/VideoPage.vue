@@ -21,7 +21,7 @@
                         {{user.name}}
                       </span>
                     </router-link>
-                    <followButton v-if="isLoggedIn" :isLoggedIn="isLoggedIn" :userId="userId"></followButton>
+                    <followButton v-if="isLoggedIn" class="hidden px-4 sm:block" :isLoggedIn="isLoggedIn" :userId="userId"></followButton>
                 </div>
 
 

@@ -41,6 +41,10 @@ export const routes = [
     meta: { title: `${DOMAIN_TITLE}`, enableHeader: true, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: false },
     children: [
       {
+        path: '',
+        component: login
+      },
+      {
         path: 'videos',
         component: login
       },

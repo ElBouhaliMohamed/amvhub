@@ -83,7 +83,8 @@ export default {
             views: data.views,
             date: [createdAt.toISOString(), createdAt.toGMTString()],
             thumbnail: currThumbnail,
-            user: userData
+            user: userData,
+            description: data.description
           })
 
           index++

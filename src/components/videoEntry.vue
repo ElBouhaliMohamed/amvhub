@@ -3,7 +3,8 @@
     <div class="w-full">
       <div class="relative aspect-ratio-16/9" @mouseenter="showPreview()" @mouseleave="hidePreview()">
         <router-link :id="preview" :to="this.url">
-          <img :src="thumbnail" class="absolute object-cover w-full h-full thumbnailWrapper"/>
+          <lazy-img :lazy-src="thumbnail" class="absolute object-cover w-full h-full thumbnailWrapper"/>
+          <!-- <img :src="thumbnail" class=""/> -->
         </router-link>
         <transition >
           <button @click="mute" class="absolute top-0 right-0 z-20 transition-all duration-500 ease-in-out transform scale-100 opacity-0 group hover:scale-125" :class="{'opacity-100':isPlaying}">

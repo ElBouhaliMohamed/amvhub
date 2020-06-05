@@ -22,6 +22,10 @@ import firebaseConfig from './firebaseConfig.json'
 
 // Vue.use(elasticsearch, elasticSearchConfig)
 
+import lazyLoadImage from './components/lazyLoadImage.vue'
+
+Vue.component('lazyImg', lazyLoadImage)
+
 setGlobalHelpers()
 Vue.config.productionTip = false
 

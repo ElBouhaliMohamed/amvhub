@@ -3,6 +3,8 @@
     <span class="flex flex-col items-center">
       <router-link :to="`/channel/${user.uuid}`">
         <img :src="user.photoURL" alt="avatar" class="w-10 h-10 mr-2 rounded-full"/>
+        <!-- <lazy-img :lazy-src="user.photoURL" class=""/> -->
+
       </router-link>
       <button v-if="children != null || comment.isNested" @click="minimized = true" class="h-full mt-2 mr-2 border-l-2 opacity-100 hover:border-gray-900" :class="{'hidden':minimized}"></button>
     </span>

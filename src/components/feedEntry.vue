@@ -1,0 +1,69 @@
+<template>
+    <div class="block transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus:bg-gray-100 sm:border-b sm:border-gray-300"> <!--  -->
+        <div class="px-2 py-4">
+            <div class="flex flex-row flex-1 min-w-0 md:flex-col">
+                <div class="flex-shrink-0 block pl-4 group focus:outline-none">
+                <div class="flex items-center">
+                    <router-link :to="`/channel/${userUuid}`">
+                    <img class="inline-block w-8 h-8 rounded-full md:h-16 md:w-16" src="../assets/avatar.jpg" alt="avatar" />
+                    </router-link>
+                    <div class="hidden ml-3 md:block">
+                    <p class="text-xl font-bold leading-5 text-gray-700 group-hover:text-gray-900">
+                        {{userName}}
+                    </p>
+                    <router-link :to="`/channel/${userUuid}`"
+                        class="text-xs font-medium leading-4 text-gray-500 transition duration-150 ease-in-out group-hover:text-gray-900 group-focus:underline">
+                        View profile
+                    </router-link>
+                    </div>
+                </div>
+                </div>
+                <div class="flex flex-row md:pt-2">
+                <router-link :to="`/video/${videoUuid}`" class="flex-shrink-0 w-1/4 pl-4">
+                    <div class="relative aspect-ratio-16/9">
+                      <img class="absolute object-cover w-full h-full" :src="thumbnail">
+                    </div>
+                </router-link>
+                <div class="flex flex-1 pl-2">
+                    <div class="flex pt-1 md:block">
+                        <div class="block">
+                        <span class="px-4 text-2xl font-bold leading-5 text-gray-900">
+                            <router-link :to="`/video/${videoUuid}`">{{title}}</router-link>
+                        </span>
+                        <span class="flex flex-col px-4 text-xs font-thin leading-5 text-gray-500 md:flex-row md:text-sm">
+                            <router-link :to="`/channel/${userUuid}`" class="block font-medium leading-5 truncate md:hidden">{{userName}}</router-link>
+                            <span class="flex flex-row">
+                            <span>{{views}} views</span>
+                            <span class="block px-1 md:px-2">&#8226;</span>
+                            <time v-bind:datetime="date[0]">{{date[1]}}</time>
+                            </span>
+                            <p class="block w-1/2 h-12 overflow-hidden text-sm font-thin text-gray-900 truncate md:hidden" v-html="description"></p>
+                        </span>
+                        </div>
+                        <p class="hidden w-1/2 h-12 px-4 py-2 overflow-hidden text-sm font-thin text-gray-900 truncate md:block" v-html="description"></p>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+  props: {
+    userUuid: String,
+    userName: String,
+    videoUuid: String,
+    thumbnail: String,
+    title: String,
+    date: Array,
+    views: Number,
+    description: String
+  }
+}
+</script>
+
+<style>
+
+</style>
