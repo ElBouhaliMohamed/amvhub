@@ -12,7 +12,7 @@
         <div class="flex flex-row items-center justify-start text-center">
             <router-link :to="`/channel/${user.uuid}`" class="text-sm font-medium leading-5 text-gray-900" href>{{user.name}}</router-link>
             <span class="px-2 text-lg leading-5 text-gray-500">·</span>
-            <time class="text-xs leading-5 text-gray-500" v-bind:datetime="date">{{timeSincePosted}} ago</time>
+            <time class="text-xs leading-5 text-gray-500" v-bind:datetime="date">{{timeSince(date)}} ago</time>
             <button @click="minimized = false" class="px-2 text-gray-500 hover:text-gray-900" :class="{'hidden':!minimized}">
               <svg class="w-5 h-5 " fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             </button>
@@ -51,7 +51,7 @@
 
 <script>
 import textEditor from './textEditor'
-import { saveComment, getRef, timeSince, getUserData } from '../services/comments.service'
+import { saveComment, getRef, getUserData } from '../services/comments.service'
 
 export default {
   name: 'comment',
@@ -63,7 +63,6 @@ export default {
       replying: false,
       html: '',
       date: new Date(this.comment.commentedAt.seconds * 1000 + this.comment.commentedAt.nanoseconds / 1000000),
-      timeSincePosted: timeSince(new Date(this.comment.commentedAt.seconds * 1000 + this.comment.commentedAt.nanoseconds / 1000000)),
       user: { photoURL: '' },
       minimized: false,
       hearts: 0,

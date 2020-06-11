@@ -5,8 +5,6 @@
 
 import Vue from 'vue'
 
-import VueCarousel from 'vue-carousel'
-
 import Vue2TouchEvents from 'vue2-touch-events'
 
 import VueProgressBar from 'vue-progressbar'
@@ -21,27 +19,15 @@ import vueHeadful from 'vue-headful'
 
 import Clipboard from 'v-clipboard'
 
-import VueApexCharts from 'vue-apexcharts'
+import VueMasonry from 'vue-masonry-css'
 
 Vue.use(Clipboard)
 
-Vue.use(VueApexCharts)
-
-Vue.component('apexchart', VueApexCharts)
-// import InnerSearch from 'vue-innersearch'
-// import elasticSearchConfig from './elasticSearchConfig.json'
-
-// InnerSearch.setHost({
-  
-// })
-
-// Vue.use(InnerSearch)
+Vue.use(VueMasonry)
 
 Vue.component('headful', vueHeadful)
 
 Vue.use(infiniteScroll)
-
-Vue.use(VueCarousel)
 
 Vue.use(Vue2TouchEvents)
 

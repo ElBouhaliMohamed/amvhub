@@ -1,10 +1,9 @@
 <template>
-  <div data-aos="fade-up" data-aos-once="true" class="relative flex w-full text-white">
-    <div class="w-full">
-      <div class="relative aspect-ratio-16/9" @mouseenter="showPreview()" @mouseleave="hidePreview()">
+  <div class="relative flex text-white transition-all duration-500 ease-in-out transform" :class="{'justify-end': isPoster, 'mb-20':isPlaying}"> <!-- data-aos="fade-up" data-aos-once="false" -->
+    <div :class="{'w-full':!isPoster}">
+      <div :class="{'relative aspect-ratio-16/9': !isPoster}" @mouseenter="showPreview()" @mouseleave="hidePreview()">
         <router-link :id="preview" :to="this.url">
-          <lazy-img :lazy-src="thumbnail" class="absolute object-cover w-full h-full thumbnailWrapper"/>
-          <!-- <img :src="thumbnail" class=""/> -->
+          <lazy-img :lazy-src="thumbnail" :class="{'absolute object-cover w-full h-full thumbnailWrapper': !isPoster}"/>
         </router-link>
         <transition >
           <button @click="mute" class="absolute top-0 right-0 z-20 transition-all duration-500 ease-in-out transform scale-100 opacity-0 group hover:scale-125" :class="{'opacity-100':isPlaying}">
@@ -18,36 +17,55 @@
       </div>
     </div>
 
-    <!-- <div class="videoLengthBackground"></div>
-    <div class="videoLength">{{lengthInMinutes}}</div> -->
-    <!-- <div class="videoInfoBackground"></div> -->
-
-    <div class="absolute bottom-0 left-0 z-30 flex flex-col w-3/4 text-black transition-all duration-300 ease-in-out transform" :class="{'translate-y-18': isPlaying}">
-      <router-link :to="`/channel/${user.uuid}`" class="text-base font-thin leading-none uppercase">{{user.name}}</router-link>
-      <span class="inline-block text-3xl leading-none uppercase truncate align-text-bottom md:text-4xl lg:text-5xl">{{title}}</span>
+    <div class="absolute bottom-0 left-0 z-30 flex flex-col w-3/4 text-black transition-all duration-500 ease-in-out transform" :class="{'translate-y-18': isPlaying, 'opacity-0': isPoster && !hovering, 'w-full bg-gray-50 p-2 bg-opacity-50': isPoster}">
+      <router-link :to="`/channel/${user.uuid}`" class="text-sm font-thin leading-none uppercase">{{user.name}}</router-link>
+      <span class="inline-block text-xl leading-none uppercase truncate align-text-bottom md:text-2xl lg:text-3xl">{{title}}</span>
     </div>
 
-    <div class="absolute bottom-0 right-0 z-30 flex flex-col w-1/4 transition-all duration-300 ease-in-out transform " :class="{'translate-y-18': isPlaying}">
-      <span class="inline-block font-bold text-right text-black uppercase align-text-top lg:text-lg" v-for="tag in sortedTags" :key="tag">
+    <div v-if="tags != null" class="absolute bottom-0 right-0 z-30 flex flex-col w-1/4 transition-all duration-300 ease-in-out transform " :class="{'translate-y-18': isPlaying}">
+      <span class="inline-block overflow-hidden font-bold text-right text-black uppercase truncate align-text-top lg:text-lg" v-for="tag in sortedTags" :key="tag">
       {{tag}}
       </span>
     </div>
-    <!-- <img src="@/assets/avatar.jpg" alt="avatar" class="videoAvatar"> -->
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    uuid: String,
-    title: String,
-    user: Object,
-    length: String,
-    thumbnail: String,
-    tags: Array,
+    uuid: {
+      required: true,
+      type: String
+    },
+    title: {
+      required: true,
+      type: String
+    },
+    user: {
+      required: true,
+      type: Object
+    },
+    thumbnail: {
+      required: true,
+      type: String
+    },
+    tags: {
+      required: false,
+      type: Array
+    },
     preview: {
+      required: false,
       type: String,
       default: ''
+    },
+    length: {
+      required: false,
+      type: String
+    },
+    isPoster: {
+      required: false,
+      type: Boolean,
+      default: false
     }
   },
   data: function () {
@@ -78,13 +96,13 @@ export default {
     }
   },
   mounted () {
-    const sortBy = ['Game Music Video (GMV)', 'Multi Editor Project (MEP)', 'Manga Music Video (MMV)', 'Action', 'Drama', 'Psychedelic', 'Horror', 'Romance', 'Comedy', 'Dance', 'Sentimental', 'Trailer', 'Character Profile', 'Cross-Over']
-    this.sortedTags = this.customSort({
-      data: this.tags,
-      sortBy: [...sortBy, 'other']
-    }).splice(0, 2)
-    console.log(this.tags)
-    console.log(this.sortedTags)
+    if (this.tags != null) {
+      const sortBy = ['Game Music Video (GMV)', 'Multi Editor Project (MEP)', 'Manga Music Video (MMV)', 'Action', 'Drama', 'Psychedelic', 'Horror', 'Romance', 'Comedy', 'Dance', 'Sentimental', 'Trailer', 'Character Profile', 'Cross-Over']
+      this.sortedTags = this.customSort({
+        data: this.tags,
+        sortBy: [...sortBy, 'other']
+      }).splice(0, 2)
+    }
   },
   watch: {
     isMuted (newVal) {

@@ -1,7 +1,7 @@
-import firebase from 'firebase'
+import { firebase, firestore } from './firebase.service'
 
 export async function retrieveChildren (videoRef, parentRef) {
-  let allChildren = await firebase.firestore().collection('comments').where('video', '==', videoRef)
+  let allChildren = await firestore.collection('comments').where('video', '==', videoRef)
     .where('isNested', '==', true)
     .where('parent', '==', parentRef)
     .get()
@@ -22,7 +22,7 @@ export async function retrieveChildren (videoRef, parentRef) {
 }
 
 export async function retrieveTopLevelComments (videoRef) {
-  let topLevelComments = await firebase.firestore().collection('comments').where('video', '==', videoRef)
+  let topLevelComments = await firestore.collection('comments').where('video', '==', videoRef)
     .where('isNested', '==', false)
     .get()
 
@@ -30,7 +30,7 @@ export async function retrieveTopLevelComments (videoRef) {
 }
 
 export async function retrieveSingleComment (videoRef, uuid) {
-  let comment = await firebase.firestore().collection('comments').where('video', '==', videoRef)
+  let comment = await firestore.collection('comments').where('video', '==', videoRef)
     .where('uuid', '==', uuid)
     .get()
 
@@ -49,8 +49,7 @@ export async function retrieveComments (videoRef) { // get toplevel and retrieve
 }
 
 export function getRef (uuid) {
-  let commentRef = firebase
-    .firestore()
+  let commentRef = firestore
     .collection('comments')
     .doc(uuid)
 
@@ -58,14 +57,13 @@ export function getRef (uuid) {
 }
 
 export async function saveComment (html, userUUID, videoRef, parentRef = null) {
-  let commentRef = firebase
-    .firestore()
+  let commentRef = firestore
     .collection('comments')
     .doc()
 
   commentRef.set({
     html: html,
-    user: firebase.firestore().doc(`/users/${userUUID}`),
+    user: firestore.doc(`/users/${userUUID}`),
     video: videoRef,
     parent: parentRef,
     isNested: parentRef != null,
@@ -78,56 +76,12 @@ export async function saveComment (html, userUUID, videoRef, parentRef = null) {
   return commentRef
 }
 
-export function timeSince (date) {
-  if (typeof date !== 'object') {
-    date = new Date(date)
-  }
-
-  var seconds = Math.floor((new Date() - date) / 1000)
-  var intervalType
-
-  var interval = Math.floor(seconds / 31536000)
-  if (interval >= 1) {
-    intervalType = 'year'
-  } else {
-    interval = Math.floor(seconds / 2592000)
-    if (interval >= 1) {
-      intervalType = 'month'
-    } else {
-      interval = Math.floor(seconds / 86400)
-      if (interval >= 1) {
-        intervalType = 'day'
-      } else {
-        interval = Math.floor(seconds / 3600)
-        if (interval >= 1) {
-          intervalType = 'hour'
-        } else {
-          interval = Math.floor(seconds / 60)
-          if (interval >= 1) {
-            intervalType = 'minute'
-          } else {
-            interval = seconds
-            intervalType = 'second'
-          }
-        }
-      }
-    }
-  }
-
-  if (interval > 1 || interval === 0) {
-    intervalType += 's'
-  }
-
-  return interval + ' ' + intervalType
-}
-
 export async function getUserData (userRef) {
   let user = await userRef.get()
   let userInfo = user.data()
 
   if (!userInfo.isGoogleAccount) {
-    userInfo.photoURL = await firebase
-      .storage()
+    userInfo.photoURL = await storage
       .ref(`profilePictures/${userInfo.photo}`)
       .getDownloadURL()
   }

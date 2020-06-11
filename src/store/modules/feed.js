@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+import { firestore, functions } from './../../services/firebase.service'
 
 const getDefaultState = () => {
   return {
@@ -31,7 +31,7 @@ export default {
   },
   actions: {
     generate (context, uuid) {
-      var generateFeed = firebase.functions().httpsCallable('firestoreGenerateFeed')
+      var generateFeed = functions.httpsCallable('firestoreGenerateFeed')
       generateFeed({ uuid }).then((result) => {
         console.log(result)
       }).catch((err) => {
@@ -39,7 +39,7 @@ export default {
       })
     },
     async generateFeedForFollowers (context, uuid) {
-      let followersCollection = await firebase.firestore().collection('users').doc(uuid).collection('followers').get()
+      let followersCollection = await firestore.collection('users').doc(uuid).collection('followers').get()
       for (let follower of followersCollection.docs) {
         let followerData = follower.data()
         context.dispatch('generate', followerData.uuid)
@@ -49,10 +49,10 @@ export default {
       try {
         let feedCollection = null
         if (context.state.lastItemUid === '') {
-          feedCollection = await firebase.firestore().collection('users').doc(uuid).collection('feed').orderBy('createdAt', 'desc').limit(5).get()
+          feedCollection = await firestore.collection('users').doc(uuid).collection('feed').orderBy('createdAt', 'desc').limit(5).get()
         } else {
-          let lastItem = await firebase.firestore().collection('users').doc(uuid).collection('feed').doc(context.state.lastItemUid).get()
-          feedCollection = await firebase.firestore().collection('users').doc(uuid).collection('feed').orderBy('createdAt', 'desc').startAfter(lastItem).limit(5).get()
+          let lastItem = await firestore.collection('users').doc(uuid).collection('feed').doc(context.state.lastItemUid).get()
+          feedCollection = await firestore.collection('users').doc(uuid).collection('feed').orderBy('createdAt', 'desc').startAfter(lastItem).limit(5).get()
         }
     
         if (feedCollection.docs.length === 0) {
@@ -67,7 +67,7 @@ export default {
           let data = entry.data()
           let createdAt = data.createdAt.toDate()
 
-          let thumbnailsRef = await firebase.firestore().doc(`thumbnails/${data.uuid}/`)
+          let thumbnailsRef = await firestore.doc(`thumbnails/${data.uuid}/`)
           let thumbnailsQuery = await thumbnailsRef.get()
           let thumbnails = thumbnailsQuery.data()
           let currThumbnail = thumbnails.active > 3 ? thumbnails.customThumbnail : thumbnails.thumbnails[thumbnails.active]

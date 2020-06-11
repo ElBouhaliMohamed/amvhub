@@ -1,5 +1,5 @@
 import $store from '../store'
-import firebase from 'firebase'
+import { auth } from './../services/firebase.service'
 
 export function setPageTitleMiddleware (to, from, next) {
   const pageTitle = to.matched.find(item => item.meta.title)
@@ -32,7 +32,7 @@ export function checkIfHeaderIsNeeded (to, from, next) {
  * Check access permission to auth routes
  */
 export function checkAccessMiddleware (to, from, next) {
-  const currentUser = firebase.auth().currentUser
+  const currentUser = auth.currentUser
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
 
   if (requiresAuth && currentUser) return next()
@@ -44,7 +44,7 @@ export function checkAccessMiddleware (to, from, next) {
  * Check access permission to auth routes
  */
 export function checkAlreadySignedInUserAccessMiddleware (to, from, next) {
-  const currentUser = firebase.auth().currentUser
+  const currentUser = auth.currentUser
   const cantOpenWhenSignedIn = to.matched.some(record => record.meta.cantOpenWhenSignedIn)
 
   if (!cantOpenWhenSignedIn) return next()

@@ -95,27 +95,7 @@ export default {
         } else {
           this.topLevelComments = await retrieveSingleComment(newRef, this.sharedComment)
         }
-        //   let foundComments = firebase.firestore().collection('comments').where('video', '==', newRef)
 
-        //   foundComments.onSnapshot((querySnapshot) => {
-        //     var sections = []
-        //     querySnapshot.forEach(async function (doc) {
-        //       
-
-        //       sections.push({
-        //         uid: data.id,
-        //         user: userInfo.name,
-        //         avatar: userInfo.photoURL,
-        //         text: data.text,
-        //         commentedAt: data.commentedAt
-        //       })
-
-        //       sections.sort(function (a, b) {
-        //         return b.commentedAt - a.commentedAt
-        //       })
-        //     })
-        //     this.sections = sections
-        //   })
       }
     }
   }

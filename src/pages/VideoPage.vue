@@ -136,27 +136,25 @@
 </template>
 
 <script>
-import videoPlayer from '../components/videoPlayer.vue'
 import videoBar from '../components/videoBar.vue'
 import ratingModal from '../components/modals/rateVideoModal.vue'
 import userInfos from '../components/modals/UserInformation.vue'
 import lightbox from '../components/Lightbox.vue'
-import ratings from '../components/ratings.vue'
+// import ratings from '../components/ratings.vue'
 import followButton from '../components/followButton.vue'
 import { DOMAIN_TITLE } from '../.env'
 
-import firebase from 'firebase'
+import { firestore, storage } from '../services/firebase.service'
 
 export default {
   name: 'VideoPage',
   components: {
-    videoPlayer,
     videoBar,
     ratingModal,
     userInfos,
     lightbox,
-    ratings,
     followButton,
+    videoPlayer: () => import('../components/videoPlayer.vue'),
     commentSection: () => ({
       component: import('../components/CommentSection.vue'),
       loading: {
@@ -214,7 +212,7 @@ export default {
   async mounted () {
     this.loading = true
     this.$Progress.start()
-    var listRef = firebase.storage().ref(`videos/${this.videoId}/`)
+    var listRef = storage.ref(`videos/${this.videoId}/`)
     let res = await listRef.listAll()
     let options = {
       autoplay: true,
@@ -225,7 +223,7 @@ export default {
       for (let item of res.items) {
         let metadata = await item.getMetadata()
         if (metadata) {
-          let url = await firebase.storage().ref(metadata.fullPath).getDownloadURL()
+          let url = await storage.ref(metadata.fullPath).getDownloadURL()
           let name = metadata.name.split('-')
 
           options.sources.push({
@@ -236,7 +234,7 @@ export default {
       }
     };
 
-    let videoQueryRef = firebase.firestore().doc(`videos/${this.videoId}/`)
+    let videoQueryRef = firestore.doc(`videos/${this.videoId}/`)
     let videoQuery = await videoQueryRef.get()
     let data = videoQuery.data()
     let user = await data.user.get()
@@ -264,7 +262,7 @@ export default {
     }
     this.$store.dispatch('videoPage/processRatingsArray', this.userId)
 
-    let thumbnailsRef = await firebase.firestore().doc(`thumbnails/${this.videoId}/`)
+    let thumbnailsRef = await firestore.doc(`thumbnails/${this.videoId}/`)
     let thumbnailsQuery = await thumbnailsRef.get()
     let thumbnails = thumbnailsQuery.data()
     let currThumbnail = thumbnails.active > 3 ? thumbnails.customThumbnail : thumbnails.thumbnails[thumbnails.active]
@@ -281,7 +279,7 @@ export default {
     }
 
     if (this.hasPoster) {
-      let posterRef = await firebase.storage().ref(`poster/${this.videoId}/poster_${this.videoId}`)
+      let posterRef = await storage.ref(`poster/${this.videoId}/poster_${this.videoId}`)
       let posterUrl = await posterRef.getDownloadURL()
       this.poster = posterUrl
     }

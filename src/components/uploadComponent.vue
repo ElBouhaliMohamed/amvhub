@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import { firestore } from './../services/firebase.service'
 
 export default {
   computed: {
@@ -53,12 +53,12 @@ export default {
     },
     async startUpload (file) {
       try {
-        let videoDbRef = await firebase.firestore().collection('videos').doc()
+        let videoDbRef = await firestore.collection('videos').doc()
         await videoDbRef.set({ uuid: videoDbRef.id })
 
         let MIME = file.type
 
-        let videosRef = await firebase.storage().ref('videos').child(`${videoDbRef.id}`).child(`${videoDbRef.id}.${MIME.split('/')[1]}`)
+        let videosRef = await firestore.ref('videos').child(`${videoDbRef.id}`).child(`${videoDbRef.id}.${MIME.split('/')[1]}`)
 
         let uploadTask = videosRef.put(file)
         let self = this

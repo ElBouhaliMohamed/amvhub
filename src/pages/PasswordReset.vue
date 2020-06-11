@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import { auth } from '../services/firebase.service'
 import logo from '../components/logo'
 
 export default {
@@ -98,7 +98,7 @@ export default {
       }
 
       if (this.errors.length == 0) {
-        firebase.auth().sendPasswordResetEmail(this.email).then(() => {
+        auth.sendPasswordResetEmail(this.email).then(() => {
           this.$Progress.finish()
           this.showSuccessMsg({
             message: `An email was send to ${this.email}`

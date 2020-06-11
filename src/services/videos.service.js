@@ -1,7 +1,7 @@
-import firebase from 'firebase'
+import { firestore } from './firebase.service'
 
 export async function rateVideo (videoRef, userId, rating) {
-  firebase.firestore().runTransaction(function (transaction) {
+  firestore.runTransaction(function (transaction) {
     return transaction.get(videoRef).then(function (video) {
       if (!video.exists) {
         throw 'Document does not exist!'
@@ -23,4 +23,43 @@ export async function rateVideo (videoRef, userId, rating) {
   }).catch(function (err) {
     console.error(err)
   })
+}
+
+export function sortMostPopular (videoArray) {
+  videoArray.sort(mostPopularCompareFunction)
+  return videoArray
+}
+
+export function sortNewest (videoArray) {
+  videoArray.sort(newestCompareFunction)
+  return videoArray
+}
+
+export function sortOldest (videoArray) {
+  videoArray.sort(oldestCompareFunction)
+  return videoArray
+}
+
+function mostPopularCompareFunction (a, b) {
+  if (a.views === b.views) {
+    return 0
+  } else {
+    return a.views > b.views ? -1 : 1
+  }
+}
+
+function newestCompareFunction (a, b) {
+  if (a.date[1] === b.date[1]) {
+    return 0
+  } else {
+    return a.date[1] > b.date[1] ? -1 : 1
+  }
+}
+
+function oldestCompareFunction (a, b) {
+  if (a.date[1] === b.date[1]) {
+    return 0
+  } else {
+    return a.date[1] < b.date[1] ? -1 : 1
+  }
 }

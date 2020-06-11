@@ -91,7 +91,7 @@
 
 <script>
 import logo from '../components/logo.vue'
-import firebase from 'firebase'
+import { auth } from './../services/firebase.service'
 
 export default {
   name: 'Header',
@@ -114,7 +114,7 @@ export default {
     },
     logout () {
       this.open = false
-      firebase.auth().signOut().then(() => {
+      auth.signOut().then(() => {
         this.$store.commit('user/SET_LOGGED_IN', false)
         this.$router.replace('/login')
       })

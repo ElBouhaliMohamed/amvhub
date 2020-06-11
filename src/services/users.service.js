@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+import { firebase, firestore, auth, storage } from './firebase.service'
 import BaseService from './base.service'
 import store from '../store'
 
@@ -9,19 +9,17 @@ class UsersService extends BaseService {
 
   getCurrent () {
     return new Promise(async function (resolve, reject) {
-      let currentUser = await firebase.auth().currentUser
+      let currentUser = await auth.currentUser
       if (currentUser != null) {
         try {
-          let userRef = await firebase
-            .firestore()
+          let userRef = await firestore
             .doc(`users/${currentUser.uid}`)
             .get()
 
           let userInfo = await userRef.data()
 
           if (userInfo.uuid === undefined) {
-            await firebase
-              .firestore()
+            await firestore
               .collection('users')
               .doc(currentUser.uid)
               .update({
@@ -30,8 +28,7 @@ class UsersService extends BaseService {
           }
 
           if (!userInfo.isGoogleAccount) {
-            userInfo.photoURL = await firebase
-              .storage()
+            userInfo.photoURL = await storage
               .ref(`profilePictures/${userInfo.photo}`)
               .getDownloadURL()
           }
@@ -47,7 +44,7 @@ class UsersService extends BaseService {
   }
 
   afterLogin () {
-    firebase.auth().onAuthStateChanged(function (user) {
+    auth.onAuthStateChanged(function (user) {
       if (user) {
         store.commit('user/SET_LOGGED_IN', true)
         store.dispatch('user/getCurrent')
@@ -60,8 +57,7 @@ class UsersService extends BaseService {
 
   login (email, password) {
     return new Promise(function (resolve, reject) {
-      return firebase
-        .auth()
+      return auth
         .signInWithEmailAndPassword(email, password)
         .then(user => {
           resolve(user)
@@ -76,17 +72,15 @@ class UsersService extends BaseService {
     return new Promise(async function (resolve, reject) {
       try {
         const provider = new firebase.auth.GoogleAuthProvider()
-        let result = await firebase.auth().signInWithPopup(provider)
-        const usersRef = await firebase
-          .firestore()
+        let result = await auth.signInWithPopup(provider)
+        const usersRef = await firestore
           .collection('users')
           .doc(result.user.uid)
         let userSnapshoot = await usersRef.get()
         if (userSnapshoot.exists) {
           resolve(result)
         } else { // first time google sign up
-          await firebase
-            .firestore()
+          await firestore
             .collection('users')
             .doc(result.user.uid)
             .set({
@@ -109,7 +103,7 @@ class UsersService extends BaseService {
   signUp (username, email, password, avatar, banner, about, notifications) {
     return new Promise(async function (resolve, reject) {
       try {
-        let usersRef = await firebase.firestore().collection('users').get()
+        let usersRef = await firestore.collection('users').get()
 
         usersRef.forEach((userRef) => {
           if (userRef.exists && userRef.data().name === username) {
@@ -117,24 +111,22 @@ class UsersService extends BaseService {
           }
         })
 
-        let result = await firebase
-          .auth()
+        let result = await auth
           .createUserWithEmailAndPassword(email, password)
 
         if (avatar != null) {
-          let storageRef = await firebase.storage().ref('profilePictures/')
+          let storageRef = await storage.ref('profilePictures/')
           let photoRef = await storageRef.child(`${result.user.uid}`)
           await photoRef.put(avatar)
         }
 
         if (banner != null) {
-          let storageRef = await firebase.storage().ref('profileBanners/')
+          let storageRef = await storage.ref('profileBanners/')
           let photoRef = await storageRef.child(`${result.user.uid}`)
           await photoRef.put(banner)
         }
 
-        let userRef = await firebase
-          .firestore()
+        let userRef = await firestore
           .collection('users')
           .doc(result.user.uid)
           .set({

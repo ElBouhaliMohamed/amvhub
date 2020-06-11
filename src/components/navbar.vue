@@ -105,7 +105,8 @@
 
 <script>
 import backToTop from '../components/backToTop.vue'
-import firebase from 'firebase'
+import { auth } from './../services/firebase.service'
+
 import logo from '../components/logo.vue'
 
 export default {
@@ -149,7 +150,7 @@ export default {
       this.$store.dispatch('theme/switchTheme')
     },
     logout () {
-      firebase.auth().signOut().then(() => {
+      auth.signOut().then(() => {
         this.$store.commit('user/SET_LOGGED_IN', false)
         this.$router.replace('login')
       })

@@ -15,3 +15,7 @@ Vue.mixin(currentUser)
 Vue.mixin(jumpTo)
 Vue.mixin(formatDateTime)
 Vue.mixin(clickaway)
+
+Vue.filter('truncate', function (text, stop, clamp) {
+  return text.slice(0, stop) + (stop < text.length ? clamp || '...' : '')
+})

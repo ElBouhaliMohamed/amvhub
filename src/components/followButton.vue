@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import { firestore } from './../services/firebase.service'
 
 export default {
   props: {
@@ -31,7 +31,7 @@ export default {
     }
   },
   async mounted () {
-    let followersCollection = await firebase.firestore().collection('users').doc(this.userId).collection('followers')
+    let followersCollection = await firestore.collection('users').doc(this.userId).collection('followers')
     let query = await followersCollection.where('uuid', '==', this.$currentUser.userInfo.uuid).get()
 
     if (query.empty) {
@@ -45,13 +45,13 @@ export default {
       if (this.isLoggedIn) {
         this.$Progress.start()
         if (this.followed) {
-          let followersCollection = await firebase.firestore().collection('users').doc(this.userId).collection('followers')
+          let followersCollection = await firestore.collection('users').doc(this.userId).collection('followers')
           let followersQuery = await followersCollection.where('uuid', '==', this.$currentUser.userInfo.uuid).get()
           for (let follow of followersQuery.docs) {
             follow.ref.delete()
           }
 
-          let followsCollection = await firebase.firestore().collection('users').doc(this.$currentUser.userInfo.uuid).collection('follows')
+          let followsCollection = await firestore.collection('users').doc(this.$currentUser.userInfo.uuid).collection('follows')
           let followsQuery = await followsCollection.where('uuid', '==', this.userId).get()
           for (let follow of followsQuery.docs) {
             follow.ref.delete()
@@ -60,12 +60,12 @@ export default {
           this.followed = false
         } else {
           // update follows collection of curr user
-          let currUserRef = await firebase.firestore().collection('users').doc(this.$currentUser.userInfo.uuid).collection('follows').doc()
+          let currUserRef = await firestore.collection('users').doc(this.$currentUser.userInfo.uuid).collection('follows').doc()
           await currUserRef.set({
             uuid: this.userId // id of channel to follow
           })
           // update followers collection on this channel
-          let currChannelRef = await firebase.firestore().collection('users').doc(this.userId).collection('followers').doc()
+          let currChannelRef = await firestore.collection('users').doc(this.userId).collection('followers').doc()
           await currChannelRef.set({
             uuid: this.$currentUser.userInfo.uuid
           })

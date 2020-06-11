@@ -174,17 +174,16 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import { firebase, firestore, functions, storage } from './../services/firebase.service'
 import loadingAnimation from '../components/loadingAnimation2.vue'
 import VueTagsInput from '@johmun/vue-tags-input'
 import textEditor from './textEditor'
-import { snap } from 'gsap'
 
 export default {
   mounted () {
     console.log('Publish Video Component mounted')
     let self = this
-    firebase.firestore().collection('thumbnails').doc(this.videoUID)
+    firestore.collection('thumbnails').doc(this.videoUID)
       .onSnapshot(function (doc) {
         let data = doc.data()
         console.log(data)
@@ -220,7 +219,7 @@ export default {
     loadEditors () {
       if (this.editor.length < 2) return
       
-      let searchUserByName = firebase.functions().httpsCallable('elasticsearchUserSearchByName')
+      let searchUserByName = functions.httpsCallable('elasticsearchUserSearchByName')
       searchUserByName({ searchQuery: this.editor }).then((result) => {
         console.log(result)
         const options = result.data.hits.hits.map(i => ({ text: i._source.name }))
@@ -251,36 +250,36 @@ export default {
       this.uploadPoster(droppedFiles[0])
     },
     async uploadPoster (f) {
-      let posterRef = firebase.storage().ref(`poster/${this.videoUID}`).child(`poster_${this.videoUID}`)
+      let posterRef = storage.ref(`poster/${this.videoUID}`).child(`poster_${this.videoUID}`)
       let snapshot = await posterRef.put(f)
       let posterURL = await snapshot.ref.getDownloadURL()
       this.poster = posterURL.toString()
       this.hasPoster = true
     },
     async selectCustomThumbnail (f) {
-      let customThumbnailRef = firebase.storage().ref(`thumbnails/${this.videoUID}`).child(`thumb_${this.videoUID}_4`)
+      let customThumbnailRef = storage.ref(`thumbnails/${this.videoUID}`).child(`thumb_${this.videoUID}_4`)
       let snapshot = await customThumbnailRef.put(f)
       this.hasCustomThumbnail = true
       this.selectedThumbnail = 4
       let thumbURL = await snapshot.ref.getDownloadURL()
       this.customThumbnail = thumbURL.toString()
-      firebase.firestore().collection('thumbnails').doc(this.videoUID).update({
+      firestore.collection('thumbnails').doc(this.videoUID).update({
         customThumbnail: thumbURL.toString()
       })
     },
     async thumbnailChoosen (activeId) {
-      firebase.firestore().collection('thumbnails').doc(this.videoUID).update({
+      firestore.collection('thumbnails').doc(this.videoUID).update({
         active: activeId
       })
     },
     async save () {
       this.thumbnailChoosen(this.selectedThumbnail)
 
-      let videoDbRef = await firebase.firestore().collection('videos').doc(this.videoUID)
+      let videoDbRef = await firestore.collection('videos').doc(this.videoUID)
 
       let userUuid = this.$store.state.user.currentUser.currentUser.uid
       console.log(userUuid)
-      let userRef = await firebase.firestore().collection('users').doc(userUuid)
+      let userRef = await firestore.collection('users').doc(userUuid)
       console.log(userRef)
 
       let cleanTags = Array.from(this.tags, tag => tag.text)

@@ -6,10 +6,6 @@
           <img src="@/assets/banner.jpg" class="absolute object-cover w-full h-full">
         </div>
         
-        <!-- <div class="absolute right-0 mr-4 -mt-8 sm:-mt-16 xl:-mt-32 w-1/8">
-
-        </div> -->
-
         <div class="w-full lg:w-4/6">
           <div class="flex items-center justify-between px-2 max-w-7xl sm:px-4 lg:px-6">
               <nav class="relative flex w-full h-full -mb-2">
@@ -94,8 +90,8 @@ export default {
     }
   },
   async mounted () {
-  },
-  methods: {
+    this.$store.commit('channel/SET_UUID', this.userId)
+    await this.$store.dispatch('channel/fetchVideos')
   }
 }
 </script>

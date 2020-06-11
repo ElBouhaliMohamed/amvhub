@@ -1,18 +1,21 @@
 import { DOMAIN_TITLE } from '../.env'
 import notFoundPage from '../pages/NotFound.vue'
 
-const upload = () => import(/* webpackChunkName: "needslogin" */ '../pages/Upload.vue')
-const admin = () => import(/* webpackChunkName: "needslogin" */ '../pages/Admin.vue')
+const upload = () => import('../pages/Upload.vue')
+const admin = () => import('../pages/Admin.vue')
 
-const trending = () => import(/* webpackChunkName: "doesntneedlogin" */ '../pages/Trending.vue')
-const feed = () => import(/* webpackChunkName: "doesntneedlogin" */ '../pages/Feed.vue')
-const videoPage = () => import(/* webpackChunkName: "doesntneedlogin" */ '../pages/VideoPage.vue')
-const searchPage = () => import(/* webpackChunkName: "doesntneedlogin" */ '../pages/SearchPage.vue')
-const channel = () => import(/* webpackChunkName: "doesntneedlogin" */ '../pages/profile/Channel.vue')
+const featured = () => import('../pages/Featured.vue')
+const trending = () => import('../pages/Trending.vue')
+const feed = () => import('../pages/Feed.vue')
+const videoPage = () => import('../pages/VideoPage.vue')
+const searchPage = () => import('../pages/SearchPage.vue')
+const channel = () => import('../pages/profile/Channel.vue')
 
-const login = () => import(/* webpackChunkName: "prelogin" */ '../pages/Login.vue')
-const signup = () => import(/* webpackChunkName: "prelogin" */ '../pages/SignUp.vue')
-const passwordreset = () => import(/* webpackChunkName: "prelogin" */ '../pages/PasswordReset.vue')
+const login = () => import('../pages/Login.vue')
+const signup = () => import('../pages/SignUp.vue')
+const passwordreset = () => import('../pages/PasswordReset.vue')
+
+const channelVideos = () => import('../pages/profile/ChannelVideos.vue')
 
 export const routes = [
   {
@@ -31,7 +34,7 @@ export const routes = [
   {
     path: '/featured',
     name: 'featured',
-    component: trending,
+    component: featured,
     meta: { title: `${DOMAIN_TITLE} | featured`, enableHeader: true, enableSmallNavigation: false, requiresAuth: false, cantOpenWhenSignedIn: false }
   },
   {
@@ -42,11 +45,11 @@ export const routes = [
     children: [
       {
         path: '',
-        component: login
+        component: channelVideos
       },
       {
         path: 'videos',
-        component: login
+        component: channelVideos
       },
       {
         path: 'test',

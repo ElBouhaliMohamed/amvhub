@@ -4,7 +4,7 @@
       <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="limit" class="overflow-hidden md:container md:mx-auto md:w-3/4 sm:rounded-md">
         <ul>
           <li data-aos="fade-up" data-aos-once="true" v-for="video in feed" v-bind:key="video.id">
-            <feedEntry :userUuid="video.user.uuid" :userName="video.user.name" :videoUuid="video.uuid" :thumbnail="video.thumbnail" :title="video.title" :date="video.date" :views="video.views" :description="video.description" />
+            <feedEntry :showUser="true" :userUuid="video.user.uuid" :userName="video.user.name" :videoUuid="video.uuid" :thumbnail="video.thumbnail" :title="video.title" :date="video.date" :views="video.views" :description="video.description" />
           </li>
         </ul>
       </div>
