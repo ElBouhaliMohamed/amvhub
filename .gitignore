@@ -24,8 +24,11 @@ yarn-error.log*
 /public/videos
 /public/previews
 /public/thumbnails
+/public/firebase-messaging-sw.js
 
 /src/firebaseConfig.json
 /src/elasticSearchConfig.json
 .firebaserc
 package-lock.json
+
+.firebase/

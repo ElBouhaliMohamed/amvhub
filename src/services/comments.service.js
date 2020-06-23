@@ -1,4 +1,4 @@
-import { firebase, firestore } from './firebase.service'
+import { firebase, firestore, storage } from './firebase.service'
 
 export async function retrieveChildren (videoRef, parentRef) {
   let allChildren = await firestore.collection('comments').where('video', '==', videoRef)
@@ -54,6 +54,12 @@ export function getRef (uuid) {
     .doc(uuid)
 
   return commentRef
+}
+
+export async function getSingleComment (commentUUID) {
+  let commentDoc = await firestore.collection('comments').doc(commentUUID).get()
+  let commentData = commentDoc.data()
+  return commentData
 }
 
 export async function saveComment (html, userUUID, videoRef, parentRef = null) {

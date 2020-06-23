@@ -1,5 +1,5 @@
 <template>
-  <video controls preload="auto" ref="videoPlayer" class="video-js vjs-sublime-skin"></video>
+  <video controls preload="auto" ref="videoPlayer" class="flex items-center justify-center video-js vjs-sublime-skin"></video>
 </template>
 
 <script>
@@ -98,6 +98,10 @@ export default {
           var videoElement = self.player.el().querySelector('video')
           videoElement.classList.remove('vjs-maxScreen')
 
+          // var videoPlayerElement = self.player.el()
+          // videoPlayerElement.classList.add('flex', 'justify-center', 'items-center')
+
+
           if (self.theaterMode) {
             self.$emit('theaterMode')
           }
@@ -106,6 +110,11 @@ export default {
 
       videojs.registerComponent('theaterButton', theaterButton)
       this.player.getChild('controlBar').addChild('theaterButton', {}, 5)
+
+      this.player.on('firstplay', () => {
+        console.log('firstplay')
+        self.$emit('firstplay')
+      })
     }
   },
   watch: {

@@ -5,28 +5,27 @@
                 <div class="flex-shrink-0 block pl-4 group focus:outline-none"  v-if="showUser">
                     <div class="flex items-center">
                         <router-link :to="`/channel/${userUuid}`">
-                        <img class="inline-block w-8 h-8 rounded-full md:h-16 md:w-16" src="../assets/avatar.jpg" alt="avatar" />
+                            <img class="inline-block w-8 h-8 rounded-full md:h-16 md:w-16" src="../assets/avatar.jpg" alt="avatar" />
                         </router-link>
                         <div class="hidden ml-3 md:block">
-                        <p class="text-xl font-bold leading-5 text-gray-700 group-hover:text-gray-900">
-                            {{userName}}
-                        </p>
-                        <router-link :to="`/channel/${userUuid}`"
-                            class="text-xs font-medium leading-4 text-gray-500 transition duration-150 ease-in-out group-hover:text-gray-900 group-focus:underline">
-                            View profile
-                        </router-link>
+                            <p class="text-xl font-bold leading-5 text-gray-700 group-hover:text-gray-900">
+                                {{userName}}
+                            </p>
+                            <router-link :to="`/channel/${userUuid}`"
+                                class="text-xs font-medium leading-4 text-gray-500 transition duration-150 ease-in-out group-hover:text-gray-900 group-focus:underline">
+                                View profile
+                            </router-link>
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-row md:pt-2">
-                <router-link :to="`/video/${videoUuid}`" class="flex-shrink-0 w-1/4 pl-4">
-                    <div class="relative aspect-ratio-16/9">
-                      <!-- <img class="absolute object-cover w-full h-full" :src="thumbnail"> -->
-                      <lazy-img :lazy-src="thumbnail" class="absolute object-cover w-full h-full"/>
-                    </div>
-                </router-link>
-                <div class="flex flex-1 pl-2">
-                    <div class="flex pt-1 md:block">
+                <div class="flex flex-row w-full md:pt-2">
+                    <router-link :to="`/video/${videoUuid}`" class="flex-shrink-0 w-1/2 pl-4 lg:w-1/4">
+                        <div class="relative aspect-ratio-16/9">
+                        <!-- <img class="absolute object-cover w-full h-full" :src="thumbnail"> -->
+                        <lazy-img :lazy-src="thumbnail" class="absolute object-cover w-full h-full"/>
+                        </div>
+                    </router-link>
+                    <div class="flex flex-col w-1/2 pl-2 lg:w-3/4">
                         <div class="block">
                             <span class="px-4 text-2xl font-bold leading-5 text-gray-900">
                                 <router-link :to="`/video/${videoUuid}`">{{title}}</router-link>
@@ -38,12 +37,10 @@
                                 <span class="block px-1 md:px-2">&#8226;</span>
                                 <time v-bind:datetime="date[0]">{{timeSince(date[1])}}</time>
                                 </span>
-                                <p class="block text-sm font-thin leading-6 text-gray-900 md:hidden" v-html="description"></p>
                             </span>
                         </div>
-                        <p class="hidden w-1/2 px-4 py-2 text-sm font-thin leading-6 text-gray-900 md:block" v-html="description"></p>
+                        <span class="hidden w-full px-4 py-2 text-sm font-thin leading-6 text-gray-900 md:block" id="description" v-html="description"></span>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -114,6 +111,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+    #description >>> p {
+        @apply text-left break-all truncate max-h-28
+    }
 </style>

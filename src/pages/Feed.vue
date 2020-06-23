@@ -118,7 +118,7 @@
       <span class="pb-4">
         Login to see videos of your favorite creators!
       </span>
-      <div class="w-1/4">
+      <div class="w-32">
         <button @click="login" class="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md group hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700">
           <span class="absolute left-0 pl-3 inset-y">
             <svg class="w-5 h-5 text-indigo-500 transition duration-150 ease-in-out group-hover:text-indigo-400" fill="currentColor" viewBox="0 0 20 20">

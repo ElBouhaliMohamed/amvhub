@@ -5,15 +5,15 @@
     />
     <div class="flex justify-center" :class="[{'flex-col lg:flex-row': !theaterMode, 'flex-col': theaterMode}]">
       <div :class="[{'max-w-screen-lg w-full lg:w-2/4': !theaterMode, 'w-full': theaterMode}]">
-          <video-player id="video-player" v-on:theaterMode="toggleTheaterMode" v-bind:options.sync="options" v-bind:spriteSheet.sync="spriteSheet" v-bind:poster.sync="thumbnail"></video-player>
+          <video-player id="video-player" v-on:theaterMode="toggleTheaterMode" v-bind:options.sync="options" v-bind:spriteSheet.sync="spriteSheet" v-bind:poster.sync="thumbnail" @firstplay="markVideoAsWatched"></video-player>
           <div class="flex flex-wrap justify-center">
             <div class="px-4" :class="[{'w-full': !theaterMode, 'lg:max-w-screen-lg lg:w-3/4': theaterMode}]">
               <span class="flex flex-row justify-start max-w-screen-lg my-4 text-3xl font-bold text-start font-lg" :class="{'skeleton-box h-8 w-48 rounded-md':loading}">
                   {{title}}
               </span>
 
-              <div class="flex flex-row items-center justify-center max-w-screen-lg mb-4 text-lg">
-                <div class="flex items-center w-1/2 align-center">
+              <div class="flex flex-row items-center justify-center max-w-screen-lg mb-4 text-lg" :class="{'skeleton-box h-12 w-full rounded-md':loading}">
+                <div class="flex items-center w-1/2 align-center" :class="{'hidden':loading}">
                     <user-infos parent="authorAvatar" :visible="showUserInfos"/>
                     <img id="authorAvatar" @mouseenter="showUserInfos = true" @mouseout="showUserInfos = false" src="@/assets/avatar2.png" class="w-10 h-10 mr-2 rounded-full cursor-pointer" />
                     <router-link class="" :to="`/channel/${user.uuid}`">
@@ -25,7 +25,7 @@
                 </div>
 
 
-                <div class="flex flex-row items-center justify-end w-1/2 text-sm">
+                <div class="flex flex-row items-center justify-end w-1/2 text-sm" :class="{'hidden':loading}">
                   
                   <div class="pl-6">
                     <span class="fa fa-eye"></span>
@@ -146,6 +146,8 @@ import { DOMAIN_TITLE } from '../.env'
 
 import { firestore, storage } from '../services/firebase.service'
 
+import MetricsService from '../services/metrics.service'
+
 export default {
   name: 'VideoPage',
   components: {
@@ -172,6 +174,7 @@ export default {
   },
   data: function () {
     return {
+      metricsService: null,
       showRatingModal: false,
       options: {},
       captions: [],
@@ -188,7 +191,7 @@ export default {
       description: '',
       editors: [],
       tags: [],
-      categories: [],
+      categorys: [],
       songs: [],
       sources: [],
       createdAt: Date,
@@ -244,7 +247,7 @@ export default {
     this.title = data.title
     this.editors = data.editors
     this.tags = data.tags
-    this.categories = data.categories
+    this.categorys = data.categorys
     this.description = data.description
     this.songs = data.songs
     this.sources = data.sources
@@ -328,11 +331,20 @@ export default {
       }
     })
 
+    if (this.isLoggedIn) {
+      this.metricsService = new MetricsService(this.userId)
+    }
+
     this.videoRef = videoQueryRef
     this.$Progress.finish()
     this.loading = false
   },
   methods: {
+    markVideoAsWatched () {
+      if (this.metricsService != null) {
+        this.metricsService.markVideoAsWatched(this.videoId)
+      }
+    },
     toggleTheaterMode () {
       this.theaterMode = !this.theaterMode
       this.$store.commit('videoPage/SET_THEATERMODE', this.theaterMode)
@@ -370,6 +382,12 @@ export default {
             hearts: this.hearts
           })
           this.alreadyGaveHeart = true
+
+          this.metricsService.userLikedVideoFromUser(this.user.uuid)
+          this.metricsService.userLikedVideoFromEditors(this.editors)
+          this.metricsService.userLikedVideoWithSources(this.sources)
+          this.metricsService.userLikedVideoWithCategorys(this.categorys)
+          this.metricsService.userLikedVideoWithTags(this.tags)
         }
       } else {
         // not logged in

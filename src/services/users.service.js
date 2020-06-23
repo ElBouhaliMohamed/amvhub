@@ -1,4 +1,4 @@
-import { firebase, firestore, auth, storage } from './firebase.service'
+import { firebase, firestore, auth, storage, messaging } from './firebase.service'
 import BaseService from './base.service'
 import store from '../store'
 
@@ -25,12 +25,17 @@ class UsersService extends BaseService {
               .update({
                 uuid: currentUser.uid
               })
-          }
-
-          if (!userInfo.isGoogleAccount) {
-            userInfo.photoURL = await storage
+          } else if (userInfo.photoURL === undefined) {
+            let photoURL = await storage
               .ref(`profilePictures/${userInfo.photo}`)
               .getDownloadURL()
+            await firestore
+              .collection('users')
+              .doc(currentUser.uid)
+              .update({
+                photoURL: photoURL
+              })
+            userInfo.photoURL = photoURL
           }
 
           resolve({ currentUser, userInfo })
@@ -44,14 +49,36 @@ class UsersService extends BaseService {
   }
 
   afterLogin () {
-    auth.onAuthStateChanged(function (user) {
+    auth.onAuthStateChanged(async function (user) {
       if (user) {
+        await store.dispatch('user/initFCM')
+        await store.dispatch('user/getCurrent')
+        await store.dispatch('notifications/retrieveNotifications')
         store.commit('user/SET_LOGGED_IN', true)
-        store.dispatch('user/getCurrent')
       } else {
         store.commit('user/SET_LOGGED_IN', false)
         store.commit('user/SET_CURRENT_USER', null)
       }
+    })
+  }
+
+  initFCM () {
+    messaging.requestPermission().then(function () {
+      return messaging.getToken()
+    }).then(async function (token) {
+      let currentUser = auth.currentUser
+      await firestore.collection('users').doc(currentUser.uid).update({ fcm: token })
+    }).catch(function (err) {
+      console.log(err)
+    })
+
+    messaging.onTokenRefresh(() => {
+      messaging.getToken().then(async (refreshedToken) => {
+        let currentUser = auth.currentUser
+        await firestore.collection('users').doc(currentUser.uid).update({ fcm: refreshedToken })
+      }).catch((err) => {
+        console.log('Unable to retrieve refreshed token ', err)
+      })
     })
   }
 

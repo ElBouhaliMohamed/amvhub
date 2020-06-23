@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { firestore } from './../services/firebase.service'
+import { firestore, storage } from './../services/firebase.service'
 
 export default {
   computed: {
@@ -58,7 +58,7 @@ export default {
 
         let MIME = file.type
 
-        let videosRef = await firestore.ref('videos').child(`${videoDbRef.id}`).child(`${videoDbRef.id}.${MIME.split('/')[1]}`)
+        let videosRef = await storage.ref('videos').child(`${videoDbRef.id}`).child(`${videoDbRef.id}.${MIME.split('/')[1]}`)
 
         let uploadTask = videosRef.put(file)
         let self = this

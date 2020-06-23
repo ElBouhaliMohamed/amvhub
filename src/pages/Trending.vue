@@ -1,19 +1,14 @@
 <template>
   <div class="block">
-    <!-- <div class="absolute w-full background-gradient">
-        <trending-carousel />
-    </div> -->
-    <!-- <div class="container grid justify-center w-full grid-cols-1 row-gap-20 col-gap-4 mx-auto mt-4 mb-20 md:row-gap-20 md:grid-cols-2"> -->
     <masonry class="w-full p-4 mx-auto mb-20 md:w-3/4" :cols="{default: 2, 768: 1}" :gutter="15">
       <video-entry class="my-4" v-for="video in videos" :key="video.uuid" :uuid="video.uuid" :title="video.title" :user="video.user" :length="video.length" :thumbnail="video.thumbnail" :preview="video.preview" :tags="video.categorys"></video-entry>
     </masonry>
-    <!-- </div> -->
   </div>
 </template>
 
 <script>
 import videoEntry from '../components/videoEntry.vue'
-import trendingCarousel from '../components/trendingCarousel.vue'
+// import trendingCarousel from '../components/trendingCarousel.vue'
 import { firestore } from '../services/firebase.service'
 
 export default {
@@ -27,8 +22,7 @@ export default {
     }
   },
   components: {
-    videoEntry,
-    trendingCarousel
+    videoEntry
   },
   methods: {
     shuffle (array) {

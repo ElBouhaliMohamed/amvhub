@@ -22,6 +22,9 @@ export default {
       return UsersService.getCurrent()
         .then(user => commit('SET_CURRENT_USER', user))
         .catch(error => console.log(error))
+    },
+    initFCM () {
+      UsersService.initFCM()
     }
   }
 }

@@ -174,10 +174,12 @@
 </template>
 
 <script>
-import { firebase, firestore, functions, storage } from './../services/firebase.service'
+import { firebase, firestore, storage } from './../services/firebase.service'
 import loadingAnimation from '../components/loadingAnimation2.vue'
 import VueTagsInput from '@johmun/vue-tags-input'
 import textEditor from './textEditor'
+
+import { searchUserByName } from './../services/search.service'
 
 export default {
   mounted () {
@@ -219,8 +221,7 @@ export default {
     loadEditors () {
       if (this.editor.length < 2) return
       
-      let searchUserByName = functions.httpsCallable('elasticsearchUserSearchByName')
-      searchUserByName({ searchQuery: this.editor }).then((result) => {
+      searchUserByName(this.editor).then((result) => {
         console.log(result)
         const options = result.data.hits.hits.map(i => ({ text: i._source.name }))
         this.autocompleteItems = options
