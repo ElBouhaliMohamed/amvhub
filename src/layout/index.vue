@@ -6,7 +6,7 @@
       <div class="wrapper" :class="{'pt-28 md:pt-19' : headerEnabled}">
           <vue-progress-bar></vue-progress-bar>
           <transition name="fade">
-            <router-view></router-view>
+            <router-view :key="$route.fullPath"></router-view>
           </transition>
       </div>
       <!-- <AppFooter></AppFooter> -->

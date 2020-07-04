@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white" :class="{'lg:pt-4': !theaterMode}">
     <headful
-      :title="`${editors} - ${title} | amvhub`"
+      :title="`${editors.map(e => e.name).join(', ')} - ${title} | amvhub`"
     />
     <div class="flex justify-center" :class="[{'flex-col lg:flex-row': !theaterMode, 'flex-col': theaterMode}]">
       <div :class="[{'max-w-screen-lg w-full lg:w-2/4': !theaterMode, 'w-full': theaterMode}]">
@@ -14,8 +14,8 @@
 
               <div class="flex flex-row items-center justify-center max-w-screen-lg mb-4 text-lg" :class="{'skeleton-box h-12 w-full rounded-md':loading}">
                 <div class="flex items-center w-1/2 align-center" :class="{'hidden':loading}">
-                    <user-infos parent="authorAvatar" :visible="showUserInfos"/>
-                    <img id="authorAvatar" @mouseenter="showUserInfos = true" @mouseout="showUserInfos = false" src="@/assets/avatar2.png" class="w-10 h-10 mr-2 rounded-full cursor-pointer" />
+                    <!-- <user-infos parent="authorAvatar" :visible="showUserInfos"/> -->
+                    <img id="authorAvatar" @mouseenter="showUserInfos = true" @mouseout="showUserInfos = false" :src="user.photoURL" class="w-10 h-10 mr-2 rounded-full cursor-pointer" />
                     <router-link class="" :to="`/channel/${user.uuid}`">
                       <span class="text-lg font-bold" :class="{'skeleton-box h-6 w-28 rounded-md':loading}">
                         {{user.name}}
@@ -23,7 +23,6 @@
                     </router-link>
                     <followButton v-if="isLoggedIn" class="hidden px-4 sm:block" :isLoggedIn="isLoggedIn" :userId="userId"></followButton>
                 </div>
-
 
                 <div class="flex flex-row items-center justify-end w-1/2 text-sm" :class="{'hidden':loading}">
                   
@@ -87,10 +86,17 @@
                       </dt>
                       <dd class="flex flex-row mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2" :class="{'skeleton-box h-8 w-full rounded-md':loading}">
                         <span class="flex items-center justify-start mr-2" v-for="(editor, index) in editors" v-bind:key="index">
-                          <img src="@/assets/avatar2.png" class="w-16 h-auto pr-2" />
-                          <span class="text-lg font-bold">
-                            {{editor}}
-                          </span>
+                          <router-link :to="`/channel/${editor.uuid}`">
+                            <img v-if="editor.hasOwnProperty('uuid')" :src="editor.photoURL" class="w-16 h-auto pr-2" />
+                          </router-link>
+                          <router-link v-if="editor.hasOwnProperty('uuid')" :to="`/channel/${editor.uuid}`">
+                            <span class="text-lg font-bold">
+                              {{editor.name}}
+                            </span>
+                          </router-link>
+                          <span v-else class="text-lg font-bold">
+                              {{editor.name}}
+                            </span>
                         </span>
                       </dd>
                     </div>
@@ -136,7 +142,6 @@
 </template>
 
 <script>
-import videoBar from '../components/videoBar.vue'
 import ratingModal from '../components/modals/rateVideoModal.vue'
 import userInfos from '../components/modals/UserInformation.vue'
 import lightbox from '../components/Lightbox.vue'
@@ -151,7 +156,6 @@ import MetricsService from '../services/metrics.service'
 export default {
   name: 'VideoPage',
   components: {
-    videoBar,
     ratingModal,
     userInfos,
     lightbox,
@@ -161,6 +165,17 @@ export default {
       component: import('../components/CommentSection.vue'),
       loading: {
         template: '<div class="w-full h-96 skeleton-box"></div>'
+      },
+      error: {
+        template: '<div>...error</div>'
+      },
+      delay: 200,
+      timeout: 2000
+    }),
+    videoBar: () => ({
+      component: import('../components/videoBar.vue'),
+      loading: {
+        template: '<div class="w-full h-screen skeleton-box"></div>'
       },
       error: {
         template: '<div>...error</div>'
@@ -227,7 +242,7 @@ export default {
         let metadata = await item.getMetadata()
         if (metadata) {
           let url = await storage.ref(metadata.fullPath).getDownloadURL()
-          let name = metadata.name.split('-')
+          // let name = metadata.name.split('-')
 
           options.sources.push({
             src: url,
@@ -242,10 +257,36 @@ export default {
     let data = videoQuery.data()
     let user = await data.user.get()
 
+    let editorSnapshots = []
+    for (var editor of data.editors) {
+      this.editors.push({ name: editor })
+      let editorSnapshot = firestore.collection('users').where('name', '==', editor).limit(1)
+      editorSnapshots.push(editorSnapshot.get())
+    }
+
+    let fetchedEditors = await Promise.all(editorSnapshots)
+    console.log(fetchedEditors)
+    for (var fetchedEditor of fetchedEditors) {
+      if (fetchedEditor.size === 1) {
+        let editorDoc = fetchedEditor.docs[0]
+        let editorData = editorDoc.data()
+        let editorName = editorData.name
+        let editorId = editorDoc.id
+              
+        let editorIndex = this.editors.findIndex((element) => {
+          return element.name === editorName
+        })
+
+        this.editors[editorIndex].uuid = editorId
+        this.editors[editorIndex].photoURL = editorData.photoURL
+      }
+    }
+
     // Object.assign(this.options, options)
+    this.loading = false
+
     this.options = options
     this.title = data.title
-    this.editors = data.editors
     this.tags = data.tags
     this.categorys = data.categorys
     this.description = data.description
@@ -263,6 +304,8 @@ export default {
         ratings: []
       })
     }
+
+
     this.$store.dispatch('videoPage/processRatingsArray', this.userId)
 
     let thumbnailsRef = await firestore.doc(`thumbnails/${this.videoId}/`)
@@ -337,7 +380,6 @@ export default {
 
     this.videoRef = videoQueryRef
     this.$Progress.finish()
-    this.loading = false
   },
   methods: {
     markVideoAsWatched () {

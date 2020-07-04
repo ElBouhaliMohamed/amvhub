@@ -1,34 +1,46 @@
 <template>
   <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="limit" class="flex flex-col items-center justify-center w-full pl-8 overflow-hidden align-center" id="suggested">
-    <div class="flex flex-row justify-start w-full mb-3" v-for="(video, index) in videos" v-bind:key="index">
-      <!-- <router-link draggable="false" to="/channel/" class="relative pb-2/3">
-      </router-link> -->
+    <div class="flex flex-row justify-start w-full mb-3" v-for="video in currentRecommendations" v-bind:key="video.id">
+
       <div class="w-1/4 lg:w-1/2">
         <div class="relative aspect-ratio-16/9">
-          <img class="absolute object-cover w-full h-full transition-all duration-200 ease-in-out transform hover:scale-70" src="@/assets/thumbnail.png"/>
+          <img class="absolute object-cover w-full h-full transition-all duration-200 ease-in-out transform hover:scale-70" :src="video.thumbnail"/>
         </div>
       </div>
 
       <div class="flex flex-col w-1/2 pl-2"> <!-- video infos here -->
-        <span class="text-lg font-bold leading-6 text-gray-900">{{video.title}}</span>
-        <span class="text-sm font-medium leading-6 text-gray-900">{{video.editor}}</span>
+        <router-link :to="`/video/${video.uuid}`">
+          <span class="text-lg font-bold leading-6 text-gray-900">{{video.title}}</span>
+        </router-link>
+        <router-link v-if="!video.editors.map(e => e.name).includes(video.user.name)" :to="`/channel/${video.user.uuid}`">
+          <span class="flex items-center text-xs font-medium leading-6 text-gray-900">
+            <!-- <svg class="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg> -->
+            {{video.user.name}}
+          </span>
+        </router-link>
+        <span v-if="video.editors.length > 0" class="flex text-xs font-medium leading-6 text-gray-900 break-all">
+          <!-- <svg v-if="video.editors.length > 1" class="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path></svg>
+          <svg v-else class="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg> -->
+          <p class="mr-1" v-if="video.editors.length > 1">Editors:</p>
+          <p class="mr-1" v-else>Editor:</p>
+          {{video.editors.map(e => e.name).join(', ')}}
+        </span>
         <span class="flex flex-row text-xs leading-5">
-          <span>{{video.views}} views</span>
-          <span class="block px-1 md:px-2">&#8226;</span>
-          <time v-bind:datetime="video.date[0]">{{video.date[1]}}</time>
+          <span class="views">{{video.views}} views</span>
+          <time v-bind:datetime="video.date[0]">{{timeSince(video.date[1])}} ago</time>
         </span>
       </div>
 
     </div>
+
     <loadingAnimation v-if="busy" class="w-4 h-4 mb-4"></loadingAnimation>
-    <!-- <button type="button" class="inline-flex items-center justify-center w-full px-4 py-2 text-base font-medium leading-6 text-center text-indigo-700 transition duration-150 ease-in-out bg-indigo-200 border border-transparent rounded-md hover:bg-indigo-100 focus:outline-none focus:border-indigo-300 focus:shadow-outline-indigo active:bg-indigo-200">
-      Load more...
-    </button> -->
+
   </div>
 </template>
 
 <script>
 import loadingAnimation from './loadingAnimation2'
+import { firestore } from './../services/firebase.service'
 
 export default {
   data: function () {
@@ -36,71 +48,128 @@ export default {
       canLoad: false,
       limit: 5,
       busy: false,
-      videos: [
-        {
-          editor: 'Kazumoe',
-          title: 'Atonement',
-          views: 301,
-          date: ['2020-12-15', 'December 15, 2020'],
-          avatar: '../assets/avatar.jpg'
-        },
-        {
-          editor: 'Spike',
-          title: 'Beautiful Crime',
-          views: 602,
-          date: ['2020-12-01', 'December 1, 2020'],
-          avatar: '../assets/avatar.jpg'
-        },
-        {
-          editor: 'Dr Penguin',
-          title: 'Test video 3',
-          views: 1100,
-          date: ['2020-01-07', 'Januar 7, 2020'],
-          avatar: '../assets/avatar.jpg'
-        },
-        {
-          editor: "Soul's Team",
-          title: 'This is a logn ass title just too test the looks',
-          views: 500,
-          date: ['2020-01-07', 'Januar 7, 2020'],
-          avatar: '../assets/avatar.jpg'
-        },
-        {
-          editor: "Soul's Team",
-          title: 'Another one',
-          views: 25000,
-          date: ['2020-01-07', 'Januar 7, 2020'],
-          avatar: '../assets/avatar.jpg'
-        }
-      ]
+      currentRecommendations: [],
+      lastItemUid: '',
+      indexCounter: 1,
+      reachedEndOfTimeline: false
     }
   },
   components: {
     loadingAnimation
   },
-  computed: {
+  mounted () {
+    // this.clearRecommendations()
+    this.canLoad = true
+    this.loadOnStartUp()
   },
   methods: {
-    loadMore () {
-      this.busy = true
-      setTimeout(() => {
-        for (var i = 0, j = 5; i < j; i++) {
-          this.videos.push({
-            id: 1,
-            editor: 'Kazumoe',
-            title: 'Atonement',
-            views: 301,
-            date: ['2020-12-15', 'December 15, 2020'],
-            avatar: '../assets/avatar.jpg'
-          })
+    async fetchRecommendation (uuid) {
+      try {
+        let recommendationsCollection = null
+        if (this.$isLoggedIn) {
+          if (this.lastItemUid === '') {
+            recommendationsCollection = await firestore.collection('users').doc(uuid).collection('recommendations').orderBy('score', 'desc').limit(5).get()
+          } else {
+            let lastItem = await firestore.collection('users').doc(uuid).collection('recommendations').doc(this.lastItemUid).get()
+            recommendationsCollection = await firestore.collection('users').doc(uuid).collection('recommendations').orderBy('score', 'desc').startAfter(lastItem).limit(5).get()
+          }
+        } else {
+          if (this.lastItemUid === '') {
+            recommendationsCollection = await firestore.collection('recommendations').orderBy('score', 'desc').limit(5).get()
+          } else {
+            let lastItem = await firestore.collection('recommendations').doc(this.lastItemUid).get()
+            recommendationsCollection = await firestore.collection('recommendations').orderBy('score', 'desc').startAfter(lastItem).limit(5).get()
+          }
         }
+    
+        if (recommendationsCollection.docs.length === 0) {
+          this.reachedEndOfTimeline = true
+          return { success: true }
+        }
+
+        this.lastItemUid = recommendationsCollection.docs[recommendationsCollection.docs.length - 1].id
+
+        let index = this.indexCounter
+        for (let entry of recommendationsCollection.docs) {
+          let data = entry.data()
+          let createdAt = this.toDateTime(data.createdAt._seconds)
+
+          let thumbnailsRef = await firestore.doc(`thumbnails/${data.uuid}/`)
+          let thumbnailsQuery = await thumbnailsRef.get()
+          let thumbnails = thumbnailsQuery.data()
+          let currThumbnail = thumbnails.active > 3 ? thumbnails.customThumbnail : thumbnails.thumbnails[thumbnails.active]
+
+          let userSnapshot = await firestore.doc(`users/${data.user.uuid}`).get()
+          let userData = userSnapshot.data()
+
+          // let editors = Array.from(data.editors, editor => editor.name)
+
+          this.currentRecommendations.push({
+            id: index,
+            editors: data.editors,
+            title: data.title,
+            uuid: data.uuid,
+            views: data.views,
+            date: [createdAt.toISOString(), createdAt.toGMTString()],
+            thumbnail: currThumbnail,
+            user: userData,
+            description: data.description
+          })
+
+          index++
+        }
+        this.indexCounter = index
+
+        return { success: true }
+      } catch (err) {
+        return { success: false, error: err }
+      }
+    },
+    loadMore () {
+      if (!this.reachedEndOfTimeline && this.canLoad && !this.busy) {
+        this.busy = true
+        this.fetchRecommendation(this.$currentUser.userInfo.uuid).then((result) => {
+          this.busy = false
+          console.log(result)
+        }).catch((err) => {
+          console.log(err)
+        })
+      }
+    },
+    loadOnStartUp () {
+      this.busy = true
+      this.fetchRecommendation(this.$currentUser.userInfo.uuid).then((result) => {
         this.busy = false
-      }, 1000)
+        console.log(result)
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
+    clearRecommendations () {
+      this.currentRecommendations = []
+      this.lastItemUid = ''
+      this.indexCounter = 1
+      this.reachedEndOfTimeline = false
     }
   }
+  // watch: {
+  //   $currentUser (newValue) {
+  //     if (newValue.userInfo !== null) {
+  //       this.canLoad = true
+  //       this.loadOnStartUp()
+  //     }
+  //   }
+  // },
+  // beforeDestroy () {
+  //   this.clearRecommendations()
+  // }
 }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="scss">
+  .views:after {
+    @apply text-xs opacity-50;
+    content: "•";
+    margin: 0 4px;
+  }
 </style>

@@ -2,7 +2,9 @@ import { DOMAIN_TITLE } from '../.env'
 import notFoundPage from '../pages/NotFound.vue'
 
 const upload = () => import('../pages/Upload.vue')
-const admin = () => import('../pages/Admin.vue')
+const dashboard = () => import('../pages/Dashboard.vue')
+const dashboardVideosList = () => import('../pages/DashboardVideosList.vue')
+const dashboardEditVideo = () => import('../pages/DashboardEditVideo.vue')
 
 const featured = () => import('../pages/Featured.vue')
 const trending = () => import('../pages/Trending.vue')
@@ -62,11 +64,21 @@ export const routes = [
     ]
   },
   {
-    path: '/admin/',
-    name: 'admin',
-    component: admin,
-    meta: { title: `${DOMAIN_TITLE} | admin`, enableHeader: true, enableSmallNavigation: false, requiresAuth: true, cantOpenWhenSignedIn: false },
+    path: '/dashboard/',
+    name: 'dashboard',
+    component: dashboard,
+    meta: { title: `${DOMAIN_TITLE} | dashboard`, enableHeader: true, enableSmallNavigation: false, requiresAuth: true, cantOpenWhenSignedIn: false },
     children: [
+      {
+        path: 'videos',
+        name: 'dashboardVideos',
+        component: dashboardVideosList
+      },
+      {
+        path: 'video/:id',
+        name: 'dashboardEditVideo',
+        component: dashboardEditVideo
+      },
       {
         path: 'upload',
         name: 'upload',

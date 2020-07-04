@@ -165,12 +165,6 @@ export default {
     }
   },
   mounted () {
-    // this.$store.dispatch('feed/fetchFeed', this.$currentUser.userInfo.uuid).then((result) => {
-    //   console.log(result)
-    // }).catch((err) => {
-    //   console.log(err)
-    // })
-
     this.$store.commit('feed/clearFeed')
     if (this.$currentUser !== null && this.$currentUser.userInfo !== null) {
       this.canLoad = true

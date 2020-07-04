@@ -36,35 +36,53 @@
 
       <div class="hidden w-2/6 -mt-32 lg:block">
         <div class="px-2 pb-12 mx-auto max-w-7xl sm:px-4 lg:px-6">
-          <div class="relative bg-gray-900 rounded-lg shadow">
-            <div class="flex items-end justify-end h-32 bg-gray-800 rounded-t-lg">
-                <follow-button class="hidden h-10 m-4 xl:inline-flex" :isLoggedIn="isLoggedIn" :userId="userId"></follow-button>
-            </div>
-            <router-link class="absolute w-32 border-2 rounded-lg border-gray-50 left-5 top-9" to="#">
-                <img src="@/assets/avatar.jpg" alt="avatar">
-            </router-link>
-            <div class="flex items-center px-2 pt-8 pb-4 mx-auto max-w-7xl sm:px-4 lg:px-6">
-              <div class="flex flex-col py-4">
-                <h1 class="text-xl font-bold leading-6 text-gray-50">Kazumoe</h1>
-                <p class="mt-2 leading-6 text-gray-300"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga placeat fugit, explicabo atque cumque vel molestiae enim quo, beatae corrupti deleniti aliquam sed sint nostrum veniam, quis similique consequuntur? Officia!</p>
-                <div class="flex flex-row flex-wrap mt-2">
-                  <span class="flex items-center mr-2 text-gray-300">
-                    <svg fill="currentColor" class="w-5 h-5 mr-1" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
-                    <p>Düsseldorf, Germany</p>
-                  </span>
-                  <span class="flex items-center mr-2 text-gray-300">
-                    <svg class="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
-                    <p>Since March 2019 on amvhub</p>
-                  </span>
-                  <span class="flex items-center mr-2 text-gray-300">
-                    <svg class="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
-                    <p>Editing since 2011</p>
-                  </span>
+          <div class="relative flex flex-col text-center bg-white rounded-lg shadow">
+            <div class="flex flex-col flex-1 p-8">
+                <img class="flex-shrink-0 w-32 h-32 mx-auto bg-black rounded-full" src="@/assets/avatar2.png" alt="">
+                <h3 class="mt-6 text-sm font-medium leading-5 text-gray-900">Kazumoe</h3>
+                <dl class="flex flex-col justify-between flex-grow mt-1">
+                  <!-- <dt class="sr-only">Title</dt> -->
+                  <!-- <dd class="text-sm leading-5 text-gray-500">Paradigm Representative</dd> -->
+                  <dt class="sr-only">Infos</dt>
+                  <dd class="flex flex-col mt-3 text-sm leading-5 text-gray-500">
+                    <span class="flex items-center justify-center mr-2">
+                      <svg fill="currentColor" class="w-5 h-5 mr-1" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+                      <p>Düsseldorf, Germany</p>
+                    </span>
+                    <span class="flex items-center justify-center mr-2">
+                      <svg class="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                      <p>Since March 2019 on amvhub</p>
+                    </span>
+                    <span class="flex items-center justify-center mr-2">
+                      <svg class="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                      <p>Editing since 2011</p>
+                    </span>
+                  </dd>
+                </dl>
+              </div>
+              <div class="border-t border-gray-200">
+                <div class="flex -mt-px">
+                  <div class="flex flex-1 w-0 border-r border-gray-200">
+                    <a href="#" class="relative inline-flex items-center justify-center flex-1 w-0 py-4 -mr-px text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out border border-transparent rounded-bl-lg hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10">
+                      <svg class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                      </svg>
+                      <span class="ml-3">Email</span>
+                    </a>
+                  </div>
+                  <div class="flex flex-1 w-0 -ml-px">
+                    <!-- <a href="#" class="relative inline-flex items-center justify-center flex-1 w-0 py-4 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out border border-transparent rounded-br-lg hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10">
+                      <svg class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                      </svg>
+                      <span class="ml-3">Call</span>
+                    </a> -->
+                    <follow-button class="relative inline-flex items-center justify-center w-full" :isLoggedIn="isLoggedIn" :userId="userId"></follow-button>
+                  </div>
                 </div>
-                <follow-button class="w-full mt-4 xl:hidden" :isLoggedIn="isLoggedIn" :userId="userId"></follow-button>
               </div>
             </div>
-          </div>
         </div>
       </div>
     </div>

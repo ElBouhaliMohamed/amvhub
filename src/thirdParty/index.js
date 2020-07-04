@@ -21,6 +21,10 @@ import Clipboard from 'v-clipboard'
 
 import VueMasonry from 'vue-masonry-css'
 
+import SmartTable from 'vuejs-smart-table'
+
+Vue.use(SmartTable)
+
 Vue.use(Clipboard)
 
 Vue.use(VueMasonry)

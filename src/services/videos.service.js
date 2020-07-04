@@ -1,5 +1,44 @@
 import { firestore } from './firebase.service'
 
+export async function getVideosForUser (uuid) {
+  try {
+    let userQuery = firestore.collection('users').doc(uuid)
+    // let userRef = await userQuery.get()
+    // let userData = userRef.data()
+
+    let videosSnapshot = await firestore.collection('videos').where('user', '==', userQuery).get()
+    let videos = []
+
+    for (let entry of videosSnapshot.docs) {
+      let data = entry.data()
+      let createdAt = data.createdAt.toDate()
+
+      let thumbnailsRef = firestore.doc(`thumbnails/${data.uuid}/`)
+      let thumbnailsQuery = await thumbnailsRef.get()
+      let thumbnails = thumbnailsQuery.data()
+      let currThumbnail = thumbnails.active > 3 ? thumbnails.customThumbnail : thumbnails.thumbnails[thumbnails.active]
+
+      var visibility = data.visibility === 0 ? 'Private' : (data.visibility === 1 ? 'Unlisted' : 'Public')
+
+      videos.push({
+        title: data.title,
+        uuid: data.uuid,
+        views: data.views,
+        date: [createdAt.toISOString(), createdAt.toGMTString()],
+        dateForSorting: createdAt,
+        thumbnail: currThumbnail,
+        hearts: data.hearts,
+        visibility
+      })
+    }
+
+    return { success: true, videos }
+  } catch (err) {
+    console.log(err)
+    return { success: false, error: err }
+  }
+}
+
 export async function getBasicInfos (videoId) {
   let videoQueryRef = firestore.doc(`videos/${videoId}/`)
   let videoQuery = await videoQueryRef.get()

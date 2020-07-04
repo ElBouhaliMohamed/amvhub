@@ -45,20 +45,20 @@ class MetricsService {
             throw 'Document does not exist!'
           }
 
-          var likedAnimes = userDoc.data().likedAnimes
-          if (likedAnimes == null) {
-            likedAnimes = []
+          var likedSources = userDoc.data().likedSources
+          if (likedSources == null) {
+            likedSources = []
           }
 
           for (var source of sources) {
-            if (!likedAnimes.includes(source.title)) {
-              if (likedAnimes.length >= 20) {
-                likedAnimes.shift()
+            if (!likedSources.includes(source.title)) {
+              if (likedSources.length >= 20) {
+                likedSources.shift()
               }
-              likedAnimes.push(source.title)
+              likedSources.push(source.title)
             }
           }
-          transaction.update(userDocRef, { likedAnimes: likedAnimes })
+          transaction.update(userDocRef, { likedAnimes: likedSources })
         })
       }).then(() => {
         // console.log('"Tr"')

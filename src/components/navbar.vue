@@ -118,6 +118,11 @@ export default {
     }
   },
   computed: {
+    dashboardNavigation: function () {
+      return (
+        this.$store.state.navbar.smallNavIsEnabled
+      )
+    },
     smallNavIsEnabled: function () {
       return (
         this.$store.state.navbar.smallNavIsEnabled &&
