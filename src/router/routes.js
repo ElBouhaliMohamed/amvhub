@@ -2,7 +2,9 @@ import { DOMAIN_TITLE } from '../.env'
 import notFoundPage from '../pages/NotFound.vue'
 
 const upload = () => import('../pages/Upload.vue')
+
 const dashboard = () => import('../pages/Dashboard.vue')
+const dashboardOverview = () => import('../pages/DashboardOverview.vue')
 const dashboardVideosList = () => import('../pages/DashboardVideosList.vue')
 const dashboardEditVideo = () => import('../pages/DashboardEditVideo.vue')
 
@@ -65,10 +67,21 @@ export const routes = [
   },
   {
     path: '/dashboard/',
-    name: 'dashboard',
     component: dashboard,
     meta: { title: `${DOMAIN_TITLE} | dashboard`, enableHeader: true, enableSmallNavigation: false, requiresAuth: true, cantOpenWhenSignedIn: false },
     children: [
+      {
+        path: '',
+        name: 'dashboardOverview',
+        component: dashboardOverview,
+        children: [
+          {
+            path: 'upload',
+            name: 'upload',
+            component: upload
+          }
+        ]
+      },
       {
         path: 'videos',
         name: 'dashboardVideos',
@@ -78,11 +91,6 @@ export const routes = [
         path: 'video/:id',
         name: 'dashboardEditVideo',
         component: dashboardEditVideo
-      },
-      {
-        path: 'upload',
-        name: 'upload',
-        component: upload
       }
     ]
   },

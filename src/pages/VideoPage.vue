@@ -8,7 +8,7 @@
           <video-player id="video-player" v-on:theaterMode="toggleTheaterMode" v-bind:options.sync="options" v-bind:spriteSheet.sync="spriteSheet" v-bind:poster.sync="thumbnail" @firstplay="markVideoAsWatched"></video-player>
           <div class="flex flex-wrap justify-center">
             <div class="px-4" :class="[{'w-full': !theaterMode, 'lg:max-w-screen-lg lg:w-3/4': theaterMode}]">
-              <span class="flex flex-row justify-start max-w-screen-lg my-4 text-3xl font-bold text-start font-lg" :class="{'skeleton-box h-8 w-48 rounded-md':loading}">
+              <span class="flex flex-row justify-start max-w-screen-lg my-4 text-3xl font-semibold text-start font-lg" :class="{'skeleton-box h-8 w-48 rounded-md':loading}">
                   {{title}}
               </span>
 
@@ -17,11 +17,28 @@
                     <!-- <user-infos parent="authorAvatar" :visible="showUserInfos"/> -->
                     <img id="authorAvatar" @mouseenter="showUserInfos = true" @mouseout="showUserInfos = false" :src="user.photoURL" class="w-10 h-10 mr-2 rounded-full cursor-pointer" />
                     <router-link class="" :to="`/channel/${user.uuid}`">
-                      <span class="text-lg font-bold" :class="{'skeleton-box h-6 w-28 rounded-md':loading}">
+                      <span class="text-lg font-semibold" :class="{'skeleton-box h-6 w-28 rounded-md':loading}">
                         {{user.name}}
                       </span>
                     </router-link>
-                    <followButton v-if="isLoggedIn" class="hidden px-4 sm:block" :isLoggedIn="isLoggedIn" :userId="userId"></followButton>
+                    <followButton v-slot:default="slotProps" v-if="isLoggedIn" class="hidden px-4 sm:block" :isLoggedIn="isLoggedIn" :userId="userId">
+                      <span class="relative z-0 inline-flex shadow-sm">
+                          <button :disabled="!isLoggedIn" @click="slotProps.follow" type="button"
+                          class="relative inline-flex items-center px-4 py-2 leading-5 transition duration-150 ease-in-out"
+                          :class="{'rounded-md text-gray-50 border border-transparent bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700':slotProps.followed,
+                          'rounded-l-md text-gray-700 bg-white border border-gray-300 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 disabled:cursor-not-allowed':!slotProps.followed}">
+                            <svg class="w-5 h-5 mr-2 -ml-1" :class="{'hidden':slotProps.followed, 'text-gray-400':!slotProps.followed}" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"/>
+                            </svg>
+                            <span class="text-sm font-medium uppercase " v-if="!slotProps.followed">Follow</span>
+                            <span class="text-sm font-medium uppercase " v-else>Unfollow</span>
+                          </button>
+                          <span class="relative inline-flex items-center px-3 py-2 -ml-px text-sm font-medium leading-5 transition duration-150 ease-in-out focus:z-10 focus:outline-none rounded-r-md"
+                          :class="{'text-gray-700 bg-white border border-gray-300 hover:text-gray-500 focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700':!slotProps.followed,
+                          'hidden':slotProps.followed}"
+                          > {{ slotProps.followersCount }} </span>
+                      </span>
+                    </followButton>
                 </div>
 
                 <div class="flex flex-row items-center justify-end w-1/2 text-sm" :class="{'hidden':loading}">

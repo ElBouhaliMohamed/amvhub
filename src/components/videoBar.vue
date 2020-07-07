@@ -3,14 +3,16 @@
     <div class="flex flex-row justify-start w-full mb-3" v-for="video in currentRecommendations" v-bind:key="video.id">
 
       <div class="w-1/4 lg:w-1/2">
-        <div class="relative aspect-ratio-16/9">
-          <img class="absolute object-cover w-full h-full transition-all duration-200 ease-in-out transform hover:scale-70" :src="video.thumbnail"/>
-        </div>
+        <router-link :to="`/video/${video.uuid}`">
+          <div class="relative aspect-ratio-16/9">
+            <img class="absolute object-cover w-full h-full transition-all duration-200 ease-in-out transform hover:scale-70" :src="video.thumbnail"/>
+          </div>
+          </router-link>
       </div>
 
       <div class="flex flex-col w-1/2 pl-2"> <!-- video infos here -->
         <router-link :to="`/video/${video.uuid}`">
-          <span class="text-lg font-bold leading-6 text-gray-900">{{video.title}}</span>
+          <span class="text-lg font-semibold leading-4 text-gray-900">{{video.title}}</span>
         </router-link>
         <router-link v-if="!video.editors.map(e => e.name).includes(video.user.name)" :to="`/channel/${video.user.uuid}`">
           <span class="flex items-center text-xs font-medium leading-6 text-gray-900">

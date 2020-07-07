@@ -1,4 +1,22 @@
-import { firestore } from './firebase.service'
+import { firestore, storage } from './firebase.service'
+
+export async function thumbnailChoosen (videoId, activeId) {
+  firestore.collection('thumbnails').doc(videoId).update({
+    active: activeId
+  })
+}
+
+export async function uploadThumbnail (videoId, file) {
+  let customThumbnailRef = storage.ref(`thumbnails/${videoId}`).child(`thumb_${videoId}_4`)
+  let snapshot = await customThumbnailRef.put(file)
+  let thumbURL = await snapshot.ref.getDownloadURL()
+
+  firestore.collection('thumbnails').doc(videoId).update({
+    customThumbnail: thumbURL.toString()
+  })
+
+  return thumbURL.toString()
+}
 
 export async function getVideosForUser (uuid) {
   try {
@@ -37,6 +55,29 @@ export async function getVideosForUser (uuid) {
     console.log(err)
     return { success: false, error: err }
   }
+}
+
+export async function getThumbnailInfos (videoId) {
+  let thumbnailQueryRef = firestore.collection('thumbnails').doc(videoId)
+  let thumbnailQuery = await thumbnailQueryRef.get()
+  let data = thumbnailQuery.data()
+  return data
+}
+
+export async function getAllVideoInfos (videoId) {
+  let videoQueryRef = firestore.doc(`videos/${videoId}/`)
+  let videoQuery = await videoQueryRef.get()
+  let data = videoQuery.data()
+  let user = await data.user.get()
+
+  let thumbnailsRef = await firestore.doc(`thumbnails/${videoId}/`)
+  let thumbnailsQuery = await thumbnailsRef.get()
+  let thumbnails = thumbnailsQuery.data()
+  let currThumbnail = thumbnails.active > 3 ? thumbnails.customThumbnail : thumbnails.thumbnails[thumbnails.active]
+
+  data.user = user
+  data.thumbnail = currThumbnail
+  return data
 }
 
 export async function getBasicInfos (videoId) {

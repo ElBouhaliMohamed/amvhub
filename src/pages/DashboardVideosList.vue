@@ -83,16 +83,23 @@
 
 <script>
 import { getVideosForUser } from './../services/videos.service'
+import loadingAnimation from '../components/loadingAnimation2'
 
 export default {
+  components: {
+    loadingAnimation
+  },
   async mounted () {
+    this.loading = true
     let result = await getVideosForUser(this.$currentUser.userInfo.uuid)
+    this.loading = false
     if (result.success) {
       this.videos = result.videos
     }
   },
   data () {
     return {
+      loading: false,
       videos: [],
       filters: {
         title: {

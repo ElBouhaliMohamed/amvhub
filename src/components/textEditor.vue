@@ -109,6 +109,7 @@ export default {
   data () {
     return {
       editor: new Editor({
+        content: this.initContent != null ? this.initContent : '',
         extensions: [
           new Blockquote(),
           new BulletList(),
@@ -151,7 +152,11 @@ export default {
   props: {
     submitButton: Boolean,
     submitButtonText: String,
-    placeholder: String
+    placeholder: String,
+    initContent: {
+      type: String,
+      required: false
+    }
   },
   beforeDestroy () {
     this.editor.destroy()

@@ -23,7 +23,7 @@
     </div>
 
     <div v-if="tags != null" class="absolute bottom-0 right-0 z-30 flex flex-col w-1/4 transition-all duration-300 ease-in-out transform " :class="{'translate-y-18': isPlaying}">
-      <span class="inline-block overflow-hidden font-bold text-right text-black uppercase truncate align-text-top lg:text-lg" v-for="tag in sortedTags" :key="tag">
+      <span class="inline-block overflow-hidden font-semibold text-right text-black uppercase truncate align-text-top lg:text-lg" v-for="tag in sortedTags" :key="tag">
       {{tag}}
       </span>
     </div>

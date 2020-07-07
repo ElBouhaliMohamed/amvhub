@@ -27,7 +27,7 @@
                     </router-link>
                     <div class="flex flex-col w-1/2 pl-2 lg:w-3/4">
                         <div class="block">
-                            <span class="px-4 text-2xl font-bold leading-5 text-gray-900">
+                            <span class="px-4 text-2xl font-semibold leading-5 text-gray-900">
                                 <router-link :to="`/video/${videoUuid}`">{{title}}</router-link>
                             </span>
                             <span class="flex flex-col px-4 text-xs font-thin leading-5 text-gray-500 md:flex-row md:text-sm">
