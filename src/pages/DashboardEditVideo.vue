@@ -80,7 +80,7 @@
                   <img class="absolute object-cover w-full h-full" :src="thumbnail"/>
                 </button>
               </div>
-              <div class="flex flex-shrink-0 w-1/4" :class="{'flex items-center justify-center': !hasCustomThumbnail}">
+              <div class="flex flex-shrink-0 w-1/4" :class="{'flex items-center justify-center border-2 border-l-0 border-gray-300 border-dashed rounded-r-md': !hasCustomThumbnail}">
                 <div class="relative w-full text-center" :class="{'aspect-ratio-16/9 transition-all duration-200 opacity-50 hover:opacity-100' : hasCustomThumbnail, 'opacity-100' : (hasCustomThumbnail && selectedThumbnail === 4)}" v-cloak>
                   <span v-if="!hasCustomThumbnail">
                     <svg class="w-12 h-12 mx-auto text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
@@ -107,7 +107,7 @@
                   </span>
 
                   <!-- input not visible but needs to be always there -->
-                  <input type="file" id="inputfile" name="inputfile" class="hidden" />
+                  <input accept="image/x-png,image/gif,image/jpeg" type="file" id="inputfile" name="inputfile" class="hidden" />
                 </div>
               </div>
             </span>
@@ -219,15 +219,18 @@
                   <p class="mt-1 text-xs text-gray-500">PNG or JPG up to 10MB</p>
                   <input type="file" id="inputfile" name="inputfile" class="hidden" accept="image/*" />
                 </div>
-                <div v-if="hasPoster">
-                  <img class="max-h-28" v-cloak @drop.prevent="addFile" @dragover.prevent @click="triggerFileExplorer(1)" :src="poster" />
+                <div class="relative" v-if="hasPoster">
+                  <img class="max-h-28" v-cloak @drop.prevent="addFile" :src="poster">
+                  <span class="absolute top-0 right-0 p-1 mt-1 mr-1 text-black bg-white rounded-full" @click="triggerFileExplorer(1)">
+                    <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                  </span>
                 </div>
               </div>
             </div>
           </div>
 
           <div class="mt-6">
-            <button type="submit" class="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md group hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700">
+            <button @click="save" type="submit" class="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md group hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700">
               <span class="absolute left-0 pl-3 inset-y">
                 <svg class="w-5 h-5 text-indigo-500 transition duration-150 ease-in-out group-hover:text-indigo-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
@@ -247,7 +250,7 @@ import loadingAnimation from '../components/loadingAnimation2.vue'
 import VueTagsInput from '@johmun/vue-tags-input'
 import textEditor from '../components/textEditor'
 
-import { getAllVideoInfos, getThumbnailInfos, uploadThumbnail, uploadPoster } from '../services/videos.service'
+import { getAllVideoInfos, getThumbnailInfos, uploadThumbnail, uploadPoster, updateVideoInfos, thumbnailChoosen, getPoster } from '../services/videos.service'
 
 export default {
   components: {
@@ -303,21 +306,48 @@ export default {
     }
   },
   async mounted () {
+    this.$Progress.start()
     this.loading = true
     await this.fetchVideoInformations()
     this.loading = false
+    this.$Progress.finish()
   },
   methods: {
+    async save () {
+      this.$Progress.start()
+      await thumbnailChoosen(this.uuid, this.selectedThumbnail)
+
+      let cleanTags = Array.from(this.tags, tag => tag.text)
+      let cleanCategorys = Array.from(this.categorys, category => category.text)
+      let cleanEditors = Array.from(this.editors, editor => editor.text)
+
+      await updateVideoInfos(this.uuid, {
+        title: this.title,
+        songs: this.songs,
+        tags: cleanTags,
+        categorys: cleanCategorys,
+        description: this.description,
+        visibility: this.visibility,
+        creationDate: this.creationDate,
+        editors: cleanEditors,
+        sources: this.sources,
+        hasPoster: this.hasPoster
+      })
+      this.$Progress.finish()
+
+      // if (this.visibility === '2') { generate feed if visibilty changed to public
+      //   this.$store.dispatch('feed/generateFeedForFollowers', this.$currentUser.userInfo.uuid)
+      // }
+    },
     async fetchVideoInformations () {
       let videoInfos = await getAllVideoInfos(this.uuid)
 
       console.log(videoInfos)
       this.title = videoInfos.title
       this.songs = videoInfos.songs
-      this.sources = videoInfos.sources
+      this.sources = videoInfos.sources ? videoInfos.sources : [{ title: '' }]
       this.visibility = videoInfos.visibility
       this.description = videoInfos.description
-      this.hasPoster = videoInfos.hasPoster
 
       this.categorys = Array.from(videoInfos.categorys, category => { return { 'text': category } })
       this.tags = Array.from(videoInfos.tags, tag => { return { 'text': tag } })
@@ -335,6 +365,12 @@ export default {
       }
 
       this.selectedThumbnail = thumbnailInfos.active
+
+      this.hasPoster = videoInfos.hasPoster ? videoInfos.hasPoster : false
+      if (this.hasPoster) {
+        this.poster = await getPoster(this.uuid)
+        console.log(this.poster)
+      }
 
       console.log(thumbnailInfos)
     },
@@ -374,13 +410,17 @@ export default {
       document.getElementById('inputfile').click()
     },
     async selectCustomThumbnail (file) {
+      this.$Progress.start()
       this.hasCustomThumbnail = true
       this.selectedThumbnail = 4
       this.customThumbnail = await uploadThumbnail(this.uuid, file)
+      this.$Progress.finish()
     },
     async uploadPoster (file) {
+      this.$Progress.start()
       this.poster = await uploadPoster(this.uuid, file)
       this.hasPoster = true
+      this.$Progress.finish()
     }
   }
 }

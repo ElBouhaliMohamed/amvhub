@@ -106,10 +106,12 @@ export default {
     EditorContent,
     EditorMenuBar
   },
+  mounted () {
+    this.unwatch = this.$watch('initContent', this.setInitialContent)
+  },
   data () {
     return {
       editor: new Editor({
-        content: this.initContent != null ? this.initContent : '',
         extensions: [
           new Blockquote(),
           new BulletList(),
@@ -147,7 +149,14 @@ export default {
     submit () {
       this.$emit('submit')
       this.editor.setContent('')
+    },
+    setInitialContent (content) {
+      if (this.editor.getHTML() === '<p></p>') {
+        this.editor.setContent(content)
+        this.unwatch()
+      }
     }
+    
   },
   props: {
     submitButton: Boolean,

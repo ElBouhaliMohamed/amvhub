@@ -1,9 +1,20 @@
-import { firestore, storage } from './firebase.service'
+import { firebase, firestore, storage } from './firebase.service'
 
 export async function thumbnailChoosen (videoId, activeId) {
   firestore.collection('thumbnails').doc(videoId).update({
     active: activeId
   })
+}
+
+export async function updateVideoInfos (videoId, infos) {
+  let videoDbRef = await firestore.collection('videos').doc(videoId)
+  console.log(infos)
+
+  if (infos.creationDate != null) {
+    infos.creationDate = firebase.firestore.Timestamp.fromDate(new Date(infos.creationDate))
+  }
+
+  await videoDbRef.update(infos)
 }
 
 export async function uploadThumbnail (videoId, file) {
@@ -16,6 +27,13 @@ export async function uploadThumbnail (videoId, file) {
   })
 
   return thumbURL.toString()
+}
+
+export async function uploadPoster (videoId, file) {
+  let posterRef = storage.ref(`poster/${videoId}`).child(`poster_${videoId}`)
+  let snapshot = await posterRef.put(file)
+  let posterURL = await snapshot.ref.getDownloadURL()
+  return posterURL.toString()
 }
 
 export async function getVideosForUser (uuid) {
@@ -55,6 +73,11 @@ export async function getVideosForUser (uuid) {
     console.log(err)
     return { success: false, error: err }
   }
+}
+
+export async function getPoster (videoId) {
+  let posterURL = await storage.ref(`poster/${videoId}`).child(`poster_${videoId}`).getDownloadURL()
+  return posterURL.toString()
 }
 
 export async function getThumbnailInfos (videoId) {
