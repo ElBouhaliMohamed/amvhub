@@ -6,12 +6,13 @@
 </template>
 
 <script>
-import feedEntry from './../feedEntry'
 import { getThumbnail } from './../../services/videos.service'
 
 export default {
   components: {
-    feedEntry
+    feedEntry: () => ({
+      component: import('./../feedEntry')
+    })
   },
   props: {
     result: {

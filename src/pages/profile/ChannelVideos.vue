@@ -35,11 +35,12 @@
 </template>
 
 <script>
-import feedEntry from '../../components/feedEntry'
 
 export default {
   components: {
-    feedEntry
+    feedEntry: () => ({
+      component: import('../../components/feedEntry')
+    })
   },
   data () {
     return {

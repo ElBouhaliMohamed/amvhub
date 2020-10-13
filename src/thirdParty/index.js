@@ -5,8 +5,6 @@
 
 import Vue from 'vue'
 
-import Vue2TouchEvents from 'vue2-touch-events'
-
 import VueProgressBar from 'vue-progressbar'
 
 import VueNotifications from 'vue-notifications'
@@ -23,6 +21,14 @@ import VueMasonry from 'vue-masonry-css'
 
 import SmartTable from 'vuejs-smart-table'
 
+import lazyLoadImage from '../components/lazyLoadImage.vue'
+
+import simpleDropdown from '../components/simpleDropdown.vue'
+
+Vue.component('lazyImg', lazyLoadImage)
+
+Vue.component('simpleDropdown', simpleDropdown)
+
 Vue.use(SmartTable)
 
 Vue.use(Clipboard)
@@ -32,8 +38,6 @@ Vue.use(VueMasonry)
 Vue.component('headful', vueHeadful)
 
 Vue.use(infiniteScroll)
-
-Vue.use(Vue2TouchEvents)
 
 Vue.use(VueProgressBar, {
   color: 'rgb(143, 255, 199)',

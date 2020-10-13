@@ -50,13 +50,14 @@
 </template>
 
 <script>
-import textEditor from './textEditor'
 import { saveComment, getRef, getUserData } from '../services/comments.service'
 
 export default {
   name: 'comment',
   components: {
-    textEditor
+    textEditor: () => ({
+      component: import('./textEditor')
+    })
   },
   data () {
     return {

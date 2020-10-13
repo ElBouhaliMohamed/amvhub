@@ -1,11 +1,7 @@
 import { firebase, firestore, auth, storage, messaging } from './firebase.service'
-import BaseService from './base.service'
 import store from '../store'
 
-class UsersService extends BaseService {
-  get entity () {
-    return 'users'
-  }
+class UsersService {
 
   getCurrent () {
     return new Promise(async function (resolve, reject) {

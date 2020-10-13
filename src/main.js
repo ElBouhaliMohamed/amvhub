@@ -15,12 +15,6 @@ import 'aos/dist/aos.css'
 
 import AOS from 'aos'
 
-import lazyLoadImage from './components/lazyLoadImage.vue'
-import simpleDropdown from './components/simpleDropdown.vue'
-
-Vue.component('lazyImg', lazyLoadImage)
-Vue.component('simpleDropdown', simpleDropdown)
-
 setGlobalHelpers()
 Vue.config.productionTip = false
 

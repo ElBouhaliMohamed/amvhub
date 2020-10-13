@@ -16,7 +16,33 @@
       <div class="flex flex-col">
           <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
               <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
-                  <v-table :data="videos" class="min-w-full" :filters="filters">
+                    <table v-if="loading" class="min-w-full">
+                      <thead>
+                          <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                          Thumbnail
+                          </th>
+                          <th defaultSort="desc" class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                          Title
+                          </th>
+                          <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                          Visibility
+                          </th>
+                          <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                          Views
+                          </th>
+                          <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                          Hearts
+                          </th>
+                          <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                          Rating
+                          </th>
+                          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+                      </thead>
+                      <tr class="skeleton-box">
+                          
+                      </tr>
+                  </table>
+                  <v-table v-if="!loading" :data="videos" class="min-w-full" :filters="filters">
                       <thead slot="head">
                           <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                           Thumbnail
@@ -82,30 +108,35 @@
 </template>
 
 <script>
-import { getVideosForUser } from './../services/videos.service'
-import loadingAnimation from '../components/loadingAnimation2'
 
 export default {
   components: {
-    loadingAnimation
+    // eslint-disable-next-line vue/no-unused-components
+    loadingAnimation: () => ({
+      component: import('../components/loadingAnimation2')
+    })
   },
+  // beforeRouteEnter (to, from, next) {
+  //   next(vm => {
+  //   })
+  // },
   async mounted () {
-    this.loading = true
-    let result = await getVideosForUser(this.$currentUser.userInfo.uuid)
+    this.$store.dispatch('dashboardVideos/fetchVideos', this.$currentUser.userInfo.uuid)
     this.loading = false
-    if (result.success) {
-      this.videos = result.videos
-    }
   },
   data () {
     return {
-      loading: false,
-      videos: [],
+      loading: true,
       filters: {
         title: {
           value: '', keys: ['title']
         }
       }
+    }
+  },
+  computed: {
+    videos () {
+      return this.$store.getters['dashboardVideos/videos']
     }
   }
 }

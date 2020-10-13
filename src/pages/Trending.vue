@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import videoEntry from '../components/videoEntry.vue'
 // import trendingCarousel from '../components/trendingCarousel.vue'
 import { firestore } from '../services/firebase.service'
 
@@ -22,7 +21,9 @@ export default {
     }
   },
   components: {
-    videoEntry
+    videoEntry: () => ({
+      component: import('../components/videoEntry.vue')
+    })
   },
   methods: {
     shuffle (array) {

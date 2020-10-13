@@ -1,12 +1,12 @@
 <template>
-  <div class="flex flex-col sm:flex-row text-sm leading-normal">
-    <div class="w-full sm:2/6 md:w-2/6 px-4 py-1/12 md:py-1/8 xl:py-1/12 bg-gray-800 text-white rounded-b-lg shadow-md">
-      <div class="container mx-auto flex flex-col md:flex-row">
+  <div class="flex flex-col text-sm leading-normal sm:flex-row">
+    <div class="w-full px-4 text-white bg-gray-800 rounded-b-lg shadow-md sm:2/6 md:w-2/6 py-1/12 md:py-1/8 xl:py-1/12">
+      <div class="container flex flex-col mx-auto md:flex-row">
         <h1 class="text-2xl font-bold">
-          <a href="#" class="text-platinum tracking-wide">Kazumoe</a>
+          <a href="#" class="tracking-wide text-platinum">Kazumoe</a>
         </h1>
 
-        <!-- <div class="flex float-right px-2 justify-end items-center">
+        <!-- <div class="flex items-center justify-end float-right px-2">
           <div class="pr-2">
             <button
               class="btn-primary"
@@ -16,7 +16,7 @@
       </div>
 
       <div class="mb-2">
-        <a href="#" class="lowercase font-thin text-platinum">@kazumoe</a>
+        <a href="#" class="font-thin lowercase text-platinum">@kazumoe</a>
       </div>
 
       <hr class="mb-4">
@@ -34,9 +34,9 @@
         <li v-for="entry in urls" :key="entry.url">
           <a
             :href="'//' + entry.url"
-            class="flex text-platinum text-sm font-thin"
+            class="flex text-sm font-thin text-platinum"
           >
-            <img :src="faviconService + entry.baseurl" class="h-4 w-4">
+            <img :src="faviconService + entry.baseurl" class="w-4 h-4">
             <span class="ml-2">{{ entry.name }}</span>
           </a>
         </li>
@@ -45,8 +45,8 @@
 
     <div class="w-full">
       <div class="px-4 mb-4">
-        <!-- <div class="px-2 mx-8 mt-8 font-medium text-3xl text-white uppercase tracking-wide">Uploads</div> -->
-        <div class="flex content-start flex-wrap">
+        <!-- <div class="px-2 mx-8 mt-8 text-3xl font-medium tracking-wide text-white uppercase">Uploads</div> -->
+        <div class="flex flex-wrap content-start">
           <video-entry title="Versteckspiel" editor="Kazumoe" length="4:20" thumbnail="thumbnail2.png"></video-entry>
           <video-entry title="Beautiful Crime" editor="Kazumoe" length="4:20" thumbnail="thumbnail.png"></video-entry>
           <video-entry title="Beautiful Crime" editor="Kazumoe" length="4:20" thumbnail="thumbnail6.jpg"></video-entry>
@@ -62,7 +62,6 @@
 </template>
 
 <script>
-import videoEntry from '../components/videoEntry.vue'
 
 export default {
   name: 'ChannelContent',
@@ -84,7 +83,9 @@ export default {
     }
   },
   components: {
-    videoEntry
+    videoEntry: () => ({
+      component: import('../components/videoEntry.vue')
+    })
   }
 }
 </script>

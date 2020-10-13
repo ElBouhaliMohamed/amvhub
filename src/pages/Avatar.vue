@@ -1,11 +1,11 @@
 <template>
-  <div class="card vue-avatar-cropper-demo text-center">
+  <div class="text-center card vue-avatar-cropper-demo">
     <div class="card-body">
       <img :src="user.avatar" class="card-img avatar" />
       <div class="card-img-overlay">
         <button class="btn btn-primary btn-sm" id="pick-avatar">Select an new image</button>
       </div>
-      <h5 class="card-title mb-0">{{ user.nickname }}</h5>
+      <h5 class="mb-0 card-title">{{ user.nickname }}</h5>
       <div class="text-muted">{{ user.username }}</div>
     </div>
     <div class="card-footer text-muted" v-html="message"></div>
@@ -20,10 +20,13 @@
 </template>
 
 <script>
-import AvatarCropper from 'vue-avatar-cropper'
 
 export default {
-  components: { AvatarCropper },
+  components: { 
+    AvatarCropper: () => ({
+      component: import('vue-avatar-cropper')
+    })
+  },
   data () {
     return {
       message: 'ready',

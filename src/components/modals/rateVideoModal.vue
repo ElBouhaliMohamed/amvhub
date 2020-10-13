@@ -77,13 +77,16 @@
 </template>
 
 <script>
-import modal from './modal.vue'
 import { VueStars } from 'vue-stars'
 import { rateVideo } from '../../services/videos.service'
 
 export default {
   components: {
-    modal,
+    modal: () => ({
+      modal: () => ({
+        component: import('./modal.vue')
+      })
+    }),
     VueStars
   },
   props: {

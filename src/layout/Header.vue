@@ -101,15 +101,17 @@
 </template>
 
 <script>
-import logo from '../components/logo.vue'
-import notifications from '../components/Notifications.vue'
 import { auth } from './../services/firebase.service'
 
 export default {
   name: 'Header',
   components: {
-    logo,
-    notifications
+    logo: () => ({
+      component: import('../components/logo.vue')
+    }),
+    notifications: () => ({
+      component: import('../components/Notifications.vue')
+    })
   },
   data () {
     return {

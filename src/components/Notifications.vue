@@ -123,7 +123,6 @@
 </template>
 
 <script>
-import NotificationBell from 'vue-notification-bell'
 
 export default {
   data () {
@@ -148,7 +147,9 @@ export default {
     }
   },
   components: {
-    NotificationBell
+    NotificationBell: () => ({
+      component: import('vue-notification-bell')
+    })
   }
 }
 </script>

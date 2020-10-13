@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import videoEntry from '../components/videoEntry.vue'
 import { firestore, storage } from '../services/firebase.service'
 
 export default {
@@ -21,7 +20,9 @@ export default {
     }
   },
   components: {
-    videoEntry
+    videoEntry: () => ({
+      component: import('../components/videoEntry.vue')
+    })
   },
   methods: {
     async fetchVideos () {

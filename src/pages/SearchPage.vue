@@ -42,23 +42,29 @@
 
 <script>
 
-import SearchResults from './../components/search/SearchResults'
 // import SearchFacet from './../components/search/SearchFacet'
-import SearchHeader from './../components/search/SearchHeader'
-import SearchPagingInfo from './../components/search/SearchPagingInfo'
-import SearchPagination from './../components/search/SearchPagination'
-import SearchSort from './../components/search/SearchSort'
-import SearchResultsPerPage from './../components/search/SearchResultsPerPage'
 
 export default {
   components: {
-    SearchResults,
+    SearchResults: () => ({
+      component: import('./../components/search/SearchResults')
+    }),
     // SearchFacet,
-    SearchHeader,
-    SearchPagingInfo,
-    SearchPagination,
-    SearchSort,
-    SearchResultsPerPage
+    // SearchHeader: () => ({
+    //   component: import('./../components/search/SearchHeader')
+    // }),
+    SearchPagingInfo: () => ({
+      component: import('./../components/search/SearchPagingInfo')
+    }),
+    SearchPagination: () => ({
+      component: import('./../components/search/SearchPagination')
+    }),
+    // SearchSort: () => ({
+    //   component: import('./../components/search/SearchSort')
+    // }),
+    SearchResultsPerPage: () => ({
+      component: import('./../components/search/SearchResultsPerPage')
+    })
   },
   data () {
     return {

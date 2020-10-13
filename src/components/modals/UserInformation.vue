@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { TweenMax } from 'gsap'
+// import { TweenMax } from 'gsap'
 
 export default {
   props: {
@@ -62,7 +62,7 @@ export default {
 
       console.log(relX + ' ' + relY + ' ' + this.div.style.width)
 
-      TweenMax.to(this.div, 0.2, { x: relX, y: relY })
+      // TweenMax.to(this.div, 0.2, { x: relX, y: relY })
     }
   },
   watch: {

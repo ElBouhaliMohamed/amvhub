@@ -119,8 +119,6 @@
 
 <script>
 import UsersService from '../services/users.service'
-import logo from '../components/logo'
-import loadingAnimation from '../components/loadingAnimation'
 
 export default {
   name: 'Login',
@@ -133,8 +131,12 @@ export default {
     }
   },
   components: {
-    logo,
-    loadingAnimation
+    logo: () => ({
+      component: import('../components/logo')
+    }),
+    loadingAnimation: () => ({
+      component: import('../components/loadingAnimation')
+    })
   },
   methods: {
     forgotPassword () {

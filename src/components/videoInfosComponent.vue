@@ -119,13 +119,15 @@
 </template>
 
 <script>
-import VueTagsInput from '@johmun/vue-tags-input'
-import ProgressBar from 'vue-progressbar-component'
 
 export default {
   components: {
-    VueTagsInput,
-    ProgressBar
+    VueTagsInput: () => ({
+      component: import('@johmun/vue-tags-input')
+    }),
+    ProgressBar: () => ({
+      component: import('vue-progressbar-component')
+    })
   },
   data () {
     return {

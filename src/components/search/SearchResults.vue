@@ -11,11 +11,11 @@
 </template>
 
 <script>
-import SearchResult from './SearchResult'
-
 export default {
   components: {
-    SearchResult
+    SearchResult: () => ({
+      component: import('./SearchResult')
+    })
   },
   props: {
     results: {

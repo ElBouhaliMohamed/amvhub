@@ -69,7 +69,7 @@
                 </div>
               </div>
 
-              <div class="flex flex-wrap font-light leading-7 sm:border-t sm:border-gray-200 sm:pt-5" :class="{'skeleton-box h-48 w-full rounded-md':loading}" v-html="description"></div>
+              <div class="flex flex-wrap font-light leading-7 sm:border-t sm:border-gray-200 sm:pt-5 prose" :class="{'skeleton-box h-48 w-full rounded-md':loading}" v-html="description"></div>
 
               <div v-if="hasPoster" class="flex justify-center pt-8 max-h-96 align-center">
                 <lightbox class="w-1/2 sm:border-t sm:border-gray-200 sm:pt-5" :images="[poster]"/>
@@ -159,11 +159,7 @@
 </template>
 
 <script>
-import ratingModal from '../components/modals/rateVideoModal.vue'
-import userInfos from '../components/modals/UserInformation.vue'
-import lightbox from '../components/Lightbox.vue'
 // import ratings from '../components/ratings.vue'
-import followButton from '../components/followButton.vue'
 import { DOMAIN_TITLE } from '../.env'
 
 import { firestore, storage } from '../services/firebase.service'
@@ -173,10 +169,17 @@ import MetricsService from '../services/metrics.service'
 export default {
   name: 'VideoPage',
   components: {
-    ratingModal,
-    userInfos,
-    lightbox,
-    followButton,
+    ratingModal: () => ({
+      component: import('../components/modals/rateVideoModal.vue'),
+      delay: 200,
+      timeout: 2000
+    }),
+    lightbox: () => ({
+      component: import('../components/Lightbox.vue')
+    }),
+    followButton: () => ({
+      component: import('../components/followButton.vue')
+    }),
     videoPlayer: () => import('../components/videoPlayer.vue'),
     commentSection: () => ({
       component: import('../components/CommentSection.vue'),
@@ -497,4 +500,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .prose {
+    @apply max-w-none
+  }
 </style>

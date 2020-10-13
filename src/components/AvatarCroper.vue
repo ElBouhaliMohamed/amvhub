@@ -45,7 +45,7 @@
 
 <script>
 import 'cropperjs/dist/cropper.css'
-import Cropper from 'cropperjs'
+const Cropper = () => import('cropperjs')
 
 export default {
   props: {

@@ -93,10 +93,11 @@
 </template>
 
 <script>
-import followButton from '../../components/followButton.vue'
 export default {
   components: {
-    followButton
+    followButton: () => ({
+      component: import('../../components/followButton.vue')
+    })
   },
   data () {
     return {

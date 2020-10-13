@@ -75,7 +75,6 @@
 
 <script>
 import { auth } from '../services/firebase.service'
-import logo from '../components/logo'
 
 export default {
   name: 'Login',
@@ -86,7 +85,9 @@ export default {
     }
   },
   components: {
-    logo
+    logo: () => ({
+      component: import('../components/logo')
+    })
   },
   methods: {
     sendReset: function () {

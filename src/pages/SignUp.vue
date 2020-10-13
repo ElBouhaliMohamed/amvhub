@@ -302,7 +302,6 @@
 <script>
 import avatar from '../components/avatar.vue'
 import UsersService from '../services/users.service'
-import logo from '../components/logo'
 
 export default {
   name: 'SignUp',
@@ -441,6 +440,10 @@ export default {
       message: ''
     }
   },
-  components: { avatar, logo }
+  components: { 
+    logo: () => ({
+      component: import('../components/logo')
+    }),
+    avatar }
 }
 </script>

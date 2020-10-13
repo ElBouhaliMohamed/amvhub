@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import loadingAnimation from './loadingAnimation2'
 import { firestore } from './../services/firebase.service'
 
 export default {
@@ -57,7 +56,9 @@ export default {
     }
   },
   components: {
-    loadingAnimation
+    loadingAnimation: () => ({
+      component: import('./loadingAnimation2')
+    })
   },
   mounted () {
     // this.clearRecommendations()

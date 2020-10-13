@@ -136,8 +136,6 @@
 </template>
 
 <script>
-import feedEntry from '../components/feedEntry.vue'
-
 export default {
   name: 'Feed',
   data: function () {
@@ -148,7 +146,9 @@ export default {
     }
   },
   components: {
-    feedEntry
+    feedEntry: () => ({
+      component: '../components/feedEntry.vue'
+    })
   },
   computed: {
     isLoggedIn () {

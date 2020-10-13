@@ -246,17 +246,17 @@
 </template>
 
 <script>
-import loadingAnimation from '../components/loadingAnimation2.vue'
-import VueTagsInput from '@johmun/vue-tags-input'
-import textEditor from '../components/textEditor'
 
 import { getAllVideoInfos, getThumbnailInfos, uploadThumbnail, uploadPoster, updateVideoInfos, thumbnailChoosen, getPoster } from '../services/videos.service'
 
 export default {
   components: {
-    loadingAnimation,
-    VueTagsInput,
-    textEditor
+    VueTagsInput: () => ({
+      component: import('@johmun/vue-tags-input')
+    }),
+    textEditor: () => ({
+      component: import('../components/textEditor')
+    })
   },
   data () {
     return {

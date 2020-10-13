@@ -104,13 +104,18 @@
 </template>
 
 <script>
-import backToTop from '../components/backToTop.vue'
 import { auth } from './../services/firebase.service'
-
-import logo from '../components/logo.vue'
 
 export default {
   name: 'Navbar',
+  components: {
+    backToTop: () => ({
+      component: import('../components/backToTop.vue')
+    })
+    // logo: () => ({
+    //   component: import('../components/logo.vue')
+    // })
+  },
   data () {
     return {
       bigNav: 'bigNav',
@@ -160,10 +165,6 @@ export default {
         this.$router.replace('login')
       })
     }
-  },
-  components: {
-    backToTop,
-    logo
   }
 }
 </script>

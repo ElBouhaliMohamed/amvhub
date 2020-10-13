@@ -175,11 +175,8 @@
 
 <script>
 import { firebase, firestore, storage } from './../services/firebase.service'
-import loadingAnimation from '../components/loadingAnimation2.vue'
-import VueTagsInput from '@johmun/vue-tags-input'
-import textEditor from './textEditor'
-
 import { searchUserByName } from './../services/search.service'
+
 
 export default {
   mounted () {
@@ -207,9 +204,15 @@ export default {
     }
   },
   components: {
-    loadingAnimation,
-    VueTagsInput,
-    textEditor
+    VueTagsInput: () => ({
+      component: import('@johmun/vue-tags-input')
+    }),
+    loadingAnimation: () => ({
+      component: import('../components/loadingAnimation2.vue')
+    }),
+    textEditor: () => ({
+      component: import('./textEditor')
+    })
   },
   watch: {
     'editor': 'loadEditors'

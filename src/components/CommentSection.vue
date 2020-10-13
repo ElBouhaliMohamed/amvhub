@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import comment from './comment'
 import { saveComment, retrieveTopLevelComments, retrieveChildren, retrieveSingleComment } from '../services/comments.service'
 
 export default {
@@ -42,7 +41,9 @@ export default {
       delay: 100,
       timeout: 2000
     }),
-    comment
+    comment: () => ({
+      component: import('./comment')
+    })
   },
   props: {
     videoRef: Object,

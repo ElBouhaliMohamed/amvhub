@@ -1,6 +1,6 @@
 <template>
   <div class="border-2 border-gray-200 rounded-md editor">
-    <editor-content class="editor__content sm:border-b sm:border-gray-400 " :editor="editor" />
+    <editor-content class="editor__content sm:border-b sm:border-gray-400" :editor="editor" />
 
     <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
       <div class="clearfix menubar">
