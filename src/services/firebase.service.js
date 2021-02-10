@@ -1,24 +1,27 @@
 import store from '../store'
 import firebaseConfig from './../firebaseConfig.json'
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/firestore'
-import 'firebase/storage'
-import 'firebase/functions'
-import 'firebase/messaging'
 
-firebase.initializeApp(firebaseConfig)
+import { initializeApp, getApps, getApp } from 'firebase/app'
+import { getAuth } from 'firebase/auth'
+import { getFirestore } from 'firebase/firestore'
+import { getStorage } from 'firebase/storage'
+import { getFunctions } from 'firebase/functions'
+import { getMessaging, onMessage } from 'firebase/messaging'
 
-const auth = firebase.auth()
-const firestore = firebase.firestore()
-const storage = firebase.storage()
-const functions = firebase.functions()
-const messaging = firebase.messaging()
+// default app initialization (with logic to prevent reinitialization)
+// FYI, getApps is like firebase.apps, and getApp returns app instance
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp()
 
-messaging.onMessage((payload) => {
+const auth = getAuth(app)
+const firestore = getFirestore(app)
+const storage = getStorage(app)
+const functions = getFunctions(app)
+const messaging = getMessaging(app)
+
+onMessage(messaging, (payload) => {
   console.log('got notification')
   console.log(payload)
   store.dispatch('notifications/addNotification', payload)
 })
 
-export { firebase, auth, firestore, storage, functions, messaging }
+export { app, auth, firestore, storage, functions, messaging }

@@ -13,7 +13,7 @@
               <span>
                 Dreambox
               </span>
-              <span class="font-thin">
+              <span class="font-extralight">
                 since 2019
               </span>
             </div>
@@ -26,7 +26,7 @@
               <span>
                 Dreambox
               </span>
-              <span class="font-thin">
+              <span class="font-extralight">
                 since 2019
               </span>
             </div>

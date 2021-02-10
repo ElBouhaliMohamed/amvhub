@@ -39,23 +39,23 @@ export default {
 <style lang="scss" scoped>
 
 .footer {
-  @apply .w-screen .flex .flex-col .h-full .py-16 .text-white;
+  @apply w-screen flex flex-col h-full py-16 text-white;
 }
 
 .links {
-   @apply .flex .uppercase .w-full .justify-center .py-4 ;
+   @apply flex uppercase w-full justify-center py-4 ;
 }
 
 .icon {
-  @apply .px-2;
+  @apply px-2;
 }
 
 .copyrightNotice {
-  @apply .flex .w-full .justify-center .italic .py-1;
+  @apply flex w-full justify-center italic py-1;
 }
 
 .name {
-  @apply .flex .justify-center .font-semibold .py-2;
+  @apply flex justify-center font-semibold py-2;
 }
 
 </style>

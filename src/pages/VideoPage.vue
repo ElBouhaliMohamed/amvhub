@@ -60,7 +60,7 @@
                   <div class="pl-6">
                     <button @click="openRatingModal" class="px-2 rounded-full hover">
                       <span class="text-yellow-400 fa fa-star"></span>
-                      {{ratingsMedian}} <span class="text-xs font-thin">/ 10 (median of {{ratingsCount}} Votes)</span>
+                      {{ratingsMedian}} <span class="text-xs font-extralight">/ 10 (median of {{ratingsCount}} Votes)</span>
                     </button>
                   </div>
 
@@ -69,7 +69,7 @@
                 </div>
               </div>
 
-              <div class="flex flex-wrap font-light leading-7 sm:border-t sm:border-gray-200 sm:pt-5 prose" :class="{'skeleton-box h-48 w-full rounded-md':loading}" v-html="description"></div>
+              <div class="flex flex-wrap font-light leading-7 prose sm:border-t sm:border-gray-200 sm:pt-5" :class="{'skeleton-box h-48 w-full rounded-md':loading}" v-html="description"></div>
 
               <div v-if="hasPoster" class="flex justify-center pt-8 max-h-96 align-center">
                 <lightbox class="w-1/2 sm:border-t sm:border-gray-200 sm:pt-5" :images="[poster]"/>
@@ -162,7 +162,7 @@
 // import ratings from '../components/ratings.vue'
 import { DOMAIN_TITLE } from '../.env'
 
-import { firestore, storage } from '../services/firebase.service'
+import { getReference, listAllFromRef, retrieveURL, getDocument, getDocumentFromRef, queryCollection, updateDocumentFromRef, watchDocument, retrieveMetadata } from '../services/firebase.functions.service'
 
 import MetricsService from '../services/metrics.service'
 
@@ -250,8 +250,8 @@ export default {
   async mounted () {
     this.loading = true
     this.$Progress.start()
-    var listRef = storage.ref(`videos/${this.videoId}/`)
-    let res = await listRef.listAll()
+    var listRef = getReference(`videos/${this.videoId}/`)
+    let res = await listAllFromRef(listRef)
     let options = {
       autoplay: true,
       controls: true,
@@ -259,9 +259,9 @@ export default {
     }
     if (res) {
       for (let item of res.items) {
-        let metadata = await item.getMetadata()
+        let metadata = await retrieveMetadata(item)
         if (metadata) {
-          let url = await storage.ref(metadata.fullPath).getDownloadURL()
+          let url = await retrieveURL(getReference(metadata.fullPath))
           // let name = metadata.name.split('-')
 
           options.sources.push({
@@ -272,16 +272,15 @@ export default {
       }
     };
 
-    let videoQueryRef = firestore.doc(`videos/${this.videoId}/`)
-    let videoQuery = await videoQueryRef.get()
+    let videoQuery = await getDocument('videos', this.videoId)
+    let videoQueryRef = videoQuery.ref
     let data = videoQuery.data()
-    let user = await data.user.get()
+    let user = await getDocumentFromRef(data.user)
 
     let editorSnapshots = []
     for (var editor of data.editors) {
       this.editors.push({ name: editor })
-      let editorSnapshot = firestore.collection('users').where('name', '==', editor).limit(1)
-      editorSnapshots.push(editorSnapshot.get())
+      editorSnapshots.push(queryCollection('users', ['name', '==', editor], 1))
     }
 
     let fetchedEditors = await Promise.all(editorSnapshots)
@@ -320,16 +319,14 @@ export default {
     this.ratings = data.ratings
     if (data.ratings === undefined || data.ratings == null) {
       this.ratings = []
-      videoQueryRef.update({
+      updateDocumentFromRef(videoQueryRef, {
         ratings: []
       })
     }
 
-
     this.$store.dispatch('videoPage/processRatingsArray', this.userId)
 
-    let thumbnailsRef = await firestore.doc(`thumbnails/${this.videoId}/`)
-    let thumbnailsQuery = await thumbnailsRef.get()
+    let thumbnailsQuery = await getDocument('thumbnails', this.videoId)
     let thumbnails = thumbnailsQuery.data()
     let currThumbnail = thumbnails.active > 3 ? thumbnails.customThumbnail : thumbnails.thumbnails[thumbnails.active]
     this.thumbnail = currThumbnail
@@ -345,8 +342,8 @@ export default {
     }
 
     if (this.hasPoster) {
-      let posterRef = await storage.ref(`poster/${this.videoId}/poster_${this.videoId}`)
-      let posterUrl = await posterRef.getDownloadURL()
+      let posterRef = getReference(`poster/${this.videoId}/poster_${this.videoId}`)
+      let posterUrl = await retrieveURL(posterRef)
       this.poster = posterUrl
     }
 
@@ -354,29 +351,29 @@ export default {
     this.$emit('update:poster', currThumbnail) // updates videoplayer thumbnail
 
     if (data.views === undefined || data.views == null) {
-      videoQueryRef.update({
+      updateDocumentFromRef(videoQueryRef, {
         views: 1
       })
     } else {
       data.views++
-      videoQueryRef.update({
+      updateDocumentFromRef(videoQueryRef, {
         views: data.views
       })
     }
 
     if (data.hearts === undefined || data.hearts == null) {
-      videoQueryRef.update({
+      updateDocumentFromRef(videoQueryRef, {
         hearts: 0
       })
     }
 
     if (data.usersThatGaveHearts === undefined || data.usersThatGaveHearts == null) {
-      videoQueryRef.update({
+      updateDocumentFromRef(videoQueryRef, {
         usersThatGaveHearts: []
       })
     }
     
-    videoQueryRef.onSnapshot((doc) => {
+    watchDocument(videoQueryRef, (doc) => {
       let data = doc.data()
       this.views = data.views
       this.hearts = data.hearts

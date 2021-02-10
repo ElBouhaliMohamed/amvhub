@@ -16,7 +16,7 @@
       </div>
 
       <div class="mb-2">
-        <a href="#" class="font-thin lowercase text-platinum">@kazumoe</a>
+        <a href="#" class="font-extralight lowercase text-platinum">@kazumoe</a>
       </div>
 
       <hr class="mb-4">
@@ -34,7 +34,7 @@
         <li v-for="entry in urls" :key="entry.url">
           <a
             :href="'//' + entry.url"
-            class="flex text-sm font-thin text-platinum"
+            class="flex text-sm font-extralight text-platinum"
           >
             <img :src="faviconService + entry.baseurl" class="w-4 h-4">
             <span class="ml-2">{{ entry.name }}</span>

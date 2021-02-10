@@ -1,4 +1,4 @@
-import { firestore } from './../../services/firebase.service'
+import { getDocument, querySubcollection, updateDocumentInSubcollection } from './../../services/firebase.functions.service'
 import { getSingleComment } from './../../services/comments.service'
 import { getPropertyFromVideo, getBasicInfos } from './../../services/videos.service'
 
@@ -14,8 +14,7 @@ class Notification {
   }
   
   async getActor () {
-    let actorDoc = await firestore.collection('users').doc(this.actorUUID).get()
-    let actorData = actorDoc.data()
+    let actorData = await getDocument('users', this.actorUUID)
     this.actor = actorData
   }
 }
@@ -113,7 +112,7 @@ export default {
       commit('clearQueue')
 
       let userUUID = rootState.user.currentUser.userInfo.uuid
-      let notificationCollection = await firestore.collection('users').doc(userUUID).collection('notifications').where('active', '==', true).get()
+      let notificationCollection = await querySubcollection('users', 'notifications', userUUID, ['active', '==', true])
 
       for (let notification of notificationCollection.docs) {
         var data = notification.data()
@@ -130,7 +129,7 @@ export default {
     },
     async removeNotification ({ commit, rootState }, uuid) {
       let userUUID = rootState.user.currentUser.userInfo.uuid
-      await firestore.collection('users').doc(userUUID).collection('notifications').doc(uuid).update({ active: false })
+      await updateDocumentInSubcollection('users', 'notifications', userUUID, uuid, { active: false })
       commit('removeEntryByUUID', uuid)
     }
   }

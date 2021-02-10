@@ -174,23 +174,25 @@
 </template>
 
 <script>
-import { firebase, firestore, storage } from './../services/firebase.service'
-import { searchUserByName } from './../services/search.service'
+import { collection, doc, onSnapshot, serverTimestamp, Timestamp, updateDoc } from 'firebase/firestore'
+import { ref, uploadBytesResumable, getDownloadURL, uploadBytes } from 'firebase/storage'
 
+import { firestore, storage } from './../services/firebase.service'
+import { searchUserByName } from './../services/search.service'
 
 export default {
   mounted () {
     console.log('Publish Video Component mounted')
     let self = this
-    firestore.collection('thumbnails').doc(this.videoUID)
-      .onSnapshot(function (doc) {
-        let data = doc.data()
-        console.log(data)
-        self.isProcessed = data.isProcessed
-        if (self.isProcessed) {
-          self.thumbnailUrls = data.thumbnails
-        }
-      })
+
+    onSnapshot(doc(collection(firestore, 'thumbnails'), this.videoUUID), (doc) => {
+      let data = doc.data()
+      console.log(data)
+      self.isProcessed = data.isProcessed
+      if (self.isProcessed) {
+        self.thumbnailUrls = data.thumbnails
+      }
+    })
   },
   data () {
     return {
@@ -254,43 +256,46 @@ export default {
       this.uploadPoster(droppedFiles[0])
     },
     async uploadPoster (f) {
-      let posterRef = storage.ref(`poster/${this.videoUID}`).child(`poster_${this.videoUID}`)
-      let snapshot = await posterRef.put(f)
-      let posterURL = await snapshot.ref.getDownloadURL()
+      let posterRef = ref(storage, `poster/${this.videoUID}/poster_${this.videoUID}`)
+      await uploadBytesResumable(posterRef, f)
+      let posterURL = await getDownloadURL(posterRef)
       this.poster = posterURL.toString()
       this.hasPoster = true
     },
     async selectCustomThumbnail (f) {
-      let customThumbnailRef = storage.ref(`thumbnails/${this.videoUID}`).child(`thumb_${this.videoUID}_4`)
-      let snapshot = await customThumbnailRef.put(f)
+      let customThumbnailRef = ref(`thumbnails/${this.videoUID}/thumb_${this.videoUID}_4`)
+      await uploadBytes(customThumbnailRef, f)
       this.hasCustomThumbnail = true
       this.selectedThumbnail = 4
-      let thumbURL = await snapshot.ref.getDownloadURL()
+      let thumbURL = await getDownloadURL(customThumbnailRef)
       this.customThumbnail = thumbURL.toString()
-      firestore.collection('thumbnails').doc(this.videoUID).update({
+
+      let thumbnailRef = doc(collection(storage, 'thumbnails'), this.videoUID)
+      await updateDoc(thumbnailRef, {
         customThumbnail: thumbURL.toString()
       })
     },
     async thumbnailChoosen (activeId) {
-      firestore.collection('thumbnails').doc(this.videoUID).update({
+      let thumbnailRef = doc(collection(storage, 'thumbnails', this.videoUID))
+      await updateDoc(thumbnailRef, {
         active: activeId
       })
     },
     async save () {
       this.thumbnailChoosen(this.selectedThumbnail)
 
-      let videoDbRef = await firestore.collection('videos').doc(this.videoUID)
-
+      let videoDbRef = await doc(collection(storage, 'videos', this.videoUID))
+      
       let userUuid = this.$store.state.user.currentUser.currentUser.uid
       console.log(userUuid)
-      let userRef = await firestore.collection('users').doc(userUuid)
+      let userRef = await doc(collection(storage, 'users'), userUuid)
       console.log(userRef)
 
       let cleanTags = Array.from(this.tags, tag => tag.text)
       let cleanCategorys = Array.from(this.categorys, category => category.text)
       let cleanEditors = Array.from(this.editors, editor => editor.text)
 
-      await videoDbRef.update({
+      await updateDoc(videoDbRef, {
         title: this.title,
         songs: this.songs,
         tags: cleanTags,
@@ -302,14 +307,15 @@ export default {
         ratingsCount: 0,
         ratingsAvg: 0,
         ratingsMedian: 0,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        createdAt: serverTimestamp(),
         description: this.description,
         visibility: this.visibility,
-        creationDate: firebase.firestore.Timestamp.fromDate(new Date(this.creationDate)),
+        creationDate: Timestamp.fromDate(new Date(this.creationDate)),
         editors: cleanEditors,
         sources: this.sources,
         hasPoster: this.hasPoster
       })
+      
       this.$store.commit('upload/SET_URL', `localhost:8080/video/${this.videoUID}`)
       
       if (this.visibility === '2') {

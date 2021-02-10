@@ -190,7 +190,7 @@ hr {
 }
 
 .bigNav > a {
-  @apply text-center font-hairline uppercase px-4;
+  @apply text-center font-thin uppercase px-4;
 
   text-decoration: none;
   letter-spacing: 0.15em;
@@ -246,17 +246,16 @@ hr {
 }
 
 .toggle {
-  @apply .ml-4 .h-8 .w-12;
+  @apply ml-4 h-8 w-12;
   transition: all 0.2s ease-out;
 }
 
 .toggle:hover {
-  @apply;
   left: 235px;
 }
 
 .searchContainer {
-  @apply .flex .pt-8 .px-8;
+  @apply flex pt-8 px-8;
 }
 
 .searchBox {
@@ -268,7 +267,7 @@ hr {
 }
 
 .switch {
-  @apply .flex .items-center .text-center mx-4;
+  @apply flex items-center text-center mx-4;
   position: relative;
   width: 50px;
   height: 15px;
@@ -306,7 +305,6 @@ hr {
 }
 
 input:checked + .slider {
-  @apply;
 }
 
 input:focus + .slider {

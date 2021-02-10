@@ -212,23 +212,23 @@ export default {
 
 <style lang="scss" scoped>
 .feed-entry {
-  @apply .bg-gray-700 .rounded-lg .px-2 .py-2 .my-2;
+  @apply bg-gray-700 rounded-lg px-2 py-2 my-2;
 }
 
 .avatar {
-  @apply .h-16 .w-auto .mr-2 .rounded-full;
+  @apply h-16 w-auto mr-2 rounded-full;
 }
 .smallAvatar {
-  @apply .h-10 .w-auto .mr-2 .rounded-full;
+  @apply h-10 w-auto mr-2 rounded-full;
 }
 
 .thumbnail {
-  @apply .relative .inline-block .text-center .bg-cover .w-40 .h-24 .flex-shrink-0;
+  @apply relative inline-block text-center bg-cover w-40 h-24 flex-shrink-0;
 }
 
 @screen md {
   .thumbnail {
-    @apply .w-64 .h-40;
+    @apply w-64 h-40;
   }
 }
 </style>

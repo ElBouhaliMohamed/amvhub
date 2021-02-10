@@ -8,7 +8,7 @@
 
 <script>
 // import trendingCarousel from '../components/trendingCarousel.vue'
-import { firestore } from '../services/firebase.service'
+import { getDocument, getDocuments, getDocumentFromRef } from '../services/firebase.functions.service'
 
 export default {
   name: 'Trending',
@@ -30,14 +30,13 @@ export default {
       return array.sort(() => Math.random() - 0.5)
     },
     async fetchVideos () {
-      let videosQuery = await firestore.collection('videos').get()
+      let videosQuery = await getDocuments('videos')
       let size = videosQuery.size
       let index = 1
       videosQuery.forEach(async (result) => {
         let data = result.data()
-        let user = await data.user.get()
-        let thumbnailsRef = await firestore.doc(`thumbnails/${result.id}/`)
-        let thumbnailsQuery = await thumbnailsRef.get()
+        let user = await getDocumentFromRef(data.user)
+        let thumbnailsQuery = await getDocument('thumbnails', result.id)
         let thumbnails = thumbnailsQuery.data()
         let currThumbnail = thumbnails.active > 3 ? thumbnails.customThumbnail : thumbnails.thumbnails[thumbnails.active]
 

@@ -3,13 +3,13 @@
 module.exports = {
   important: true,
   purge: {
-    enabled: false,
     content: ['./src/**/*.vue']
   },
   plugins: [
-    require('@tailwindcss/ui'),
     require('tailwindcss-aspect-ratio'),
-    require('@tailwindcss/typography')
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio')
   ],
   theme: {
     aspectRatio: { // defaults to {}

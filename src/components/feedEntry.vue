@@ -30,7 +30,7 @@
                             <span class="px-4 text-2xl font-semibold leading-5 text-gray-900">
                                 <router-link :to="`/video/${videoUuid}`">{{title}}</router-link>
                             </span>
-                            <span class="flex flex-col px-4 text-xs font-thin leading-5 text-gray-500 md:flex-row md:text-sm">
+                            <span class="flex flex-col px-4 text-xs font-extralight leading-5 text-gray-500 md:flex-row md:text-sm">
                                 <router-link :to="`/channel/${userUuid}`" class="block font-medium leading-5 truncate md:hidden">{{userName}}</router-link>
                                 <span class="flex flex-row">
                                 <span>{{views}} views</span>
@@ -39,7 +39,7 @@
                                 </span>
                             </span>
                         </div>
-                        <span class="hidden w-full px-4 py-2 text-sm font-thin leading-6 text-gray-900 md:block" id="description" v-html="description"></span>
+                        <span class="hidden w-full px-4 py-2 text-sm font-extralight leading-6 text-gray-900 md:block" id="description" v-html="description"></span>
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                         <span class="min-w-0 overflow-hidden text-lg font-bold leading-5 text-gray-900 truncate md:text-xl">
                             <router-link class="" :to="`/video/${videoUuid}`">{{title}}</router-link>
                         </span>
-                        <span class="flex flex-col text-xs font-thin leading-4 text-gray-600 md:flex-row">
+                        <span class="flex flex-col text-xs font-extralight leading-4 text-gray-600 md:flex-row">
                             <router-link :to="`/channel/${userUuid}`" class="block font-medium leading-5 truncate md:hidden">{{userName}}</router-link>
                             <span class="flex flex-row">
                                 <span>{{views}} views</span>

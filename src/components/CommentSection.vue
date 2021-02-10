@@ -90,13 +90,11 @@ export default {
   watch: {
     async videoRef (newRef, oldRef) {
       if (oldRef === undefined || oldRef == null) {
-
         if (this.sharedComment == null) {
           this.topLevelComments = await retrieveTopLevelComments(newRef)
         } else {
           this.topLevelComments = await retrieveSingleComment(newRef, this.sharedComment)
         }
-
       }
     }
   }

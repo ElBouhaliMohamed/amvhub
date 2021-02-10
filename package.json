@@ -6,18 +6,20 @@
   "private": true,
   "scripts": {
     "dev": "set NODE_ENV=development && vue-cli-service serve",
-    "build": "vue-cli-service build --report",
+    "build": "set NODE_ENV=production && vue-cli-service build --report",
     "deploy": "vue-cli-service build && firebase deploy",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint --fix"
   },
   "dependencies": {
     "@elastic/react-search-ui-views": "^1.4.1",
     "@elastic/search-ui": "^1.4.1",
     "@johmun/vue-tags-input": "^2.1.0",
+    "@tailwindcss/aspect-ratio": "^0.2.0",
+    "@tailwindcss/forms": "^0.2.1",
     "aos": "^3.0.0-beta.6",
     "circular-json": "^0.5.9",
     "cropperjs": "^1.5.7",
-    "firebase": "^7.15.1",
+    "firebase": "^0.900.11",
     "lozad": "^1.15.0",
     "sweetalert": "^2.1.2",
     "tailwindcss-aspect-ratio": "^3.0.0",
@@ -48,20 +50,21 @@
     "vuex-persist": "^2.2.0"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.1.3",
-    "@tailwindcss/ui": "^0.3.0",
+    "@tailwindcss/typography": "^0.1.4",
     "@vue/cli-plugin-babel": "^3.12.1",
     "@vue/cli-plugin-eslint": "^3.12.1",
     "@vue/cli-service": "^3.12.1",
     "@vue/eslint-config-standard": "^4.0.0",
+    "autoprefixer": "^9.8.6",
     "babel-eslint": "^10.0.3",
     "compression-webpack-plugin": "^4.0.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.2.3",
     "node-sass": "^4.13.1",
+    "postcss": "^7.0.35",
     "postcss-import": "^12.0.1",
     "sass-loader": "^7.3.1",
-    "tailwindcss": "^1.4.6",
+    "tailwindcss": "^2.0.1-compat",
     "vue-template-compiler": "^2.6.11",
     "webpack-bundle-analyzer": "^3.8.0"
   }

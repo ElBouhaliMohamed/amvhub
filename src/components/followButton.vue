@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { firestore } from './../services/firebase.service'
+import { createDocumentInSubcollection, querySubcollection } from './../services/firebase.functions.service'
 
 export default {
   props: {
@@ -19,9 +19,7 @@ export default {
     }
   },
   async mounted () {
-    let followersCollection = await firestore.collection('users').doc(this.userId).collection('followers')
-    let query = await followersCollection.where('uuid', '==', this.$currentUser.userInfo.uuid).get()
-
+    let query = await querySubcollection('users', 'followers', this.userId, ['uuid', '==', this.$currentUser.userInfo.uuid])
     if (query.empty) {
       this.followed = false
     } else {
@@ -33,14 +31,13 @@ export default {
       if (this.isLoggedIn) {
         this.$Progress.start()
         if (this.followed) {
-          let followersCollection = await firestore.collection('users').doc(this.userId).collection('followers')
-          let followersQuery = await followersCollection.where('uuid', '==', this.$currentUser.userInfo.uuid).get()
+          let followersQuery = await querySubcollection('users', 'followers', this.userId, ['uuid', '==', this.$currentUser.userInfo.uuid])
+
           for (let follow of followersQuery.docs) {
             follow.ref.delete()
           }
 
-          let followsCollection = await firestore.collection('users').doc(this.$currentUser.userInfo.uuid).collection('follows')
-          let followsQuery = await followsCollection.where('uuid', '==', this.userId).get()
+          let followsQuery = await querySubcollection('users', 'follows', this.userId, ['uuid', '==', this.userId])
           for (let follow of followsQuery.docs) {
             follow.ref.delete()
           }
@@ -48,13 +45,12 @@ export default {
           this.followed = false
         } else {
           // update follows collection of curr user
-          let currUserRef = await firestore.collection('users').doc(this.$currentUser.userInfo.uuid).collection('follows').doc()
-          await currUserRef.set({
+          await createDocumentInSubcollection('users', 'follows', this.$currentUser.userInfo.uuid, {
             uuid: this.userId // id of channel to follow
           })
+          
           // update followers collection on this channel
-          let currChannelRef = await firestore.collection('users').doc(this.userId).collection('followers').doc()
-          await currChannelRef.set({
+          await createDocumentInSubcollection('users', 'followers', this.userId, {
             uuid: this.$currentUser.userInfo.uuid
           })
 

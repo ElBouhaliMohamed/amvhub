@@ -54,7 +54,7 @@
 
 <script>
 export default {
-  components: { 
+  components: {
     AvatarCropper: () => ({
       component: import('../components/AvatarCroper')
     })

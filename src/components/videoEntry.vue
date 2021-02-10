@@ -18,7 +18,7 @@
     </div>
 
     <div class="absolute bottom-0 left-0 z-30 flex flex-col w-3/4 text-black transition-all duration-500 ease-in-out transform" :class="{'translate-y-18': isPlaying, 'opacity-0': isPoster && !hovering, 'w-full bg-gray-50 p-2 bg-opacity-50': isPoster}">
-      <router-link :to="`/channel/${user.uuid}`" class="text-sm font-thin leading-none uppercase">{{user.name}}</router-link>
+      <router-link :to="`/channel/${user.uuid}`" class="text-sm font-extralight leading-none uppercase">{{user.name}}</router-link>
       <span class="inline-block text-xl leading-none uppercase truncate align-text-bottom md:text-2xl lg:text-3xl">{{title}}</span>
     </div>
 
@@ -191,7 +191,7 @@ export default {
 }
 
 .videoPlayCircle {
-  @apply .z-10 .opacity-100;
+  @apply z-10 opacity-100;
   transform: translate(40%,40%);
 }
 
@@ -200,25 +200,25 @@ export default {
 }
 
 .videoLength {
-  @apply .absolute .top-0 .right-0 .mt-3 .mr-3 .px-2 .py-1 .text-xs;
+  @apply absolute top-0 right-0 mt-3 mr-3 px-2 py-1 text-xs;
 }
 
 .videoLengthBackground {
-  @apply .absolute .top-0 .right-0 .mt-3 .mr-4 .py-2 .px-2 .h-5 .w-8 .opacity-25 .rounded-sm;
+  @apply absolute top-0 right-0 mt-3 mr-4 py-2 px-2 h-5 w-8 opacity-25 rounded-sm;
 }
 
 .videoInfoBackground {
-  @apply .absolute .bottom-0 .h-20 .opacity-25 .bg-gray-50 .w-full;
+  @apply absolute bottom-0 h-20 opacity-25 bg-gray-50 w-full;
 }
 
 .videoAvatar {
-  @apply .absolute .w-16 .h-16 .rounded-lg;
+  @apply absolute w-16 h-16 rounded-lg;
   left: -25px;
   top: -25px;
 }
 
 .videoPlayCircle {
-  @apply .absolute;
+  @apply absolute;
   left: 200px;
   bottom: 115px;
 }
@@ -238,7 +238,7 @@ export default {
 
 @screen md {
   .videoEntry {
-    @apply .flex-shrink;
+    @apply flex-shrink;
   }
 
   .thumbnail {

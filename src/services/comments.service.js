@@ -1,12 +1,17 @@
-import { firebase, firestore, storage } from './firebase.service'
+import { Timestamp } from 'firebase/firestore'
+import { createDocumentReference, getDocument, getDocumentFromRef, getDocumentReference, getReference, queryCollection, retrieveURL, setDocument } from './firebase.functions.service'
 
 export async function retrieveChildren (videoRef, parentRef) {
-  let allChildren = await firestore.collection('comments').where('video', '==', videoRef)
-    .where('isNested', '==', true)
-    .where('parent', '==', parentRef)
-    .get()
-
-  let commentSnapshot = await parentRef.get()
+  let allChildren = await queryCollection(
+    'comments',
+    [
+      ['video', '==', videoRef],
+      ['isNested', '==', true],
+      ['parent', '==', parentRef]
+    ]
+  )
+  
+  let commentSnapshot = await getDocumentFromRef(parentRef)
   let comment = commentSnapshot.data()
 
   if (!allChildren.empty) {
@@ -22,18 +27,21 @@ export async function retrieveChildren (videoRef, parentRef) {
 }
 
 export async function retrieveTopLevelComments (videoRef) {
-  let topLevelComments = await firestore.collection('comments').where('video', '==', videoRef)
-    .where('isNested', '==', false)
-    .get()
-
+  const topLevelComments = await queryCollection(
+    'comments',
+    [
+      ['video', '==', videoRef],
+      ['isNested', '==', false]
+    ]
+  )
   return topLevelComments
 }
 
 export async function retrieveSingleComment (videoRef, uuid) {
-  let comment = await firestore.collection('comments').where('video', '==', videoRef)
-    .where('uuid', '==', uuid)
-    .get()
-
+  let comment = await queryCollection(
+    'comments',
+    [['video', '==', videoRef]]
+  )
   return comment
 }
 
@@ -49,31 +57,24 @@ export async function retrieveComments (videoRef) { // get toplevel and retrieve
 }
 
 export function getRef (uuid) {
-  let commentRef = firestore
-    .collection('comments')
-    .doc(uuid)
-
-  return commentRef
+  return getDocumentReference('comments', uuid)
 }
 
 export async function getSingleComment (commentUUID) {
-  let commentDoc = await firestore.collection('comments').doc(commentUUID).get()
+  let commentDoc = await getDocument('comments', commentUUID)
   let commentData = commentDoc.data()
   return commentData
 }
 
 export async function saveComment (html, userUUID, videoRef, parentRef = null) {
-  let commentRef = firestore
-    .collection('comments')
-    .doc()
-
-  commentRef.set({
+  let commentRef = createDocumentReference('comments')
+  await setDocument(commentRef, {
     html: html,
-    user: firestore.doc(`/users/${userUUID}`),
+    user: createDocumentReference('users', userUUID),
     video: videoRef,
     parent: parentRef,
     isNested: parentRef != null,
-    commentedAt: firebase.firestore.Timestamp.fromDate(new Date()),
+    commentedAt: Timestamp.fromDate(new Date()),
     uuid: commentRef.id,
     hearts: 0,
     usersThatGaveHearts: []
@@ -83,13 +84,12 @@ export async function saveComment (html, userUUID, videoRef, parentRef = null) {
 }
 
 export async function getUserData (userRef) {
-  let user = await userRef.get()
+  let user = await getDocumentFromRef(userRef)
   let userInfo = user.data()
 
   if (!userInfo.isGoogleAccount) {
-    userInfo.photoURL = await storage
-      .ref(`profilePictures/${userInfo.photo}`)
-      .getDownloadURL()
+    const photoRef = getReference(`profilePictures/${userInfo.photo}`)
+    userInfo.photoURL = await retrieveURL(photoRef)
   }
 
   return userInfo

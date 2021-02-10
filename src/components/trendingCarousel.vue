@@ -62,7 +62,7 @@ export default {
 
 <style lang="scss" scoped>
 .icon {
-  @apply .absolute z-10;
+  @apply absolute z-10;
   left: 0;
   right: 0;
   top: 0;
@@ -71,6 +71,6 @@ export default {
 }
 
 .bannerTitle {
-  @apply .absolute .font-thin .text-5xl z-10;
+  @apply absolute font-extralight .text-5xl z-10;
 }
 </style>

@@ -98,7 +98,7 @@ export default {
       this.close()
     },
     close () {
-      this.$router.push({name: 'dashboardOverview'})
+      this.$router.push({ name: 'dashboardOverview' })
     },
     nextComponent () {
       switch (this.stateId) {

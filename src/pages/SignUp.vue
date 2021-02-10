@@ -440,7 +440,7 @@ export default {
       message: ''
     }
   },
-  components: { 
+  components: {
     logo: () => ({
       component: import('../components/logo')
     }),

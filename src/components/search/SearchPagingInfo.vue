@@ -16,16 +16,16 @@ export default {
     }
   },
   computed: {
-    start() {
+    start () {
       return this.searchState.totalResults === 0
         ? 0
-        : (this.searchState.current - 1) * this.searchState.resultsPerPage + 1;
+        : (this.searchState.current - 1) * this.searchState.resultsPerPage + 1
     },
-    end() {
+    end () {
       return this.searchState.totalResults <= this.searchState.resultsPerPage
         ? this.searchState.totalResults
-        : this.start + this.searchState.resultsPerPage - 1;
+        : this.start + this.searchState.resultsPerPage - 1
     }
   }
-};
+}
 </script>

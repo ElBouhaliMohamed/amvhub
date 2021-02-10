@@ -177,7 +177,7 @@ export default {
 <style lang="scss" scoped>
 
 .searchBox {
-  @apply .w-full .rounded-l .text-xs .py-1 .px-2 text-white;
+  @apply w-full rounded-l text-xs py-1 px-2 text-white border-none ring-0;
   -webkit-transition: width 0.4s ease-in-out;
   transition: width 0.4s ease-in-out;
   background-color: rgba(255, 255, 255, 0.05);
@@ -188,34 +188,34 @@ export default {
 }
 
 .searchIcon {
-  @apply .rounded-r .h-8 .py-2 .px-2;
+  @apply rounded-r h-8 py-2 px-2;
   background-color: rgba(255, 255, 255, 0.05);
   height: 34px;
 }
 
 .headerContainer {
-  @apply .fixed .flex .flex-col .z-40 .w-full .mx-auto .items-start .py-4 .shadow-lg .border-0;
+  @apply fixed flex flex-col z-40 w-full mx-auto items-start py-4 shadow-lg border-0;
 }
 
 .avatar {
-  @apply .h-8 .w-8 .rounded-full;
+  @apply h-8 w-8 rounded-full;
   -webkit-transition: width 0.4s, height 0.4s ease-in-out;
   transition: width 0.4s, height 0.4s ease-in-out;
 }
 
 @screen md {
   .headerContainer {
-    @apply .flex-row .items-center;
+    @apply flex-row items-center;
   }
   .logo {
-    @apply .block;
+    @apply block;
   }
   .searchBox {
-    @apply .w-1/4 .py-2;
+    @apply w-1/4 py-2;
   }
     
   .searchBox:focus {
-    @apply .w-5/6;
+    @apply w-5/6;
     outline: none;
   }
 

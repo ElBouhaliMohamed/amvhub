@@ -7,6 +7,7 @@ const dashboard = () => import('../pages/Dashboard.vue')
 const dashboardOverview = () => import('../pages/DashboardOverview.vue')
 const dashboardVideosList = () => import('../pages/DashboardVideosList.vue')
 const dashboardEditVideo = () => import('../pages/DashboardEditVideo.vue')
+const settingsPage = () => import('../pages/Settings.vue')
 
 const featured = () => import('../pages/Featured.vue')
 const trending = () => import('../pages/Trending.vue')
@@ -91,6 +92,11 @@ export const routes = [
         path: 'video/:id',
         name: 'dashboardEditVideo',
         component: dashboardEditVideo
+      },
+      {
+        path: 'settings/',
+        name: 'settings',
+        component: settingsPage
       }
     ]
   },

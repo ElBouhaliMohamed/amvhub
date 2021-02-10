@@ -15,14 +15,14 @@
 
 <script>
 import AppHeader from './Header.vue'
-import AppFooter from './Footer.vue'
+// import AppFooter from './Footer.vue'
 import AppNavbar from '../components/navbar.vue'
 
 export default {
   name: 'AppLayout',
   components: {
     AppHeader,
-    AppFooter,
+    // AppFooter,
     AppNavbar
   },
   beforeMount () {
@@ -69,7 +69,7 @@ export default {
 
 <style lang="scss" scoped>
 #app {
-  @apply .antialiased;
+  @apply antialiased;
   transition: color 700ms ease;
 }
 

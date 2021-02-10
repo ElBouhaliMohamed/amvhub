@@ -13,7 +13,7 @@
             <p class="mt-1 text-3xl font-bold tracking-wide font-nunito">
                 amvhub
             </p>
-            <p class="absolute top-0 right-0 text-xs italic font-thin tracking-wide font-nunito">
+            <p class="absolute top-0 right-0 text-xs italic font-extralight tracking-wide font-nunito">
                 alpha
             </p>
         </div>

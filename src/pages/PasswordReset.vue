@@ -94,11 +94,11 @@ export default {
       this.$Progress.start()
       this.errors = []
 
-      if (this.email.length == 0) {
+      if (this.email.length === 0) {
         this.errors.push('Please enter an email.')
       }
 
-      if (this.errors.length == 0) {
+      if (this.errors.length === 0) {
         auth.sendPasswordResetEmail(this.email).then(() => {
           this.$Progress.finish()
           this.showSuccessMsg({

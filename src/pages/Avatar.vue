@@ -22,7 +22,7 @@
 <script>
 
 export default {
-  components: { 
+  components: {
     AvatarCropper: () => ({
       component: import('vue-avatar-cropper')
     })

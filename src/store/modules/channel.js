@@ -1,4 +1,4 @@
-import { firestore } from './../../services/firebase.service'
+import { getDocument, queryCollection } from './../../services/firebase.functions.service'
 import { sortMostPopular, sortNewest, sortOldest } from '../../services/videos.service'
 
 const getDefaultState = () => {
@@ -48,19 +48,17 @@ export default {
       try {
         commit('clearUserVideos')
 
-        let userQuery = firestore.collection('users').doc(state.uuid)
-        let userRef = await userQuery.get()
-        let userData = userRef.data()
+        let userSnapshot = await getDocument('users', state.uuid)
+        let userData = userSnapshot.data()
 
-        let videosSnapshot = await firestore.collection('videos').where('user', '==', userQuery).get()
+        let videosSnapshot = await queryCollection('videos', [['user', '==', userSnapshot.ref]])
         let videos = []
 
         for (let entry of videosSnapshot.docs) {
           let data = entry.data()
           let createdAt = data.createdAt.toDate()
 
-          let thumbnailsRef = firestore.doc(`thumbnails/${data.uuid}/`)
-          let thumbnailsQuery = await thumbnailsRef.get()
+          let thumbnailsQuery = await getDocument('thumbnails', data.uuid)
           let thumbnails = thumbnailsQuery.data()
           let currThumbnail = thumbnails.active > 3 ? thumbnails.customThumbnail : thumbnails.thumbnails[thumbnails.active]
 

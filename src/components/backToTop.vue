@@ -107,7 +107,6 @@ export default {
 }
 
 .vue-back-to-top .default {
-  @apply ;
   border-radius: 3px;
   line-height: 30px;
   text-align: center;

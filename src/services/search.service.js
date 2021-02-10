@@ -1,7 +1,7 @@
-import { functions } from './firebase.service'
+import { callFirebaseFunction } from './firebase.functions.service'
 
 const searchUserByName = function (searchQuery) {
-  let searchUserByName = functions.httpsCallable('elasticsearchUserSearch')
+  let searchUserByName = callFirebaseFunction('elasticsearchUserSearch')
   searchUserByName({
     index: 'users',
     body: {

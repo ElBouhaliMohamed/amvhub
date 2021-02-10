@@ -92,7 +92,6 @@ export default {
 }
 
 .vue-floatingNavButton .default {
-  @apply;
   border-radius: 3px;
   color: #ffffff;
   height: 30px;
@@ -112,7 +111,7 @@ export default {
 }
 
 .floatingContainer {
-  @apply .flex .fixed .w-10 .h-10 .z-50 .rounded-full .items-center .justify-center;
+  @apply flex fixed w-10 h-10 z-50 rounded-full items-center justify-center;
   top: 25px;
   left: 25px;
 
@@ -120,7 +119,7 @@ export default {
 }
 
 .floatingToggle {
-  @apply .w-6 .h-6;
+  @apply w-6 h-6;
   color: #ffffff;
 }
 

@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { firestore, storage } from './../services/firebase.service'
+import { createDocumentReference, getReference, retrieveURL, setDocument, uploadFile } from './../services/firebase.functions.service'
 
 export default {
   computed: {
@@ -53,14 +53,14 @@ export default {
     },
     async startUpload (file) {
       try {
-        let videoDbRef = await firestore.collection('videos').doc()
-        await videoDbRef.set({ uuid: videoDbRef.id })
+        let videoDbRef = createDocumentReference('videos')
+        await setDocument(videoDbRef, { uuid: videoDbRef.id })
 
         let MIME = file.type
 
-        let videosRef = await storage.ref('videos').child(`${videoDbRef.id}`).child(`${videoDbRef.id}.${MIME.split('/')[1]}`)
+        let videosRef = getReference(`videos/${videoDbRef.id}/${videoDbRef.id}.${MIME.split('/')[1]}`)
 
-        let uploadTask = videosRef.put(file)
+        let uploadTask = uploadFile(videosRef, file)
         let self = this
         uploadTask.on('state_changed', function (snapshot) {
           var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
@@ -70,7 +70,7 @@ export default {
         }, function (error) {
           console.log(error)
         }, function () {
-          uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+          retrieveURL(uploadTask.snapshot.ref).then(function (downloadURL) {
             console.log('File available at', downloadURL)
             self.$store.commit('upload/SET_UUID', videoDbRef.id)
           })

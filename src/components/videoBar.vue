@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { firestore } from './../services/firebase.service'
+import { getDocument, getDocumentFromSubcollection, queryCollection, querySubcollectionWithParams } from './../services/firebase.functions.service'
 
 export default {
   data: function () {
@@ -71,17 +71,17 @@ export default {
         let recommendationsCollection = null
         if (this.$isLoggedIn) {
           if (this.lastItemUid === '') {
-            recommendationsCollection = await firestore.collection('users').doc(uuid).collection('recommendations').orderBy('score', 'desc').limit(5).get()
+            recommendationsCollection = await querySubcollectionWithParams('users', 'recommendations', uuid, ['score', 'desc'], 5)
           } else {
-            let lastItem = await firestore.collection('users').doc(uuid).collection('recommendations').doc(this.lastItemUid).get()
-            recommendationsCollection = await firestore.collection('users').doc(uuid).collection('recommendations').orderBy('score', 'desc').startAfter(lastItem).limit(5).get()
+            let lastItem = await getDocumentFromSubcollection('users', 'recommendations', uuid, this.lastItemUid)
+            recommendationsCollection = await querySubcollectionWithParams('users', 'recommendations', uuid, ['score', 'desc'], 5, lastItem)
           }
         } else {
           if (this.lastItemUid === '') {
-            recommendationsCollection = await firestore.collection('recommendations').orderBy('score', 'desc').limit(5).get()
+            recommendationsCollection = await queryCollection('recommendations', null, 5, ['score', 'desc'])
           } else {
-            let lastItem = await firestore.collection('recommendations').doc(this.lastItemUid).get()
-            recommendationsCollection = await firestore.collection('recommendations').orderBy('score', 'desc').startAfter(lastItem).limit(5).get()
+            let lastItem = await getDocument('recommendations', this.lastItemUid)
+            recommendationsCollection = await queryCollection('recommendations', null, 5, ['score', 'desc'], lastItem)
           }
         }
     
@@ -97,12 +97,11 @@ export default {
           let data = entry.data()
           let createdAt = this.toDateTime(data.createdAt._seconds)
 
-          let thumbnailsRef = await firestore.doc(`thumbnails/${data.uuid}/`)
-          let thumbnailsQuery = await thumbnailsRef.get()
+          let thumbnailsQuery = await getDocument('thumbnails', data.uuid)
           let thumbnails = thumbnailsQuery.data()
           let currThumbnail = thumbnails.active > 3 ? thumbnails.customThumbnail : thumbnails.thumbnails[thumbnails.active]
 
-          let userSnapshot = await firestore.doc(`users/${data.user.uuid}`).get()
+          let userSnapshot = await getDocument('users', data.user.uuid)
           let userData = userSnapshot.data()
 
           // let editors = Array.from(data.editors, editor => editor.name)

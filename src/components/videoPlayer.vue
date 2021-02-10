@@ -101,7 +101,6 @@ export default {
           // var videoPlayerElement = self.player.el()
           // videoPlayerElement.classList.add('flex', 'justify-center', 'items-center')
 
-
           if (self.theaterMode) {
             self.$emit('theaterMode')
           }

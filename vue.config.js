@@ -6,6 +6,9 @@ module.exports = {
   chainWebpack (config) {
     config.plugins.delete('prefetch')
     config.plugin('CompressionPlugin').use(CompressionPlugin)
+    config.module.rule('eslint').use('eslint-loader').options({
+      fix: true
+    })
   },
   configureWebpack: {
     plugins: [new BundleAnalyzerPlugin()]

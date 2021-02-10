@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { firestore, storage } from '../services/firebase.service'
+import { getDocument, getDocumentFromRef, getDocuments, getReference, retrieveURL } from '../services/firebase.functions.service'
 
 export default {
   name: 'Trending',
@@ -26,22 +26,21 @@ export default {
   },
   methods: {
     async fetchVideos () {
-      let videosQuery = await firestore.collection('featured').get()
+      let videosQuery = await getDocuments('featured')
 
       videosQuery.forEach(async (result) => {
         let data = result.data()
-        let user = await data.user.get()
+        let user = await getDocumentFromRef(data.user)
         let hasPoster = data.hasPoster
         let poster = null
         let thumbnail = null
         
         if (hasPoster) {
-          let posterRef = await storage.ref(`poster/${result.id}/poster_${result.id}`)
-          let posterUrl = await posterRef.getDownloadURL()
+          let posterRef = getReference(`poster/${result.id}/poster_${result.id}`)
+          let posterUrl = await retrieveURL(posterRef)
           poster = posterUrl
         } else {
-          let thumbnailsRef = await firestore.doc(`thumbnails/${result.id}/`)
-          let thumbnailsQuery = await thumbnailsRef.get()
+          let thumbnailsQuery = await getDocument('thumbnails', result.id)
           let thumbnails = thumbnailsQuery.data()
           thumbnail = thumbnails.active > 3 ? thumbnails.customThumbnail : thumbnails.thumbnails[thumbnails.active]
         }

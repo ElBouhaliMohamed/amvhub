@@ -1,10 +1,11 @@
 import { firestore } from './firebase.service'
+import { doc, collection, runTransaction } from 'firebase/firestore'
 // import store from '../store'
 
 class MetricsService {
   constructor (userUUID) {
     this.userUUID = userUUID
-    this.userRef = firestore.collection('users').doc(this.userUUID)
+    this.userRef = doc(collection(firestore, 'users'), this.userUUID)
   }
 
   // TODO: bundle all transactions into one -> fewer functions calls and db writes
@@ -12,10 +13,10 @@ class MetricsService {
   markVideoAsWatched (videoUUID) {
     let userDocRef = this.userRef
     if (videoUUID != null) {
-      return firestore.runTransaction(function (transaction) {
+      return runTransaction(firestore, function (transaction) {
         return transaction.get(userDocRef).then(function (userDoc) {
           if (!userDoc.exists) {
-            throw 'Document does not exist!'
+            throw new Error('Document does not exist!')
           }
 
           var videosWatched = userDoc.data().videosWatched
@@ -39,10 +40,10 @@ class MetricsService {
   userLikedVideoWithSources (sources) {
     let userDocRef = this.userRef
     if (sources != null) {
-      return firestore.runTransaction(function (transaction) {
+      return runTransaction(firestore, function (transaction) {
         return transaction.get(userDocRef).then(function (userDoc) {
           if (!userDoc.exists) {
-            throw 'Document does not exist!'
+            throw new Error('Document does not exist!')
           }
 
           var likedSources = userDoc.data().likedSources
@@ -71,10 +72,10 @@ class MetricsService {
   userLikedVideoWithCategorys (categorys) {
     let userDocRef = this.userRef
     if (categorys != null) {
-      return firestore.runTransaction(function (transaction) {
+      return runTransaction(firestore, function (transaction) {
         return transaction.get(userDocRef).then(function (userDoc) {
           if (!userDoc.exists) {
-            throw 'Document does not exist!'
+            throw new Error('Document does not exist!')
           }
 
           var likedCategorys = userDoc.data().likedCategorys
@@ -105,10 +106,10 @@ class MetricsService {
     let userDocRef = this.userRef
 
     if (tags != null) {
-      return firestore.runTransaction(function (transaction) {
+      return runTransaction(firestore, function (transaction) {
         return transaction.get(userDocRef).then(function (userDoc) {
           if (!userDoc.exists) {
-            throw 'Document does not exist!'
+            throw new Error('Document does not exist!')
           }
 
           var likedTags = userDoc.data().likedTags
@@ -139,10 +140,10 @@ class MetricsService {
     let userDocRef = this.userRef
 
     if (userUUID != null) {
-      return firestore.runTransaction(function (transaction) {
+      return runTransaction(firestore, function (transaction) {
         return transaction.get(userDocRef).then(function (userDoc) {
           if (!userDoc.exists) {
-            throw 'Document does not exist!'
+            throw new Error('Document does not exist!')
           }
 
           var likedUsers = userDoc.data().likedUsers
@@ -170,10 +171,10 @@ class MetricsService {
     let userDocRef = this.userRef
 
     if (editors != null) {
-      return firestore.runTransaction(function (transaction) {
+      return runTransaction(firestore, function (transaction) {
         return transaction.get(userDocRef).then(function (userDoc) {
           if (!userDoc.exists) {
-            throw 'Document does not exist!'
+            throw new Error('Document does not exist!')
           }
 
           var likedEditors = userDoc.data().likedEditors
